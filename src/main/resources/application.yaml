@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/orcl
+    username: rcdev
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: create
+    generate-ddl: false
+    show_sql: true
+    database: oracle
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+
+logging:
+  level:
+    org.hibernate: debug
