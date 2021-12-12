@@ -5,6 +5,7 @@ import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class UserApiController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void signup(@RequestBody @Validated SignupRequest signupRequest) {
         userService.signup(signupRequest);
     }
@@ -41,6 +43,7 @@ public class UserApiController {
     }
 
     @DeleteMapping("/{userId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable final Long userId) {
         userService.delete(userId);
     }

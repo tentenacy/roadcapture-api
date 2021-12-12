@@ -15,4 +15,10 @@ public class SignupRequest {
     private String password;
     @Size(min = 2, max = 12)
     private String username;
+
+    public SignupRequest(String email, String password, String username) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+    }
 }

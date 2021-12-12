@@ -40,8 +40,8 @@ dependencies {
 
 openapi3 {
 	server = 'http://localhost:8080'
-	title = 'User API'
-	description = 'User API Description'
+	title = 'Roadcapture API'
+	description = 'Roadcapture API Description'
 	// tagDescriptionsPropertiesFile = 'src/docs/tag-descriptions.yaml'
 	version = '0.1.0'
 	format = 'yaml'
@@ -49,6 +49,13 @@ openapi3 {
 		from "build/api-spec"
 		into "src/main/resources/static/docs/"
 	}
+}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+
+	from file("build/api-spec")
+	into file("src/main/resources/static/docs")
 }
 
 test {

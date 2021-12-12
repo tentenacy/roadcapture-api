@@ -1,0 +1,51 @@
+openapi: 3.0.1
+info:
+  title: User API
+  description: User API Description
+  version: 0.1.0
+servers:
+- url: http://localhost:8080
+tags: []
+paths:
+  /users:
+    post:
+      tags:
+      - users
+      operationId: user-signup-email-mismatch
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/users2062221761'
+            examples:
+              user-signup-email-mismatch:
+                value: "{\"email\":\"test\",\"password\":\"abdc1234\",\"username\"\
+                  :\"tester\"}"
+      responses:
+        "400":
+          description: "400"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users486549215'
+              examples:
+                user-signup-email-mismatch:
+                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
+                    \ Input Value\",\"errors\":[{\"field\":\"email\",\"value\":\"\
+                    test\",\"reason\":\"must be a well-formed email address\"}]}"
+components:
+  schemas:
+    users2062221761:
+      type: object
+      properties:
+        password:
+          type: string
+          description: 사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상이어야 합니다.
+        email:
+          type: string
+          description: 사용자 이메일입니다. 이메일 형식이어야 합니다.
+        username:
+          type: string
+          description: "사용자 이름입니다. 최소 2자, 최대 12자입니다."
+    users486549215:
+      type: object

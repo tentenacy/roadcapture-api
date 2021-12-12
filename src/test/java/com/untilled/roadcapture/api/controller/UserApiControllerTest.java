@@ -1,8 +1,11 @@
 package com.untilled.roadcapture.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.untilled.roadcapture.api.dto.user.SignupRequest;
 import com.untilled.roadcapture.domain.user.UserService;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +39,33 @@ class UserApiControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private UserService postService;
+    private UserService userService;
 
     private final ObjectMapper mapper = new ObjectMapper();
+
+    @Nested
+    @DisplayName("회원가입")
+    class Signup {
+        @Test
+        @DisplayName("이메일 형식 맞지 않으면 실패")
+        void When_EmailTypeIsMismatched_Expect_SignupToFail() throws Exception {
+            //given
+            final SignupRequest signupRequest = new SignupRequest("test", "abdc1234", "tester");
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users")
+                    .content(mapper.writeValueAsString(signupRequest))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andDo(document("user-signup-email-mismatch",
+                            requestFields(
+                                    fieldWithPath("email").description("사용자 이메일입니다. 이메일 형식이어야 합니다."),
+                                    fieldWithPath("password").description("사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상이어야 합니다."),
+                                    fieldWithPath("username").description("사용자 이름입니다. 최소 2자, 최대 12자입니다.")
+                            )
+                    ));
+        }
+    }
 }
