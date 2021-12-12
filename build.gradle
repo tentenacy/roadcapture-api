@@ -42,7 +42,7 @@ openapi3 {
 	server = 'http://localhost:8080'
 	title = 'Roadcapture API'
 	description = 'Roadcapture API Description'
-	// tagDescriptionsPropertiesFile = 'src/docs/tag-descriptions.yaml'
+	tagDescriptionsPropertiesFile = 'src/test/java/com/untilled/roadcapture/resource/tags.yaml'
 	version = '0.1.0'
 	format = 'yaml'
 	copy {
