@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -80,7 +81,13 @@ class UserApiControllerTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.code").value(ErrorCode.EMAIL_DUPLICATION.getCode()))
-                    .andDo(document("user-signup-email-duplicate"));
+                    .andDo(document("user-signup-email-duplicate",
+                            responseFields(
+                                    fieldWithPath("code").description("에러 코드입니다."),
+                                    fieldWithPath("status").type(JsonFieldType.NUMBER).description("응답 코드입니다."),
+                                    fieldWithPath("message").description("에러 메시지입니다."),
+                                    fieldWithPath("errors").description("필드 에러입니다. 필드 검증 시에만 존재합니다.")
+                            )));
         }
 
         @Test
@@ -115,7 +122,16 @@ class UserApiControllerTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("user-signup-email-mismatch"));
+                    .andDo(document("user-signup-email-mismatch",
+                            responseFields(
+                                    fieldWithPath("code").description("에러 코드입니다."),
+                                    fieldWithPath("status").description("응답 코드입니다."),
+                                    fieldWithPath("message").description("에러 메시지입니다."),
+                                    fieldWithPath("errors").description("필드 에러입니다. 필드 검증 시에만 존재합니다."),
+                                    fieldWithPath("errors.[].field").description("검증에 실패한 필드명입니다."),
+                                    fieldWithPath("errors.[].value").description("검증에 실패한 필드값입니다."),
+                                    fieldWithPath("errors.[].reason").description("검증에 실패한 이유입니다.")
+                            )));
         }
 
         @Test

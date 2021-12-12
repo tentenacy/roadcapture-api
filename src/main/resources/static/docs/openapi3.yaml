@@ -25,7 +25,7 @@ paths:
                   username\":\"user\"}"
               user-signup-email-duplicate:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
-                  username\":\"user\"}"
+                  username\":\"user2\"}"
               user-signup-email-mismatch:
                 value: "{\"email\":\"test\",\"password\":\"abdc1234\",\"username\"\
                   :\"user\"}"
@@ -45,7 +45,7 @@ paths:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd123\",\"\
                   username\":\"username\"}"
               user-signup-username-duplicate:
-                value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
+                value: "{\"email\":\"test2@gmail.com\",\"password\":\"abcd1234\",\"\
                   username\":\"user\"}"
               user-signup-username-longer:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
@@ -64,7 +64,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users486549215'
+                $ref: '#/components/schemas/users-395173474'
               examples:
                 user-signup-email-duplicate:
                   value: "{\"code\":\"USR-002\",\"status\":400,\"message\":\"중복된 이\
@@ -126,5 +126,30 @@ components:
         username:
           type: string
           description: 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
-    users486549215:
+    users-395173474:
       type: object
+      properties:
+        code:
+          type: string
+          description: 에러 코드입니다.
+        message:
+          type: string
+          description: 에러 메시지입니다.
+        errors:
+          type: array
+          description: 필드 에러입니다. 필드 검증 시에만 존재합니다.
+          items:
+            type: object
+            properties:
+              reason:
+                type: string
+                description: 검증에 실패한 이유입니다.
+              field:
+                type: string
+                description: 검증에 실패한 필드명입니다.
+              value:
+                type: string
+                description: 검증에 실패한 필드값입니다.
+        status:
+          type: number
+          description: 응답 코드입니다.
