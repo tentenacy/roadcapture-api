@@ -4,15 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
 public class SignupRequest {
-    @NotEmpty
+    @Email
     private String email;
-    @NotEmpty
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
     private String password;
-    @NotEmpty
+    @Size(min = 2, max = 12)
     private String username;
 }
