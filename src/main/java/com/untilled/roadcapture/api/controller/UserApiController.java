@@ -32,6 +32,12 @@ public class UserApiController {
         return ResponseEntity.ok(new UserResponse(foundUser));
     }
 
+    @GetMapping("/{userId}/details")
+    public ResponseEntity<UserDetailResponse> userDetail(@PathVariable final Long userId) {
+        User foundUser = userService.findOne(userId);
+        return ResponseEntity.ok(new UserDetailResponse(foundUser));
+    }
+
     @PostMapping
     public ResponseEntity<Void> signup(@RequestBody @Validated SignupRequest signupRequest) {
         Long userId = userService.signup(signupRequest);
