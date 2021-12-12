@@ -4,7 +4,7 @@ import com.untilled.roadcapture.api.dto.base.PageRequest;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
 import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
 import com.untilled.roadcapture.api.exception.EmailDuplicatedException;
-import com.untilled.roadcapture.api.exception.NickNameDuplicatedException;
+import com.untilled.roadcapture.api.exception.UsernameDuplicatedException;
 import com.untilled.roadcapture.api.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,32 +23,21 @@ public class UserService {
     @Transactional
     public void signup(SignupRequest signupRequest) {
         User createdUser = User.create(signupRequest.getEmail(), signupRequest.getPassword(), signupRequest.getUsername());
-        userRepository.findByEmail(createdUser.getEmail())
-                .ifPresent(user -> {
-                    throw new EmailDuplicatedException();
-                });
-        userRepository.findByUsername(createdUser.getUsername())
-                .ifPresent(user -> {
-                    throw new NickNameDuplicatedException();
-                });
+        duplicateEmail(createdUser);
+        duplicateUsername(createdUser);
         userRepository.save(createdUser);
     }
 
     @Transactional
     public void update(Long userId, UserUpdateRequest userUpdateRequest) {
-        User foundUser = userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
-        userRepository.findByUsername(foundUser.getUsername())
-                .ifPresent(user -> {
-                    throw new NickNameDuplicatedException();
-                });
+        User foundUser = getUserIfExists(userId);
+        duplicateUsername(foundUser);
         foundUser.update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
     }
 
     @Transactional
     public void delete(Long userId) {
-        User foundUser = userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
+        User foundUser = getUserIfExists(userId);
         userRepository.delete(foundUser);
     }
 
@@ -57,6 +46,24 @@ public class UserService {
     }
 
     public User findOne(Long userId) {
+        return getUserIfExists(userId);
+    }
+
+    private void duplicateUsername(User createdUser) {
+        userRepository.findByUsername(createdUser.getUsername())
+                .ifPresent(user -> {
+                    throw new UsernameDuplicatedException();
+                });
+    }
+
+    private void duplicateEmail(User createdUser) {
+        userRepository.findByEmail(createdUser.getEmail())
+                .ifPresent(user -> {
+                    throw new EmailDuplicatedException();
+                });
+    }
+
+    private User getUserIfExists(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
     }

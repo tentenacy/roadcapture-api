@@ -23,6 +23,9 @@ paths:
               user-signup:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
                   username\":\"user\"}"
+              user-signup-email-duplicate:
+                value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
+                  username\":\"user\"}"
               user-signup-email-mismatch:
                 value: "{\"email\":\"test\",\"password\":\"abdc1234\",\"username\"\
                   :\"user\"}"
@@ -41,10 +44,13 @@ paths:
               user-signup-password-shorter:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd123\",\"\
                   username\":\"username\"}"
-              user-signup-Username-longer:
+              user-signup-username-duplicate:
+                value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
+                  username\":\"user\"}"
+              user-signup-username-longer:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
                   username\":\"usernameusern\"}"
-              user-signup-Username-shorter:
+              user-signup-username-shorter:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
                   username\":\"u\"}"
               users:
@@ -60,6 +66,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/users486549215'
               examples:
+                user-signup-email-duplicate:
+                  value: "{\"code\":\"USR-002\",\"status\":400,\"message\":\"중복된 이\
+                    메일의 계정이 존재합니다.\",\"errors\":[]}"
                 user-signup-email-mismatch:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"email\",\"value\":\"\
@@ -87,12 +96,15 @@ paths:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
                     :\"abcd123\",\"reason\":\"length must be between 8 and 64\"}]}"
-                user-signup-Username-longer:
+                user-signup-username-duplicate:
+                  value: "{\"code\":\"USR-005\",\"status\":400,\"message\":\"중복된 닉\
+                    네임의 계정이 존재합니다.\",\"errors\":[]}"
+                user-signup-username-longer:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
                     :\"usernameusern\",\"reason\":\"size must be between 2 and 12\"\
                     }]}"
-                user-signup-Username-shorter:
+                user-signup-username-shorter:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
                     :\"u\",\"reason\":\"size must be between 2 and 12\"}]}"
