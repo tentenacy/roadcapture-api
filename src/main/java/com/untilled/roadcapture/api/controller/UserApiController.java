@@ -33,7 +33,7 @@ public class UserApiController {
     }
 
     @GetMapping("/{userId}/details")
-    public ResponseEntity<UserDetailResponse> userDetail(@PathVariable final Long userId) {
+    public ResponseEntity<UserDetailResponse> userDetails(@PathVariable final Long userId) {
         User foundUser = userService.findOne(userId);
         return ResponseEntity.ok(new UserDetailResponse(foundUser));
     }
