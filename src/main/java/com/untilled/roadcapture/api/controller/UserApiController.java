@@ -5,6 +5,7 @@ import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,8 @@ public class UserApiController {
     private final UserService userService;
 
     @GetMapping
-    public Page<UsersResponse> users(final PageRequest pageRequest) {
-        return userService.findUsers(pageRequest).map(UsersResponse::new);
+    public Page<UsersResponse> users(Pageable pageable) {
+        return userService.findUsers(pageable);
     }
 
     @GetMapping("/{userId}")
@@ -47,6 +48,5 @@ public class UserApiController {
     public void delete(@PathVariable final Long userId) {
         userService.delete(userId);
     }
-
 
 }

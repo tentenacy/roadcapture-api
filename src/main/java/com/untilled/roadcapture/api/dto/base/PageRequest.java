@@ -1,16 +1,20 @@
 package com.untilled.roadcapture.api.dto.base;
 
+import lombok.Getter;
 import org.springframework.data.domain.Sort;
 
-import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-public final class PageRequest {
+@Getter
+public class PageRequest {
     public static final int DEFAULT_SIZE = 10;
     public static final int MAX_SIZE = 50;
 
-    private int page = 1;
-    private int size = 10;
-    private Sort.Direction direction = Sort.Direction.ASC;
+    private int page;
+    private int size;
+    private List<String> sort;
 
     public void setPage(int page) {
         this.page = page <= 0 ? 1 : page;
@@ -19,10 +23,27 @@ public final class PageRequest {
     public void setSize(int size) {
         this.size = size > MAX_SIZE ? DEFAULT_SIZE : size;
     }
-    public void setDirection(Sort.Direction direction) {
-        this.direction = direction;
+
+    public void setSort(List<String> sort) {
+        this.sort = sort;
     }
+
     public org.springframework.data.domain.PageRequest of() {
-        return org.springframework.data.domain.PageRequest.of(page - 1, size, direction, "createdAt");
+        if (sort == null || sort.isEmpty()) {
+            return org.springframework.data.domain.PageRequest.of(page - 1, size);
+        }
+
+        return org.springframework.data.domain.PageRequest.of(page - 1, size, Sort.by(getOrders(sort)));
+    }
+
+    private List<Sort.Order> getOrders(List<String> sort) {
+        List<Sort.Order> orders = new ArrayList<>();
+        sort.forEach(str ->
+                orders.add(
+                        new Sort.Order(Sort.Direction.valueOf(str.split("#")[1].toUpperCase(Locale.ROOT)),
+                                str.split("#")[0])
+                )
+        );
+        return orders;
     }
 }

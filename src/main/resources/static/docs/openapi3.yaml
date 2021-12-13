@@ -10,50 +10,80 @@ tags:
   description: Users related resources
 paths:
   /users:
+    get:
+      tags:
+      - users
+      operationId: users
+      parameters:
+      - name: page
+        in: query
+        description: 조회할 페이지입니다. 기본값은 1입니다.
+        required: false
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 한 페이지에 조회할 데이터 수입니다. 기본값은 10입니다.
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 정렬 방향입니다. 기본값은 오름차순입니다.
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users-231098644'
+              examples:
+                users:
+                  value: "{\"content\":[{\"id\":1,\"username\":\"user\",\"profileImageUrl\"\
+                    :\"http://www.test.com/images/1\"},{\"id\":2,\"username\":\"user2\"\
+                    ,\"profileImageUrl\":\"http://www.test.com/images/2\"}],\"pageable\"\
+                    :\"INSTANCE\",\"last\":true,\"totalPages\":1,\"totalElements\"\
+                    :2,\"size\":2,\"number\":0,\"sort\":{\"empty\":true,\"sorted\"\
+                    :false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
+                    :2,\"empty\":false}"
     post:
       tags:
       - users
-      operationId: user
+      operationId: users-signup
       requestBody:
         content:
           application/json;charset=UTF-8:
             schema:
               $ref: '#/components/schemas/users-725712466'
             examples:
-              user-signup:
+              users-signup:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
                   username\":\"user\"}"
-              user-signup-email-duplicate:
+              users-signup-email-duplicate:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
                   username\":\"user2\"}"
-              user-signup-email-mismatch:
+              users-signup-email-mismatch:
                 value: "{\"email\":\"test\",\"password\":\"abdc1234\",\"username\"\
                   :\"user\"}"
-              user-signup-nickname-longer:
-                value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
-                  username\":\"usernameusern\"}"
-              user-signup-nickname-shorter:
-                value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
-                  username\":\"u\"}"
-              user-signup-password-longer:
+              users-signup-password-longer:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789\"\
                   ,\"username\":\"username\"}"
-              user-signup-password-mismatch:
+              users-signup-password-mismatch:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcdefgh\",\"\
                   username\":\"username\"}"
-              user-signup-password-shorter:
+              users-signup-password-shorter:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd123\",\"\
                   username\":\"username\"}"
-              user-signup-username-duplicate:
+              users-signup-username-duplicate:
                 value: "{\"email\":\"test2@gmail.com\",\"password\":\"abcd1234\",\"\
                   username\":\"user\"}"
-              user-signup-username-longer:
+              users-signup-username-longer:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
                   username\":\"usernameusern\"}"
-              user-signup-username-shorter:
-                value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
-                  username\":\"u\"}"
-              users:
+              users-signup-username-shorter:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
                   username\":\"u\"}"
       responses:
@@ -66,49 +96,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/users-395173474'
               examples:
-                user-signup-email-duplicate:
+                users-signup-email-duplicate:
                   value: "{\"code\":\"USR-002\",\"status\":400,\"message\":\"중복된 이\
                     메일의 계정이 존재합니다.\",\"errors\":[]}"
-                user-signup-email-mismatch:
+                users-signup-email-mismatch:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"email\",\"value\":\"\
                     test\",\"reason\":\"must be a well-formed email address\"}]}"
-                user-signup-nickname-longer:
-                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
-                    \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
-                    :\"usernameusern\",\"reason\":\"size must be between 2 and 12\"\
-                    }]}"
-                user-signup-nickname-shorter:
-                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
-                    \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
-                    :\"u\",\"reason\":\"size must be between 2 and 12\"}]}"
-                user-signup-password-longer:
+                users-signup-password-longer:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
                     :\"abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789\"\
                     ,\"reason\":\"length must be between 8 and 64\"}]}"
-                user-signup-password-mismatch:
+                users-signup-password-mismatch:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
                     :\"abcdefgh\",\"reason\":\"must match \\\"^(?=.*[A-Za-z])(?=.*\\\
                     \\d)[A-Za-z\\\\d]+$\\\"\"}]}"
-                user-signup-password-shorter:
+                users-signup-password-shorter:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
                     :\"abcd123\",\"reason\":\"length must be between 8 and 64\"}]}"
-                user-signup-username-duplicate:
+                users-signup-username-duplicate:
                   value: "{\"code\":\"USR-005\",\"status\":400,\"message\":\"중복된 닉\
                     네임의 계정이 존재합니다.\",\"errors\":[]}"
-                user-signup-username-longer:
+                users-signup-username-longer:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
                     :\"usernameusern\",\"reason\":\"size must be between 2 and 12\"\
                     }]}"
-                user-signup-username-shorter:
-                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
-                    \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
-                    :\"u\",\"reason\":\"size must be between 2 and 12\"}]}"
-                users:
+                users-signup-username-shorter:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
                     :\"u\",\"reason\":\"size must be between 2 and 12\"}]}"
@@ -126,6 +143,54 @@ components:
         username:
           type: string
           description: 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
+    users-231098644:
+      type: object
+      properties:
+        number:
+          type: number
+          description: ""
+        numberOfElements:
+          type: number
+          description: ""
+        size:
+          type: number
+          description: ""
+        last:
+          type: boolean
+          description: ""
+        totalPages:
+          type: number
+          description: ""
+        pageable:
+          type: string
+          description: ""
+        sort:
+          type: object
+          description: ""
+        first:
+          type: boolean
+          description: ""
+        content:
+          type: array
+          description: 조회된 사용자 리스트입니다.
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: 조회된 사용자 아이디입니다.
+              profileImageUrl:
+                type: string
+                description: 조회된 사용자 프로필 사진입니다.
+              username:
+                type: string
+                description: 조회된 사용자 이름입니다.
+        empty:
+          type: boolean
+          description: ""
+        totalElements:
+          type: number
+          description: ""
     users-395173474:
       type: object
       properties:
