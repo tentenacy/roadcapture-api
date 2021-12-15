@@ -17,19 +17,19 @@ paths:
       parameters:
       - name: page
         in: query
-        description: 조회할 페이지입니다. 기본값은 1입니다.
+        description: 조회할 페이지입니다. 0부터 시작합니다.
         required: false
         schema:
           type: string
       - name: size
         in: query
-        description: 한 페이지에 조회할 데이터 수입니다. 기본값은 10입니다.
+        description: 한 페이지에 조회할 데이터 수입니다.
         required: false
         schema:
           type: string
       - name: sort
         in: query
-        description: 정렬 방향입니다. 기본값은 오름차순입니다.
+        description: 정렬 기준입니다.
         required: false
         schema:
           type: string
@@ -39,16 +39,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-231098644'
+                $ref: '#/components/schemas/users-1589958827'
               examples:
                 users:
                   value: "{\"content\":[{\"id\":1,\"username\":\"user\",\"profileImageUrl\"\
-                    :\"http://www.test.com/images/1\"},{\"id\":2,\"username\":\"user2\"\
-                    ,\"profileImageUrl\":\"http://www.test.com/images/2\"}],\"pageable\"\
-                    :\"INSTANCE\",\"last\":true,\"totalPages\":1,\"totalElements\"\
-                    :2,\"size\":2,\"number\":0,\"sort\":{\"empty\":true,\"sorted\"\
-                    :false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :2,\"empty\":false}"
+                    :null},{\"id\":2,\"username\":\"user2\",\"profileImageUrl\":null}],\"\
+                    pageable\":{\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\"\
+                    :true},\"pageNumber\":0,\"pageSize\":20,\"offset\":0,\"paged\"\
+                    :true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"totalElements\"\
+                    :2,\"numberOfElements\":2,\"first\":true,\"size\":20,\"number\"\
+                    :0,\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"\
+                    empty\":false}"
     post:
       tags:
       - users
@@ -143,54 +144,6 @@ components:
         username:
           type: string
           description: 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
-    users-231098644:
-      type: object
-      properties:
-        number:
-          type: number
-          description: ""
-        numberOfElements:
-          type: number
-          description: ""
-        size:
-          type: number
-          description: ""
-        last:
-          type: boolean
-          description: ""
-        totalPages:
-          type: number
-          description: ""
-        pageable:
-          type: string
-          description: ""
-        sort:
-          type: object
-          description: ""
-        first:
-          type: boolean
-          description: ""
-        content:
-          type: array
-          description: 조회된 사용자 리스트입니다.
-          items:
-            type: object
-            properties:
-              id:
-                type: number
-                description: 조회된 사용자 아이디입니다.
-              profileImageUrl:
-                type: string
-                description: 조회된 사용자 프로필 사진입니다.
-              username:
-                type: string
-                description: 조회된 사용자 이름입니다.
-        empty:
-          type: boolean
-          description: ""
-        totalElements:
-          type: number
-          description: ""
     users-395173474:
       type: object
       properties:
@@ -218,3 +171,48 @@ components:
         status:
           type: number
           description: 응답 코드입니다.
+    users-1589958827:
+      type: object
+      properties:
+        number:
+          type: number
+          description: ""
+        numberOfElements:
+          type: number
+          description: ""
+        size:
+          type: number
+          description: ""
+        last:
+          type: boolean
+          description: ""
+        totalPages:
+          type: number
+          description: ""
+        pageable:
+          type: object
+          description: ""
+        sort:
+          type: object
+          description: ""
+        first:
+          type: boolean
+          description: ""
+        content:
+          type: array
+          description: 조회된 사용자 리스트입니다.
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: 조회된 사용자 아이디입니다.
+              username:
+                type: string
+                description: 조회된 사용자 이름입니다.
+        empty:
+          type: boolean
+          description: ""
+        totalElements:
+          type: number
+          description: ""

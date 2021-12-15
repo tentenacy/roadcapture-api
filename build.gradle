@@ -45,17 +45,6 @@ openapi3 {
 	tagDescriptionsPropertiesFile = 'src/test/java/com/untilled/roadcapture/resource/tags.yaml'
 	version = '0.1.0'
 	format = 'yaml'
-	copy {
-		from "build/api-spec"
-		into "src/main/resources/static/docs/"
-	}
-}
-
-task copyDocument(type: Copy) {
-	dependsOn asciidoctor
-
-	from file("build/api-spec")
-	into file("src/main/resources/static/docs")
 }
 
 test {
@@ -66,4 +55,15 @@ test {
 asciidoctor {
 	inputs.dir snippetsDir
 	dependsOn test
+}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+
+	from file("build/api-spec")
+	into file("src/main/resources/static/docs")
+}
+
+build {
+	dependsOn copyDocument
 }
