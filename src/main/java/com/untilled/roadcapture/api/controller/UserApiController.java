@@ -1,6 +1,5 @@
 package com.untilled.roadcapture.api.controller;
 
-import com.untilled.roadcapture.api.dto.base.PageRequest;
 import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,17 +18,17 @@ public class UserApiController {
 
     @GetMapping
     public Page<UsersResponse> users(Pageable pageable) {
-        return userService.findUsers(pageable);
+        return userService.getUsers(pageable).map(UsersResponse::new);
     }
 
     @GetMapping("/{userId}")
     public UserResponse user(@PathVariable final Long userId) {
-        return new UserResponse(userService.findOne(userId));
+        return new UserResponse(userService.getUser(userId));
     }
 
     @GetMapping("/{userId}/details")
     public UserDetailResponse userDetails(@PathVariable final Long userId) {
-        return new UserDetailResponse(userService.findOne(userId));
+        return new UserDetailResponse(userService.getUser(userId));
     }
 
     @PostMapping

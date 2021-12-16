@@ -24,23 +24,20 @@ public abstract class ApiDocumentationTest {
 
     protected final ObjectMapper mapper = new ObjectMapper();
 
-    protected FieldDescriptor[] okPageResponseFields = new FieldDescriptor[]{
+    protected FieldDescriptor[] usersFields = new FieldDescriptor[]{
             fieldWithPath("content").type(JsonFieldType.ARRAY).description("페이지 요소 리스트입니다."),
             fieldWithPath("last").type(JsonFieldType.BOOLEAN).description("마지막 페이지 여부입니다."),
             fieldWithPath("totalElements").type(JsonFieldType.NUMBER).description("전체 요소 수입니다."),
             fieldWithPath("totalPages").type(JsonFieldType.NUMBER).description("전체 페이지 수입니다."),
             fieldWithPath("size").type(JsonFieldType.NUMBER).description("한 페이지에 보여줄 사이즈 수입니다."),
-            fieldWithPath("number").ignored(),
+            fieldWithPath("number").type(JsonFieldType.NUMBER).ignored(),
             fieldWithPath("first").type(JsonFieldType.BOOLEAN).description("첫 페이지 여부입니다."),
             fieldWithPath("numberOfElements").ignored(),
             fieldWithPath("empty").type(JsonFieldType.BOOLEAN).description("리스트가 비어 있는지 여부입니다."),
-            subsectionWithPath("sort").ignored(),
-            subsectionWithPath("pageable").ignored(),
+            subsectionWithPath("sort").type(JsonFieldType.OBJECT).ignored(),
+            subsectionWithPath("pageable").type(JsonFieldType.OBJECT).ignored(),
     };
 
     @Autowired
     protected MockMvc mockMvc;
-
-    @Autowired
-    protected UserService userService;
 }

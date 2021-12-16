@@ -2,6 +2,7 @@ package com.untilled.roadcapture.domain.user;
 
 import com.untilled.roadcapture.api.dto.base.PageRequest;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
+import com.untilled.roadcapture.api.dto.user.UserResponse;
 import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.api.exception.EmailDuplicatedException;
@@ -43,11 +44,11 @@ public class UserService {
         userRepository.delete(foundUser);
     }
 
-    public Page<UsersResponse> findUsers(Pageable pageable) {
-        return userRepository.findAll(pageable).map(UsersResponse::new);
+    public Page<User> getUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
-    public User findOne(Long userId) {
+    public User getUser(Long userId) {
         return getUserIfExists(userId);
     }
 
