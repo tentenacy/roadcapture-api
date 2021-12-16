@@ -11,6 +11,12 @@ spring:
     show_sql: true
     database: oracle
     database-platform: org.hibernate.dialect.Oracle10gDialect
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        max-page-size: 50
+
 
 server:
   error:

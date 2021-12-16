@@ -39,17 +39,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-1589958827'
+                $ref: '#/components/schemas/users-873623576'
               examples:
                 users:
                   value: "{\"content\":[{\"id\":1,\"username\":\"user\",\"profileImageUrl\"\
                     :null},{\"id\":2,\"username\":\"user2\",\"profileImageUrl\":null}],\"\
-                    pageable\":{\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\"\
-                    :true},\"pageNumber\":0,\"pageSize\":20,\"offset\":0,\"paged\"\
-                    :true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"totalElements\"\
-                    :2,\"numberOfElements\":2,\"first\":true,\"size\":20,\"number\"\
-                    :0,\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"\
-                    empty\":false}"
+                    pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\"\
+                    :true},\"offset\":0,\"pageSize\":20,\"pageNumber\":0,\"unpaged\"\
+                    :false,\"paged\":true},\"last\":true,\"totalPages\":1,\"totalElements\"\
+                    :2,\"size\":20,\"number\":0,\"sort\":{\"empty\":true,\"sorted\"\
+                    :false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
+                    :2,\"empty\":false}"
     post:
       tags:
       - users
@@ -144,6 +144,51 @@ components:
         username:
           type: string
           description: 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
+    users-873623576:
+      type: object
+      properties:
+        number:
+          type: number
+          description: ""
+        numberOfElements:
+          type: number
+          description: ""
+        size:
+          type: number
+          description: 한 페이지에 보여줄 사이즈 수입니다.
+        last:
+          type: boolean
+          description: 마지막 페이지 여부입니다.
+        totalPages:
+          type: number
+          description: 전체 페이지 수입니다.
+        pageable:
+          type: object
+          description: ""
+        sort:
+          type: object
+          description: ""
+        first:
+          type: boolean
+          description: 첫 페이지 여부입니다.
+        content:
+          type: array
+          description: 페이지 요소 리스트입니다.
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: 조회된 사용자 아이디입니다.
+              username:
+                type: string
+                description: 조회된 사용자 이름입니다.
+        empty:
+          type: boolean
+          description: 리스트가 비어 있는지 여부입니다.
+        totalElements:
+          type: number
+          description: 전체 요소 수입니다.
     users-395173474:
       type: object
       properties:
@@ -171,48 +216,3 @@ components:
         status:
           type: number
           description: 응답 코드입니다.
-    users-1589958827:
-      type: object
-      properties:
-        number:
-          type: number
-          description: ""
-        numberOfElements:
-          type: number
-          description: ""
-        size:
-          type: number
-          description: ""
-        last:
-          type: boolean
-          description: ""
-        totalPages:
-          type: number
-          description: ""
-        pageable:
-          type: object
-          description: ""
-        sort:
-          type: object
-          description: ""
-        first:
-          type: boolean
-          description: ""
-        content:
-          type: array
-          description: 조회된 사용자 리스트입니다.
-          items:
-            type: object
-            properties:
-              id:
-                type: number
-                description: 조회된 사용자 아이디입니다.
-              username:
-                type: string
-                description: 조회된 사용자 이름입니다.
-        empty:
-          type: boolean
-          description: ""
-        totalElements:
-          type: number
-          description: ""

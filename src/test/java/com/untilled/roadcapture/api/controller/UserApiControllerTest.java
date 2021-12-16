@@ -48,21 +48,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
             fieldWithPath("reason").description("검증에 실패한 이유입니다.")
     };
 
-    private FieldDescriptor[] okPageResponseFields = new FieldDescriptor[]{
-            fieldWithPath("content").type(JsonFieldType.ARRAY).description("조회된 사용자 리스트입니다."),
-            fieldWithPath("pageable").description(""),
-            fieldWithPath("last").type(JsonFieldType.BOOLEAN).description(""),
-            fieldWithPath("totalElements").type(JsonFieldType.NUMBER).description(""),
-            fieldWithPath("totalPages").type(JsonFieldType.NUMBER).description(""),
-            fieldWithPath("size").type(JsonFieldType.NUMBER).description(""),
-            fieldWithPath("number").type(JsonFieldType.NUMBER).description(""),
-            fieldWithPath("first").type(JsonFieldType.BOOLEAN).description(""),
-            fieldWithPath("numberOfElements").type(JsonFieldType.NUMBER).description(""),
-            fieldWithPath("empty").type(JsonFieldType.BOOLEAN).description(""),
-            subsectionWithPath("sort").type(JsonFieldType.OBJECT).description(""),
-            subsectionWithPath("pageable").type(JsonFieldType.OBJECT).description(""),
-    };
-
     private FieldDescriptor[] okPageContentFields = new FieldDescriptor[]{
             fieldWithPath("id").description("조회된 사용자 아이디입니다."),
             fieldWithPath("username").description("조회된 사용자 이름입니다."),
@@ -119,7 +104,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
         @Test
         @DisplayName("닉네임 중복 시 실패")
-        
         void UsernameIsDuplicated_Fail() throws Exception {
             //given
             final SignupRequest signupRequest = new SignupRequest("test2@gmail.com", "abcd1234", "user");
@@ -238,36 +222,32 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
     }
 
-    @Nested
-    @DisplayName("유저 조회")
-    class Users {
-        @Test
-        @DisplayName("성공")
-        void Success() throws Exception {
-            //given
-            Page<UsersResponse> usersResponses = new PageImpl<>(Arrays.asList(
-                    new UsersResponse(1L, "user", "http://www.test.com/images/1"),
-                    new UsersResponse(2L, "user2", "http://www.test.com/images/2")
-            ));
+    @Test
+    @DisplayName("조회")
+    void Success() throws Exception {
+        //given
+        Page<UsersResponse> usersResponses = new PageImpl<>(Arrays.asList(
+                new UsersResponse(1L, "user", "http://www.test.com/images/1"),
+                new UsersResponse(2L, "user2", "http://www.test.com/images/2")
+        ));
 
-            userService.signup(new SignupRequest("test@gmail.com", "abdc1234", "user"));
-            userService.signup(new SignupRequest("test2@gmail.com", "abdc1234", "user2"));
+        userService.signup(new SignupRequest("test@gmail.com", "abdc1234", "user"));
+        userService.signup(new SignupRequest("test2@gmail.com", "abdc1234", "user2"));
 
-            //when
-            ResultActions result = mockMvc.perform(get("/users")
-                    .contentType(MediaType.APPLICATION_JSON));
+        //when
+        ResultActions result = mockMvc.perform(get("/users")
+                .contentType(MediaType.APPLICATION_JSON));
 
-            //then
-            result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.content[0].id").value(1L))
-                    .andExpect(jsonPath("$.content[0].username").value("user"))
-                    .andExpect(jsonPath("$.content[1].id").value(2L))
-                    .andExpect(jsonPath("$.content[1].username").value("user2"))
-                    .andDo(document("users",
-                            requestParameters(pageRequestParams),
-                            responseFields().andWithPrefix("content.[].", okPageContentFields).and(okPageResponseFields)
-                    ));
-        }
+        //then
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].id").value(1L))
+                .andExpect(jsonPath("$.content[0].username").value("user"))
+                .andExpect(jsonPath("$.content[1].id").value(2L))
+                .andExpect(jsonPath("$.content[1].username").value("user2"))
+                .andDo(document("users",
+                        requestParameters(pageRequestParams),
+                        responseFields().andWithPrefix("content.[].", okPageContentFields).and(okPageResponseFields)
+                ));
     }
 
 }
