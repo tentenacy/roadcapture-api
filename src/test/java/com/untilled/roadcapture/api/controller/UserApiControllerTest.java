@@ -8,6 +8,7 @@ import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.domain.user.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -18,7 +19,7 @@ import javax.persistence.Embedded;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.willReturn;
+import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -27,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserApiControllerTest extends ApiDocumentationTest {
 
-    @Autowired
     private UserService userService;
 
     private FieldDescriptor[] signupRequestFields = new FieldDescriptor[]{
@@ -35,12 +35,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
             fieldWithPath("password").description("사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상에서 최대 64자 이하여야 합니다."),
             fieldWithPath("username").description("사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.")
     };
-
-    /*private String username;
-    private String profileImageUrl;
-    private String introduction;
-    @Embedded
-    private Address address;*/
 
     private FieldDescriptor[] userUpdateRequestFields = new FieldDescriptor[]{
             fieldWithPath("username").description("변경할 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.").optional(),
@@ -291,6 +285,24 @@ class UserApiControllerTest extends ApiDocumentationTest {
     }
 
     @Nested
+    @DisplayName("삭제")
+    class Delete {
+        @Test
+        @DisplayName("성공")
+        void Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(delete("/users/{id}", 101L)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isNoContent())
+                    .andDo(document("회원삭제 - 성공"));
+        }
+    }
+
+    @Nested
     @DisplayName("회원가입")
     class Signup {
         @Test
@@ -334,8 +346,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
         void UsernameIsDuplicated_Fail() throws Exception {
             //given
             final SignupRequest signupRequest = new SignupRequest("test@gmail.com", "abcd1234", "user1");
-
-            userService.signup(new SignupRequest("test2@gmail.com", "abcd1234", "test"));
 
             //when
             ResultActions result = mockMvc.perform(post("/users")
