@@ -3,29 +3,14 @@ package com.untilled.roadcapture.api.controller;
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
 import com.untilled.roadcapture.api.dto.base.ErrorCode;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
-import com.untilled.roadcapture.api.dto.user.UserResponse;
-import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
-import com.untilled.roadcapture.api.dto.user.UsersResponse;
-import com.untilled.roadcapture.domain.address.Address;
-import com.untilled.roadcapture.domain.user.User;
 import com.untilled.roadcapture.domain.user.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.web.servlet.ResultActions;
-
-import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.mockito.ArgumentMatchers.any;
@@ -62,30 +47,29 @@ class UserApiControllerTest extends ApiDocumentationTest {
     };
 
     private FieldDescriptor[] usersElementsFields = new FieldDescriptor[]{
-            fieldWithPath("id").description("조회된 사용자 아이디입니다."),
-            fieldWithPath("username").description("조회된 사용자 이름입니다."),
-            fieldWithPath("profileImageUrl").description("조회된 사용자 프로필 사진입니다.")
+            fieldWithPath("id").description("사용자 아이디입니다."),
+            fieldWithPath("username").description("사용자 이름입니다."),
+            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.")
     };
 
     private FieldDescriptor[] userFields = new FieldDescriptor[]{
-            fieldWithPath("id").description("조회된 사용자 아이디입니다."),
-            fieldWithPath("username").description("조회된 사용자 이름입니다."),
-            fieldWithPath("profileImageUrl").description("조회된 사용자 프로필 사진입니다."),
-            fieldWithPath("introduction").description("조회된 사용자 프로필 사진입니다."),
-            fieldWithPath("preferencePlaces").type(JsonFieldType.ARRAY).description("조회된 사용자 프로필 사진입니다."),
+            fieldWithPath("id").description("사용자 아이디입니다."),
+            fieldWithPath("username").description("사용자 이름입니다."),
+            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다."),
+            fieldWithPath("introduction").description("사용자 소개글입니다."),
     };
 
-    private FieldDescriptor[] preferencePlacesElementsFields = new FieldDescriptor[]{
-            fieldWithPath("id").type(JsonFieldType.NUMBER).description("관심지역 아이디입니다.").optional(),
-            fieldWithPath("name").type(JsonFieldType.STRING).description("관심지역 이름입니다.").optional(),
-            fieldWithPath("latitude").type(JsonFieldType.STRING).description("관심지역 위도입니다.").optional(),
-            fieldWithPath("longitude").type(JsonFieldType.STRING).description("관심지역 경도입니다.").optional(),
-            fieldWithPath("addressName").type(JsonFieldType.STRING).description("관심지역 지번주소입니다.").optional(),
-            fieldWithPath("roadAddressName").type(JsonFieldType.STRING).description("관심지역 도로명주소입니다.").optional(),
-            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("관심지역 시구명입니다.").optional(),
-            fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("관심지역 시군구명입니다.").optional(),
-            fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("관심지역 읍면동명입니다.").optional(),
-            fieldWithPath("zoneNo").type(JsonFieldType.STRING).description("관심지역 우편번호입니다.").optional(),
+    private FieldDescriptor[] placesElementsFields = new FieldDescriptor[]{
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("장소 아이디입니다.").optional(),
+            fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다.").optional(),
+            fieldWithPath("latitude").type(JsonFieldType.STRING).description("장소 위도입니다.").optional(),
+            fieldWithPath("longitude").type(JsonFieldType.STRING).description("장소 경도입니다.").optional(),
+            fieldWithPath("addressName").type(JsonFieldType.STRING).description("장소 지번주소입니다.").optional(),
+            fieldWithPath("roadAddressName").type(JsonFieldType.STRING).description("장소 도로명주소입니다.").optional(),
+            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("장소 시구명입니다.").optional(),
+            fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("장소 시군구명입니다.").optional(),
+            fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("장소 읍면동명입니다.").optional(),
+            fieldWithPath("zoneNo").type(JsonFieldType.STRING).description("장소 우편번호입니다.").optional(),
     };
 
     private ParameterDescriptor[] usersRequestParams = new ParameterDescriptor[]{
@@ -127,7 +111,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
                 .andExpect(jsonPath("$.username").value("user1"))
                 .andDo(document("user",
                         pathParameters(userPathParams),
-                        responseFields(userFields).andWithPrefix("preferencePlaces.[].", preferencePlacesElementsFields)));
+                        responseFields(userFields)));
     }
 
     @Nested

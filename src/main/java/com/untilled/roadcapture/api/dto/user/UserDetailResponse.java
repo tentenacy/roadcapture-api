@@ -19,7 +19,6 @@ public class UserDetailResponse {
     private String introduction;
     @Embedded
     private Address address;
-    private List<Place> preferencePlaces;
 
     public UserDetailResponse(User user) {
         this.id = user.getId();
@@ -28,6 +27,5 @@ public class UserDetailResponse {
         this.profileImageUrl = user.getProfileImageUrl();
         this.introduction = user.getIntroduction();
         this.address = user.getAddress();
-        this.preferencePlaces = user.getPreferencePlaces();
     }
 }

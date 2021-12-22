@@ -40,10 +40,6 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Album> albums = new ArrayList<>();
 
-    @OneToMany(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "place_id")
-    private List<Place> preferencePlaces = new ArrayList<>();
-
     @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
     private List<Follower> followers = new ArrayList<>();
 

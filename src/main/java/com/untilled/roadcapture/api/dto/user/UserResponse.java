@@ -16,13 +16,11 @@ public class UserResponse {
     private String username;
     private String profileImageUrl;
     private String introduction;
-    private List<Place> preferencePlaces;
 
     public UserResponse(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.profileImageUrl = user.getProfileImageUrl();
         this.introduction = user.getIntroduction();
-        this.preferencePlaces = user.getPreferencePlaces();
     }
 }
