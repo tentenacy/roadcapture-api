@@ -3,20 +3,29 @@ package com.untilled.roadcapture.api.controller;
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
 import com.untilled.roadcapture.api.dto.base.ErrorCode;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
+import com.untilled.roadcapture.api.dto.user.UserResponse;
+import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
+import com.untilled.roadcapture.api.dto.user.UsersResponse;
+import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.domain.user.User;
 import com.untilled.roadcapture.domain.user.UserService;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.web.servlet.ResultActions;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,14 +33,13 @@ import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class UserApiControllerTest extends ApiDocumentationTest {
 
-    @SpyBean
+    @Autowired
     private UserService userService;
 
     private FieldDescriptor[] signupRequestFields = new FieldDescriptor[]{
@@ -82,28 +90,25 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
     private ParameterDescriptor[] usersRequestParams = new ParameterDescriptor[]{
             parameterWithName("page").description("조회할 페이지입니다. 0부터 시작합니다.").optional(),
-            parameterWithName("size").description("한 페이지에 조회할 데이터 수입니다.").optional(),
+            parameterWithName("size").description("한 페이지에 보여줄 사이즈 수입니다.").optional(),
             parameterWithName("sort").description("정렬 기준입니다.").optional()
+    };
 
+    private ParameterDescriptor[] userPathParams = new ParameterDescriptor[]{
+            parameterWithName("id").description("조회할 사용자 아이디입니다."),
     };
 
     @Test
     @DisplayName("조회")
     void Users_Success() throws Exception {
-        //given
-        willReturn(new PageImpl<>(Arrays.asList(
-                User.create("users1@gmail.com", "abcd1234", "users1"),
-                User.create("users2@gmail.com", "abcd1234", "users2")
-        ))).willCallRealMethod().given(userService).getUsers(any());
-
         //when
         ResultActions result = mockMvc.perform(get("/users")
                 .contentType(MediaType.APPLICATION_JSON));
 
         //then
         result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].username").value("users1"))
-                .andExpect(jsonPath("$.content[1].username").value("users2"))
+                .andExpect(jsonPath("$.content[0].username").value("user1"))
+                .andExpect(jsonPath("$.content[1].username").value("user2"))
                 .andDo(document("users",
                         requestParameters(usersRequestParams),
                         responseFields().andWithPrefix("content.[].", usersElementsFields).and(usersFields)
@@ -113,18 +118,15 @@ class UserApiControllerTest extends ApiDocumentationTest {
     @Test
     @DisplayName("단건조회")
     void User_Success() throws Exception {
-        //given
-        willReturn(User.create("users1@gmail.com", "abcd1234", "users1"))
-                .willCallRealMethod().given(userService).getUser(any());
-
         //when
-        ResultActions result = mockMvc.perform(get("/users/1")
+        ResultActions result = mockMvc.perform(get("/users/{id}", 1L)
                 .contentType(MediaType.APPLICATION_JSON));
 
         //then
         result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("users1"))
+                .andExpect(jsonPath("$.username").value("user1"))
                 .andDo(document("user",
+                        pathParameters(userPathParams),
                         responseFields(userFields).andWithPrefix("preferencePlaces.[].", preferencePlacesElementsFields)));
     }
 
@@ -135,7 +137,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("성공")
         void Success() throws Exception {
             //given
-            final SignupRequest signupRequest = new SignupRequest("signup1@gmail.com", "abcd1234", "signup1");
+            final SignupRequest signupRequest = new SignupRequest("test@gmail.com", "abcd1234", "test");
 
             //when
             ResultActions result = mockMvc.perform(post("/users")
@@ -153,9 +155,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("이메일 중복 시 실패")
         void EmailIsDuplicated_Fail() throws Exception {
             //given
-            final SignupRequest signupRequest = new SignupRequest("signup1@gmail.com", "abcd1234", "signup1");
-
-            userService.signup(new SignupRequest("signup1@gmail.com", "abcd1234", "signup2"));
+            final SignupRequest signupRequest = new SignupRequest("user1@gmail.com", "abcd1234", "test");
 
             //when
             ResultActions result = mockMvc.perform(post("/users")
@@ -173,9 +173,9 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("닉네임 중복 시 실패")
         void UsernameIsDuplicated_Fail() throws Exception {
             //given
-            final SignupRequest signupRequest = new SignupRequest("signup1@gmail.com", "abcd1234", "signup1");
+            final SignupRequest signupRequest = new SignupRequest("test@gmail.com", "abcd1234", "user1");
 
-            userService.signup(new SignupRequest("signup2@gmail.com", "abcd1234", "signup1"));
+            userService.signup(new SignupRequest("test2@gmail.com", "abcd1234", "test"));
 
             //when
             ResultActions result = mockMvc.perform(post("/users")
@@ -194,7 +194,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("이메일 형식 맞지 않으면 실패")
         void EmailTypeIsMismatched_Fail() throws Exception {
             //given
-            final SignupRequest signupRequest = new SignupRequest("signup1", "abcd1234", "signup1");
+            final SignupRequest signupRequest = new SignupRequest("test", "abcd1234", "test");
 
             //when
             ResultActions result = mockMvc.perform(post("/users")
@@ -211,7 +211,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("닉네임 길이가 2보다 짧으면 실패")
         void UsernameSizeIsLessThan2_Fail() throws Exception {
             //given
-            final SignupRequest signupRequest = new SignupRequest("signup1@gmail.com", "abcd1234", "s");
+            final SignupRequest signupRequest = new SignupRequest("test@gmail.com", "abcd1234", "t");
 
             //when
             ResultActions result = mockMvc.perform(post("/users")
@@ -228,7 +228,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("닉네임 길이가 12보다 길면 실패")
         void UsernameSizeIsGreaterThan12_Fail() throws Exception {
             //given
-            final SignupRequest signupRequest = new SignupRequest("signup1@gmail.com", "abcd1234", "signup1signup1");
+            final SignupRequest signupRequest = new SignupRequest("test@gmail.com", "abcd1234", "testtesttesttest");
 
             //when
             ResultActions result = mockMvc.perform(post("/users")
@@ -245,7 +245,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("비밀번호 형식 맞지 않으면 실패")
         void PasswordTypeIsMismatch_Fail() throws Exception {
             //given
-            final SignupRequest signupRequest = new SignupRequest("signup1@gmail.com", "abcdefgh", "signup1");
+            final SignupRequest signupRequest = new SignupRequest("test@gmail.com", "abcdefgh", "test");
 
             //when
             ResultActions result = mockMvc.perform(post("/users")
@@ -262,7 +262,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("비밀번호 길이가 8보다 짧으면 실패")
         void PasswordSizeIsLessThan8_Fail() throws Exception {
             //given
-            final SignupRequest signupRequest = new SignupRequest("signup1@gmail.com", "abcd123", "signup1");
+            final SignupRequest signupRequest = new SignupRequest("test@gmail.com", "abcd123", "test");
 
             //when
             ResultActions result = mockMvc.perform(post("/users")
@@ -279,7 +279,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("비밀번호 길이가 64보다 길면 실패")
         void PasswordSizeIsGreaterThan64_Fail() throws Exception {
             //given
-            final SignupRequest signupRequest = new SignupRequest("signup1@gmail.com", "abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789", "signup1");
+            final SignupRequest signupRequest = new SignupRequest("test@gmail.com", "abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789", "test");
 
             //when
             ResultActions result = mockMvc.perform(post("/users")

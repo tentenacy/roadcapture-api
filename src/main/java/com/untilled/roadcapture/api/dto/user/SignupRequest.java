@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.api.dto.user;
 
+import com.untilled.roadcapture.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,11 @@ public class SignupRequest {
         this.email = email;
         this.password = password;
         this.username = username;
+    }
+
+    public SignupRequest(User user) {
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.username = user.getUsername();
     }
 }

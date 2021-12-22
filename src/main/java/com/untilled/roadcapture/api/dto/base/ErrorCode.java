@@ -19,7 +19,7 @@ public enum ErrorCode {
     JWT_PARSE_ERROR(HttpStatus.UNAUTHORIZED.value(), "JWT-002", "해석할 수 없는 토큰입니다."),
     JWT_EXPIRED(HttpStatus.UNAUTHORIZED.value(), "JWT-003", "토큰이 만료되었습니다."),
 
-    // USER
+    //USER
     EMAIL_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "USR-001", "이메일이 존재하지 않습니다."),
     EMAIL_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "USR-002", "중복된 이메일의 계정이 존재합니다."),
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "USR-003", "사용자가 존재하지 않습니다."),

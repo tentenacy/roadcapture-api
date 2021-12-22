@@ -18,17 +18,17 @@ public class UserApiController {
 
     @GetMapping
     public Page<UsersResponse> users(Pageable pageable) {
-        return userService.getUsers(pageable).map(UsersResponse::new);
+        return userService.getUsers(pageable);
     }
 
     @GetMapping("/{userId}")
     public UserResponse user(@PathVariable final Long userId) {
-        return new UserResponse(userService.getUser(userId));
+        return userService.getUser(userId);
     }
 
     @GetMapping("/{userId}/details")
-    public UserDetailResponse userDetails(@PathVariable final Long userId) {
-        return new UserDetailResponse(userService.getUser(userId));
+    public UserDetailResponse userDetail(@PathVariable final Long userId) {
+        return userService.getUserDetail(userId);
     }
 
     @PostMapping

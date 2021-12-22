@@ -13,12 +13,6 @@ public class UsersResponse {
     private String username;
     private String profileImageUrl;
 
-    public UsersResponse(Long id, String username, String profileImageUrl) {
-        this.id = id;
-        this.username = username;
-        this.profileImageUrl = profileImageUrl;
-    }
-
     public UsersResponse(User user) {
         this.id = user.getId();
         this.username = user.getUsername();

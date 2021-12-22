@@ -49,11 +49,10 @@ public class Album extends BaseTimeEntity {
     @JoinColumn(name = "picture_id")
     private List<Picture> pictures = new ArrayList<>();
 
-    @OneToMany(fetch = LAZY)
-    @JoinColumn(name = "place_id")
-    private List<Place> places;
-
     @OneToMany(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "comment_id")
-    private List<Comment> comments;
+    @JoinColumn(name = "place_id")
+    private List<Place> places = new ArrayList<>();
+
+    @OneToMany(mappedBy = "album", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 }

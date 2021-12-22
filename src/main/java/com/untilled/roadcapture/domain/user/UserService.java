@@ -1,19 +1,21 @@
 package com.untilled.roadcapture.domain.user;
 
 import com.untilled.roadcapture.api.dto.base.PageRequest;
-import com.untilled.roadcapture.api.dto.user.SignupRequest;
-import com.untilled.roadcapture.api.dto.user.UserResponse;
-import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
-import com.untilled.roadcapture.api.dto.user.UsersResponse;
+import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.api.exception.EmailDuplicatedException;
 import com.untilled.roadcapture.api.exception.UsernameDuplicatedException;
 import com.untilled.roadcapture.api.exception.UserNotFoundException;
+import com.untilled.roadcapture.domain.address.Address;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Service
@@ -24,17 +26,16 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void signup(SignupRequest signupRequest) {
+    public User signup(SignupRequest signupRequest) {
         User createdUser = User.create(signupRequest.getEmail(), signupRequest.getPassword(), signupRequest.getUsername());
         duplicateEmail(createdUser);
         duplicateUsername(createdUser);
-        userRepository.save(createdUser);
+        return userRepository.save(createdUser);
     }
 
     @Transactional
     public void update(Long userId, UserUpdateRequest userUpdateRequest) {
         User foundUser = getUserIfExists(userId);
-        duplicateUsername(foundUser);
         foundUser.update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
     }
 
@@ -44,12 +45,16 @@ public class UserService {
         userRepository.delete(foundUser);
     }
 
-    public Page<User> getUsers(Pageable pageable) {
-        return userRepository.findAll(pageable);
+    public Page<UsersResponse> getUsers(Pageable pageable) {
+        return userRepository.findAll(pageable).map(UsersResponse::new);
     }
 
-    public User getUser(Long userId) {
-        return getUserIfExists(userId);
+    public UserResponse getUser(Long userId) {
+        return new UserResponse(getUserIfExists(userId));
+    }
+
+    public UserDetailResponse getUserDetail(Long userId) {
+        return new UserDetailResponse(getUserIfExists(userId));
     }
 
     private void duplicateUsername(User createdUser) {

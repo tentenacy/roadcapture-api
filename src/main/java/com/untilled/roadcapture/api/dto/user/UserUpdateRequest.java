@@ -16,4 +16,11 @@ public class UserUpdateRequest {
     private String introduction;
     @Embedded
     private Address address;
+
+    public UserUpdateRequest(String username, String profileImageUrl, String introduction, Address address) {
+        this.username = username;
+        this.profileImageUrl = profileImageUrl;
+        this.introduction = introduction;
+        this.address = address;
+    }
 }

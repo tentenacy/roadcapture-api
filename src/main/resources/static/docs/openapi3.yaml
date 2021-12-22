@@ -23,7 +23,7 @@ paths:
           type: string
       - name: size
         in: query
-        description: 한 페이지에 조회할 데이터 수입니다.
+        description: 한 페이지에 보여줄 사이즈 수입니다.
         required: false
         schema:
           type: string
@@ -39,17 +39,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-873623576'
+                $ref: '#/components/schemas/users602882078'
               examples:
                 users:
-                  value: "{\"content\":[{\"id\":1,\"username\":\"user\",\"profileImageUrl\"\
-                    :null},{\"id\":2,\"username\":\"user2\",\"profileImageUrl\":null}],\"\
-                    pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\"\
-                    :true},\"offset\":0,\"pageSize\":20,\"pageNumber\":0,\"unpaged\"\
-                    :false,\"paged\":true},\"last\":true,\"totalPages\":1,\"totalElements\"\
-                    :2,\"size\":20,\"number\":0,\"sort\":{\"empty\":true,\"sorted\"\
-                    :false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :2,\"empty\":false}"
+                  value: "{\"content\":[{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://test.com/test\"},{\"id\":2,\"username\":\"user2\",\"\
+                    profileImageUrl\":\"https://test.com/test\"},{\"id\":3,\"username\"\
+                    :\"user3\",\"profileImageUrl\":\"https://test.com/test\"},{\"\
+                    id\":4,\"username\":\"user4\",\"profileImageUrl\":\"https://test.com/test\"\
+                    },{\"id\":5,\"username\":\"user5\",\"profileImageUrl\":\"https://test.com/test\"\
+                    },{\"id\":6,\"username\":\"user6\",\"profileImageUrl\":\"https://test.com/test\"\
+                    },{\"id\":7,\"username\":\"user7\",\"profileImageUrl\":\"https://test.com/test\"\
+                    },{\"id\":8,\"username\":\"user8\",\"profileImageUrl\":\"https://test.com/test\"\
+                    },{\"id\":9,\"username\":\"user9\",\"profileImageUrl\":\"https://test.com/test\"\
+                    },{\"id\":10,\"username\":\"user10\",\"profileImageUrl\":\"https://test.com/test\"\
+                    }],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
+                    totalElements\":10,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
+                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
+                    :10,\"empty\":false}"
     post:
       tags:
       - users
@@ -61,32 +70,32 @@ paths:
               $ref: '#/components/schemas/users-725712466'
             examples:
               users-signup:
-                value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
-                  username\":\"user\"}"
-              users-signup-email-duplicate:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
-                  username\":\"user2\"}"
+                  username\":\"test\"}"
+              users-signup-email-duplicate:
+                value: "{\"email\":\"user1@gmail.com\",\"password\":\"abcd1234\",\"\
+                  username\":\"test\"}"
               users-signup-email-mismatch:
-                value: "{\"email\":\"test\",\"password\":\"abdc1234\",\"username\"\
-                  :\"user\"}"
+                value: "{\"email\":\"test\",\"password\":\"abcd1234\",\"username\"\
+                  :\"test\"}"
               users-signup-password-longer:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789\"\
-                  ,\"username\":\"username\"}"
+                  ,\"username\":\"test\"}"
               users-signup-password-mismatch:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcdefgh\",\"\
-                  username\":\"username\"}"
+                  username\":\"test\"}"
               users-signup-password-shorter:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd123\",\"\
-                  username\":\"username\"}"
+                  username\":\"test\"}"
               users-signup-username-duplicate:
-                value: "{\"email\":\"test2@gmail.com\",\"password\":\"abcd1234\",\"\
-                  username\":\"user\"}"
+                value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
+                  username\":\"user1\"}"
               users-signup-username-longer:
-                value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
-                  username\":\"usernameusern\"}"
+                value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
+                  username\":\"testtesttesttest\"}"
               users-signup-username-shorter:
-                value: "{\"email\":\"test@gmail.com\",\"password\":\"abdc1234\",\"\
-                  username\":\"u\"}"
+                value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
+                  username\":\"t\"}"
       responses:
         "201":
           description: "201"
@@ -124,12 +133,36 @@ paths:
                 users-signup-username-longer:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
-                    :\"usernameusern\",\"reason\":\"size must be between 2 and 12\"\
-                    }]}"
+                    :\"testtesttesttest\",\"reason\":\"size must be between 2 and\
+                    \ 12\"}]}"
                 users-signup-username-shorter:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
-                    :\"u\",\"reason\":\"size must be between 2 and 12\"}]}"
+                    :\"t\",\"reason\":\"size must be between 2 and 12\"}]}"
+  /users/{id}:
+    get:
+      tags:
+      - users
+      operationId: user
+      parameters:
+      - name: id
+        in: path
+        description: 조회할 사용자 아이디입니다.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users-id-1218981601'
+              examples:
+                user:
+                  value: "{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"\
+                    https://test.com/test\",\"introduction\":\"안녕하세요. 저는 user1입니다\
+                    .\",\"preferencePlaces\":[]}"
 components:
   schemas:
     users-725712466:
@@ -144,15 +177,9 @@ components:
         username:
           type: string
           description: 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
-    users-873623576:
+    users602882078:
       type: object
       properties:
-        number:
-          type: number
-          description: ""
-        numberOfElements:
-          type: number
-          description: ""
         size:
           type: number
           description: 한 페이지에 보여줄 사이즈 수입니다.
@@ -162,12 +189,6 @@ components:
         totalPages:
           type: number
           description: 전체 페이지 수입니다.
-        pageable:
-          type: object
-          description: ""
-        sort:
-          type: object
-          description: ""
         first:
           type: boolean
           description: 첫 페이지 여부입니다.
@@ -180,6 +201,9 @@ components:
               id:
                 type: number
                 description: 조회된 사용자 아이디입니다.
+              profileImageUrl:
+                type: string
+                description: 조회된 사용자 프로필 사진입니다.
               username:
                 type: string
                 description: 조회된 사용자 이름입니다.
@@ -189,6 +213,57 @@ components:
         totalElements:
           type: number
           description: 전체 요소 수입니다.
+    users-id-1218981601:
+      type: object
+      properties:
+        preferencePlaces:
+          type: array
+          description: 조회된 사용자 프로필 사진입니다.
+          items:
+            type: object
+            properties:
+              region2DepthName:
+                type: string
+                description: 관심지역 시군구명입니다.
+              zoneNo:
+                type: string
+                description: 관심지역 우편번호입니다.
+              region3DepthName:
+                type: string
+                description: 관심지역 읍면동명입니다.
+              roadAddressName:
+                type: string
+                description: 관심지역 도로명주소입니다.
+              latitude:
+                type: string
+                description: 관심지역 위도입니다.
+              name:
+                type: string
+                description: 관심지역 이름입니다.
+              region1DepthName:
+                type: string
+                description: 관심지역 시구명입니다.
+              addressName:
+                type: string
+                description: 관심지역 지번주소입니다.
+              id:
+                type: number
+                description: 관심지역 아이디입니다.
+              longitude:
+                type: string
+                description: 관심지역 경도입니다.
+        id:
+          type: number
+          description: 조회된 사용자 아이디입니다.
+        profileImageUrl:
+          type: string
+          description: 조회된 사용자 프로필 사진입니다.
+        introduction:
+          type: string
+          description: 조회된 사용자 프로필 사진입니다.
+        username:
+          type: string
+          description: 조회된 사용자 이름입니다.
     users-395173474:
       type: object
       properties:
