@@ -49,14 +49,32 @@ class UserApiControllerTest extends ApiDocumentationTest {
     private FieldDescriptor[] usersElementsFields = new FieldDescriptor[]{
             fieldWithPath("id").description("사용자 아이디입니다."),
             fieldWithPath("username").description("사용자 이름입니다."),
-            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.")
+            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional()
     };
 
     private FieldDescriptor[] userFields = new FieldDescriptor[]{
             fieldWithPath("id").description("사용자 아이디입니다."),
             fieldWithPath("username").description("사용자 이름입니다."),
-            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다."),
-            fieldWithPath("introduction").description("사용자 소개글입니다."),
+            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional(),
+            fieldWithPath("introduction").description("사용자 소개글입니다.").optional(),
+    };
+
+    private FieldDescriptor[] userDetailFields = new FieldDescriptor[]{
+            fieldWithPath("id").description("사용자 아이디입니다."),
+            fieldWithPath("email").description("사용자 이메일입니다."),
+            fieldWithPath("username").description("사용자 이름입니다."),
+            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional(),
+            fieldWithPath("introduction").description("사용자 소개글입니다.").optional(),
+            fieldWithPath("address").type(JsonFieldType.OBJECT).description("사용자 주소입니다.").optional(),
+    };
+
+    private FieldDescriptor[] addressElementsFields = new FieldDescriptor[]{
+            fieldWithPath("addressName").type(JsonFieldType.STRING).description("지번주소입니다.").optional(),
+            fieldWithPath("roadAddressName").type(JsonFieldType.STRING).description("도로명주소입니다.").optional(),
+            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("시구명입니다.").optional(),
+            fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("시군구명입니다.").optional(),
+            fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("읍면동명입니다.").optional(),
+            fieldWithPath("zoneNo").type(JsonFieldType.NUMBER).description("우편번호입니다.").optional(),
     };
 
     private FieldDescriptor[] placesElementsFields = new FieldDescriptor[]{
@@ -64,12 +82,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다.").optional(),
             fieldWithPath("latitude").type(JsonFieldType.STRING).description("장소 위도입니다.").optional(),
             fieldWithPath("longitude").type(JsonFieldType.STRING).description("장소 경도입니다.").optional(),
-            fieldWithPath("addressName").type(JsonFieldType.STRING).description("장소 지번주소입니다.").optional(),
-            fieldWithPath("roadAddressName").type(JsonFieldType.STRING).description("장소 도로명주소입니다.").optional(),
-            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("장소 시구명입니다.").optional(),
-            fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("장소 시군구명입니다.").optional(),
-            fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("장소 읍면동명입니다.").optional(),
-            fieldWithPath("zoneNo").type(JsonFieldType.STRING).description("장소 우편번호입니다.").optional(),
+            fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다.").optional(),
     };
 
     private ParameterDescriptor[] usersRequestParams = new ParameterDescriptor[]{
@@ -82,36 +95,92 @@ class UserApiControllerTest extends ApiDocumentationTest {
             parameterWithName("id").description("조회할 사용자 아이디입니다."),
     };
 
-    @Test
+    @Nested
     @DisplayName("조회")
-    void Users_Success() throws Exception {
-        //when
-        ResultActions result = mockMvc.perform(get("/users")
-                .contentType(MediaType.APPLICATION_JSON));
+    class Users {
 
-        //then
-        result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].username").value("user1"))
-                .andExpect(jsonPath("$.content[1].username").value("user2"))
-                .andDo(document("users",
-                        requestParameters(usersRequestParams),
-                        responseFields().andWithPrefix("content.[].", usersElementsFields).and(usersFields)
-                ));
+        @Test
+        @DisplayName("성공")
+        void Users_Success() throws Exception {
+            //when
+            ResultActions result = mockMvc.perform(get("/users")
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content[0].username").value("user1"))
+                    .andExpect(jsonPath("$.content[1].username").value("user2"))
+                    .andDo(document("조회 성공",
+                            requestParameters(usersRequestParams),
+                            responseFields().andWithPrefix("content.[].", usersElementsFields).and(usersFields)
+                    ));
+        }
     }
 
-    @Test
+    @Nested
     @DisplayName("단건조회")
-    void User_Success() throws Exception {
-        //when
-        ResultActions result = mockMvc.perform(get("/users/{id}", 1L)
-                .contentType(MediaType.APPLICATION_JSON));
+    class User {
+        @Test
+        @DisplayName("성공")
+        void User_Success() throws Exception {
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{id}", 1L)
+                    .contentType(MediaType.APPLICATION_JSON));
 
-        //then
-        result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("user1"))
-                .andDo(document("user",
-                        pathParameters(userPathParams),
-                        responseFields(userFields)));
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.username").value("user1"))
+                    .andDo(document("단건조회 성공",
+                            pathParameters(userPathParams),
+                            responseFields(userFields)));
+        }
+
+        @Test
+        @DisplayName("회원 존재하지 않으면 실패")
+        void When_UserNotFound_Expect_Fail() throws Exception {
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{id}", 0L)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andDo(document("단건조회 회원 존재하지 않으면 실패",
+                            pathParameters(userPathParams),
+                            responseFields(badFields)));
+        }
+    }
+
+    @Nested
+    @DisplayName("상세조회")
+    class UserDetail {
+
+        @Test
+        @DisplayName("성공")
+        void UserDetail_Success() throws Exception {
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{id}/details", 1L)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.username").value("user1"))
+                    .andDo(document("상세조회 성공",
+                            responseFields(userDetailFields).andWithPrefix("address.", addressElementsFields)));
+        }
+
+        @Test
+        @DisplayName("회원 존재하지 않으면 실패")
+        void When_UserNotFound_Expect_Fail() throws Exception {
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{id}/details", 0L)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andDo(document("상세조회 회원 존재하지 않으면 실패",
+                            pathParameters(userPathParams),
+                            responseFields(badFields)));
+        }
     }
 
     @Nested
@@ -130,7 +199,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isCreated())
-                    .andDo(document("users-signup",
+                    .andDo(document("회원가입 성공",
                             requestFields(signupRequestFields)
                     ));
         }
@@ -149,7 +218,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.code").value(ErrorCode.EMAIL_DUPLICATION.getCode()))
-                    .andDo(document("users-signup-email-duplicate",
+                    .andDo(document("회원가입 이메일 중복 시 실패",
                             responseFields(badFields)));
         }
 
@@ -170,7 +239,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isBadRequest())
 
                     .andExpect(jsonPath("$.code").value(ErrorCode.NICKNAME_EMAIL_DUPLICATION.getCode()))
-                    .andDo(document("users-signup-username-duplicate",
+                    .andDo(document("회원가입 닉네임 중복 시 실패",
                             responseFields(badFields)));
         }
 
@@ -187,7 +256,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("users-signup-email-mismatch",
+                    .andDo(document("회원가입 이메일 형식 맞지 않으면 실패",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
         }
 
@@ -204,7 +273,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("users-signup-username-shorter",
+                    .andDo(document("회원가입 닉네임 길이가 2보다 짧으면 실패",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
         }
 
@@ -221,7 +290,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("users-signup-username-longer",
+                    .andDo(document("회원가입 닉네임 길이가 12보다 길면 실패",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
         }
 
@@ -238,7 +307,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("users-signup-password-mismatch",
+                    .andDo(document("회원가입 비밀번호 형식 맞지 않으면 실패",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
         }
 
@@ -255,7 +324,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("users-signup-password-shorter",
+                    .andDo(document("회원가입 비밀번호 길이가 8보다 짧으면 실패",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
         }
 
@@ -272,7 +341,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("users-signup-password-longer",
+                    .andDo(document("회원가입 비밀번호 길이가 64보다 길면 실패",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
         }
 
