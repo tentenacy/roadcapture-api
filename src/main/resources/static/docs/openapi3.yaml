@@ -13,7 +13,7 @@ paths:
     get:
       tags:
       - users
-      operationId: 조회 성공
+      operationId: 회원조회 - 성공
       parameters:
       - name: page
         in: query
@@ -41,7 +41,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/users-804852034'
               examples:
-                조회 성공:
+                회원조회 - 성공:
                   value: "{\"content\":[{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://test.com/test\"},{\"id\":2,\"username\":\"user2\",\"\
                     profileImageUrl\":\"https://test.com/test\"},{\"id\":3,\"username\"\
@@ -53,47 +53,47 @@ paths:
                     },{\"id\":8,\"username\":\"user8\",\"profileImageUrl\":\"https://test.com/test\"\
                     },{\"id\":9,\"username\":\"user9\",\"profileImageUrl\":\"https://test.com/test\"\
                     },{\"id\":10,\"username\":\"user10\",\"profileImageUrl\":\"https://test.com/test\"\
-                    }],\"pageable\":{\"sort\":{\"unsorted\":true,\"empty\":true,\"\
-                    sorted\":false},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"totalPages\":1,\"totalElements\"\
-                    :10,\"last\":true,\"size\":10,\"number\":0,\"sort\":{\"unsorted\"\
-                    :true,\"empty\":true,\"sorted\":false},\"first\":true,\"numberOfElements\"\
-                    :10,\"empty\":false}"
+                    }],\"pageable\":{\"sort\":{\"empty\":false,\"sorted\":true,\"\
+                    unsorted\":false},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":false,\"totalElements\"\
+                    :110,\"totalPages\":11,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"\
+                    numberOfElements\":10,\"empty\":false}"
     post:
       tags:
       - users
-      operationId: '회원가입 '
+      operationId: '회원가입 - '
       requestBody:
         content:
           application/json;charset=UTF-8:
             schema:
               $ref: '#/components/schemas/users-725712466'
             examples:
-              회원가입 닉네임 길이가 12보다 길면 실패:
+              회원가입 - 닉네임 길이가 12보다 길면 실패:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
                   username\":\"testtesttesttest\"}"
-              회원가입 닉네임 길이가 2보다 짧으면 실패:
+              회원가입 - 닉네임 길이가 2보다 짧으면 실패:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
                   username\":\"t\"}"
-              회원가입 닉네임 중복 시 실패:
+              회원가입 - 닉네임 중복 시 실패:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
                   username\":\"user1\"}"
-              회원가입 비밀번호 길이가 64보다 길면 실패:
+              회원가입 - 비밀번호 길이가 64보다 길면 실패:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789\"\
                   ,\"username\":\"test\"}"
-              회원가입 비밀번호 길이가 8보다 짧으면 실패:
+              회원가입 - 비밀번호 길이가 8보다 짧으면 실패:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd123\",\"\
                   username\":\"test\"}"
-              회원가입 비밀번호 형식 맞지 않으면 실패:
+              회원가입 - 비밀번호 형식 맞지 않으면 실패:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcdefgh\",\"\
                   username\":\"test\"}"
-              회원가입 성공:
+              회원가입 - 성공:
                 value: "{\"email\":\"test@gmail.com\",\"password\":\"abcd1234\",\"\
                   username\":\"test\"}"
-              회원가입 이메일 중복 시 실패:
+              회원가입 - 이메일 중복 시 실패:
                 value: "{\"email\":\"user1@gmail.com\",\"password\":\"abcd1234\",\"\
                   username\":\"test\"}"
-              회원가입 이메일 형식 맞지 않으면 실패:
+              회원가입 - 이메일 형식 맞지 않으면 실패:
                 value: "{\"email\":\"test\",\"password\":\"abcd1234\",\"username\"\
                   :\"test\"}"
       responses:
@@ -104,36 +104,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/users-395173474'
               examples:
-                회원가입 닉네임 길이가 12보다 길면 실패:
+                회원가입 - 닉네임 길이가 12보다 길면 실패:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
                     :\"testtesttesttest\",\"reason\":\"size must be between 2 and\
                     \ 12\"}]}"
-                회원가입 닉네임 길이가 2보다 짧으면 실패:
+                회원가입 - 닉네임 길이가 2보다 짧으면 실패:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
                     :\"t\",\"reason\":\"size must be between 2 and 12\"}]}"
-                회원가입 닉네임 중복 시 실패:
+                회원가입 - 닉네임 중복 시 실패:
                   value: "{\"code\":\"USR-005\",\"status\":400,\"message\":\"중복된 닉\
                     네임의 계정이 존재합니다.\",\"errors\":[]}"
-                회원가입 비밀번호 길이가 64보다 길면 실패:
+                회원가입 - 비밀번호 길이가 64보다 길면 실패:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
                     :\"abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789\"\
                     ,\"reason\":\"length must be between 8 and 64\"}]}"
-                회원가입 비밀번호 길이가 8보다 짧으면 실패:
+                회원가입 - 비밀번호 길이가 8보다 짧으면 실패:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
                     :\"abcd123\",\"reason\":\"length must be between 8 and 64\"}]}"
-                회원가입 비밀번호 형식 맞지 않으면 실패:
+                회원가입 - 비밀번호 형식 맞지 않으면 실패:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
                     :\"abcdefgh\",\"reason\":\"must match \\\"^(?=.*[A-Za-z])(?=.*\\\
                     \\d)[A-Za-z\\\\d]+$\\\"\"}]}"
-                회원가입 이메일 중복 시 실패:
+                회원가입 - 이메일 중복 시 실패:
                   value: "{\"code\":\"USR-002\",\"status\":400,\"message\":\"중복된 이\
                     메일의 계정이 존재합니다.\",\"errors\":[]}"
-                회원가입 이메일 형식 맞지 않으면 실패:
+                회원가입 - 이메일 형식 맞지 않으면 실패:
                   value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
                     \ Input Value\",\"errors\":[{\"field\":\"email\",\"value\":\"\
                     test\",\"reason\":\"must be a well-formed email address\"}]}"
@@ -143,7 +143,7 @@ paths:
     get:
       tags:
       - users
-      operationId: '단건조회 '
+      operationId: '회원단건조회 - '
       parameters:
       - name: id
         in: path
@@ -159,7 +159,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/users-id1467703423'
               examples:
-                단건조회 성공:
+                회원단건조회 - 성공:
                   value: "{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"\
                     https://test.com/test\",\"introduction\":\"안녕하세요. 저는 user1입니다\
                     .\"}"
@@ -170,14 +170,40 @@ paths:
               schema:
                 $ref: '#/components/schemas/users-id-details-883544378'
               examples:
-                단건조회 회원 존재하지 않으면 실패:
+                회원단건조회 - 회원 존재하지 않으면 실패:
                   value: "{\"code\":\"USR-003\",\"status\":400,\"message\":\"사용자가\
                     \ 존재하지 않습니다.\",\"errors\":[]}"
+    patch:
+      tags:
+      - users
+      operationId: 회원수정 - 성공
+      parameters:
+      - name: id
+        in: path
+        description: ""
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/users-id236724484'
+            examples:
+              회원수정 - 성공:
+                value: "{\"username\":\"updated101\",\"profileImageUrl\":\"https://test.com/updatedTest\"\
+                  ,\"introduction\":\"안녕하세요. 저는 updated101입니다.\",\"address\":{\"addressName\"\
+                  :\"경기 시흥시 정왕동 2121-3 경기과학기술대학\",\"roadAddressName\":\"경기 시흥시 경기과\
+                  기대로 269 경기과학기술대학\",\"region1DepthName\":\"경기도\",\"region2DepthName\"\
+                  :\"시흥시\",\"region3DepthName\":\"정왕동\",\"zoneNo\":15073}}"
+      responses:
+        "200":
+          description: "200"
   /users/{id}/details:
     get:
       tags:
       - users
-      operationId: '상세조회 '
+      operationId: '회원상세조회 - '
       parameters:
       - name: id
         in: path
@@ -193,7 +219,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/users-id-details-1536877440'
               examples:
-                상세조회 성공:
+                회원상세조회 - 성공:
                   value: "{\"id\":1,\"email\":\"user1@gmail.com\",\"username\":\"\
                     user1\",\"profileImageUrl\":\"https://test.com/test\",\"introduction\"\
                     :\"안녕하세요. 저는 user1입니다.\",\"address\":{\"addressName\":\"경기 시흥시\
@@ -207,7 +233,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/users-id-details-883544378'
               examples:
-                상세조회 회원 존재하지 않으면 실패:
+                회원상세조회 - 회원 존재하지 않으면 실패:
                   value: "{\"code\":\"USR-003\",\"status\":400,\"message\":\"사용자가\
                     \ 존재하지 않습니다.\",\"errors\":[]}"
 components:
@@ -336,6 +362,40 @@ components:
         totalElements:
           type: number
           description: 전체 요소 수입니다.
+    users-id236724484:
+      type: object
+      properties:
+        address:
+          type: object
+          properties:
+            region2DepthName:
+              type: string
+              description: 시군구명입니다.
+            zoneNo:
+              type: number
+              description: 우편번호입니다.
+            region3DepthName:
+              type: string
+              description: 읍면동명입니다.
+            roadAddressName:
+              type: string
+              description: 도로명주소입니다.
+            region1DepthName:
+              type: string
+              description: 시구명입니다.
+            addressName:
+              type: string
+              description: 지번주소입니다.
+          description: 변경할 사용자 주소입니다.
+        profileImageUrl:
+          type: string
+          description: 변경할 사용자 프로필 사진입니다. 주소 형식여야 합니다.
+        introduction:
+          type: string
+          description: 변경할 사용자 소개입니다. 최대 200자 이하여야 합니다.
+        username:
+          type: string
+          description: 변경할 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
     users-395173474:
       type: object
       properties:

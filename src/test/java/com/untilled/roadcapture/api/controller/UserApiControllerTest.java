@@ -3,6 +3,8 @@ package com.untilled.roadcapture.api.controller;
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
 import com.untilled.roadcapture.api.dto.base.ErrorCode;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
+import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
+import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.domain.user.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,12 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
 import org.springframework.test.web.servlet.ResultActions;
 
+import javax.persistence.Embedded;
+
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.willReturn;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -32,6 +35,20 @@ class UserApiControllerTest extends ApiDocumentationTest {
             fieldWithPath("password").description("사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상에서 최대 64자 이하여야 합니다."),
             fieldWithPath("username").description("사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.")
     };
+
+    /*private String username;
+    private String profileImageUrl;
+    private String introduction;
+    @Embedded
+    private Address address;*/
+
+    private FieldDescriptor[] userUpdateRequestFields = new FieldDescriptor[]{
+            fieldWithPath("username").description("변경할 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.").optional(),
+            fieldWithPath("profileImageUrl").description("변경할 사용자 프로필 사진입니다. 주소 형식여야 합니다.").optional(),
+            fieldWithPath("introduction").description("변경할 사용자 소개입니다. 최대 200자 이하여야 합니다.").optional(),
+            fieldWithPath("address").type(JsonFieldType.OBJECT).description("변경할 사용자 주소입니다.").optional(),
+    };
+
 
     private FieldDescriptor[] badFields = new FieldDescriptor[]{
             fieldWithPath("code").description("에러 코드입니다."),
@@ -101,16 +118,17 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
         @Test
         @DisplayName("성공")
-        void Users_Success() throws Exception {
+        void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users")
+                    .queryParam("sort", "id,asc")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.content[0].username").value("user1"))
                     .andExpect(jsonPath("$.content[1].username").value("user2"))
-                    .andDo(document("조회 성공",
+                    .andDo(document("회원조회 - 성공",
                             requestParameters(usersRequestParams),
                             responseFields().andWithPrefix("content.[].", usersElementsFields).and(usersFields)
                     ));
@@ -122,7 +140,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
     class User {
         @Test
         @DisplayName("성공")
-        void User_Success() throws Exception {
+        void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}", 1L)
                     .contentType(MediaType.APPLICATION_JSON));
@@ -130,21 +148,21 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.username").value("user1"))
-                    .andDo(document("단건조회 성공",
+                    .andDo(document("회원단건조회 - 성공",
                             pathParameters(userPathParams),
                             responseFields(userFields)));
         }
 
         @Test
         @DisplayName("회원 존재하지 않으면 실패")
-        void When_UserNotFound_Expect_Fail() throws Exception {
+        void UserNotFound_Fail() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}", 0L)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("단건조회 회원 존재하지 않으면 실패",
+                    .andDo(document("회원단건조회 - 회원 존재하지 않으면 실패",
                             pathParameters(userPathParams),
                             responseFields(badFields)));
         }
@@ -156,7 +174,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
         @Test
         @DisplayName("성공")
-        void UserDetail_Success() throws Exception {
+        void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}/details", 1L)
                     .contentType(MediaType.APPLICATION_JSON));
@@ -164,22 +182,111 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.username").value("user1"))
-                    .andDo(document("상세조회 성공",
+                    .andDo(document("회원상세조회 - 성공",
                             responseFields(userDetailFields).andWithPrefix("address.", addressElementsFields)));
         }
 
         @Test
         @DisplayName("회원 존재하지 않으면 실패")
-        void When_UserNotFound_Expect_Fail() throws Exception {
+        void UserNotFound_Fail() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}/details", 0L)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("상세조회 회원 존재하지 않으면 실패",
+                    .andDo(document("회원상세조회 - 회원 존재하지 않으면 실패",
                             pathParameters(userPathParams),
                             responseFields(badFields)));
+        }
+    }
+
+    @Nested
+    @DisplayName("수정")
+    class Update {
+        @Test
+        @DisplayName("성공")
+        void Success() throws Exception {
+            //given
+            UserUpdateRequest userUpdateRequest = new UserUpdateRequest(
+                    "updated101",
+                    "https://test.com/updatedTest",
+                    "안녕하세요. 저는 updated101입니다.",
+                    new Address("경기 시흥시 정왕동 2121-3 경기과학기술대학",
+                            "경기 시흥시 경기과기대로 269 경기과학기술대학",
+                            "경기도",
+                            "시흥시",
+                            "정왕동",
+                            15073
+                    )
+            );
+
+            //when
+            ResultActions result = mockMvc.perform(patch("/users/{id}", 101L)
+                    .content(mapper.writeValueAsString(userUpdateRequest))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andDo(document("회원수정 - 성공",
+                            requestFields(userUpdateRequestFields).andWithPrefix("address.", addressElementsFields)
+                    ));
+        }
+
+        @Test
+        @DisplayName("닉네임 길이가 2보다 짧으면 실패")
+        void UsernameSizeIsLessThan2_Fail() throws Exception {
+            //given
+            UserUpdateRequest userUpdateRequest = new UserUpdateRequest(
+                    "u",
+                    "https://test.com/updatedTest",
+                    "안녕하세요. 저는 updated101입니다.",
+                    new Address("경기 시흥시 정왕동 2121-3 경기과학기술대학",
+                            "경기 시흥시 경기과기대로 269 경기과학기술대학",
+                            "경기도",
+                            "시흥시",
+                            "정왕동",
+                            15073
+                    )
+            );
+
+            //when
+            ResultActions result = mockMvc.perform(patch("/users/{id}", 101L)
+                    .content(mapper.writeValueAsString(userUpdateRequest))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andDo(document("회원수정 - 닉네임 길이가 2보다 짧으면 실패",
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
+        }
+
+        @Test
+        @DisplayName("닉네임 길이가 12보다 길면 실패")
+        void UsernameSizeIsGreaterThan12_Fail() throws Exception {
+            //given
+            UserUpdateRequest userUpdateRequest = new UserUpdateRequest(
+                    "updated101updated101",
+                    "https://test.com/updatedTest",
+                    "안녕하세요. 저는 updated101입니다.",
+                    new Address("경기 시흥시 정왕동 2121-3 경기과학기술대학",
+                            "경기 시흥시 경기과기대로 269 경기과학기술대학",
+                            "경기도",
+                            "시흥시",
+                            "정왕동",
+                            15073
+                    )
+            );
+
+            //when
+            ResultActions result = mockMvc.perform(patch("/users/{id}", 101L)
+                    .content(mapper.writeValueAsString(userUpdateRequest))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andDo(document("회원수정 - 닉네임 길이가 12보다 길면 실패",
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
         }
     }
 
@@ -199,7 +306,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isCreated())
-                    .andDo(document("회원가입 성공",
+                    .andDo(document("회원가입 - 성공",
                             requestFields(signupRequestFields)
                     ));
         }
@@ -218,7 +325,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.code").value(ErrorCode.EMAIL_DUPLICATION.getCode()))
-                    .andDo(document("회원가입 이메일 중복 시 실패",
+                    .andDo(document("회원가입 - 이메일 중복 시 실패",
                             responseFields(badFields)));
         }
 
@@ -239,7 +346,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isBadRequest())
 
                     .andExpect(jsonPath("$.code").value(ErrorCode.NICKNAME_EMAIL_DUPLICATION.getCode()))
-                    .andDo(document("회원가입 닉네임 중복 시 실패",
+                    .andDo(document("회원가입 - 닉네임 중복 시 실패",
                             responseFields(badFields)));
         }
 
@@ -256,8 +363,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 이메일 형식 맞지 않으면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
+                    .andDo(document("회원가입 - 이메일 형식 맞지 않으면 실패",
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
         }
 
         @Test
@@ -273,8 +380,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 닉네임 길이가 2보다 짧으면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
+                    .andDo(document("회원가입 - 닉네임 길이가 2보다 짧으면 실패",
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
         }
 
         @Test
@@ -290,8 +397,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 닉네임 길이가 12보다 길면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
+                    .andDo(document("회원가입 - 닉네임 길이가 12보다 길면 실패",
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
         }
 
         @Test
@@ -307,8 +414,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 비밀번호 형식 맞지 않으면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
+                    .andDo(document("회원가입 - 비밀번호 형식 맞지 않으면 실패",
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
         }
 
         @Test
@@ -324,8 +431,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 비밀번호 길이가 8보다 짧으면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
+                    .andDo(document("회원가입 - 비밀번호 길이가 8보다 짧으면 실패",
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
         }
 
         @Test
@@ -341,8 +448,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 비밀번호 길이가 64보다 길면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields).and(badFields)));
+                    .andDo(document("회원가입 - 비밀번호 길이가 64보다 길면 실패",
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
         }
 
     }

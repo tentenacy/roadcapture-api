@@ -19,7 +19,7 @@ public class DBInitializer {
 
     @PostConstruct
     void init() {
-        IntStream.range(1, 11)
+        IntStream.range(1, 111)
                 .map(i -> {
                     userService.signup(new SignupRequest(User.create("user" + i + "@gmail.com", "abcd1234", "user" + i)));
                     return i;
