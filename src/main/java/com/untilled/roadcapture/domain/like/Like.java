@@ -3,7 +3,9 @@ package com.untilled.roadcapture.domain.like;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.base.BaseCreationTimeEntity;
 import com.untilled.roadcapture.domain.user.User;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,8 +13,8 @@ import javax.persistence.*;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter(value = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "likes")
 public class Like extends BaseCreationTimeEntity {
 
@@ -27,4 +29,11 @@ public class Like extends BaseCreationTimeEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public static Like create(Album album, User user) {
+        Like like = new Like();
+        like.setAlbum(album);
+        like.setUser(user);
+        return like;
+    }
 }

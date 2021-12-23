@@ -1,4 +1,4 @@
-package com.untilled.roadcapture;
+package com.untilled.roadcapture.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

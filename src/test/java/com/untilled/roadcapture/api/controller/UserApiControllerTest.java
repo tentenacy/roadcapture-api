@@ -43,20 +43,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("변경할 사용자 주소입니다.").optional(),
     };
 
-
-    private FieldDescriptor[] badFields = new FieldDescriptor[]{
-            fieldWithPath("code").description("에러 코드입니다."),
-            fieldWithPath("status").type(JsonFieldType.NUMBER).description("응답 코드입니다."),
-            fieldWithPath("message").description("에러 메시지입니다."),
-            fieldWithPath("errors").description("필드 에러입니다. 필드 검증 시에만 존재합니다.")
-    };
-
-    private FieldDescriptor[] errorsElementsFields = new FieldDescriptor[]{
-            fieldWithPath("field").description("검증에 실패한 필드명입니다."),
-            fieldWithPath("value").description("검증에 실패한 필드값입니다."),
-            fieldWithPath("reason").description("검증에 실패한 이유입니다.")
-    };
-
     private FieldDescriptor[] usersElementsFields = new FieldDescriptor[]{
             fieldWithPath("id").description("사용자 아이디입니다."),
             fieldWithPath("username").description("사용자 이름입니다."),
@@ -211,7 +197,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
                             "경기도",
                             "시흥시",
                             "정왕동",
-                            15073
+                            "15073"
                     )
             );
 
@@ -240,7 +226,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
                             "경기도",
                             "시흥시",
                             "정왕동",
-                            15073
+                            "15073"
                     )
             );
 
@@ -268,7 +254,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
                             "경기도",
                             "시흥시",
                             "정왕동",
-                            15073
+                            "15073"
                     )
             );
 

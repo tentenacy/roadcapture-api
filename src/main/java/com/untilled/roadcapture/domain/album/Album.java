@@ -3,16 +3,14 @@ package com.untilled.roadcapture.domain.album;
 import com.untilled.roadcapture.domain.base.BaseTimeEntity;
 import com.untilled.roadcapture.domain.comment.Comment;
 import com.untilled.roadcapture.domain.like.Like;
-import com.untilled.roadcapture.domain.location.Location;
 import com.untilled.roadcapture.domain.picture.Picture;
-import com.untilled.roadcapture.domain.place.Place;
 import com.untilled.roadcapture.domain.user.User;
-import lombok.Data;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,8 +19,9 @@ import java.util.Set;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Setter
 @Getter
+@Setter(value = AccessLevel.PROTECTED)
+@ToString
 public class Album extends BaseTimeEntity {
 
     @Id
@@ -36,7 +35,7 @@ public class Album extends BaseTimeEntity {
 
     private String thumbnailUrl;
 
-    private Integer viewCount;
+    private int viewCount;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
@@ -46,13 +45,29 @@ public class Album extends BaseTimeEntity {
     private Set<Like> likes = new HashSet<>();
 
     @OneToMany(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "picture_id")
+    @JoinColumn(name = "album_id")
     private List<Picture> pictures = new ArrayList<>();
-
-    @OneToMany(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "place_id")
-    private List<Place> places = new ArrayList<>();
 
     @OneToMany(mappedBy = "album", fetch = LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
+
+    public static Album create(String title, String description, String thumbnailUrl, List<Picture> pictures, User user) {
+        Album album = new Album();
+        album.setTitle(title);
+        album.setDescription(description);
+        album.setThumbnailUrl(thumbnailUrl);
+        album.pictures.addAll(pictures);
+        album.setUser(user);
+        return album;
+    }
+
+    public void update(String title, String description, String thumbnailUrl) {
+        this.title = title;
+        this.description = description;
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public void addPicture(Picture picture) {
+        this.pictures.add(picture);
+    }
 }

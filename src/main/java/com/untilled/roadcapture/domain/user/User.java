@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.base.BaseTimeEntity;
@@ -14,7 +15,6 @@ import java.util.List;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@ToString
 @Getter @Setter(value = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "USERS")

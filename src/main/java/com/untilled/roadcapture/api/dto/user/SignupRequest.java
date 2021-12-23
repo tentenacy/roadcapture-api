@@ -1,6 +1,7 @@
 package com.untilled.roadcapture.api.dto.user;
 
 import com.untilled.roadcapture.domain.user.User;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.*;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SignupRequest {
     @Email
     private String email;
@@ -23,11 +24,5 @@ public class SignupRequest {
         this.email = email;
         this.password = password;
         this.username = username;
-    }
-
-    public SignupRequest(User user) {
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.username = user.getUsername();
     }
 }
