@@ -2,17 +2,15 @@ spring:
   profiles:
     active: test
   datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521/orcl
-    username: rcdev
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rc-instance.chliztzahdc3.ap-northeast-2.rds.amazonaws.com:3306/mysql?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: root
     password: 1234
   jpa:
     hibernate:
       ddl-auto: create
     generate-ddl: false
     show_sql: true
-    database: oracle
-    database-platform: org.hibernate.dialect.Oracle10gDialect
   data:
     web:
       pageable:
