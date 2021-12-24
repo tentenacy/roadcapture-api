@@ -7,19 +7,14 @@ import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
 import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.domain.user.UserService;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
 import org.springframework.test.web.servlet.ResultActions;
 
-import javax.persistence.Embedded;
-
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -43,51 +38,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("변경할 사용자 주소입니다.").optional(),
     };
 
-    private FieldDescriptor[] usersElementsFields = new FieldDescriptor[]{
-            fieldWithPath("id").description("사용자 아이디입니다."),
-            fieldWithPath("username").description("사용자 이름입니다."),
-            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional()
-    };
-
-    private FieldDescriptor[] userFields = new FieldDescriptor[]{
-            fieldWithPath("id").description("사용자 아이디입니다."),
-            fieldWithPath("username").description("사용자 이름입니다."),
-            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional(),
-            fieldWithPath("introduction").description("사용자 소개글입니다.").optional(),
-    };
-
-    private FieldDescriptor[] userDetailFields = new FieldDescriptor[]{
-            fieldWithPath("id").description("사용자 아이디입니다."),
-            fieldWithPath("email").description("사용자 이메일입니다."),
-            fieldWithPath("username").description("사용자 이름입니다."),
-            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional(),
-            fieldWithPath("introduction").description("사용자 소개글입니다.").optional(),
-            fieldWithPath("address").type(JsonFieldType.OBJECT).description("사용자 주소입니다.").optional(),
-    };
-
-    private FieldDescriptor[] addressElementsFields = new FieldDescriptor[]{
-            fieldWithPath("addressName").type(JsonFieldType.STRING).description("지번주소입니다.").optional(),
-            fieldWithPath("roadAddressName").type(JsonFieldType.STRING).description("도로명주소입니다.").optional(),
-            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("시구명입니다.").optional(),
-            fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("시군구명입니다.").optional(),
-            fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("읍면동명입니다.").optional(),
-            fieldWithPath("zoneNo").type(JsonFieldType.NUMBER).description("우편번호입니다.").optional(),
-    };
-
-    private FieldDescriptor[] placesElementsFields = new FieldDescriptor[]{
-            fieldWithPath("id").type(JsonFieldType.NUMBER).description("장소 아이디입니다.").optional(),
-            fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다.").optional(),
-            fieldWithPath("latitude").type(JsonFieldType.STRING).description("장소 위도입니다.").optional(),
-            fieldWithPath("longitude").type(JsonFieldType.STRING).description("장소 경도입니다.").optional(),
-            fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다.").optional(),
-    };
-
-    private ParameterDescriptor[] usersRequestParams = new ParameterDescriptor[]{
-            parameterWithName("page").description("조회할 페이지입니다. 0부터 시작합니다.").optional(),
-            parameterWithName("size").description("한 페이지에 보여줄 사이즈 수입니다.").optional(),
-            parameterWithName("sort").description("정렬 기준입니다.").optional()
-    };
-
     private ParameterDescriptor[] userPathParams = new ParameterDescriptor[]{
             parameterWithName("id").description("조회할 사용자 아이디입니다."),
     };
@@ -109,8 +59,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
                     .andExpect(jsonPath("$.content[0].username").value("user1"))
                     .andExpect(jsonPath("$.content[1].username").value("user2"))
                     .andDo(document("회원조회 - 성공",
-                            requestParameters(usersRequestParams),
-                            responseFields().andWithPrefix("content.[].", usersElementsFields).and(usersFields)
+                            requestParameters(pageParams),
+                            responseFields().andWithPrefix("content.[].", usersElementsFields).and(pageFields)
                     ));
         }
     }
@@ -163,7 +113,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.username").value("user1"))
                     .andDo(document("회원상세조회 - 성공",
-                            responseFields(userDetailFields).andWithPrefix("address.", addressElementsFields)));
+                            responseFields(userDetailFields).andWithPrefix("address.", addressFields)));
         }
 
         @Test
@@ -209,7 +159,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andDo(document("회원수정 - 성공",
-                            requestFields(userUpdateRequestFields).andWithPrefix("address.", addressElementsFields)
+                            requestFields(userUpdateRequestFields).andWithPrefix("address.", addressFields)
                     ));
         }
 
@@ -238,7 +188,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원수정 - 닉네임 길이가 2보다 짧으면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
         @Test
@@ -266,7 +216,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원수정 - 닉네임 길이가 12보다 길면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
     }
 
@@ -360,7 +310,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원가입 - 이메일 형식 맞지 않으면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
         @Test
@@ -377,7 +327,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원가입 - 닉네임 길이가 2보다 짧으면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
         @Test
@@ -394,7 +344,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원가입 - 닉네임 길이가 12보다 길면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
         @Test
@@ -411,7 +361,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원가입 - 비밀번호 형식 맞지 않으면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
         @Test
@@ -428,7 +378,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원가입 - 비밀번호 길이가 8보다 짧으면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
         @Test
@@ -445,7 +395,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원가입 - 비밀번호 길이가 64보다 길면 실패",
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsElementsFields)));
+                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
     }
