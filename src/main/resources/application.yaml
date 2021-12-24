@@ -26,4 +26,5 @@ server:
 
 logging:
   level:
+    root: info
     org.hibernate: debug
