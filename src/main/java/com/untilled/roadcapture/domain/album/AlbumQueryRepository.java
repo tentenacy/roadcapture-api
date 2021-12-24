@@ -10,5 +10,5 @@ import java.util.Optional;
 
 public interface AlbumQueryRepository {
     Page<AlbumsResponse> search(AlbumSearchCondition cond, Pageable pageable);
-    Optional<Album> get(Long albumId);
+    Optional<Album> getFetchJoin(Long albumId);
 }

@@ -4,6 +4,6 @@ import com.untilled.roadcapture.api.dto.base.ErrorCode;
 
 public class PlaceNotFoundException extends EntityNotFoundException {
     public PlaceNotFoundException() {
-        super(ErrorCode.USER_NOT_FOUND);
+        super(ErrorCode.PLACE_NOT_FOUND);
     }
 }

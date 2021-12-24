@@ -1,14 +1,9 @@
 package com.untilled.roadcapture.domain.album;
 
 import com.untilled.roadcapture.api.dto.album.*;
-import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
-import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
 import com.untilled.roadcapture.api.exception.AlbumNotFoundException;
-import com.untilled.roadcapture.api.exception.PictureNotFoundException;
 import com.untilled.roadcapture.api.exception.UserNotFoundException;
 import com.untilled.roadcapture.domain.picture.Picture;
-import com.untilled.roadcapture.domain.picture.PictureRepository;
-import com.untilled.roadcapture.domain.place.PlaceRepository;
 import com.untilled.roadcapture.domain.user.User;
 import com.untilled.roadcapture.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +30,7 @@ public class AlbumService {
     }
 
     public AlbumResponse getAlbum(Long albumId) {
-        return new AlbumResponse(albumRepository.get(albumId).orElseThrow(AlbumNotFoundException::new));
+        return new AlbumResponse(albumRepository.getFetchJoin(albumId).orElseThrow(AlbumNotFoundException::new));
     }
 
     @Transactional

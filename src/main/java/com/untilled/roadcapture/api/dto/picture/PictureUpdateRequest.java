@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -15,6 +16,7 @@ public class PictureUpdateRequest {
 
     @NotNull
     private Long id;
+    @NotEmpty
     private String imageUrl;
     private String description;
     private PlaceUpdateRequest place;

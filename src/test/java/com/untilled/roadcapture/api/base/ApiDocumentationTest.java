@@ -72,7 +72,7 @@ public abstract class ApiDocumentationTest {
 
     protected FieldDescriptor[] albumCreateRequestFields = new FieldDescriptor[]{
             fieldWithPath("title").description("앨범 제목입니다."),
-            fieldWithPath("description").description("앨범 설명입니다."),
+            fieldWithPath("description").description("앨범 설명입니다.").optional(),
             fieldWithPath("thumbnailUrl").description("앨범 썸네일 이미지 주소입니다."),
             fieldWithPath("pictures").type(JsonFieldType.ARRAY).description("앨범 사진 리스트입니다."),
             fieldWithPath("userId").description("앨범 등록자 아이디입니다."),
@@ -80,7 +80,7 @@ public abstract class ApiDocumentationTest {
 
     protected FieldDescriptor[] albumUpdateRequestFields = new FieldDescriptor[]{
             fieldWithPath("title").description("앨범 제목입니다."),
-            fieldWithPath("description").description("앨범 설명입니다."),
+            fieldWithPath("description").description("앨범 설명입니다.").optional(),
             fieldWithPath("thumbnailUrl").description("앨범 썸네일 이미지 주소입니다."),
             fieldWithPath("pictures").type(JsonFieldType.ARRAY).description("앨범 사진 리스트입니다."),
     };
@@ -90,7 +90,7 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("createdAt").description("앨범 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").description("앨범 수정 시각입니다."),
             fieldWithPath("title").description("앨범 제목입니다."),
-            fieldWithPath("description").description("앨범 설명입니다."),
+            fieldWithPath("description").description("앨범 설명입니다.").optional(),
             fieldWithPath("thumbnailUrl").description("앨범 썸네일 이미지 주소입니다."),
             fieldWithPath("viewCount").type(JsonFieldType.NUMBER).description("앨범 조회수입니다."),
             fieldWithPath("user").type(JsonFieldType.OBJECT).description("앨범 등록자입니다."),
@@ -104,7 +104,7 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("createdAt").description("앨범 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").description("앨범 수정 시각입니다."),
             fieldWithPath("title").description("앨범 제목입니다."),
-            fieldWithPath("description").description("앨범 설명입니다."),
+            fieldWithPath("description").description("앨범 설명입니다.").optional(),
             fieldWithPath("thumbnailUrl").description("앨범 썸네일 이미지 주소입니다."),
             fieldWithPath("user").type(JsonFieldType.OBJECT).description("앨범 등록자입니다."),
             fieldWithPath("viewCount").type(JsonFieldType.NUMBER).description("앨범 조회수입니다."),
@@ -118,7 +118,7 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
-            fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다."),
+            fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다.").optional(),
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
     };
 
@@ -132,14 +132,14 @@ public abstract class ApiDocumentationTest {
 
     protected FieldDescriptor[] pictureCreateRequestFields = new FieldDescriptor[]{
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
-            fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다."),
+            fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다.").optional(),
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
     };
 
     protected FieldDescriptor[] pictureUpdateRequestFields = new FieldDescriptor[]{
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("사진 이미지 주소입니다."),
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
-            fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다."),
+            fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다.").optional(),
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
     };
 
@@ -153,16 +153,15 @@ public abstract class ApiDocumentationTest {
     };
 
     protected FieldDescriptor[] placeCreateRequestFields = new FieldDescriptor[]{
-            fieldWithPath("id").type(JsonFieldType.NUMBER).description("장소 아이디입니다.").optional(),
-            fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다.").optional(),
+            fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다."),
             fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다.").optional(),
             fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다.").optional(),
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다.").optional(),
     };
 
     protected FieldDescriptor[] placeUpdateRequestFields = new FieldDescriptor[]{
-            fieldWithPath("id").type(JsonFieldType.NUMBER).description("장소 아이디입니다.").optional(),
-            fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다.").optional(),
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("장소 아이디입니다."),
+            fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다."),
             fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다.").optional(),
             fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다.").optional(),
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다.").optional(),
