@@ -46,7 +46,8 @@ public class UserService {
     }
 
     public Page<UsersResponse> getUsers(Pageable pageable) {
-        return userRepository.findAll(pageable).map(UsersResponse::new);
+//        return userRepository.findAll(pageable).map(UsersResponse::new);
+        return userRepository.search(pageable);
     }
 
     public UserResponse getUser(Long userId) {

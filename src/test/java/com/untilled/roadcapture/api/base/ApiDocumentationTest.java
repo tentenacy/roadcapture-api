@@ -173,6 +173,12 @@ public abstract class ApiDocumentationTest {
             parameterWithName("sort").description("정렬 기준입니다.").optional()
     };
 
+    protected ParameterDescriptor[] albumsParams = new ParameterDescriptor[]{
+            parameterWithName("dateTimeFrom").description("조회할 앨범의 최소 시각입니다.").optional(),
+            parameterWithName("dateTimeTo").description("조회할 앨범의 최대 시각입니다.").optional(),
+    };
+
+
     protected FieldDescriptor[] pageFields = new FieldDescriptor[]{
             fieldWithPath("content").type(JsonFieldType.ARRAY).description("페이지 요소 리스트입니다."),
             fieldWithPath("last").type(JsonFieldType.BOOLEAN).description("마지막 페이지 여부입니다."),

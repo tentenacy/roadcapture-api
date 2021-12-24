@@ -89,7 +89,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andDo(document("앨범조회 - 성공",
-                            requestParameters(pageParams),
+                            requestParameters(pageParams).and(albumsParams),
                             responseFields(pageFields)
                                     .andWithPrefix("content.[].", albumsFields)
                                     .andWithPrefix("content.[].user.", usersElementsFields)));

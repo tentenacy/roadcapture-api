@@ -1,7 +1,11 @@
 package com.untilled.roadcapture.domain.album;
 
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.untilled.roadcapture.api.dto.album.AlbumSearchCondition;
 import com.untilled.roadcapture.api.dto.album.AlbumsResponse;
@@ -9,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -32,8 +37,9 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
 
     @Override
     public Page<AlbumsResponse> search(AlbumSearchCondition cond, Pageable pageable) {
+        log.info("offset={}, limit={}", pageable.getOffset(), pageable.getPageSize());
         log.info("loe={}, goe={}", cond.getDateTimeTo(), cond.getDateTimeFrom());
-        QueryResults<Album> result = queryFactory
+        JPAQuery<Album> query = queryFactory
                 .selectFrom(album)
                 .join(album.user, user).fetchJoin()
                 .where(
@@ -41,8 +47,15 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         dateTimeGoe(cond.getDateTimeFrom())
                 )
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetchResults();
+                .limit(pageable.getPageSize());
+
+        for (Sort.Order o : pageable.getSort()) {
+            PathBuilder pathBuilder = new PathBuilder(album.getType(), album.getMetadata());
+            query.orderBy(new OrderSpecifier<>(o.isAscending() ? Order.ASC : Order.DESC,
+                    pathBuilder.get(o.getProperty())));
+        }
+
+        QueryResults<Album> result = query.fetchResults();
 
         //카운트 쿼리 필요에 따라 날라감
         return new PageImpl(result.getResults().stream().map(AlbumsResponse::new).collect(Collectors.toList()), pageable, result.getTotal());
