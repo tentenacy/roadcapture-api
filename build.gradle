@@ -1,11 +1,12 @@
 buildscript {
 	ext {
-		queryDslVersion = "5.0.0"
+		queryDslVersion = "4.4.0"
+		swaggerVersion = "3.0.0"
 	}
 }
 
 plugins {
-	id 'org.springframework.boot' version '2.6.1'
+	id 'org.springframework.boot' version '2.5.8'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
@@ -42,6 +43,8 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5', version: '2.11.3'
 	implementation 'mysql:mysql-connector-java'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation "io.springfox:springfox-boot-starter:${swaggerVersion}"
+	implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
@@ -82,23 +85,25 @@ openapi3 {
 	format = 'yaml'
 }
 
-test {
-	outputs.dir snippetsDir
-	useJUnitPlatform()
+task createOpenApi {
+	dependsOn 'openapi3'
+	doLast {
+		copy {
+			from 'build/api-spec'
+			include '*.yaml'
+			into 'src/main/resources/static/docs'
+		}
+	}
 }
 
-asciidoctor {
-	inputs.dir snippetsDir
-	dependsOn test
+bootJar {
+	dependsOn 'openapi3'
+	from ("build/api-spec") {
+		include "*.yaml"
+		into "static/docs"
+	}
 }
 
-task copyDocument(type: Copy) {
-	dependsOn asciidoctor
-
-	from file("build/api-spec")
-	into file("src/main/resources/static/docs")
-}
-
-build {
-	dependsOn copyDocument
+bootRun {
+	dependsOn 'createOpenApi'
 }
