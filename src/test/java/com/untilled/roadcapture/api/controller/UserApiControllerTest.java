@@ -25,23 +25,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
     private UserService userService;
 
-    private FieldDescriptor[] signupRequestFields = new FieldDescriptor[]{
-            fieldWithPath("email").description("사용자 이메일입니다. 이메일 형식이어야 합니다."),
-            fieldWithPath("password").description("사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상에서 최대 64자 이하여야 합니다."),
-            fieldWithPath("username").description("사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.")
-    };
-
-    private FieldDescriptor[] userUpdateRequestFields = new FieldDescriptor[]{
-            fieldWithPath("username").description("변경할 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.").optional(),
-            fieldWithPath("profileImageUrl").description("변경할 사용자 프로필 사진입니다. 주소 형식여야 합니다.").optional(),
-            fieldWithPath("introduction").description("변경할 사용자 소개입니다. 최대 200자 이하여야 합니다.").optional(),
-            fieldWithPath("address").type(JsonFieldType.OBJECT).description("변경할 사용자 주소입니다.").optional(),
-    };
-
-    private ParameterDescriptor[] userPathParams = new ParameterDescriptor[]{
-            parameterWithName("id").description("조회할 사용자 아이디입니다."),
-    };
-
     @Nested
     @DisplayName("조회")
     class Users {

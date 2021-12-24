@@ -92,4 +92,30 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
         }
     }
 
+    @Nested
+    @DisplayName("단건조회")
+    class Album {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/albums/{id}", 174L)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id").value(174L))
+                    .andDo(document("앨범단건조회 - 성공",
+                            pathParameters(albumPathParams),
+                            responseFields(albumFields)
+                                    .andWithPrefix("user.", usersElementsFields)
+                                    .andWithPrefix("pictures.[].", pictureFields)
+                                    .andWithPrefix("pictures.[].place.", placeFields)
+                                    .andWithPrefix("pictures.[].place.address.", addressFields)));
+        }
+    }
+
 }
