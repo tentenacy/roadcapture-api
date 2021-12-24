@@ -85,8 +85,19 @@ openapi3 {
 	format = 'yaml'
 }
 
+test {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
 task createOpenApi {
 	dependsOn 'openapi3'
+	dependsOn asciidoctor
 	doLast {
 		copy {
 			from 'build/api-spec'
