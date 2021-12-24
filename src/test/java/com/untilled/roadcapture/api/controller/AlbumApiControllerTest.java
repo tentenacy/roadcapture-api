@@ -171,4 +171,25 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
         }
     }
 
+    @Nested
+    @DisplayName("삭제")
+    class Delete {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(delete("/albums/{id}", 174L)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isNoContent())
+                    .andDo(document("앨범삭제 - 성공",
+                                    pathParameters(albumPathParams)));
+
+        }
+    }
+
 }
