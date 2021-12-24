@@ -58,6 +58,7 @@ public class AlbumApiController {
     }
 
     @DeleteMapping("/{albumId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long albumId) {
         albumService.delete(albumId);
     }
