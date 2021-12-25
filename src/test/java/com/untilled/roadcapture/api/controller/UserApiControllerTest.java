@@ -55,12 +55,12 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("성공")
         void Success() throws Exception {
             //when
-            ResultActions result = mockMvc.perform(get("/users/{id}", 1L)
+            ResultActions result = mockMvc.perform(get("/users/{id}", 2L)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.username").value("user1"))
+                    .andExpect(jsonPath("$.username").value("user2"))
                     .andDo(document("회원단건조회 - 성공",
                             pathParameters(userPathParams),
                             responseFields(userFields)));
@@ -89,12 +89,12 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("성공")
         void Success() throws Exception {
             //when
-            ResultActions result = mockMvc.perform(get("/users/{id}/details", 1L)
+            ResultActions result = mockMvc.perform(get("/users/{id}/details", 2L)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.username").value("user1"))
+                    .andExpect(jsonPath("$.username").value("user2"))
                     .andDo(document("회원상세조회 - 성공",
                             responseFields(userDetailFields).andWithPrefix("address.", addressFields)));
         }
@@ -135,7 +135,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             );
 
             //when
-            ResultActions result = mockMvc.perform(patch("/users/{id}", 101L)
+            ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
                     .content(mapper.writeValueAsString(userUpdateRequest))
                     .contentType(MediaType.APPLICATION_JSON));
 
@@ -164,7 +164,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             );
 
             //when
-            ResultActions result = mockMvc.perform(patch("/users/{id}", 101L)
+            ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
                     .content(mapper.writeValueAsString(userUpdateRequest))
                     .contentType(MediaType.APPLICATION_JSON));
 
@@ -192,7 +192,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             );
 
             //when
-            ResultActions result = mockMvc.perform(patch("/users/{id}", 101L)
+            ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
                     .content(mapper.writeValueAsString(userUpdateRequest))
                     .contentType(MediaType.APPLICATION_JSON));
 
@@ -212,7 +212,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(delete("/users/{id}", 101L)
+            ResultActions result = mockMvc.perform(delete("/users/{id}", 2L)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then

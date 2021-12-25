@@ -25,7 +25,7 @@ public class DBInitializer {
 
     @PostConstruct
     void init() {
-        IntStream.range(1, 111)
+        IntStream.range(1, 51)
                 .map(i -> {
                     userService.signup(new SignupRequest("user" + i + "@gmail.com", "abcd1234", "user" + i));
                     return i;
@@ -44,7 +44,7 @@ public class DBInitializer {
                             )
                     ));
                 });
-        IntStream.range(1, 111)
+        IntStream.range(1, 51)
                 .forEach(i -> {
                     albumService.create(new AlbumCreateRequest(
                             "볼거리가 가득한 국내 여행지 " + i,

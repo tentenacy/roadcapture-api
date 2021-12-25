@@ -97,7 +97,7 @@ asciidoctor {
 
 task createOpenApi {
 	dependsOn 'openapi3'
-	dependsOn asciidoctor
+	dependsOn 'asciidoctor'
 	doLast {
 		copy {
 			from 'build/api-spec'
@@ -115,6 +115,6 @@ bootJar {
 	}
 }
 
-bootRun {
-	dependsOn 'createOpenApi'
+build {
+	dependsOn createOpenApi
 }

@@ -21,7 +21,7 @@ public class AlbumsResponse {
     private UsersResponse user;
     private int viewCount;
     private Integer likeCount;
-    private Integer commentCount;
+    private int commentCount;
 
     public AlbumsResponse(Album album) {
         this.id = album.getId();
@@ -33,6 +33,5 @@ public class AlbumsResponse {
         this.user = new UsersResponse(album.getUser());
         this.viewCount = album.getViewCount();
         this.likeCount = album.getLikes().size();
-        this.commentCount = album.getComments().size();
     }
 }

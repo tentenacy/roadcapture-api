@@ -54,7 +54,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                                     )
                             )
                     )),
-                    101L
+                    2L
             );
 
             //when
@@ -181,7 +181,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(delete("/albums/{id}", 174L)
+            ResultActions result = mockMvc.perform(delete("/albums/{id}", 51L)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then

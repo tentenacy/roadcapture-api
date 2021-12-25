@@ -3,7 +3,7 @@ spring:
     active: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mysql?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/roadcapture?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: root
     password: 1234
   jpa:

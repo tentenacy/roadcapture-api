@@ -28,7 +28,7 @@ public class AlbumResponse {
     private Integer viewCount;
     private UsersResponse user;
     private Integer likeCount;
-    private Integer commentCount;
+    private int commentCount;
     private List<PictureResponse> pictures;
 
     public AlbumResponse(Album album) {
@@ -41,7 +41,6 @@ public class AlbumResponse {
         this.viewCount = album.getViewCount();
         this.user = new UsersResponse(album.getUser());
         this.likeCount = album.getLikes().size();
-        this.commentCount = album.getComments().size();
         this.pictures = album.getPictures().stream().map(PictureResponse::new).collect(Collectors.toList());
     }
 }

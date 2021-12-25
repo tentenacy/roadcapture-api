@@ -2,7 +2,9 @@ package com.untilled.roadcapture.domain.comment;
 
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.base.BaseTimeEntity;
+import com.untilled.roadcapture.domain.picture.Picture;
 import com.untilled.roadcapture.domain.user.User;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +16,7 @@ import java.util.List;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Getter @Setter
+@Getter @Setter(value = AccessLevel.PROTECTED)
 @Table(name = "comments")
 public class Comment extends BaseTimeEntity {
 
@@ -29,7 +31,10 @@ public class Comment extends BaseTimeEntity {
     private User user;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "album_id")
-    private Album album;
+    @JoinColumn(name = "picture_id")
+    private Picture picture;
 
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
 }

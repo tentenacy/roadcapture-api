@@ -21,18 +21,4 @@ public class PictureQueryRepositoryImpl extends QuerydslRepositorySupport implem
         super(Picture.class);
         this.queryFactory = queryFactory;
     }
-
-    @Override
-    public Optional<List<Picture>> getPicturesByAlbumId(Long albumId) {
-
-        List<Picture> pictures = queryFactory
-                .select(picture)
-                .from(picture, album)
-                .join(album.pictures, picture)
-                .on(album.id.eq(albumId))
-                .distinct()
-                .fetch();
-
-        return Optional.ofNullable(pictures);
-    }
 }
