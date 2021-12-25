@@ -54,71 +54,71 @@ paths:
                 $ref: '#/components/schemas/albums1485267483'
               examples:
                 앨범조회 - 성공:
-                  value: "{\"content\":[{\"id\":51,\"createdAt\":\"2021-12-26T01:21:55.743404\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.743404\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":51,\"createdAt\":\"2021-12-26T04:49:32.593805\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.593805\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 1\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":54,\"createdAt\":\"2021-12-26T01:21:55.780404\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.780404\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":55,\"createdAt\":\"2021-12-26T04:49:32.643985\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.643985\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 2\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":2,\"username\":\"user2\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":57,\"createdAt\":\"2021-12-26T01:21:55.804403\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.804403\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":59,\"createdAt\":\"2021-12-26T04:49:32.677628\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.677628\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 3\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":3,\"username\":\"user3\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":60,\"createdAt\":\"2021-12-26T01:21:55.824402\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.824402\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":63,\"createdAt\":\"2021-12-26T04:49:32.718215\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.718215\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 4\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":4,\"username\":\"user4\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":63,\"createdAt\":\"2021-12-26T01:21:55.844404\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.844404\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":67,\"createdAt\":\"2021-12-26T04:49:32.790933\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.790933\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 5\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":5,\"username\":\"user5\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":66,\"createdAt\":\"2021-12-26T01:21:55.864405\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.864405\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":71,\"createdAt\":\"2021-12-26T04:49:32.860856\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.860856\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 6\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":6,\"username\":\"user6\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":69,\"createdAt\":\"2021-12-26T01:21:55.884405\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.884405\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":75,\"createdAt\":\"2021-12-26T04:49:32.911823\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.911823\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 7\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":7,\"username\":\"user7\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":72,\"createdAt\":\"2021-12-26T01:21:55.908337\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.908337\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":79,\"createdAt\":\"2021-12-26T04:49:32.94187\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.94187\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 8\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":8,\"username\":\"user8\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":75,\"createdAt\":\"2021-12-26T01:21:55.928838\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.928838\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":83,\"createdAt\":\"2021-12-26T04:49:32.97096\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.97096\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 9\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":9,\"username\":\"user9\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":78,\"createdAt\":\"2021-12-26T01:21:55.947605\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:55.947605\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":87,\"createdAt\":\"2021-12-26T04:49:32.99965\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.99965\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 10\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":10,\"username\":\"user10\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
                     :0,\"commentCount\":0}],\"pageable\":{\"sort\":{\"empty\":true,\"\
-                    unsorted\":true,\"sorted\":false},\"offset\":0,\"pageSize\":10,\"\
-                    pageNumber\":0,\"unpaged\":false,\"paged\":true},\"last\":false,\"\
-                    totalPages\":5,\"totalElements\":50,\"size\":10,\"number\":0,\"\
-                    sort\":{\"empty\":true,\"unsorted\":true,\"sorted\":false},\"\
+                    sorted\":false,\"unsorted\":true},\"offset\":0,\"pageNumber\"\
+                    :0,\"pageSize\":10,\"paged\":true,\"unpaged\":false},\"last\"\
+                    :false,\"totalPages\":5,\"totalElements\":50,\"size\":10,\"number\"\
+                    :0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
                     first\":true,\"numberOfElements\":10,\"empty\":false}"
     post:
       tags:
@@ -164,17 +164,17 @@ paths:
                 $ref: '#/components/schemas/albums-id1265395297'
               examples:
                 앨범단건조회 - 성공:
-                  value: "{\"id\":174,\"createdAt\":\"2021-12-26T01:21:56.753574\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T01:21:56.753574\",\"title\":\"\
-                    볼거리가 가득한 국내 여행지 42\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
+                  value: "{\"id\":51,\"createdAt\":\"2021-12-26T04:49:32.593805\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.593805\",\"title\":\"\
+                    볼거리가 가득한 국내 여행지 1\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
-                    ,\"viewCount\":0,\"user\":{\"id\":42,\"username\":\"user42\",\"\
+                    ,\"viewCount\":0,\"user\":{\"id\":1,\"username\":\"user1\",\"\
                     profileImageUrl\":\"https://www.test.com/test\"},\"likeCount\"\
-                    :0,\"commentCount\":0,\"pictures\":[{\"id\":175,\"createdAt\"\
-                    :\"2021-12-26T01:21:56.758031\",\"lastModifiedAt\":\"2021-12-26T01:21:56.758031\"\
+                    :0,\"commentCount\":0,\"pictures\":[{\"id\":52,\"createdAt\":\"\
+                    2021-12-26T04:49:32.600804\",\"lastModifiedAt\":\"2021-12-26T04:49:32.600804\"\
                     ,\"imageUrl\":\"https://www.test.com/test\",\"description\":\"\
-                    저번에 이어 이번에도 그 목적지로 향했습니다.\",\"place\":{\"id\":176,\"name\":\"곡\
-                    교천 은행나무길\",\"latitude\":36.1112512,\"longitude\":27.1146346,\"\
+                    저번에 이어 이번에도 그 목적지로 향했습니다.\",\"place\":{\"id\":53,\"name\":\"곡교\
+                    천 은행나무길\",\"latitude\":36.1112512,\"longitude\":27.1146346,\"\
                     address\":{\"addressName\":\"충남 아산시 염치읍 백암리 502-3\",\"roadAddressName\"\
                     :null,\"region1DepthName\":\"충남\",\"region2DepthName\":\"아산시\"\
                     ,\"region3DepthName\":\"염치읍\",\"zoneNo\":\"336-813\"}}}]}"
@@ -198,9 +198,9 @@ paths:
               앨범수정 - 성공:
                 value: "{\"title\":\"볼거리가 가득한 국내 여행지!!!\",\"description\":\"전국의 아름\
                   다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\"\
-                  :\"https://www.test.com/test\",\"pictures\":[{\"id\":175,\"imageUrl\"\
+                  :\"https://www.test.com/test\",\"pictures\":[{\"id\":52,\"imageUrl\"\
                   :\"https://www.test.com/test\",\"description\":\"저번에 이어 이번에도 그 목\
-                  적지로 향했습니다!!!\",\"place\":{\"id\":176,\"name\":\"그 은행나무!!!\",\"latitude\"\
+                  적지로 향했습니다!!!\",\"place\":{\"id\":53,\"name\":\"그 은행나무!!!\",\"latitude\"\
                   :36.1112512,\"longitude\":27.1146346,\"address\":{\"addressName\"\
                   :\"충남 아산시 염치읍 백암리 502-3\",\"roadAddressName\":\"\",\"region1DepthName\"\
                   :\"충남\",\"region2DepthName\":\"아산시\",\"region3DepthName\":\"염치읍\"\
@@ -216,6 +216,27 @@ paths:
       - name: id
         in: path
         description: 조회할 앨범 아이디입니다.
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: "204"
+  /pictures/{pictureId}/comments/{commentId}:
+    delete:
+      tags:
+      - pictures
+      operationId: 댓글삭제 - 성공
+      parameters:
+      - name: pictureId
+        in: path
+        description: 사진 아이디입니다.
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: 댓글 아이디입니다.
         required: true
         schema:
           type: string
@@ -266,11 +287,11 @@ paths:
                     },{\"id\":8,\"username\":\"user8\",\"profileImageUrl\":\"https://www.test.com/test\"\
                     },{\"id\":9,\"username\":\"user9\",\"profileImageUrl\":\"https://www.test.com/test\"\
                     },{\"id\":10,\"username\":\"user10\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }],\"pageable\":{\"sort\":{\"empty\":false,\"unsorted\":false,\"\
-                    sorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    unpaged\":false,\"paged\":true},\"last\":false,\"totalPages\"\
+                    }],\"pageable\":{\"sort\":{\"empty\":false,\"sorted\":true,\"\
+                    unsorted\":false},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":false,\"totalPages\"\
                     :5,\"totalElements\":50,\"size\":10,\"number\":0,\"sort\":{\"\
-                    empty\":false,\"unsorted\":false,\"sorted\":true},\"first\":true,\"\
+                    empty\":false,\"sorted\":true,\"unsorted\":false},\"first\":true,\"\
                     numberOfElements\":10,\"empty\":false}"
     post:
       tags:
@@ -492,6 +513,41 @@ paths:
                 회원상세조회 - 회원 존재하지 않으면 실패:
                   value: "{\"code\":\"USR-003\",\"status\":400,\"message\":\"사용자가\
                     \ 존재하지 않습니다.\",\"errors\":[]}"
+  /users/{userId}/albums/{albumId}/pictures/{pictureId}/comments:
+    post:
+      tags:
+      - users
+      operationId: 댓글등록 - 성공
+      parameters:
+      - name: userId
+        in: path
+        description: 사용자 아이디입니다.
+        required: true
+        schema:
+          type: string
+      - name: albumId
+        in: path
+        description: 앨범 아이디입니다.
+        required: true
+        schema:
+          type: string
+      - name: pictureId
+        in: path
+        description: 사진 아이디입니다.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/users-userId-albums-albumId-pictures-pictureId-comments-608006242'
+            examples:
+              댓글등록 - 성공:
+                value: "{\"content\":\"후기 감사합니다.\"}"
+      responses:
+        "201":
+          description: "201"
 components:
   schemas:
     users-id-details-883544378:
@@ -833,6 +889,12 @@ components:
         status:
           type: number
           description: 응답 코드입니다.
+    users-userId-albums-albumId-pictures-pictureId-comments-608006242:
+      type: object
+      properties:
+        content:
+          type: string
+          description: 댓글 내용입니다.
     albums-id1265395297:
       type: object
       properties:

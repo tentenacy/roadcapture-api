@@ -106,12 +106,12 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(get("/albums/{id}", 174L)
+            ResultActions result = mockMvc.perform(get("/albums/{id}", 51L)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.id").value(174L))
+                    .andExpect(jsonPath("$.id").value(51L))
                     .andDo(document("앨범단건조회 - 성공",
                             pathParameters(albumPathParams),
                             responseFields(albumFields)
@@ -135,11 +135,11 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                     "https://www.test.com/test",
                     Arrays.asList(new PictureUpdateRequest(
-                            175L,
+                            52L,
                             "https://www.test.com/test",
                             "저번에 이어 이번에도 그 목적지로 향했습니다!!!",
                             new PlaceUpdateRequest(
-                                    176L,
+                                    53L,
                                     "그 은행나무!!!",
                                     36.1112512,
                                     27.1146346,
@@ -156,7 +156,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             );
 
             //when
-            ResultActions result = mockMvc.perform(put("/albums/{id}", 174L)
+            ResultActions result = mockMvc.perform(put("/albums/{id}", 51L)
                     .content(mapper.writeValueAsString(request))
                     .contentType(MediaType.APPLICATION_JSON));
 

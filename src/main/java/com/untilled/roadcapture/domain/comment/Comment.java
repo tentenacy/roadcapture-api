@@ -37,4 +37,11 @@ public class Comment extends BaseTimeEntity {
     public void setPicture(Picture picture) {
         this.picture = picture;
     }
+
+    public static Comment create(String content, User user) {
+        Comment comment = new Comment();
+        comment.setContent(content);
+        comment.setUser(user);
+        return comment;
+    }
 }

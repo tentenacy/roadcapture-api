@@ -35,6 +35,9 @@ public enum ErrorCode {
 
     //PLACE
     PLACE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "PLC-001", "장소가 존재하지 않습니다."),
+
+    //COMMENT
+    COMMENT_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "CMT-001", "댓글이 존재하지 않습니다."),
             ;
 
     private final String code;

@@ -1,12 +1,14 @@
 package com.untilled.roadcapture.config;
 
 import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
+import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
 import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
 import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.domain.album.AlbumService;
+import com.untilled.roadcapture.domain.comment.CommentService;
 import com.untilled.roadcapture.domain.user.User;
 import com.untilled.roadcapture.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class DBInitializer {
 
     private final UserService userService;
     private final AlbumService albumService;
+    private final CommentService commentService;
 
     @PostConstruct
     void init() {
@@ -68,6 +71,7 @@ public class DBInitializer {
                             )),
                             Long.valueOf(i)
                     ));
+                    commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 4 - 2), new CommentCreateRequest("후기 감사합니다."));
                 });
     }
 }

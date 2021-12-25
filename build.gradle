@@ -85,14 +85,9 @@ openapi3 {
 	format = 'yaml'
 }
 
-test {
-	outputs.dir snippetsDir
-	useJUnitPlatform()
-}
-
 asciidoctor {
 	inputs.dir snippetsDir
-	dependsOn test
+	outputs.dir snippetsDir
 }
 
 task createOpenApi {
