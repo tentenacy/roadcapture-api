@@ -62,7 +62,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Optional<Album> getFetchJoin(Long albumId) {
+    public Optional<Album> getAlbum(Long albumId) {
         Album foundAlbum = queryFactory
                 .selectFrom(album)
                 .join(album.user, user).fetchJoin()

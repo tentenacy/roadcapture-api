@@ -1,6 +1,8 @@
 package com.untilled.roadcapture.domain.comment;
 
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
+import com.untilled.roadcapture.api.dto.comment.CommentsResponse;
+import com.untilled.roadcapture.api.exception.AlbumNotFoundException;
 import com.untilled.roadcapture.api.exception.CommentNotFoundException;
 import com.untilled.roadcapture.api.exception.PictureNotFoundException;
 import com.untilled.roadcapture.api.exception.UserNotFoundException;
@@ -10,6 +12,8 @@ import com.untilled.roadcapture.domain.user.User;
 import com.untilled.roadcapture.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +37,14 @@ public class CommentService {
     @Transactional
     public void delete(Long pictureId, Long commentId) {
         getPictureIfExists(pictureId).removeComment(getCommentIfExists(commentId));
+    }
+
+    public Page<CommentsResponse> pictureComments(Long pictureId, Pageable pageable) {
+        return commentRepository.getPictureComments(pictureId, pageable);
+    }
+
+    public Page<CommentsResponse> albumComments(Long albumId, Pageable pageable) {
+        return commentRepository.getAlbumComments(albumId, pageable);
     }
 
     private Comment getCommentIfExists(Long commentId) {

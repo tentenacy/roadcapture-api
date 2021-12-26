@@ -54,62 +54,62 @@ paths:
                 $ref: '#/components/schemas/albums1485267483'
               examples:
                 앨범조회 - 성공:
-                  value: "{\"content\":[{\"id\":51,\"createdAt\":\"2021-12-26T04:49:32.593805\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.593805\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":51,\"createdAt\":\"2021-12-26T09:59:37.624927\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.624927\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 1\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":55,\"createdAt\":\"2021-12-26T04:49:32.643985\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.643985\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":55,\"createdAt\":\"2021-12-26T09:59:37.709639\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.709639\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 2\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":2,\"username\":\"user2\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":59,\"createdAt\":\"2021-12-26T04:49:32.677628\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.677628\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":59,\"createdAt\":\"2021-12-26T09:59:37.746391\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.746391\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 3\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":3,\"username\":\"user3\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":63,\"createdAt\":\"2021-12-26T04:49:32.718215\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.718215\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":63,\"createdAt\":\"2021-12-26T09:59:37.784391\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.784391\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 4\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":4,\"username\":\"user4\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":67,\"createdAt\":\"2021-12-26T04:49:32.790933\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.790933\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":67,\"createdAt\":\"2021-12-26T09:59:37.825287\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.825287\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 5\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":5,\"username\":\"user5\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":71,\"createdAt\":\"2021-12-26T04:49:32.860856\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.860856\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":71,\"createdAt\":\"2021-12-26T09:59:37.862616\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.862616\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 6\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":6,\"username\":\"user6\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":75,\"createdAt\":\"2021-12-26T04:49:32.911823\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.911823\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":75,\"createdAt\":\"2021-12-26T09:59:37.898499\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.898499\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 7\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":7,\"username\":\"user7\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":79,\"createdAt\":\"2021-12-26T04:49:32.94187\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.94187\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":79,\"createdAt\":\"2021-12-26T09:59:37.934552\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.934552\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 8\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":8,\"username\":\"user8\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":83,\"createdAt\":\"2021-12-26T04:49:32.97096\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.97096\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":83,\"createdAt\":\"2021-12-26T09:59:37.972501\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.972501\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 9\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":9,\"username\":\"user9\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":87,\"createdAt\":\"2021-12-26T04:49:32.99965\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.99965\",\"title\":\"\
+                    :0,\"commentCount\":0},{\"id\":87,\"createdAt\":\"2021-12-26T09:59:38.005726\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:38.005726\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 10\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":10,\"username\":\"user10\",\"profileImageUrl\"\
@@ -117,7 +117,7 @@ paths:
                     :0,\"commentCount\":0}],\"pageable\":{\"sort\":{\"empty\":true,\"\
                     sorted\":false,\"unsorted\":true},\"offset\":0,\"pageNumber\"\
                     :0,\"pageSize\":10,\"paged\":true,\"unpaged\":false},\"last\"\
-                    :false,\"totalPages\":5,\"totalElements\":50,\"size\":10,\"number\"\
+                    :false,\"totalElements\":50,\"totalPages\":5,\"size\":10,\"number\"\
                     :0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
                     first\":true,\"numberOfElements\":10,\"empty\":false}"
     post:
@@ -164,14 +164,14 @@ paths:
                 $ref: '#/components/schemas/albums-id1265395297'
               examples:
                 앨범단건조회 - 성공:
-                  value: "{\"id\":51,\"createdAt\":\"2021-12-26T04:49:32.593805\"\
-                    ,\"lastModifiedAt\":\"2021-12-26T04:49:32.593805\",\"title\":\"\
+                  value: "{\"id\":51,\"createdAt\":\"2021-12-26T09:59:37.624927\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T09:59:37.624927\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 1\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"viewCount\":0,\"user\":{\"id\":1,\"username\":\"user1\",\"\
                     profileImageUrl\":\"https://www.test.com/test\"},\"likeCount\"\
                     :0,\"commentCount\":0,\"pictures\":[{\"id\":52,\"createdAt\":\"\
-                    2021-12-26T04:49:32.600804\",\"lastModifiedAt\":\"2021-12-26T04:49:32.600804\"\
+                    2021-12-26T09:59:37.636992\",\"lastModifiedAt\":\"2021-12-26T09:59:37.636992\"\
                     ,\"imageUrl\":\"https://www.test.com/test\",\"description\":\"\
                     저번에 이어 이번에도 그 목적지로 향했습니다.\",\"place\":{\"id\":53,\"name\":\"곡교\
                     천 은행나무길\",\"latitude\":36.1112512,\"longitude\":27.1146346,\"\
@@ -222,6 +222,148 @@ paths:
       responses:
         "204":
           description: "204"
+  /albums/{albumId}/pictures/comments:
+    get:
+      tags:
+      - albums
+      operationId: 앨범댓글조회 - 성공
+      parameters:
+      - name: albumId
+        in: path
+        description: 앨범 아이디입니다.
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: 조회할 페이지입니다. 0부터 시작합니다.
+        required: false
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 한 페이지에 보여줄 사이즈 수입니다.
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 정렬 기준입니다.
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pictures-pictureId-comments706793048'
+              examples:
+                앨범댓글조회 - 성공:
+                  value: "{\"content\":[{\"pictureId\":52,\"createdAt\":\"2021-12-26T10:40:04.90931\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T10:40:04.90931\",\"content\"\
+                    :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"pictureId\":52,\"createdAt\"\
+                    :\"2021-12-26T10:40:04.940468\",\"lastModifiedAt\":\"2021-12-26T10:40:04.940468\"\
+                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
+                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
+                    pictureId\":52,\"createdAt\":\"2021-12-26T10:40:04.965666\",\"\
+                    lastModifiedAt\":\"2021-12-26T10:40:04.965666\",\"content\":\"\
+                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"pictureId\":52,\"createdAt\"\
+                    :\"2021-12-26T10:40:04.989206\",\"lastModifiedAt\":\"2021-12-26T10:40:04.989206\"\
+                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
+                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
+                    pictureId\":52,\"createdAt\":\"2021-12-26T10:40:05.017925\",\"\
+                    lastModifiedAt\":\"2021-12-26T10:40:05.017925\",\"content\":\"\
+                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"pictureId\":54,\"createdAt\"\
+                    :\"2021-12-26T10:40:04.927603\",\"lastModifiedAt\":\"2021-12-26T10:40:04.927603\"\
+                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
+                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
+                    pictureId\":54,\"createdAt\":\"2021-12-26T10:40:04.953233\",\"\
+                    lastModifiedAt\":\"2021-12-26T10:40:04.953233\",\"content\":\"\
+                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"pictureId\":54,\"createdAt\"\
+                    :\"2021-12-26T10:40:04.97771\",\"lastModifiedAt\":\"2021-12-26T10:40:04.97771\"\
+                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
+                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
+                    pictureId\":54,\"createdAt\":\"2021-12-26T10:40:05.004844\",\"\
+                    lastModifiedAt\":\"2021-12-26T10:40:05.004844\",\"content\":\"\
+                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"pictureId\":54,\"createdAt\"\
+                    :\"2021-12-26T10:40:05.031451\",\"lastModifiedAt\":\"2021-12-26T10:40:05.031451\"\
+                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
+                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}}],\"\
+                    pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\"\
+                    :true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"unpaged\"\
+                    :false,\"paged\":true},\"last\":true,\"totalElements\":10,\"totalPages\"\
+                    :1,\"size\":10,\"first\":true,\"number\":0,\"sort\":{\"empty\"\
+                    :true,\"sorted\":false,\"unsorted\":true},\"numberOfElements\"\
+                    :10,\"empty\":false}"
+  /pictures/{pictureId}/comments:
+    get:
+      tags:
+      - pictures
+      operationId: 사진댓글조회 - 성공
+      parameters:
+      - name: pictureId
+        in: path
+        description: 사진 아이디입니다.
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: 조회할 페이지입니다. 0부터 시작합니다.
+        required: false
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 한 페이지에 보여줄 사이즈 수입니다.
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 정렬 기준입니다.
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pictures-pictureId-comments706793048'
+              examples:
+                사진댓글조회 - 성공:
+                  value: "{\"content\":[{\"pictureId\":52,\"createdAt\":\"2021-12-26T10:40:04.90931\"\
+                    ,\"lastModifiedAt\":\"2021-12-26T10:40:04.90931\",\"content\"\
+                    :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"pictureId\":52,\"createdAt\"\
+                    :\"2021-12-26T10:40:04.940468\",\"lastModifiedAt\":\"2021-12-26T10:40:04.940468\"\
+                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
+                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
+                    pictureId\":52,\"createdAt\":\"2021-12-26T10:40:04.965666\",\"\
+                    lastModifiedAt\":\"2021-12-26T10:40:04.965666\",\"content\":\"\
+                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"pictureId\":52,\"createdAt\"\
+                    :\"2021-12-26T10:40:04.989206\",\"lastModifiedAt\":\"2021-12-26T10:40:04.989206\"\
+                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
+                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
+                    pictureId\":52,\"createdAt\":\"2021-12-26T10:40:05.017925\",\"\
+                    lastModifiedAt\":\"2021-12-26T10:40:05.017925\",\"content\":\"\
+                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}}],\"pageable\":{\"sort\":{\"empty\"\
+                    :true,\"sorted\":false,\"unsorted\":true},\"offset\":0,\"pageNumber\"\
+                    :0,\"pageSize\":10,\"unpaged\":false,\"paged\":true},\"last\"\
+                    :true,\"totalElements\":5,\"totalPages\":1,\"size\":10,\"first\"\
+                    :true,\"number\":0,\"sort\":{\"empty\":true,\"sorted\":false,\"\
+                    unsorted\":true},\"numberOfElements\":5,\"empty\":false}"
   /pictures/{pictureId}/comments/{commentId}:
     delete:
       tags:
@@ -289,10 +431,10 @@ paths:
                     },{\"id\":10,\"username\":\"user10\",\"profileImageUrl\":\"https://www.test.com/test\"\
                     }],\"pageable\":{\"sort\":{\"empty\":false,\"sorted\":true,\"\
                     unsorted\":false},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
-                    paged\":true,\"unpaged\":false},\"last\":false,\"totalPages\"\
-                    :5,\"totalElements\":50,\"size\":10,\"number\":0,\"sort\":{\"\
-                    empty\":false,\"sorted\":true,\"unsorted\":false},\"first\":true,\"\
-                    numberOfElements\":10,\"empty\":false}"
+                    paged\":true,\"unpaged\":false},\"last\":false,\"totalElements\"\
+                    :50,\"totalPages\":5,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
+                    :false,\"sorted\":true,\"unsorted\":false},\"first\":true,\"numberOfElements\"\
+                    :10,\"empty\":false}"
     post:
       tags:
       - users
@@ -550,39 +692,6 @@ paths:
           description: "201"
 components:
   schemas:
-    users-id-details-883544378:
-      type: object
-      properties:
-        code:
-          type: string
-          description: 에러 코드입니다.
-        message:
-          type: string
-          description: 에러 메시지입니다.
-        errors:
-          type: array
-          description: 필드 에러입니다. 필드 검증 시에만 존재합니다.
-          items:
-            oneOf:
-            - type: object
-            - type: boolean
-            - type: string
-            - type: number
-        status:
-          type: number
-          description: 응답 코드입니다.
-    users-725712466:
-      type: object
-      properties:
-        password:
-          type: string
-          description: 사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상에서 최대 64자 이하여야 합니다.
-        email:
-          type: string
-          description: 사용자 이메일입니다. 이메일 형식이어야 합니다.
-        username:
-          type: string
-          description: 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
     users-id1467703423:
       type: object
       properties:
@@ -694,6 +803,260 @@ components:
         username:
           type: string
           description: 변경할 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
+    users-395173474:
+      type: object
+      properties:
+        code:
+          type: string
+          description: 에러 코드입니다.
+        message:
+          type: string
+          description: 에러 메시지입니다.
+        errors:
+          type: array
+          description: 필드 에러입니다. 필드 검증 시에만 존재합니다.
+          items:
+            type: object
+            properties:
+              reason:
+                type: string
+                description: 검증에 실패한 이유입니다.
+              field:
+                type: string
+                description: 검증에 실패한 필드명입니다.
+              value:
+                type: string
+                description: 검증에 실패한 필드값입니다.
+        status:
+          type: number
+          description: 응답 코드입니다.
+    albums-id1265395297:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: 앨범 생성 시각입니다.
+        lastModifiedAt:
+          type: string
+          description: 앨범 수정 시각입니다.
+        description:
+          type: string
+          description: 앨범 설명입니다.
+        likeCount:
+          type: number
+          description: 앨범 좋아요수입니다.
+        viewCount:
+          type: number
+          description: 앨범 조회수입니다.
+        id:
+          type: number
+          description: 앨범 아이디입니다.
+        title:
+          type: string
+          description: 앨범 제목입니다.
+        user:
+          type: object
+          properties:
+            id:
+              type: number
+              description: 사용자 아이디입니다.
+            profileImageUrl:
+              type: string
+              description: 사용자 프로필 사진입니다.
+            username:
+              type: string
+              description: 사용자 이름입니다.
+          description: 앨범 등록자입니다.
+        pictures:
+          type: array
+          description: 앨범 사진 리스트입니다.
+          items:
+            type: object
+            properties:
+              createdAt:
+                type: string
+                description: 사진 생성 시각입니다.
+              lastModifiedAt:
+                type: string
+                description: 사진 수정 시각입니다.
+              imageUrl:
+                type: string
+                description: 사진 이미지 주소입니다.
+              description:
+                type: string
+                description: 사진 설명입니다.
+              place:
+                type: object
+                properties:
+                  address:
+                    type: object
+                    properties:
+                      region2DepthName:
+                        type: string
+                        description: 시군구명입니다.
+                      zoneNo:
+                        type: string
+                        description: 우편번호입니다.
+                      region3DepthName:
+                        type: string
+                        description: 읍면동명입니다.
+                      roadAddressName:
+                        type: string
+                        description: 도로명주소입니다.
+                      region1DepthName:
+                        type: string
+                        description: 시구명입니다.
+                      addressName:
+                        type: string
+                        description: 지번주소입니다.
+                    description: 장소 주소입니다.
+                  latitude:
+                    type: number
+                    description: 장소 위도입니다.
+                  name:
+                    type: string
+                    description: 장소 이름입니다.
+                  id:
+                    type: number
+                    description: 장소 아이디입니다.
+                  longitude:
+                    type: number
+                    description: 장소 경도입니다.
+                description: 사진 장소입니다.
+              id:
+                type: number
+                description: 사진 아이디입니다.
+        commentCount:
+          type: number
+          description: 앨범 댓글수입니다.
+        thumbnailUrl:
+          type: string
+          description: 앨범 썸네일 이미지 주소입니다.
+    users-id-details1674013768:
+      type: object
+      properties:
+        address:
+          type: object
+          properties:
+            region2DepthName:
+              type: string
+              description: 시군구명입니다.
+            zoneNo:
+              type: string
+              description: 우편번호입니다.
+            region3DepthName:
+              type: string
+              description: 읍면동명입니다.
+            roadAddressName:
+              type: string
+              description: 도로명주소입니다.
+            region1DepthName:
+              type: string
+              description: 시구명입니다.
+            addressName:
+              type: string
+              description: 지번주소입니다.
+          description: 사용자 주소입니다.
+        id:
+          type: number
+          description: 사용자 아이디입니다.
+        profileImageUrl:
+          type: string
+          description: 사용자 프로필 사진입니다.
+        introduction:
+          type: string
+          description: 사용자 소개글입니다.
+        email:
+          type: string
+          description: 사용자 이메일입니다.
+        username:
+          type: string
+          description: 사용자 이름입니다.
+    users-id-details-883544378:
+      type: object
+      properties:
+        code:
+          type: string
+          description: 에러 코드입니다.
+        message:
+          type: string
+          description: 에러 메시지입니다.
+        errors:
+          type: array
+          description: 필드 에러입니다. 필드 검증 시에만 존재합니다.
+          items:
+            oneOf:
+            - type: object
+            - type: boolean
+            - type: string
+            - type: number
+        status:
+          type: number
+          description: 응답 코드입니다.
+    users-725712466:
+      type: object
+      properties:
+        password:
+          type: string
+          description: 사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상에서 최대 64자 이하여야 합니다.
+        email:
+          type: string
+          description: 사용자 이메일입니다. 이메일 형식이어야 합니다.
+        username:
+          type: string
+          description: 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
+    pictures-pictureId-comments706793048:
+      type: object
+      properties:
+        size:
+          type: number
+          description: 한 페이지에 보여줄 사이즈 수입니다.
+        last:
+          type: boolean
+          description: 마지막 페이지 여부입니다.
+        totalPages:
+          type: number
+          description: 전체 페이지 수입니다.
+        content:
+          type: array
+          description: 페이지 요소 리스트입니다.
+          items:
+            type: object
+            properties:
+              createdAt:
+                type: string
+                description: 댓글 생성 시각입니다.
+              lastModifiedAt:
+                type: string
+                description: 댓글 수정 시각입니다.
+              pictureId:
+                type: number
+                description: 사진 아이디입니다.
+              user:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: 사용자 아이디입니다.
+                  profileImageUrl:
+                    type: string
+                    description: 사용자 프로필 사진입니다.
+                  username:
+                    type: string
+                    description: 사용자 이름입니다.
+                description: 댓글 작성자입니다.
+              content:
+                type: string
+                description: 댓글 내용입니다.
+        first:
+          type: boolean
+          description: 첫 페이지 여부입니다.
+        empty:
+          type: boolean
+          description: 리스트가 비어 있는지 여부입니다.
+        totalElements:
+          type: number
+          description: 전체 요소 수입니다.
     users-804852034:
       type: object
       properties:
@@ -862,178 +1225,9 @@ components:
         totalElements:
           type: number
           description: 전체 요소 수입니다.
-    users-395173474:
-      type: object
-      properties:
-        code:
-          type: string
-          description: 에러 코드입니다.
-        message:
-          type: string
-          description: 에러 메시지입니다.
-        errors:
-          type: array
-          description: 필드 에러입니다. 필드 검증 시에만 존재합니다.
-          items:
-            type: object
-            properties:
-              reason:
-                type: string
-                description: 검증에 실패한 이유입니다.
-              field:
-                type: string
-                description: 검증에 실패한 필드명입니다.
-              value:
-                type: string
-                description: 검증에 실패한 필드값입니다.
-        status:
-          type: number
-          description: 응답 코드입니다.
     users-userId-albums-albumId-pictures-pictureId-comments-608006242:
       type: object
       properties:
         content:
           type: string
           description: 댓글 내용입니다.
-    albums-id1265395297:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          description: 앨범 생성 시각입니다.
-        lastModifiedAt:
-          type: string
-          description: 앨범 수정 시각입니다.
-        description:
-          type: string
-          description: 앨범 설명입니다.
-        likeCount:
-          type: number
-          description: 앨범 좋아요수입니다.
-        viewCount:
-          type: number
-          description: 앨범 조회수입니다.
-        id:
-          type: number
-          description: 앨범 아이디입니다.
-        title:
-          type: string
-          description: 앨범 제목입니다.
-        user:
-          type: object
-          properties:
-            id:
-              type: number
-              description: 사용자 아이디입니다.
-            profileImageUrl:
-              type: string
-              description: 사용자 프로필 사진입니다.
-            username:
-              type: string
-              description: 사용자 이름입니다.
-          description: 앨범 등록자입니다.
-        pictures:
-          type: array
-          description: 앨범 사진 리스트입니다.
-          items:
-            type: object
-            properties:
-              createdAt:
-                type: string
-                description: 사진 생성 시각입니다.
-              lastModifiedAt:
-                type: string
-                description: 사진 수정 시각입니다.
-              imageUrl:
-                type: string
-                description: 사진 이미지 주소입니다.
-              description:
-                type: string
-                description: 사진 설명입니다.
-              place:
-                type: object
-                properties:
-                  address:
-                    type: object
-                    properties:
-                      region2DepthName:
-                        type: string
-                        description: 시군구명입니다.
-                      zoneNo:
-                        type: string
-                        description: 우편번호입니다.
-                      region3DepthName:
-                        type: string
-                        description: 읍면동명입니다.
-                      roadAddressName:
-                        type: string
-                        description: 도로명주소입니다.
-                      region1DepthName:
-                        type: string
-                        description: 시구명입니다.
-                      addressName:
-                        type: string
-                        description: 지번주소입니다.
-                    description: 장소 주소입니다.
-                  latitude:
-                    type: number
-                    description: 장소 위도입니다.
-                  name:
-                    type: string
-                    description: 장소 이름입니다.
-                  id:
-                    type: number
-                    description: 장소 아이디입니다.
-                  longitude:
-                    type: number
-                    description: 장소 경도입니다.
-                description: 사진 장소입니다.
-              id:
-                type: number
-                description: 사진 아이디입니다.
-        commentCount:
-          type: number
-          description: 앨범 댓글수입니다.
-        thumbnailUrl:
-          type: string
-          description: 앨범 썸네일 이미지 주소입니다.
-    users-id-details1674013768:
-      type: object
-      properties:
-        address:
-          type: object
-          properties:
-            region2DepthName:
-              type: string
-              description: 시군구명입니다.
-            zoneNo:
-              type: string
-              description: 우편번호입니다.
-            region3DepthName:
-              type: string
-              description: 읍면동명입니다.
-            roadAddressName:
-              type: string
-              description: 도로명주소입니다.
-            region1DepthName:
-              type: string
-              description: 시구명입니다.
-            addressName:
-              type: string
-              description: 지번주소입니다.
-          description: 사용자 주소입니다.
-        id:
-          type: number
-          description: 사용자 아이디입니다.
-        profileImageUrl:
-          type: string
-          description: 사용자 프로필 사진입니다.
-        introduction:
-          type: string
-          description: 사용자 소개글입니다.
-        email:
-          type: string
-          description: 사용자 이메일입니다.
-        username:
-          type: string
-          description: 사용자 이름입니다.

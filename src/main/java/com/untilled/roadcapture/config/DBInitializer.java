@@ -68,10 +68,29 @@ public class DBInitializer {
                                                     "336-813"
                                             )
                                     )
-                            )),
+                            ),
+                                    new PictureCreateRequest(
+                                            "https://www.test.com/test",
+                                            "저번에 이어 이번에도 그 목적지로 향했습니다.",
+                                            new PlaceCreateRequest("곡교천 은행나무길",
+                                                    36.1112512,
+                                                    27.1146346,
+                                                    new Address(
+                                                            "충남 아산시 염치읍 백암리 502-3",
+                                                            null,
+                                                            "충남",
+                                                            "아산시",
+                                                            "염치읍",
+                                                            "336-813"
+                                                    )
+                                            )
+                                    )),
                             Long.valueOf(i)
                     ));
-                    commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 4 - 2), new CommentCreateRequest("후기 감사합니다."));
+                    IntStream.range(0, 5).forEach(j -> {
+                        commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 15 - 13), new CommentCreateRequest("후기 감사합니다."));
+                        commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 15 - 11), new CommentCreateRequest("후기 감사합니다."));
+                    });
                 });
     }
 }

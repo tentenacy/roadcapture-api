@@ -47,7 +47,21 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             parameterWithName("commentId").description("댓글 아이디입니다."),
     };
 
+    protected FieldDescriptor[] commentsFields = new FieldDescriptor[]{
+            fieldWithPath("pictureId").type(JsonFieldType.NUMBER).description("사진 아이디입니다."),
+            fieldWithPath("createdAt").type(JsonFieldType.STRING).description("댓글 생성 시각입니다."),
+            fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시각입니다."),
+            fieldWithPath("content").type(JsonFieldType.STRING).description("댓글 내용입니다."),
+            fieldWithPath("user").type(JsonFieldType.OBJECT).description("댓글 작성자입니다."),
+    };
 
+    protected ParameterDescriptor[] albumCommentsPathParams = new ParameterDescriptor[]{
+            parameterWithName("albumId").description("앨범 아이디입니다."),
+    };
+
+    protected ParameterDescriptor[] pictureCommentsPathParams = new ParameterDescriptor[]{
+            parameterWithName("pictureId").description("사진 아이디입니다."),
+    };
 
     @Nested
     @DisplayName("등록")
@@ -82,13 +96,64 @@ class CommentApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(delete("/pictures/{pictureId}/comments/{commentId}",
-                    52L, 54L)
+                    52L, 56L)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isNoContent())
                     .andDo(document("댓글삭제 - 성공",
                             pathParameters(commentDeletePathParams)));
+        }
+    }
+
+    @Nested
+    @DisplayName("앨범댓글조회")
+    class AlbumComments {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/albums/{albumId}/pictures/comments", 51L)
+//                    .param("albumId", String.valueOf(51L))
+//                    .param("pictureId", String.valueOf(52L))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andDo(document("앨범댓글조회 - 성공",
+                            pathParameters(albumCommentsPathParams),
+                            requestParameters(pageParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", commentsFields)
+                                    .andWithPrefix("content.[].user.", usersElementsFields)));
+        }
+    }
+
+    @Nested
+    @DisplayName("사진댓글조회")
+    class PictureComments {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/pictures/{pictureId}/comments", 52L)
+//                    .param("pictureId", String.valueOf(52L))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andDo(document("사진댓글조회 - 성공",
+                            pathParameters(pictureCommentsPathParams),
+                            requestParameters(pageParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", commentsFields)
+                                    .andWithPrefix("content.[].user.", usersElementsFields)));
         }
     }
 
