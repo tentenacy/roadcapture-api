@@ -242,50 +242,50 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/albums-albumId-pictures-comments706793048'
+                $ref: '#/components/schemas/albums-albumId-pictures-comments-118929108'
               examples:
                 앨범댓글조회 - 성공:
-                  value: "{\"content\":[{\"pictureId\":52,\"createdAt\":\"2021-12-27T00:46:35.393174\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:35.393174\",\"content\"\
+                  value: "{\"content\":[{\"id\":56,\"pictureId\":52,\"createdAt\"\
+                    :\"2021-12-27T01:12:35.650999\",\"lastModifiedAt\":\"2021-12-27T01:12:35.650999\"\
+                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
+                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
+                    id\":58,\"pictureId\":52,\"createdAt\":\"2021-12-27T01:12:35.715999\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.715999\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}},{\"pictureId\":52,\"createdAt\"\
-                    :\"2021-12-27T00:46:35.428174\",\"lastModifiedAt\":\"2021-12-27T00:46:35.428174\"\
-                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
-                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    pictureId\":52,\"createdAt\":\"2021-12-27T00:46:35.457174\",\"\
-                    lastModifiedAt\":\"2021-12-27T00:46:35.457174\",\"content\":\"\
+                    :\"https://www.test.com/test\"}},{\"id\":60,\"pictureId\":52,\"\
+                    createdAt\":\"2021-12-27T01:12:35.748013\",\"lastModifiedAt\"\
+                    :\"2021-12-27T01:12:35.748013\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
+                    }},{\"id\":62,\"pictureId\":52,\"createdAt\":\"2021-12-27T01:12:35.778034\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.778034\",\"content\"\
+                    :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"id\":64,\"pictureId\":52,\"\
+                    createdAt\":\"2021-12-27T01:12:35.806751\",\"lastModifiedAt\"\
+                    :\"2021-12-27T01:12:35.806751\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
+                    }},{\"id\":57,\"pictureId\":54,\"createdAt\":\"2021-12-27T01:12:35.695\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.695\",\"content\":\"\
                     후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}},{\"pictureId\":52,\"createdAt\"\
-                    :\"2021-12-27T00:46:35.538185\",\"lastModifiedAt\":\"2021-12-27T00:46:35.538185\"\
-                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
-                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    pictureId\":52,\"createdAt\":\"2021-12-27T00:46:35.565186\",\"\
-                    lastModifiedAt\":\"2021-12-27T00:46:35.565186\",\"content\":\"\
-                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}},{\"pictureId\":54,\"createdAt\"\
-                    :\"2021-12-27T00:46:35.415177\",\"lastModifiedAt\":\"2021-12-27T00:46:35.415177\"\
-                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
-                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    pictureId\":54,\"createdAt\":\"2021-12-27T00:46:35.442175\",\"\
-                    lastModifiedAt\":\"2021-12-27T00:46:35.442175\",\"content\":\"\
-                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}},{\"pictureId\":54,\"createdAt\"\
-                    :\"2021-12-27T00:46:35.472174\",\"lastModifiedAt\":\"2021-12-27T00:46:35.472174\"\
-                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
-                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    pictureId\":54,\"createdAt\":\"2021-12-27T00:46:35.551186\",\"\
-                    lastModifiedAt\":\"2021-12-27T00:46:35.551186\",\"content\":\"\
-                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}},{\"pictureId\":54,\"createdAt\"\
-                    :\"2021-12-27T00:46:35.579186\",\"lastModifiedAt\":\"2021-12-27T00:46:35.579186\"\
-                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
-                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}}],\"\
-                    pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\"\
-                    :true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"paged\"\
-                    :true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"totalElements\"\
-                    :10,\"size\":10,\"number\":0,\"sort\":{\"empty\":true,\"sorted\"\
-                    :false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :10,\"empty\":false}"
+                    :\"https://www.test.com/test\"}},{\"id\":59,\"pictureId\":54,\"\
+                    createdAt\":\"2021-12-27T01:12:35.73403\",\"lastModifiedAt\":\"\
+                    2021-12-27T01:12:35.73403\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
+                    }},{\"id\":61,\"pictureId\":54,\"createdAt\":\"2021-12-27T01:12:35.762022\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.762022\",\"content\"\
+                    :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"id\":63,\"pictureId\":54,\"\
+                    createdAt\":\"2021-12-27T01:12:35.794917\",\"lastModifiedAt\"\
+                    :\"2021-12-27T01:12:35.794917\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
+                    }},{\"id\":65,\"pictureId\":54,\"createdAt\":\"2021-12-27T01:12:35.820217\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.820217\",\"content\"\
+                    :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}}],\"pageable\":{\"sort\":{\"unsorted\"\
+                    :true,\"sorted\":false,\"empty\":true},\"pageSize\":10,\"pageNumber\"\
+                    :0,\"offset\":0,\"paged\":true,\"unpaged\":false},\"last\":true,\"\
+                    totalPages\":1,\"totalElements\":10,\"first\":true,\"numberOfElements\"\
+                    :10,\"size\":10,\"number\":0,\"sort\":{\"unsorted\":true,\"sorted\"\
+                    :false,\"empty\":true},\"empty\":false}"
   /pictures/{pictureId}/comments:
     get:
       tags:
@@ -322,32 +322,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/albums-albumId-pictures-comments706793048'
+                $ref: '#/components/schemas/albums-albumId-pictures-comments-118929108'
               examples:
                 사진댓글조회 - 성공:
-                  value: "{\"content\":[{\"pictureId\":52,\"createdAt\":\"2021-12-27T00:46:35.393174\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:35.393174\",\"content\"\
+                  value: "{\"content\":[{\"id\":56,\"pictureId\":52,\"createdAt\"\
+                    :\"2021-12-27T01:12:35.650999\",\"lastModifiedAt\":\"2021-12-27T01:12:35.650999\"\
+                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
+                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
+                    id\":58,\"pictureId\":52,\"createdAt\":\"2021-12-27T01:12:35.715999\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.715999\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}},{\"pictureId\":52,\"createdAt\"\
-                    :\"2021-12-27T00:46:35.428174\",\"lastModifiedAt\":\"2021-12-27T00:46:35.428174\"\
-                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
-                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    pictureId\":52,\"createdAt\":\"2021-12-27T00:46:35.457174\",\"\
-                    lastModifiedAt\":\"2021-12-27T00:46:35.457174\",\"content\":\"\
-                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}},{\"pictureId\":52,\"createdAt\"\
-                    :\"2021-12-27T00:46:35.538185\",\"lastModifiedAt\":\"2021-12-27T00:46:35.538185\"\
-                    ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
-                    user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    pictureId\":52,\"createdAt\":\"2021-12-27T00:46:35.565186\",\"\
-                    lastModifiedAt\":\"2021-12-27T00:46:35.565186\",\"content\":\"\
-                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}}],\"pageable\":{\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"offset\":0,\"pageSize\"\
-                    :10,\"pageNumber\":0,\"paged\":true,\"unpaged\":false},\"last\"\
-                    :true,\"totalPages\":1,\"totalElements\":5,\"size\":10,\"number\"\
-                    :0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
-                    first\":true,\"numberOfElements\":5,\"empty\":false}"
+                    :\"https://www.test.com/test\"}},{\"id\":60,\"pictureId\":52,\"\
+                    createdAt\":\"2021-12-27T01:12:35.748013\",\"lastModifiedAt\"\
+                    :\"2021-12-27T01:12:35.748013\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
+                    }},{\"id\":62,\"pictureId\":52,\"createdAt\":\"2021-12-27T01:12:35.778034\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.778034\",\"content\"\
+                    :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    :\"https://www.test.com/test\"}},{\"id\":64,\"pictureId\":52,\"\
+                    createdAt\":\"2021-12-27T01:12:35.806751\",\"lastModifiedAt\"\
+                    :\"2021-12-27T01:12:35.806751\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
+                    }}],\"pageable\":{\"sort\":{\"unsorted\":true,\"sorted\":false,\"\
+                    empty\":true},\"pageSize\":10,\"pageNumber\":0,\"offset\":0,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
+                    totalElements\":5,\"first\":true,\"numberOfElements\":5,\"size\"\
+                    :10,\"number\":0,\"sort\":{\"unsorted\":true,\"sorted\":false,\"\
+                    empty\":true},\"empty\":false}"
   /pictures/{pictureId}/comments/{commentId}:
     delete:
       tags:
@@ -669,7 +670,7 @@ paths:
       responses:
         "201":
           description: "201"
-  /users/{userId}/albums/{albumId}/pictures/{pictureId}/comments:
+  /users/{userId}/albums/pictures/{pictureId}/comments:
     post:
       tags:
       - users
@@ -678,12 +679,6 @@ paths:
       - name: userId
         in: path
         description: 사용자 아이디입니다.
-        required: true
-        schema:
-          type: string
-      - name: albumId
-        in: path
-        description: 앨범 아이디입니다.
         required: true
         schema:
           type: string
@@ -697,7 +692,7 @@ paths:
         content:
           application/json;charset=UTF-8:
             schema:
-              $ref: '#/components/schemas/users-userId-albums-albumId-pictures-pictureId-comments-608006242'
+              $ref: '#/components/schemas/users-userId-albums-pictures-pictureId-comments-608006242'
             examples:
               댓글등록 - 성공:
                 value: "{\"content\":\"후기 감사합니다.\"}"
@@ -721,6 +716,61 @@ components:
         username:
           type: string
           description: 사용자 이름입니다.
+    albums-albumId-pictures-comments-118929108:
+      type: object
+      properties:
+        size:
+          type: number
+          description: 한 페이지에 보여줄 사이즈 수입니다.
+        last:
+          type: boolean
+          description: 마지막 페이지 여부입니다.
+        totalPages:
+          type: number
+          description: 전체 페이지 수입니다.
+        content:
+          type: array
+          description: 페이지 요소 리스트입니다.
+          items:
+            type: object
+            properties:
+              createdAt:
+                type: string
+                description: 댓글 생성 시각입니다.
+              lastModifiedAt:
+                type: string
+                description: 댓글 수정 시각입니다.
+              pictureId:
+                type: number
+                description: 사진 아이디입니다.
+              id:
+                type: number
+                description: 댓글 아이디입니다.
+              user:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: 사용자 아이디입니다.
+                  profileImageUrl:
+                    type: string
+                    description: 사용자 프로필 사진입니다.
+                  username:
+                    type: string
+                    description: 사용자 이름입니다.
+                description: 댓글 작성자입니다.
+              content:
+                type: string
+                description: 댓글 내용입니다.
+        first:
+          type: boolean
+          description: 첫 페이지 여부입니다.
+        empty:
+          type: boolean
+          description: 리스트가 비어 있는지 여부입니다.
+        totalElements:
+          type: number
+          description: 전체 요소 수입니다.
     users-id-1546980116:
       type: object
       properties:
@@ -1016,58 +1066,6 @@ components:
         thumbnailUrl:
           type: string
           description: 앨범 썸네일 이미지 주소입니다.
-    albums-albumId-pictures-comments706793048:
-      type: object
-      properties:
-        size:
-          type: number
-          description: 한 페이지에 보여줄 사이즈 수입니다.
-        last:
-          type: boolean
-          description: 마지막 페이지 여부입니다.
-        totalPages:
-          type: number
-          description: 전체 페이지 수입니다.
-        content:
-          type: array
-          description: 페이지 요소 리스트입니다.
-          items:
-            type: object
-            properties:
-              createdAt:
-                type: string
-                description: 댓글 생성 시각입니다.
-              lastModifiedAt:
-                type: string
-                description: 댓글 수정 시각입니다.
-              pictureId:
-                type: number
-                description: 사진 아이디입니다.
-              user:
-                type: object
-                properties:
-                  id:
-                    type: number
-                    description: 사용자 아이디입니다.
-                  profileImageUrl:
-                    type: string
-                    description: 사용자 프로필 사진입니다.
-                  username:
-                    type: string
-                    description: 사용자 이름입니다.
-                description: 댓글 작성자입니다.
-              content:
-                type: string
-                description: 댓글 내용입니다.
-        first:
-          type: boolean
-          description: 첫 페이지 여부입니다.
-        empty:
-          type: boolean
-          description: 리스트가 비어 있는지 여부입니다.
-        totalElements:
-          type: number
-          description: 전체 요소 수입니다.
     users-804852034:
       type: object
       properties:
@@ -1169,6 +1167,12 @@ components:
         thumbnailUrl:
           type: string
           description: 앨범 썸네일 이미지 주소입니다.
+    users-userId-albums-pictures-pictureId-comments-608006242:
+      type: object
+      properties:
+        content:
+          type: string
+          description: 댓글 내용입니다.
     albums1485267483:
       type: object
       properties:
@@ -1236,9 +1240,3 @@ components:
         totalElements:
           type: number
           description: 전체 요소 수입니다.
-    users-userId-albums-albumId-pictures-pictureId-comments-608006242:
-      type: object
-      properties:
-        content:
-          type: string
-          description: 댓글 내용입니다.

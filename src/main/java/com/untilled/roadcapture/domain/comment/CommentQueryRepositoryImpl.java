@@ -38,6 +38,7 @@ public class CommentQueryRepositoryImpl extends QuerydslRepositorySupport implem
     public Page<CommentsResponse> getPictureComments(Long pictureId, Pageable pageable) {
         JPAQuery<CommentsResponse> query = queryFactory
                 .select(Projections.constructor(CommentsResponse.class,
+                        comment.id,
                         picture.id,
                         comment.createdAt,
                         comment.lastModifiedAt,
@@ -70,6 +71,7 @@ public class CommentQueryRepositoryImpl extends QuerydslRepositorySupport implem
 
         JPAQuery<CommentsResponse> query = queryFactory
                 .select(Projections.constructor(CommentsResponse.class,
+                        comment.id,
                         picture.id,
                         comment.createdAt,
                         comment.lastModifiedAt,

@@ -47,6 +47,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
     };
 
     protected FieldDescriptor[] commentsFields = new FieldDescriptor[]{
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("댓글 아이디입니다."),
             fieldWithPath("pictureId").type(JsonFieldType.NUMBER).description("사진 아이디입니다."),
             fieldWithPath("createdAt").type(JsonFieldType.STRING).description("댓글 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시각입니다."),

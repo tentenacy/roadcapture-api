@@ -11,13 +11,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentsResponse {
 
+    private Long id;
     private Long pictureId;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
     private String content;
     private UsersResponse user;
 
-    public CommentsResponse(Long pictureId, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String content, UsersResponse user) {
+    public CommentsResponse(Long id, Long pictureId, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String content, UsersResponse user) {
+        this.id = id;
         this.pictureId = pictureId;
         this.createdAt = createdAt;
         this.lastModifiedAt = lastModifiedAt;
