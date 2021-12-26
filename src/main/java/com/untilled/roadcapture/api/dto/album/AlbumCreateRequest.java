@@ -23,14 +23,11 @@ public class AlbumCreateRequest {
     private String thumbnailUrl;
     @NotNull
     private List<PictureCreateRequest> pictures;
-    @NotNull
-    private Long userId;
 
-    public AlbumCreateRequest(String title, String description, String thumbnailUrl, List<PictureCreateRequest> pictures, Long userId) {
+    public AlbumCreateRequest(String title, String description, String thumbnailUrl, List<PictureCreateRequest> pictures) {
         this.title = title;
         this.description = description;
         this.thumbnailUrl = thumbnailUrl;
         this.pictures = pictures;
-        this.userId = userId;
     }
 }

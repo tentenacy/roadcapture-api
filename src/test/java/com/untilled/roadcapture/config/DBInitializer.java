@@ -49,11 +49,12 @@ public class DBInitializer {
                 });
         IntStream.range(1, 51)
                 .forEach(i -> {
-                    albumService.create(new AlbumCreateRequest(
+                    albumService.create(Long.valueOf(i), new AlbumCreateRequest(
                             "볼거리가 가득한 국내 여행지 " + i,
                             "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                             "https://www.test.com/test",
-                            Arrays.asList(new PictureCreateRequest(
+                            Arrays.asList(
+                                    new PictureCreateRequest(
                                             "https://www.test.com/test",
                                             "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                             new PlaceCreateRequest("곡교천 은행나무길",
@@ -84,8 +85,7 @@ public class DBInitializer {
                                                             "336-813"
                                                     )
                                             )
-                                    )),
-                            Long.valueOf(i)
+                                    ))
                     ));
                     IntStream.range(0, 5).forEach(j -> {
                         commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 15 - 13), new CommentCreateRequest("후기 감사합니다."));

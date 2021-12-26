@@ -53,12 +53,11 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                                             "336-813"
                                     )
                             )
-                    )),
-                    2L
+                    ))
             );
 
             //when
-            ResultActions result = mockMvc.perform(post("/albums")
+            ResultActions result = mockMvc.perform(post("/users/{userId}/albums", 2L)
                     .content(mapper.writeValueAsString(request))
                     .contentType(MediaType.APPLICATION_JSON));
 

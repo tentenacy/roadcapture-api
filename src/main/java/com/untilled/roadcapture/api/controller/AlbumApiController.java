@@ -10,34 +10,35 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/albums")
+@RequestMapping
 @RequiredArgsConstructor
 public class AlbumApiController {
 
     private final AlbumService albumService;
 
-    @GetMapping
+    @GetMapping("/albums")
     public Page<AlbumsResponse> albums(AlbumSearchCondition cond, Pageable pageable) {
         return albumService.getAlbums(cond, pageable);
     }
 
-    @GetMapping("/{albumId}")
+    @GetMapping("/albums/{albumId}")
     public AlbumResponse album(@PathVariable Long albumId) {
         return albumService.getAlbum(albumId);
     }
 
-    @PostMapping
+    @PostMapping("/users/{userId}/albums")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@Validated @RequestBody AlbumCreateRequest request) {
-        albumService.create(request);
+    public void create(@PathVariable Long userId,
+                       @Validated @RequestBody AlbumCreateRequest request) {
+        albumService.create(userId, request);
     }
 
-    @PutMapping("/{albumId}")
+    @PutMapping("/albums/{albumId}")
     public void update(@PathVariable Long albumId, @Validated @RequestBody AlbumUpdateRequest request) {
         albumService.update(albumId, request);
     }
 
-    @DeleteMapping("/{albumId}")
+    @DeleteMapping("/albums/{albumId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long albumId) {
         albumService.delete(albumId);

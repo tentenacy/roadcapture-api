@@ -44,7 +44,7 @@ public class AlbumService {
     }
 
     @Transactional
-    public Album create(AlbumCreateRequest request) {
+    public Album create(Long userId, AlbumCreateRequest request) {
 
         List<Picture> pictures = request.getPictures().stream()
                 .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
@@ -55,7 +55,7 @@ public class AlbumService {
                 request.getDescription(),
                 request.getThumbnailUrl(),
                 pictures,
-                getUserIfExists(request.getUserId())
+                getUserIfExists(userId)
         ));
     }
 

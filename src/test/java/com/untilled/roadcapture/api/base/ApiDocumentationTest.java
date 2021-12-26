@@ -75,7 +75,6 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("description").description("앨범 설명입니다.").optional(),
             fieldWithPath("thumbnailUrl").description("앨범 썸네일 이미지 주소입니다."),
             fieldWithPath("pictures").type(JsonFieldType.ARRAY).description("앨범 사진 리스트입니다."),
-            fieldWithPath("userId").description("앨범 등록자 아이디입니다."),
     };
 
     protected FieldDescriptor[] albumUpdateRequestFields = new FieldDescriptor[]{
