@@ -38,7 +38,6 @@ class CommentApiControllerTest extends ApiDocumentationTest {
 
     protected ParameterDescriptor[] commentCreatePathParams = new ParameterDescriptor[]{
             parameterWithName("userId").description("사용자 아이디입니다."),
-            parameterWithName("albumId").description("앨범 아이디입니다."),
             parameterWithName("pictureId").description("사진 아이디입니다."),
     };
 
@@ -73,8 +72,8 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             CommentCreateRequest request = new CommentCreateRequest("후기 감사합니다.");
 
             //when
-            ResultActions result = mockMvc.perform(post("/users/{userId}/albums/{albumId}/pictures/{pictureId}/comments",
-                    2L, 51L, 52L)
+            ResultActions result = mockMvc.perform(post("/users/{userId}/albums/pictures/{pictureId}/comments",
+                    2L, 52L)
                     .content(mapper.writeValueAsString(request))
                     .contentType(MediaType.APPLICATION_JSON));
 
