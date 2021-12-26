@@ -13,6 +13,8 @@ paths:
     get:
       tags:
       - albums
+      summary: 앨범조회
+      description: 앨범조회
       operationId: 앨범조회 - 성공
       parameters:
       - name: page
@@ -54,76 +56,78 @@ paths:
                 $ref: '#/components/schemas/albums1485267483'
               examples:
                 앨범조회 - 성공:
-                  value: "{\"content\":[{\"id\":51,\"createdAt\":\"2021-12-27T00:46:35.305111\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:35.305111\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":51,\"createdAt\":\"2021-12-27T05:14:20.167862\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.167862\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 1\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":66,\"createdAt\":\"2021-12-27T00:46:35.591187\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:35.591187\",\"title\":\"\
+                    :0,\"commentCount\":10},{\"id\":66,\"createdAt\":\"2021-12-27T05:14:20.452738\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.452738\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 2\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":2,\"username\":\"user2\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":81,\"createdAt\":\"2021-12-27T00:46:35.82691\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:35.82691\",\"title\":\"\
+                    :0,\"commentCount\":10},{\"id\":81,\"createdAt\":\"2021-12-27T05:14:20.63226\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.63226\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 3\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":3,\"username\":\"user3\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":96,\"createdAt\":\"2021-12-27T00:46:36.004906\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:36.004906\",\"title\":\"\
+                    :0,\"commentCount\":10},{\"id\":96,\"createdAt\":\"2021-12-27T05:14:20.787946\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.787946\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 4\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":4,\"username\":\"user4\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":111,\"createdAt\":\"2021-12-27T00:46:36.176941\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:36.176941\",\"title\":\"\
+                    :0,\"commentCount\":10},{\"id\":111,\"createdAt\":\"2021-12-27T05:14:21.011845\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:21.011845\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 5\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":5,\"username\":\"user5\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":126,\"createdAt\":\"2021-12-27T00:46:36.340663\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:36.340663\",\"title\":\"\
+                    :0,\"commentCount\":10},{\"id\":126,\"createdAt\":\"2021-12-27T05:14:21.267403\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:21.267403\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 6\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":6,\"username\":\"user6\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":141,\"createdAt\":\"2021-12-27T00:46:36.496044\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:36.496044\",\"title\":\"\
+                    :0,\"commentCount\":10},{\"id\":141,\"createdAt\":\"2021-12-27T05:14:21.416719\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:21.416719\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 7\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":7,\"username\":\"user7\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":156,\"createdAt\":\"2021-12-27T00:46:36.64606\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:36.64606\",\"title\":\"\
+                    :0,\"commentCount\":10},{\"id\":156,\"createdAt\":\"2021-12-27T05:14:21.56282\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:21.56282\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 8\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":8,\"username\":\"user8\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":171,\"createdAt\":\"2021-12-27T00:46:36.870766\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:36.870766\",\"title\":\"\
+                    :0,\"commentCount\":10},{\"id\":171,\"createdAt\":\"2021-12-27T05:14:21.70879\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:21.70879\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 9\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":9,\"username\":\"user9\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0},{\"id\":186,\"createdAt\":\"2021-12-27T00:46:37.045218\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:37.045218\",\"title\":\"\
+                    :0,\"commentCount\":10},{\"id\":186,\"createdAt\":\"2021-12-27T05:14:21.871864\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:21.871864\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 10\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":10,\"username\":\"user10\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :0,\"commentCount\":0}],\"pageable\":{\"sort\":{\"empty\":true,\"\
-                    sorted\":false,\"unsorted\":true},\"offset\":0,\"pageSize\":10,\"\
-                    pageNumber\":0,\"paged\":true,\"unpaged\":false},\"last\":false,\"\
-                    totalPages\":5,\"totalElements\":50,\"size\":10,\"number\":0,\"\
-                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
-                    first\":true,\"numberOfElements\":10,\"empty\":false}"
+                    :0,\"commentCount\":10}],\"pageable\":{\"sort\":{\"unsorted\"\
+                    :true,\"sorted\":false,\"empty\":true},\"pageSize\":10,\"pageNumber\"\
+                    :0,\"offset\":0,\"paged\":true,\"unpaged\":false},\"totalPages\"\
+                    :5,\"totalElements\":50,\"last\":false,\"numberOfElements\":10,\"\
+                    size\":10,\"number\":0,\"first\":true,\"sort\":{\"unsorted\":true,\"\
+                    sorted\":false,\"empty\":true},\"empty\":false}"
   /albums/{id}:
     get:
       tags:
       - albums
+      summary: 앨범단건조회
+      description: 앨범단건조회
       operationId: 앨범단건조회 - 성공
       parameters:
       - name: id
@@ -141,22 +145,22 @@ paths:
                 $ref: '#/components/schemas/albums-id1265395297'
               examples:
                 앨범단건조회 - 성공:
-                  value: "{\"id\":51,\"createdAt\":\"2021-12-27T00:46:35.305111\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T00:46:35.305111\",\"title\":\"\
+                  value: "{\"id\":51,\"createdAt\":\"2021-12-27T05:14:20.167862\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.167862\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 1\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"viewCount\":0,\"user\":{\"id\":1,\"username\":\"user1\",\"\
                     profileImageUrl\":\"https://www.test.com/test\"},\"likeCount\"\
                     :0,\"commentCount\":0,\"pictures\":[{\"id\":52,\"createdAt\":\"\
-                    2021-12-27T00:46:35.317107\",\"lastModifiedAt\":\"2021-12-27T00:46:35.317107\"\
+                    2021-12-27T05:14:20.177662\",\"lastModifiedAt\":\"2021-12-27T05:14:20.177662\"\
                     ,\"imageUrl\":\"https://www.test.com/test\",\"description\":\"\
                     저번에 이어 이번에도 그 목적지로 향했습니다.\",\"place\":{\"id\":53,\"name\":\"곡교\
                     천 은행나무길\",\"latitude\":36.1112512,\"longitude\":27.1146346,\"\
                     address\":{\"addressName\":\"충남 아산시 염치읍 백암리 502-3\",\"roadAddressName\"\
                     :null,\"region1DepthName\":\"충남\",\"region2DepthName\":\"아산시\"\
                     ,\"region3DepthName\":\"염치읍\",\"zoneNo\":\"336-813\"}}},{\"id\"\
-                    :54,\"createdAt\":\"2021-12-27T00:46:35.333107\",\"lastModifiedAt\"\
-                    :\"2021-12-27T00:46:35.333107\",\"imageUrl\":\"https://www.test.com/test\"\
+                    :54,\"createdAt\":\"2021-12-27T05:14:20.199444\",\"lastModifiedAt\"\
+                    :\"2021-12-27T05:14:20.199444\",\"imageUrl\":\"https://www.test.com/test\"\
                     ,\"description\":\"저번에 이어 이번에도 그 목적지로 향했습니다.\",\"place\":{\"id\"\
                     :55,\"name\":\"곡교천 은행나무길\",\"latitude\":36.1112512,\"longitude\"\
                     :27.1146346,\"address\":{\"addressName\":\"충남 아산시 염치읍 백암리 502-3\"\
@@ -165,6 +169,8 @@ paths:
     put:
       tags:
       - albums
+      summary: 앨범수정
+      description: 앨범수정
       operationId: 앨범수정 - 성공
       parameters:
       - name: id
@@ -195,6 +201,8 @@ paths:
     delete:
       tags:
       - albums
+      summary: 앨범삭제
+      description: 앨범삭제
       operationId: 앨범삭제 - 성공
       parameters:
       - name: id
@@ -210,6 +218,8 @@ paths:
     get:
       tags:
       - albums
+      summary: 앨범댓글조회
+      description: 앨범댓글조회
       operationId: 앨범댓글조회 - 성공
       parameters:
       - name: albumId
@@ -246,50 +256,52 @@ paths:
               examples:
                 앨범댓글조회 - 성공:
                   value: "{\"content\":[{\"id\":56,\"pictureId\":52,\"createdAt\"\
-                    :\"2021-12-27T01:12:35.650999\",\"lastModifiedAt\":\"2021-12-27T01:12:35.650999\"\
+                    :\"2021-12-27T05:14:20.307703\",\"lastModifiedAt\":\"2021-12-27T05:14:20.307703\"\
                     ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
                     user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    id\":58,\"pictureId\":52,\"createdAt\":\"2021-12-27T01:12:35.715999\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.715999\",\"content\"\
+                    id\":58,\"pictureId\":52,\"createdAt\":\"2021-12-27T05:14:20.344702\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.344702\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":60,\"pictureId\":52,\"\
-                    createdAt\":\"2021-12-27T01:12:35.748013\",\"lastModifiedAt\"\
-                    :\"2021-12-27T01:12:35.748013\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2021-12-27T05:14:20.373702\",\"lastModifiedAt\"\
+                    :\"2021-12-27T05:14:20.373702\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":62,\"pictureId\":52,\"createdAt\":\"2021-12-27T01:12:35.778034\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.778034\",\"content\"\
+                    }},{\"id\":62,\"pictureId\":52,\"createdAt\":\"2021-12-27T05:14:20.399701\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.399701\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":64,\"pictureId\":52,\"\
-                    createdAt\":\"2021-12-27T01:12:35.806751\",\"lastModifiedAt\"\
-                    :\"2021-12-27T01:12:35.806751\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2021-12-27T05:14:20.424702\",\"lastModifiedAt\"\
+                    :\"2021-12-27T05:14:20.424702\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":57,\"pictureId\":54,\"createdAt\":\"2021-12-27T01:12:35.695\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.695\",\"content\":\"\
-                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
+                    }},{\"id\":57,\"pictureId\":54,\"createdAt\":\"2021-12-27T05:14:20.328703\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.328703\",\"content\"\
+                    :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":59,\"pictureId\":54,\"\
-                    createdAt\":\"2021-12-27T01:12:35.73403\",\"lastModifiedAt\":\"\
-                    2021-12-27T01:12:35.73403\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2021-12-27T05:14:20.359703\",\"lastModifiedAt\"\
+                    :\"2021-12-27T05:14:20.359703\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":61,\"pictureId\":54,\"createdAt\":\"2021-12-27T01:12:35.762022\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.762022\",\"content\"\
+                    }},{\"id\":61,\"pictureId\":54,\"createdAt\":\"2021-12-27T05:14:20.385702\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.385702\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":63,\"pictureId\":54,\"\
-                    createdAt\":\"2021-12-27T01:12:35.794917\",\"lastModifiedAt\"\
-                    :\"2021-12-27T01:12:35.794917\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2021-12-27T05:14:20.412702\",\"lastModifiedAt\"\
+                    :\"2021-12-27T05:14:20.412702\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":65,\"pictureId\":54,\"createdAt\":\"2021-12-27T01:12:35.820217\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.820217\",\"content\"\
+                    }},{\"id\":65,\"pictureId\":54,\"createdAt\":\"2021-12-27T05:14:20.439701\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.439701\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}}],\"pageable\":{\"sort\":{\"unsorted\"\
                     :true,\"sorted\":false,\"empty\":true},\"pageSize\":10,\"pageNumber\"\
-                    :0,\"offset\":0,\"paged\":true,\"unpaged\":false},\"last\":true,\"\
-                    totalPages\":1,\"totalElements\":10,\"first\":true,\"numberOfElements\"\
-                    :10,\"size\":10,\"number\":0,\"sort\":{\"unsorted\":true,\"sorted\"\
-                    :false,\"empty\":true},\"empty\":false}"
+                    :0,\"offset\":0,\"paged\":true,\"unpaged\":false},\"totalPages\"\
+                    :1,\"totalElements\":10,\"last\":true,\"numberOfElements\":10,\"\
+                    size\":10,\"number\":0,\"first\":true,\"sort\":{\"unsorted\":true,\"\
+                    sorted\":false,\"empty\":true},\"empty\":false}"
   /pictures/{pictureId}/comments:
     get:
       tags:
       - pictures
+      summary: 사진댓글조회
+      description: 사진댓글조회
       operationId: 사진댓글조회 - 성공
       parameters:
       - name: pictureId
@@ -326,33 +338,35 @@ paths:
               examples:
                 사진댓글조회 - 성공:
                   value: "{\"content\":[{\"id\":56,\"pictureId\":52,\"createdAt\"\
-                    :\"2021-12-27T01:12:35.650999\",\"lastModifiedAt\":\"2021-12-27T01:12:35.650999\"\
+                    :\"2021-12-27T05:14:20.307703\",\"lastModifiedAt\":\"2021-12-27T05:14:20.307703\"\
                     ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
                     user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    id\":58,\"pictureId\":52,\"createdAt\":\"2021-12-27T01:12:35.715999\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.715999\",\"content\"\
+                    id\":58,\"pictureId\":52,\"createdAt\":\"2021-12-27T05:14:20.344702\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.344702\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":60,\"pictureId\":52,\"\
-                    createdAt\":\"2021-12-27T01:12:35.748013\",\"lastModifiedAt\"\
-                    :\"2021-12-27T01:12:35.748013\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2021-12-27T05:14:20.373702\",\"lastModifiedAt\"\
+                    :\"2021-12-27T05:14:20.373702\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":62,\"pictureId\":52,\"createdAt\":\"2021-12-27T01:12:35.778034\"\
-                    ,\"lastModifiedAt\":\"2021-12-27T01:12:35.778034\",\"content\"\
+                    }},{\"id\":62,\"pictureId\":52,\"createdAt\":\"2021-12-27T05:14:20.399701\"\
+                    ,\"lastModifiedAt\":\"2021-12-27T05:14:20.399701\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":64,\"pictureId\":52,\"\
-                    createdAt\":\"2021-12-27T01:12:35.806751\",\"lastModifiedAt\"\
-                    :\"2021-12-27T01:12:35.806751\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2021-12-27T05:14:20.424702\",\"lastModifiedAt\"\
+                    :\"2021-12-27T05:14:20.424702\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
                     }}],\"pageable\":{\"sort\":{\"unsorted\":true,\"sorted\":false,\"\
                     empty\":true},\"pageSize\":10,\"pageNumber\":0,\"offset\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":5,\"first\":true,\"numberOfElements\":5,\"size\"\
-                    :10,\"number\":0,\"sort\":{\"unsorted\":true,\"sorted\":false,\"\
+                    paged\":true,\"unpaged\":false},\"totalPages\":1,\"totalElements\"\
+                    :5,\"last\":true,\"numberOfElements\":5,\"size\":10,\"number\"\
+                    :0,\"first\":true,\"sort\":{\"unsorted\":true,\"sorted\":false,\"\
                     empty\":true},\"empty\":false}"
   /pictures/{pictureId}/comments/{commentId}:
     delete:
       tags:
       - pictures
+      summary: 댓글삭제
+      description: 댓글삭제
       operationId: 댓글삭제 - 성공
       parameters:
       - name: pictureId
@@ -374,6 +388,8 @@ paths:
     get:
       tags:
       - users
+      summary: 회원조회
+      description: 회원조회
       operationId: 회원조회 - 성공
       parameters:
       - name: page
@@ -414,15 +430,17 @@ paths:
                     },{\"id\":8,\"username\":\"user8\",\"profileImageUrl\":\"https://www.test.com/test\"\
                     },{\"id\":9,\"username\":\"user9\",\"profileImageUrl\":\"https://www.test.com/test\"\
                     },{\"id\":10,\"username\":\"user10\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }],\"pageable\":{\"sort\":{\"empty\":false,\"sorted\":true,\"\
-                    unsorted\":false},\"offset\":0,\"pageSize\":10,\"pageNumber\"\
-                    :0,\"paged\":true,\"unpaged\":false},\"last\":false,\"totalPages\"\
-                    :5,\"totalElements\":50,\"size\":10,\"number\":0,\"sort\":{\"\
-                    empty\":false,\"sorted\":true,\"unsorted\":false},\"first\":true,\"\
-                    numberOfElements\":10,\"empty\":false}"
+                    }],\"pageable\":{\"sort\":{\"unsorted\":false,\"sorted\":true,\"\
+                    empty\":false},\"pageSize\":10,\"pageNumber\":0,\"offset\":0,\"\
+                    paged\":true,\"unpaged\":false},\"totalPages\":5,\"totalElements\"\
+                    :50,\"last\":false,\"numberOfElements\":10,\"size\":10,\"number\"\
+                    :0,\"first\":true,\"sort\":{\"unsorted\":false,\"sorted\":true,\"\
+                    empty\":false},\"empty\":false}"
     post:
       tags:
       - users
+      summary: 회원가입
+      description: 회원가입
       operationId: '회원가입 - '
       requestBody:
         content:
@@ -504,6 +522,8 @@ paths:
     get:
       tags:
       - users
+      summary: 회원단건조회
+      description: 회원단건조회
       operationId: '회원단건조회 - '
       parameters:
       - name: id
@@ -537,6 +557,8 @@ paths:
     delete:
       tags:
       - users
+      summary: 회원삭제
+      description: 회원삭제
       operationId: 회원삭제 - 성공
       parameters:
       - name: id
@@ -551,6 +573,8 @@ paths:
     patch:
       tags:
       - users
+      summary: 회원수정
+      description: 회원수정
       operationId: '회원수정 - '
       parameters:
       - name: id
@@ -607,6 +631,8 @@ paths:
     get:
       tags:
       - users
+      summary: 회원상세조회
+      description: 회원상세조회
       operationId: '회원상세조회 - '
       parameters:
       - name: id
@@ -644,6 +670,8 @@ paths:
     post:
       tags:
       - users
+      summary: 앨범등록
+      description: 앨범등록
       operationId: 앨범등록 - 성공
       parameters:
       - name: userId
@@ -674,6 +702,8 @@ paths:
     post:
       tags:
       - users
+      summary: 댓글등록
+      description: 댓글등록
       operationId: 댓글등록 - 성공
       parameters:
       - name: userId
@@ -1167,12 +1197,6 @@ components:
         thumbnailUrl:
           type: string
           description: 앨범 썸네일 이미지 주소입니다.
-    users-userId-albums-pictures-pictureId-comments-608006242:
-      type: object
-      properties:
-        content:
-          type: string
-          description: 댓글 내용입니다.
     albums1485267483:
       type: object
       properties:
@@ -1240,3 +1264,9 @@ components:
         totalElements:
           type: number
           description: 전체 요소 수입니다.
+    users-userId-albums-pictures-pictureId-comments-608006242:
+      type: object
+      properties:
+        content:
+          type: string
+          description: 댓글 내용입니다.

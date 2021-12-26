@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.api.controller;
 
+import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
 import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.album.AlbumUpdateRequest;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Arrays;
 
+import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -63,7 +65,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isCreated())
-                    .andDo(document("앨범등록 - 성공",
+                    .andDo(document("앨범등록 - 성공", "앨범등록",
                             requestFields(albumCreateRequestFields)
                                     .andWithPrefix("pictures.[].", pictureCreateRequestFields)
                                     .andWithPrefix("pictures.[].place.", placeCreateRequestFields)
@@ -87,7 +89,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
-                    .andDo(document("앨범조회 - 성공",
+                    .andDo(document("앨범조회 - 성공", "앨범조회",
                             requestParameters(pageParams).and(albumsParams),
                             responseFields(pageFields)
                                     .andWithPrefix("content.[].", albumsFields)
@@ -111,7 +113,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.id").value(51L))
-                    .andDo(document("앨범단건조회 - 성공",
+                    .andDo(document("앨범단건조회 - 성공", "앨범단건조회",
                             pathParameters(albumPathParams),
                             responseFields(albumFields)
                                     .andWithPrefix("user.", usersElementsFields)
@@ -161,7 +163,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
-                    .andDo(document("앨범수정 - 성공",
+                    .andDo(document("앨범수정 - 성공", "앨범수정",
                             pathParameters(albumPathParams),
                             requestFields(albumUpdateRequestFields)
                                     .andWithPrefix("pictures.[].", pictureUpdateRequestFields)
@@ -185,7 +187,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isNoContent())
-                    .andDo(document("앨범삭제 - 성공",
+                    .andDo(document("앨범삭제 - 성공", "앨범삭제",
                                     pathParameters(albumPathParams)));
 
         }

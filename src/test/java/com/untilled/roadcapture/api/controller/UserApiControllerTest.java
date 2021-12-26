@@ -41,7 +41,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.content[0].username").value("user1"))
                     .andExpect(jsonPath("$.content[1].username").value("user2"))
-                    .andDo(document("회원조회 - 성공",
+                    .andDo(document("회원조회 - 성공", "회원조회",
                             requestParameters(pageParams),
                             responseFields().andWithPrefix("content.[].", usersElementsFields).and(pageFields)
                     ));
@@ -61,7 +61,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.username").value("user2"))
-                    .andDo(document("회원단건조회 - 성공",
+                    .andDo(document("회원단건조회 - 성공", "회원단건조회",
                             pathParameters(userPathParams),
                             responseFields(userFields)));
         }
@@ -75,7 +75,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원단건조회 - 회원 존재하지 않으면 실패",
+                    .andDo(document("회원단건조회 - 회원 존재하지 않으면 실패", "회원단건조회",
                             pathParameters(userPathParams),
                             responseFields(badFields)));
         }
@@ -95,7 +95,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.username").value("user2"))
-                    .andDo(document("회원상세조회 - 성공",
+                    .andDo(document("회원상세조회 - 성공", "회원상세조회",
                             responseFields(userDetailFields).andWithPrefix("address.", addressFields)));
         }
 
@@ -108,7 +108,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원상세조회 - 회원 존재하지 않으면 실패",
+                    .andDo(document("회원상세조회 - 회원 존재하지 않으면 실패", "회원상세조회",
                             pathParameters(userPathParams),
                             responseFields(badFields)));
         }
@@ -141,7 +141,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
-                    .andDo(document("회원수정 - 성공",
+                    .andDo(document("회원수정 - 성공", "회원수정",
                             requestFields(userUpdateRequestFields).andWithPrefix("address.", addressFields)
                     ));
         }
@@ -170,7 +170,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원수정 - 닉네임 길이가 2보다 짧으면 실패",
+                    .andDo(document("회원수정 - 닉네임 길이가 2보다 짧으면 실패", "회원수정",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
@@ -198,7 +198,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원수정 - 닉네임 길이가 12보다 길면 실패",
+                    .andDo(document("회원수정 - 닉네임 길이가 12보다 길면 실패", "회원수정",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
     }
@@ -217,7 +217,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isNoContent())
-                    .andDo(document("회원삭제 - 성공"));
+                    .andDo(document("회원삭제 - 성공", "회원삭제"));
         }
     }
 
@@ -237,7 +237,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isCreated())
-                    .andDo(document("회원가입 - 성공",
+                    .andDo(document("회원가입 - 성공", "회원가입",
                             requestFields(signupRequestFields)
                     ));
         }
@@ -256,7 +256,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.code").value(ErrorCode.EMAIL_DUPLICATION.getCode()))
-                    .andDo(document("회원가입 - 이메일 중복 시 실패",
+                    .andDo(document("회원가입 - 이메일 중복 시 실패", "회원가입",
                             responseFields(badFields)));
         }
 
@@ -275,7 +275,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isBadRequest())
 
                     .andExpect(jsonPath("$.code").value(ErrorCode.NICKNAME_EMAIL_DUPLICATION.getCode()))
-                    .andDo(document("회원가입 - 닉네임 중복 시 실패",
+                    .andDo(document("회원가입 - 닉네임 중복 시 실패", "회원가입",
                             responseFields(badFields)));
         }
 
@@ -292,7 +292,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 - 이메일 형식 맞지 않으면 실패",
+                    .andDo(document("회원가입 - 이메일 형식 맞지 않으면 실패", "회원가입",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
@@ -309,7 +309,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 - 닉네임 길이가 2보다 짧으면 실패",
+                    .andDo(document("회원가입 - 닉네임 길이가 2보다 짧으면 실패", "회원가입",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
@@ -326,7 +326,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 - 닉네임 길이가 12보다 길면 실패",
+                    .andDo(document("회원가입 - 닉네임 길이가 12보다 길면 실패", "회원가입",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
@@ -343,7 +343,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 - 비밀번호 형식 맞지 않으면 실패",
+                    .andDo(document("회원가입 - 비밀번호 형식 맞지 않으면 실패", "회원가입",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
@@ -360,7 +360,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 - 비밀번호 길이가 8보다 짧으면 실패",
+                    .andDo(document("회원가입 - 비밀번호 길이가 8보다 짧으면 실패", "회원가입",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
@@ -377,7 +377,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원가입 - 비밀번호 길이가 64보다 길면 실패",
+                    .andDo(document("회원가입 - 비밀번호 길이가 64보다 길면 실패", "회원가입",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 

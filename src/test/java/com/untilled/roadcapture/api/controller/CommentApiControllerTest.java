@@ -80,7 +80,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isCreated())
-                    .andDo(document("댓글등록 - 성공",
+                    .andDo(document("댓글등록 - 성공", "댓글등록",
                             pathParameters(commentCreatePathParams),
                             requestFields(commentCreateRequestFields)));
         }
@@ -101,7 +101,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isNoContent())
-                    .andDo(document("댓글삭제 - 성공",
+                    .andDo(document("댓글삭제 - 성공", "댓글삭제",
                             pathParameters(commentDeletePathParams)));
         }
     }
@@ -123,7 +123,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
-                    .andDo(document("앨범댓글조회 - 성공",
+                    .andDo(document("앨범댓글조회 - 성공", "앨범댓글조회",
                             pathParameters(albumCommentsPathParams),
                             requestParameters(pageParams),
                             responseFields(pageFields)
@@ -148,7 +148,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
-                    .andDo(document("사진댓글조회 - 성공",
+                    .andDo(document("사진댓글조회 - 성공", "사진댓글조회",
                             pathParameters(pictureCommentsPathParams),
                             requestParameters(pageParams),
                             responseFields(pageFields)
