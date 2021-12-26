@@ -89,6 +89,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content[0].commentCount").value(10L))
                     .andDo(document("앨범조회 - 성공", "앨범조회",
                             requestParameters(pageParams).and(albumsParams),
                             responseFields(pageFields)
@@ -113,6 +114,9 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.id").value(51L))
+                    .andExpect(jsonPath("$.pictures[0].id").value(52L))
+                    .andExpect(jsonPath("$.pictures[1].id").value(54L))
+                    .andExpect(jsonPath("$.commentCount").value(10L))
                     .andDo(document("앨범단건조회 - 성공", "앨범단건조회",
                             pathParameters(albumPathParams),
                             responseFields(albumFields)

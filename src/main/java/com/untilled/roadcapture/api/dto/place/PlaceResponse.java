@@ -17,12 +17,4 @@ public class PlaceResponse {
     private Double latitude;
     private Double longitude;
     private Address address;
-
-    public PlaceResponse(Place place) {
-        this.id = place.getId();
-        this.name = place.getName();
-        this.latitude = place.getLatitude();
-        this.longitude = place.getLongitude();
-        this.address = place.getAddress();
-    }
 }

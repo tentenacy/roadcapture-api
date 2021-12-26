@@ -40,7 +40,7 @@ public class AlbumService {
     }
 
     public AlbumResponse getAlbum(Long albumId) {
-        return new AlbumResponse(albumRepository.getAlbum(albumId).orElseThrow(AlbumNotFoundException::new));
+        return albumRepository.getAlbum(albumId).orElseThrow(AlbumNotFoundException::new);
     }
 
     @Transactional

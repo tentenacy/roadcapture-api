@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.api.dto.album;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.domain.album.Album;
 import lombok.AccessLevel;
@@ -10,7 +11,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 public class AlbumsResponse {
 
     private Long id;
@@ -24,15 +24,16 @@ public class AlbumsResponse {
     private int likeCount;
     private int commentCount;
 
-    public AlbumsResponse(Album album) {
-        this.id = album.getId();
-        this.createdAt = album.getCreatedAt();
-        this.lastModifiedAt = album.getLastModifiedAt();
-        this.title = album.getTitle();
-        this.description = album.getDescription();
-        this.thumbnailUrl = album.getThumbnailUrl();
-        this.user = new UsersResponse(album.getUser());
-        this.viewCount = album.getViewCount();
-        this.likeCount = album.getLikes().size();
+    public AlbumsResponse(Long id, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String title, String description, String thumbnailUrl, UsersResponse user, int viewCount, int likeCount, int commentCount) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.lastModifiedAt = lastModifiedAt;
+        this.title = title;
+        this.description = description;
+        this.thumbnailUrl = thumbnailUrl;
+        this.user = user;
+        this.viewCount = viewCount;
+        this.likeCount = likeCount;
+        this.commentCount = commentCount;
     }
 }

@@ -20,13 +20,4 @@ public class PictureResponse {
     private String imageUrl;
     private String description;
     private PlaceResponse place;
-
-    public PictureResponse(Picture picture) {
-        this.id = picture.getId();
-        this.createdAt = picture.getCreatedAt();
-        this.lastModifiedAt = picture.getLastModifiedAt();
-        this.imageUrl = picture.getImageUrl();
-        this.description = picture.getDescription();
-        this.place = new PlaceResponse(picture.getPlace());
-    }
 }

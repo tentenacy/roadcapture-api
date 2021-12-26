@@ -1,19 +1,32 @@
 package com.untilled.roadcapture.domain.album;
 
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.group.GroupBy;
+import com.querydsl.core.group.GroupByList;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.untilled.roadcapture.api.dto.album.AlbumResponse;
 import com.untilled.roadcapture.api.dto.album.AlbumsCondition;
 import com.untilled.roadcapture.api.dto.album.AlbumsResponse;
+import com.untilled.roadcapture.api.dto.album.QAlbumResponse;
+import com.untilled.roadcapture.api.dto.picture.PictureResponse;
+import com.untilled.roadcapture.api.dto.place.PlaceResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
+import com.untilled.roadcapture.domain.address.Address;
+import com.untilled.roadcapture.domain.address.QAddress;
 import com.untilled.roadcapture.domain.comment.QComment;
 import com.untilled.roadcapture.domain.like.QLike;
+import com.untilled.roadcapture.domain.picture.Picture;
 import com.untilled.roadcapture.domain.picture.QPicture;
+import com.untilled.roadcapture.domain.place.QPlace;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,13 +36,17 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.untilled.roadcapture.domain.address.QAddress.*;
 import static com.untilled.roadcapture.domain.album.QAlbum.album;
 import static com.untilled.roadcapture.domain.comment.QComment.*;
 import static com.untilled.roadcapture.domain.like.QLike.*;
 import static com.untilled.roadcapture.domain.picture.QPicture.*;
+import static com.untilled.roadcapture.domain.place.QPlace.*;
 import static com.untilled.roadcapture.domain.user.QUser.user;
 
 @Slf4j
@@ -87,13 +104,51 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Optional<Album> getAlbum(Long albumId) {
-        Album foundAlbum = queryFactory
-                .selectFrom(album)
-                .join(album.user, user).fetchJoin()
-                .where(album.id.eq(albumId))
+    public Optional<AlbumResponse> getAlbum(Long albumId) {
+        AlbumResponse albumResponse = queryFactory
+                .select(new QAlbumResponse(
+                        QAlbum.album.id,
+                        QAlbum.album.createdAt,
+                        QAlbum.album.lastModifiedAt,
+                        QAlbum.album.title,
+                        QAlbum.album.description,
+                        QAlbum.album.thumbnailUrl,
+                        Projections.constructor(UsersResponse.class,
+                                user.id,
+                                user.username,
+                                user.profileImageUrl),
+                        QAlbum.album.viewCount,
+                        like.count().intValue().as("likeCount"),
+                        comment.count().intValue().as("commentCount")))
+                .from(QAlbum.album)
+                .join(QAlbum.album.user, user)
+                .leftJoin(QAlbum.album.likes, like)
+                .join(QAlbum.album.pictures, picture)
+                .leftJoin(picture.comments, comment)
+                .where(QAlbum.album.id.eq(albumId))
                 .fetchOne();
-        return Optional.ofNullable(foundAlbum);
+
+        List<PictureResponse> pictures = queryFactory
+                .select(Projections.constructor(PictureResponse.class,
+                        picture.id,
+                        picture.createdAt,
+                        picture.lastModifiedAt,
+                        picture.imageUrl,
+                        picture.description,
+                        Projections.constructor(PlaceResponse.class,
+                                place.id,
+                                place.name,
+                                place.latitude,
+                                place.longitude,
+                                place.address)))
+                .from(picture)
+                .join(picture.place, place)
+                .where(picture.album.id.eq(albumId))
+                .fetch();
+
+        albumResponse.setPictures(pictures);
+
+        return Optional.ofNullable(albumResponse);
     }
 
     private BooleanExpression dateTimeLoe(LocalDateTime dateTimeLoe) {

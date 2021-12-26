@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.api.dto.album;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.untilled.roadcapture.api.dto.picture.PictureResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.domain.album.Album;
@@ -15,8 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class AlbumResponse {
 
     private Long id;
@@ -25,22 +24,23 @@ public class AlbumResponse {
     private String title;
     private String description;
     private String thumbnailUrl;
-    private Integer viewCount;
     private UsersResponse user;
-    private Integer likeCount;
+    private int viewCount;
+    private int likeCount;
     private int commentCount;
     private List<PictureResponse> pictures;
 
-    public AlbumResponse(Album album) {
-        this.id = album.getId();
-        this.createdAt = album.getCreatedAt();
-        this.lastModifiedAt = album.getLastModifiedAt();
-        this.title = album.getTitle();
-        this.description = album.getDescription();
-        this.thumbnailUrl = album.getThumbnailUrl();
-        this.viewCount = album.getViewCount();
-        this.user = new UsersResponse(album.getUser());
-        this.likeCount = album.getLikes().size();
-        this.pictures = album.getPictures().stream().map(PictureResponse::new).collect(Collectors.toList());
+    @QueryProjection
+    public AlbumResponse(Long id, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String title, String description, String thumbnailUrl, UsersResponse user, int viewCount, int likeCount, int commentCount) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.lastModifiedAt = lastModifiedAt;
+        this.title = title;
+        this.description = description;
+        this.thumbnailUrl = thumbnailUrl;
+        this.user = user;
+        this.viewCount = viewCount;
+        this.likeCount = likeCount;
+        this.commentCount = commentCount;
     }
 }

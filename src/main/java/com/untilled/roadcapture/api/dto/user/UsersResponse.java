@@ -13,10 +13,4 @@ public class UsersResponse {
     private Long id;
     private String username;
     private String profileImageUrl;
-
-    public UsersResponse(User user) {
-        this.id = user.getId();
-        this.username = user.getUsername();
-        this.profileImageUrl = user.getProfileImageUrl();
-    }
 }

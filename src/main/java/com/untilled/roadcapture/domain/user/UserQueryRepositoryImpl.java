@@ -3,6 +3,7 @@ package com.untilled.roadcapture.domain.user;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -40,9 +41,13 @@ public class UserQueryRepositoryImpl extends QuerydslRepositorySupport implement
     public Page<UsersResponse> search(Pageable pageable) {
 
         log.info("offset={}, limit={}", pageable.getOffset(), pageable.getPageSize());
-        JPAQuery<User> query = queryFactory
-                .selectFrom(user)
-                .join(user.albums, album).fetchJoin()
+        JPAQuery<UsersResponse> query = queryFactory
+                .select(Projections.constructor(UsersResponse.class,
+                        user.id,
+                        user.username,
+                        user.profileImageUrl))
+                .from(user)
+                .leftJoin(user.albums, album)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
@@ -52,10 +57,9 @@ public class UserQueryRepositoryImpl extends QuerydslRepositorySupport implement
                     pathBuilder.get(o.getProperty())));
         }
 
-        QueryResults<User> result = query.fetchResults();
-
+        QueryResults<UsersResponse> result = query.fetchResults();
 
         //카운트 쿼리 필요에 따라 날라감
-        return new PageImpl(result.getResults().stream().map(UsersResponse::new).collect(Collectors.toList()), pageable, result.getTotal());
+        return new PageImpl(result.getResults(), pageable, result.getTotal());
     }
 }
