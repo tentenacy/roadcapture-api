@@ -61,6 +61,7 @@ public class AlbumService {
 
     @Transactional
     public void update(Long albumId, AlbumUpdateRequest request) {
+
         Album foundAlbum = getAlbumIfExists(albumId);
 
         foundAlbum.removeAllPicturesExceptFor(request.getPictures().stream()

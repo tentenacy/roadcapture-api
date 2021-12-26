@@ -11,10 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static javax.persistence.FetchType.LAZY;
@@ -22,7 +19,6 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter(value = AccessLevel.PROTECTED)
-@ToString
 public class Album extends BaseTimeEntity {
 
     @Id
@@ -70,12 +66,13 @@ public class Album extends BaseTimeEntity {
     }
 
     public void removeAllPicturesExceptFor(List<Long> ids) {
-        this.pictures.stream()
+        List<Picture> collect = this.pictures.stream()
                 .filter(picture -> !(ids.contains(picture.getId())))
-                .forEach(picture -> {
-                    picture.setAlbum(null);
-                    this.pictures.remove(picture);
-                });
-
+                .collect(Collectors.toList());
+        for(Iterator<Picture> itr = collect.iterator(); itr.hasNext();) {
+            Picture next = itr.next();
+            next.setAlbum(null);
+            this.pictures.remove(next);
+        }
     }
 }
