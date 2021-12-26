@@ -3,13 +3,14 @@ package com.untilled.roadcapture.api.dto.album;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.domain.album.Album;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class AlbumsResponse {
 
     private Long id;
@@ -20,7 +21,7 @@ public class AlbumsResponse {
     private String thumbnailUrl;
     private UsersResponse user;
     private int viewCount;
-    private Integer likeCount;
+    private int likeCount;
     private int commentCount;
 
     public AlbumsResponse(Album album) {
