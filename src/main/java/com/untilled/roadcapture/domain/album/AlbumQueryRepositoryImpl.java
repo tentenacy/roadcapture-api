@@ -75,8 +75,8 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                                 user.username,
                                 user.profileImageUrl),
                         album.viewCount,
-                        like.count().intValue().as("likeCount"),
-                        comment.count().intValue().as("commentCount")
+                        like.countDistinct().intValue().as("likeCount"),
+                        comment.countDistinct().intValue().as("commentCount")
                 ))
                 .from(album)
                 .join(album.user, user)
@@ -118,8 +118,8 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                                 user.username,
                                 user.profileImageUrl),
                         QAlbum.album.viewCount,
-                        like.count().intValue().as("likeCount"),
-                        comment.count().intValue().as("commentCount")))
+                        like.countDistinct().intValue().as("likeCount"),
+                        comment.countDistinct().intValue().as("commentCount")))
                 .from(QAlbum.album)
                 .join(QAlbum.album.user, user)
                 .leftJoin(QAlbum.album.likes, like)
