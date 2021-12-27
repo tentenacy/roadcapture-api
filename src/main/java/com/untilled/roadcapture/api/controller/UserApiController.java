@@ -38,7 +38,7 @@ public class UserApiController {
     }
 
     @PatchMapping("/{userId}")
-    public void update(@PathVariable final Long userId, @Validated @RequestBody UserUpdateRequest userUpdateRequest) {
+    public void update(@PathVariable final Long userId, @RequestBody UserUpdateRequest userUpdateRequest) {
         userService.update(userId, userUpdateRequest);
     }
 

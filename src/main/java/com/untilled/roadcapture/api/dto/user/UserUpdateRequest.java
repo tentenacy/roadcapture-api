@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserUpdateRequest {
-    @Size(min = 2, max = 12)
     private String username;
     private String profileImageUrl;
     private String introduction;

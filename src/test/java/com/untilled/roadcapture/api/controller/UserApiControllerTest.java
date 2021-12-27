@@ -146,7 +146,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
                     ));
         }
 
-        @Test
+        /*@Test
         @DisplayName("닉네임 길이가 2보다 짧으면 실패")
         void UsernameSizeIsLessThan2_Fail() throws Exception {
             //given
@@ -200,7 +200,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원수정 - 닉네임 길이가 12보다 길면 실패", "회원수정",
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
-        }
+        }*/
     }
 
     @Nested

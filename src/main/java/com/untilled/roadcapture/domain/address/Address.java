@@ -17,5 +17,4 @@ public class Address {
     private String region2DepthName;
     private String region3DepthName;
     private String zoneNo;
-
 }

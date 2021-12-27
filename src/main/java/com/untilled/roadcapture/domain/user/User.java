@@ -7,6 +7,8 @@ import com.untilled.roadcapture.domain.base.BaseTimeEntity;
 import com.untilled.roadcapture.domain.follower.Follower;
 import com.untilled.roadcapture.domain.place.Place;
 import lombok.*;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -55,16 +57,16 @@ public class User extends BaseTimeEntity {
     }
 
     public void update(String username, String profileImageUrl, String introduction, Address address) {
-        if(username != null) {
+        if(StringUtils.hasText(username)) {
             this.username = username;
         }
-        if(profileImageUrl != null) {
+        if(StringUtils.hasText(profileImageUrl)) {
             this.profileImageUrl = profileImageUrl;
         }
-        if(introduction != null) {
+        if(StringUtils.hasText(introduction)) {
             this.introduction = introduction;
         }
-        if(address != null) {
+        if(!ObjectUtils.isEmpty(address)) {
             this.address = address;
         }
     }
