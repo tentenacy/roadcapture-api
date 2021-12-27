@@ -38,7 +38,7 @@ public class Album extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Like> likes = new HashSet<>();
 
     @OneToMany(mappedBy = "album", fetch = LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -74,5 +74,15 @@ public class Album extends BaseTimeEntity {
             next.setAlbum(null);
             this.pictures.remove(next);
         }
+    }
+
+    public void addLike(Like like) {
+        like.setAlbum(this);
+        this.likes.add(like);
+    }
+
+    public void removeLike(Like like) {
+        like.setAlbum(null);
+        this.likes.remove(like);
     }
 }

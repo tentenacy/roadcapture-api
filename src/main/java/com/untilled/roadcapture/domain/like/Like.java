@@ -30,10 +30,13 @@ public class Like extends BaseCreationTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public static Like create(Album album, User user) {
+    public static Like create(User user) {
         Like like = new Like();
-        like.setAlbum(album);
         like.setUser(user);
         return like;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 }

@@ -32,37 +32,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CommentApiControllerTest extends ApiDocumentationTest {
 
-    protected FieldDescriptor[] commentCreateRequestFields = new FieldDescriptor[]{
-            fieldWithPath("content").type(JsonFieldType.STRING).description("댓글 내용입니다."),
-    };
-
-    protected ParameterDescriptor[] commentCreatePathParams = new ParameterDescriptor[]{
-            parameterWithName("userId").description("사용자 아이디입니다."),
-            parameterWithName("pictureId").description("사진 아이디입니다."),
-    };
-
-    protected ParameterDescriptor[] commentDeletePathParams = new ParameterDescriptor[]{
-            parameterWithName("pictureId").description("사진 아이디입니다."),
-            parameterWithName("commentId").description("댓글 아이디입니다."),
-    };
-
-    protected FieldDescriptor[] commentsFields = new FieldDescriptor[]{
-            fieldWithPath("id").type(JsonFieldType.NUMBER).description("댓글 아이디입니다."),
-            fieldWithPath("pictureId").type(JsonFieldType.NUMBER).description("사진 아이디입니다."),
-            fieldWithPath("createdAt").type(JsonFieldType.STRING).description("댓글 생성 시각입니다."),
-            fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시각입니다."),
-            fieldWithPath("content").type(JsonFieldType.STRING).description("댓글 내용입니다."),
-            fieldWithPath("user").type(JsonFieldType.OBJECT).description("댓글 작성자입니다."),
-    };
-
-    protected ParameterDescriptor[] albumCommentsPathParams = new ParameterDescriptor[]{
-            parameterWithName("albumId").description("앨범 아이디입니다."),
-    };
-
-    protected ParameterDescriptor[] pictureCommentsPathParams = new ParameterDescriptor[]{
-            parameterWithName("pictureId").description("사진 아이디입니다."),
-    };
-
     @Nested
     @DisplayName("등록")
     class Create {

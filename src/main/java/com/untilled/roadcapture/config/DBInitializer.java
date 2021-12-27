@@ -9,6 +9,7 @@ import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
 import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.domain.album.AlbumService;
 import com.untilled.roadcapture.domain.comment.CommentService;
+import com.untilled.roadcapture.domain.like.LikeService;
 import com.untilled.roadcapture.domain.user.User;
 import com.untilled.roadcapture.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class DBInitializer {
     private final UserService userService;
     private final AlbumService albumService;
     private final CommentService commentService;
+    private final LikeService likeService;
 
     @PostConstruct
     void init() {
@@ -88,9 +90,10 @@ public class DBInitializer {
                                     ))
                     ));
                     IntStream.range(0, 5).forEach(j -> {
-                        commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 15 - 13), new CommentCreateRequest("후기 감사합니다."));
-                        commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 15 - 11), new CommentCreateRequest("후기 감사합니다."));
+                        commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 16 - 14), new CommentCreateRequest("후기 감사합니다."));
+                        commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 16 - 12), new CommentCreateRequest("후기 감사합니다."));
                     });
+                    likeService.create(Long.valueOf(i), Long.valueOf(50 + i * 16 - 15));
                 });
     }
 }

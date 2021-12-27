@@ -26,6 +26,54 @@ public abstract class ApiDocumentationTest {
 
     protected final ObjectMapper mapper = new ObjectMapper();
 
+    @Autowired
+    protected MockMvc mockMvc;
+
+    //COMMON
+    protected ParameterDescriptor[] pageParams = new ParameterDescriptor[]{
+            parameterWithName("page").description("조회할 페이지입니다. 0부터 시작합니다.").optional(),
+            parameterWithName("size").description("한 페이지에 보여줄 사이즈 수입니다.").optional(),
+            parameterWithName("sort").description("정렬 기준입니다.").optional()
+    };
+
+    protected FieldDescriptor[] pageFields = new FieldDescriptor[]{
+            fieldWithPath("content").type(JsonFieldType.ARRAY).description("페이지 요소 리스트입니다."),
+            fieldWithPath("last").type(JsonFieldType.BOOLEAN).description("마지막 페이지 여부입니다."),
+            fieldWithPath("totalElements").type(JsonFieldType.NUMBER).description("전체 요소 수입니다."),
+            fieldWithPath("totalPages").type(JsonFieldType.NUMBER).description("전체 페이지 수입니다."),
+            fieldWithPath("size").type(JsonFieldType.NUMBER).description("한 페이지에 보여줄 사이즈 수입니다."),
+            fieldWithPath("number").type(JsonFieldType.NUMBER).ignored(),
+            fieldWithPath("first").type(JsonFieldType.BOOLEAN).description("첫 페이지 여부입니다."),
+            fieldWithPath("numberOfElements").ignored(),
+            fieldWithPath("empty").type(JsonFieldType.BOOLEAN).description("리스트가 비어 있는지 여부입니다."),
+            subsectionWithPath("sort").type(JsonFieldType.OBJECT).ignored(),
+            subsectionWithPath("pageable").type(JsonFieldType.OBJECT).ignored(),
+    };
+
+    protected FieldDescriptor[] badFields = new FieldDescriptor[]{
+            fieldWithPath("code").description("에러 코드입니다."),
+            fieldWithPath("status").type(JsonFieldType.NUMBER).description("응답 코드입니다."),
+            fieldWithPath("message").description("에러 메시지입니다."),
+            fieldWithPath("errors").description("필드 에러입니다. 필드 검증 시에만 존재합니다.")
+    };
+
+    protected FieldDescriptor[] errorsFields = new FieldDescriptor[]{
+            fieldWithPath("field").description("검증에 실패한 필드명입니다."),
+            fieldWithPath("value").description("검증에 실패한 필드값입니다."),
+            fieldWithPath("reason").description("검증에 실패한 이유입니다.")
+    };
+
+    //VALUE
+    protected FieldDescriptor[] addressFields = new FieldDescriptor[]{
+            fieldWithPath("addressName").type(JsonFieldType.STRING).description("지번주소입니다.").optional(),
+            fieldWithPath("roadAddressName").type(JsonFieldType.STRING).description("도로명주소입니다.").optional(),
+            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("시구명입니다.").optional(),
+            fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("시군구명입니다.").optional(),
+            fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("읍면동명입니다.").optional(),
+            fieldWithPath("zoneNo").type(JsonFieldType.STRING).description("우편번호입니다.").optional(),
+    };
+
+    //USER
     protected FieldDescriptor[] signupRequestFields = new FieldDescriptor[]{
             fieldWithPath("email").description("사용자 이메일입니다. 이메일 형식이어야 합니다."),
             fieldWithPath("password").description("사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상에서 최대 64자 이하여야 합니다."),
@@ -38,15 +86,6 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("introduction").description("변경할 사용자 소개입니다. 최대 200자 이하여야 합니다.").optional(),
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("변경할 사용자 주소입니다.").optional(),
     };
-
-    protected ParameterDescriptor[] userPathParams = new ParameterDescriptor[]{
-            parameterWithName("id").description("조회할 사용자 아이디입니다."),
-    };
-
-    protected ParameterDescriptor[] albumPathParams = new ParameterDescriptor[]{
-            parameterWithName("id").description("조회할 앨범 아이디입니다."),
-    };
-
 
     protected FieldDescriptor[] usersElementsFields = new FieldDescriptor[]{
             fieldWithPath("id").description("사용자 아이디입니다."),
@@ -68,6 +107,20 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional(),
             fieldWithPath("introduction").description("사용자 소개글입니다.").optional(),
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("사용자 주소입니다.").optional(),
+    };
+
+    protected ParameterDescriptor[] userPathParams = new ParameterDescriptor[]{
+            parameterWithName("id").description("조회할 사용자 아이디입니다."),
+    };
+
+    //ALBUM
+    protected ParameterDescriptor[] albumsParams = new ParameterDescriptor[]{
+            parameterWithName("dateTimeFrom").description("조회할 앨범의 최소 시각입니다.").optional(),
+            parameterWithName("dateTimeTo").description("조회할 앨범의 최대 시각입니다.").optional(),
+    };
+
+    protected ParameterDescriptor[] albumPathParams = new ParameterDescriptor[]{
+            parameterWithName("id").description("조회할 앨범 아이디입니다."),
     };
 
     protected FieldDescriptor[] albumCreateRequestFields = new FieldDescriptor[]{
@@ -111,7 +164,7 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("commentCount").type(JsonFieldType.NUMBER).description("앨범 댓글수입니다."),
     };
 
-
+    //PICTURE
     protected FieldDescriptor[] pictureFields = new FieldDescriptor[]{
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("사진 아이디입니다."),
             fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
@@ -119,14 +172,6 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
             fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다.").optional(),
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
-    };
-
-    protected FieldDescriptor[] placeFields = new FieldDescriptor[]{
-            fieldWithPath("id").type(JsonFieldType.NUMBER).description("장소 아이디입니다."),
-            fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다."),
-            fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다."),
-            fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다."),
-            fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다."),
     };
 
     protected FieldDescriptor[] pictureCreateRequestFields = new FieldDescriptor[]{
@@ -142,13 +187,13 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
     };
 
-    protected FieldDescriptor[] addressFields = new FieldDescriptor[]{
-            fieldWithPath("addressName").type(JsonFieldType.STRING).description("지번주소입니다.").optional(),
-            fieldWithPath("roadAddressName").type(JsonFieldType.STRING).description("도로명주소입니다.").optional(),
-            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("시구명입니다.").optional(),
-            fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("시군구명입니다.").optional(),
-            fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("읍면동명입니다.").optional(),
-            fieldWithPath("zoneNo").type(JsonFieldType.STRING).description("우편번호입니다.").optional(),
+    //PLACE
+    protected FieldDescriptor[] placeFields = new FieldDescriptor[]{
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("장소 아이디입니다."),
+            fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다."),
+            fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다."),
+            fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다."),
+            fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다."),
     };
 
     protected FieldDescriptor[] placeCreateRequestFields = new FieldDescriptor[]{
@@ -166,45 +211,43 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다.").optional(),
     };
 
-    protected ParameterDescriptor[] pageParams = new ParameterDescriptor[]{
-            parameterWithName("page").description("조회할 페이지입니다. 0부터 시작합니다.").optional(),
-            parameterWithName("size").description("한 페이지에 보여줄 사이즈 수입니다.").optional(),
-            parameterWithName("sort").description("정렬 기준입니다.").optional()
+    //COMMENT
+    protected FieldDescriptor[] commentCreateRequestFields = new FieldDescriptor[]{
+            fieldWithPath("content").type(JsonFieldType.STRING).description("댓글 내용입니다."),
     };
 
-    protected ParameterDescriptor[] albumsParams = new ParameterDescriptor[]{
-            parameterWithName("dateTimeFrom").description("조회할 앨범의 최소 시각입니다.").optional(),
-            parameterWithName("dateTimeTo").description("조회할 앨범의 최대 시각입니다.").optional(),
+    protected ParameterDescriptor[] commentCreatePathParams = new ParameterDescriptor[]{
+            parameterWithName("userId").description("사용자 아이디입니다."),
+            parameterWithName("pictureId").description("사진 아이디입니다."),
+    };
+
+    protected ParameterDescriptor[] commentDeletePathParams = new ParameterDescriptor[]{
+            parameterWithName("pictureId").description("사진 아이디입니다."),
+            parameterWithName("commentId").description("댓글 아이디입니다."),
+    };
+
+    protected FieldDescriptor[] commentsFields = new FieldDescriptor[]{
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("댓글 아이디입니다."),
+            fieldWithPath("pictureId").type(JsonFieldType.NUMBER).description("사진 아이디입니다."),
+            fieldWithPath("createdAt").type(JsonFieldType.STRING).description("댓글 생성 시각입니다."),
+            fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시각입니다."),
+            fieldWithPath("content").type(JsonFieldType.STRING).description("댓글 내용입니다."),
+            fieldWithPath("user").type(JsonFieldType.OBJECT).description("댓글 작성자입니다."),
+    };
+
+    protected ParameterDescriptor[] albumCommentsPathParams = new ParameterDescriptor[]{
+            parameterWithName("albumId").description("앨범 아이디입니다."),
+    };
+
+    protected ParameterDescriptor[] pictureCommentsPathParams = new ParameterDescriptor[]{
+            parameterWithName("pictureId").description("사진 아이디입니다."),
+    };
+
+    //LIKE
+    protected ParameterDescriptor[] likePathParams = new ParameterDescriptor[]{
+            parameterWithName("userId").description("유저 아이디입니다."),
+            parameterWithName("albumId").description("앨범 아이디입니다."),
     };
 
 
-    protected FieldDescriptor[] pageFields = new FieldDescriptor[]{
-            fieldWithPath("content").type(JsonFieldType.ARRAY).description("페이지 요소 리스트입니다."),
-            fieldWithPath("last").type(JsonFieldType.BOOLEAN).description("마지막 페이지 여부입니다."),
-            fieldWithPath("totalElements").type(JsonFieldType.NUMBER).description("전체 요소 수입니다."),
-            fieldWithPath("totalPages").type(JsonFieldType.NUMBER).description("전체 페이지 수입니다."),
-            fieldWithPath("size").type(JsonFieldType.NUMBER).description("한 페이지에 보여줄 사이즈 수입니다."),
-            fieldWithPath("number").type(JsonFieldType.NUMBER).ignored(),
-            fieldWithPath("first").type(JsonFieldType.BOOLEAN).description("첫 페이지 여부입니다."),
-            fieldWithPath("numberOfElements").ignored(),
-            fieldWithPath("empty").type(JsonFieldType.BOOLEAN).description("리스트가 비어 있는지 여부입니다."),
-            subsectionWithPath("sort").type(JsonFieldType.OBJECT).ignored(),
-            subsectionWithPath("pageable").type(JsonFieldType.OBJECT).ignored(),
-    };
-
-    protected FieldDescriptor[] badFields = new FieldDescriptor[]{
-            fieldWithPath("code").description("에러 코드입니다."),
-            fieldWithPath("status").type(JsonFieldType.NUMBER).description("응답 코드입니다."),
-            fieldWithPath("message").description("에러 메시지입니다."),
-            fieldWithPath("errors").description("필드 에러입니다. 필드 검증 시에만 존재합니다.")
-    };
-
-    protected FieldDescriptor[] errorsFields = new FieldDescriptor[]{
-            fieldWithPath("field").description("검증에 실패한 필드명입니다."),
-            fieldWithPath("value").description("검증에 실패한 필드값입니다."),
-            fieldWithPath("reason").description("검증에 실패한 이유입니다.")
-    };
-
-    @Autowired
-    protected MockMvc mockMvc;
 }

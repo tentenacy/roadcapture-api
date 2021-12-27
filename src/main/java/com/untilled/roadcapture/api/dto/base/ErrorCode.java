@@ -38,6 +38,10 @@ public enum ErrorCode {
 
     //COMMENT
     COMMENT_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "CMT-001", "댓글이 존재하지 않습니다."),
+
+    //LIKE
+    ALREADY_LIKE(HttpStatus.BAD_REQUEST.value(), "LIK-001", "이미 좋아요를 했습니다."),
+    LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "LIK-002", "좋아요가 존재하지 않습니다."),
             ;
 
     private final String code;

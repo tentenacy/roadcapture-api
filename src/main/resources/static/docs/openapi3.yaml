@@ -698,6 +698,51 @@ paths:
       responses:
         "201":
           description: "201"
+  /users/{userId}/albums/{albumId}/likes:
+    post:
+      tags:
+      - users
+      summary: 좋아요등록
+      description: 좋아요등록
+      operationId: 좋아요등록 - 성공
+      parameters:
+      - name: userId
+        in: path
+        description: 유저 아이디입니다.
+        required: true
+        schema:
+          type: string
+      - name: albumId
+        in: path
+        description: 앨범 아이디입니다.
+        required: true
+        schema:
+          type: string
+      responses:
+        "201":
+          description: "201"
+    delete:
+      tags:
+      - users
+      summary: 좋아요삭제
+      description: 좋아요삭제
+      operationId: 좋아요삭제 - 성공
+      parameters:
+      - name: userId
+        in: path
+        description: 유저 아이디입니다.
+        required: true
+        schema:
+          type: string
+      - name: albumId
+        in: path
+        description: 앨범 아이디입니다.
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: "204"
   /users/{userId}/albums/pictures/{pictureId}/comments:
     post:
       tags:
