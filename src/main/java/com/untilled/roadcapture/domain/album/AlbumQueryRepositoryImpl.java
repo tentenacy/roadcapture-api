@@ -34,6 +34,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -128,25 +129,29 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                 .where(QAlbum.album.id.eq(albumId))
                 .fetchOne();
 
-        List<PictureResponse> pictures = queryFactory
-                .select(Projections.constructor(PictureResponse.class,
-                        picture.id,
-                        picture.createdAt,
-                        picture.lastModifiedAt,
-                        picture.imageUrl,
-                        picture.description,
-                        Projections.constructor(PlaceResponse.class,
-                                place.id,
-                                place.name,
-                                place.latitude,
-                                place.longitude,
-                                place.address)))
-                .from(picture)
-                .join(picture.place, place)
-                .where(picture.album.id.eq(albumId))
-                .fetch();
+        if(!ObjectUtils.isEmpty(albumResponse.getId())) {
+            List<PictureResponse> pictures = queryFactory
+                    .select(Projections.constructor(PictureResponse.class,
+                            picture.id,
+                            picture.createdAt,
+                            picture.lastModifiedAt,
+                            picture.imageUrl,
+                            picture.description,
+                            Projections.constructor(PlaceResponse.class,
+                                    place.id,
+                                    place.name,
+                                    place.latitude,
+                                    place.longitude,
+                                    place.address)))
+                    .from(picture)
+                    .join(picture.place, place)
+                    .where(picture.album.id.eq(albumId))
+                    .fetch();
 
-        albumResponse.setPictures(pictures);
+            albumResponse.setPictures(pictures);
+        } else {
+            albumResponse = null;
+        }
 
         return Optional.ofNullable(albumResponse);
     }
