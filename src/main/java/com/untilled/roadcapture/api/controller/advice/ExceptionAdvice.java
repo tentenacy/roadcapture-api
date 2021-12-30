@@ -2,11 +2,13 @@ package com.untilled.roadcapture.api.controller.advice;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.common.ErrorResponse;
+import com.untilled.roadcapture.api.exception.AuthenticationEntryPointException;
 import com.untilled.roadcapture.api.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
@@ -30,12 +32,19 @@ public class ExceptionAdvice {
     }
 
     /**
-     * RuntimeException 하위 클래스
+     * Jwt가 잘못된 경우
+     */
+    @ExceptionHandler(AuthenticationEntryPointException.class)
+    public ResponseEntity<ErrorResponse> handleAuthenticationEntryPointException(final AuthenticationEntryPointException e) {
+        return new ResponseEntity<>(ErrorResponse.of(e.getErrorCode()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
+    }
+
+    /**
+     * BusinessException 하위 클래스
      */
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorResponse> handleBusinessException(final BusinessException e) {
-        ErrorCode errorCode = e.getErrorCode();
-        return new ResponseEntity<>(ErrorResponse.of(errorCode), HttpStatus.valueOf(errorCode.getStatus()));
+        return new ResponseEntity<>(ErrorResponse.of(e.getErrorCode()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
     }
 
 }

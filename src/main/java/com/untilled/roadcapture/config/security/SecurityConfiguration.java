@@ -45,8 +45,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users", "/users/tokens").permitAll()
+                .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .anyRequest().hasRole("USER")
+        .and()
+                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
         .and()
                 //Jwt 인증 필터를 UsernamePasswordAuthenticationFilter 전에 삽입
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
