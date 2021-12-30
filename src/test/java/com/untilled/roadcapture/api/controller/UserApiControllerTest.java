@@ -28,6 +28,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
     private UserService userService;
 
+    //TODO: ROLE이 ADMIN인 경우 권한 에러 핸들링 테스트
+
     @Nested
     @DisplayName("조회")
     class Users {
