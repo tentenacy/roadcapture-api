@@ -488,7 +488,7 @@ paths:
                     },{\"id\":10,\"username\":\"user10\",\"profileImageUrl\":\"https://www.test.com/test\"\
                     }],\"pageable\":{\"sort\":{\"empty\":false,\"sorted\":true,\"\
                     unsorted\":false},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
-                    paged\":true,\"unpaged\":false},\"last\":false,\"totalElements\"\
+                    unpaged\":false,\"paged\":true},\"last\":false,\"totalElements\"\
                     :50,\"totalPages\":5,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
                     :false,\"sorted\":true,\"unsorted\":false},\"first\":true,\"numberOfElements\"\
                     :10,\"empty\":false}"
@@ -540,38 +540,36 @@ paths:
                 $ref: '#/components/schemas/users-395173474'
               examples:
                 회원가입 - 닉네임 길이가 12보다 길면 실패:
-                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
-                    \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
-                    :\"testtesttesttest\",\"reason\":\"size must be between 2 and\
-                    \ 12\"}]}"
+                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"잘못된 입\
+                    력입니다.\",\"errors\":[{\"field\":\"username\",\"value\":\"testtesttesttest\"\
+                    ,\"reason\":\"size must be between 2 and 12\"}]}"
                 회원가입 - 닉네임 길이가 2보다 짧으면 실패:
-                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
-                    \ Input Value\",\"errors\":[{\"field\":\"username\",\"value\"\
-                    :\"t\",\"reason\":\"size must be between 2 and 12\"}]}"
+                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"잘못된 입\
+                    력입니다.\",\"errors\":[{\"field\":\"username\",\"value\":\"t\",\"\
+                    reason\":\"size must be between 2 and 12\"}]}"
                 회원가입 - 닉네임 중복 시 실패:
                   value: "{\"code\":\"USR-005\",\"status\":400,\"message\":\"중복된 닉\
                     네임의 계정이 존재합니다.\",\"errors\":[]}"
                 회원가입 - 비밀번호 길이가 64보다 길면 실패:
-                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
-                    \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
-                    :\"abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789\"\
+                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"잘못된 입\
+                    력입니다.\",\"errors\":[{\"field\":\"password\",\"value\":\"abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789\"\
                     ,\"reason\":\"length must be between 8 and 64\"}]}"
                 회원가입 - 비밀번호 길이가 8보다 짧으면 실패:
-                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
-                    \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
-                    :\"abcd123\",\"reason\":\"length must be between 8 and 64\"}]}"
+                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"잘못된 입\
+                    력입니다.\",\"errors\":[{\"field\":\"password\",\"value\":\"abcd123\"\
+                    ,\"reason\":\"length must be between 8 and 64\"}]}"
                 회원가입 - 비밀번호 형식 맞지 않으면 실패:
-                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
-                    \ Input Value\",\"errors\":[{\"field\":\"password\",\"value\"\
-                    :\"abcdefgh\",\"reason\":\"must match \\\"^(?=.*[A-Za-z])(?=.*\\\
-                    \\d)[A-Za-z\\\\d]+$\\\"\"}]}"
+                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"잘못된 입\
+                    력입니다.\",\"errors\":[{\"field\":\"password\",\"value\":\"abcdefgh\"\
+                    ,\"reason\":\"must match \\\"^(?=.*[A-Za-z])(?=.*\\\\d)[A-Za-z\\\
+                    \\d]+$\\\"\"}]}"
                 회원가입 - 이메일 중복 시 실패:
                   value: "{\"code\":\"USR-002\",\"status\":400,\"message\":\"중복된 이\
                     메일의 계정이 존재합니다.\",\"errors\":[]}"
                 회원가입 - 이메일 형식 맞지 않으면 실패:
-                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"Invalid\
-                    \ Input Value\",\"errors\":[{\"field\":\"email\",\"value\":\"\
-                    test\",\"reason\":\"must be a well-formed email address\"}]}"
+                  value: "{\"code\":\"CMM-001\",\"status\":400,\"message\":\"잘못된 입\
+                    력입니다.\",\"errors\":[{\"field\":\"email\",\"value\":\"test\",\"\
+                    reason\":\"must be a well-formed email address\"}]}"
         "201":
           description: "201"
   /users/tokens:
@@ -595,11 +593,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-tokens8061562'
+                $ref: '#/components/schemas/users-tokens1434215141'
               examples:
                 로그인 - 성공:
-                  value: "{\"token\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MDg2MzQ5MywiZXhwIjoxNjQwODY3MDkzfQ.jV1o_SC83v_JDFmMqwSo5YH_h6QnZ3ul2wCMQZ0f9EI\"\
-                    }"
+                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MDg4ODc0MywiZXhwIjoxNjQwODkyMzQzfQ.3p4Y4JQem1PrCgWqfKuo8n-NOIxv674eupuOUI0PsuY\"\
+                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIxMTc2NzF9.kGyKeaDzExqaOCCh4v-HrgAHKAc8zEd264_YebhJLbg\"\
+                    ,\"accessTokenExpireDate\":3600000}"
   /users/{id}:
     get:
       tags:
@@ -701,6 +700,35 @@ paths:
       responses:
         "200":
           description: "200"
+  /users/tokens/reissue:
+    post:
+      tags:
+      - users
+      summary: 토큰재발급
+      description: 토큰재발급
+      operationId: 토큰재발급 - 성공
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/users-tokens-reissue1815000917'
+            examples:
+              토큰재발급 - 성공:
+                value: "{\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MDg4MDEzMCwiZXhwIjoxNjQwODgzNzMwfQ.ZN13bN1EnWvG6nDXGdbS5_XbYU4WQXWQGLZnKCiQHJw\"\
+                  ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIxMDkwNTh9.ScvhpNCJYxGBh0LDw0TaghBhwOY3-ib1WjTrZPdxN7A\"\
+                  }"
+      responses:
+        "201":
+          description: "201"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users-tokens1434215141'
+              examples:
+                토큰재발급 - 성공:
+                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MDg4MDE1MiwiZXhwIjoxNjQwODgzNzUyfQ.tVwF-kA2HzRrFRAf3sE1j791_DAyPmnBivlag2fJS4k\"\
+                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIxMDkwODB9.rAD9tpJy0l_NQbKnzc-M9RBXonwQZBXKIV7CB65zbWw\"\
+                    ,\"accessTokenExpireDate\":3600000}"
   /users/{id}/details:
     get:
       tags:
@@ -885,12 +913,6 @@ paths:
           description: "201"
 components:
   schemas:
-    users-tokens8061562:
-      type: object
-      properties:
-        token:
-          type: string
-          description: jwt 입니다. api 요청 시 사용됩니다.
     users-id1467703423:
       type: object
       properties:
@@ -1301,6 +1323,21 @@ components:
         thumbnailUrl:
           type: string
           description: 앨범 썸네일 이미지 주소입니다.
+    users-tokens1434215141:
+      type: object
+      properties:
+        accessTokenExpireDate:
+          type: number
+          description: jwt 입니다. api 요청 시 사용됩니다.
+        accessToken:
+          type: string
+          description: 액세스 토큰입니다. api 요청 시 사용됩니다.
+        grantType:
+          type: string
+          description: 승인 타입입니다.
+        refreshToken:
+          type: string
+          description: 리프레시 토큰입니다. 토큰 재발급에 사용됩니다.
     albums-id640578804:
       type: object
       properties:
@@ -1366,6 +1403,15 @@ components:
         thumbnailUrl:
           type: string
           description: 앨범 썸네일 이미지 주소입니다.
+    users-tokens-reissue1815000917:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: 액세스 토큰입니다.
+        refreshToken:
+          type: string
+          description: 리프레시 토큰입니다.
     users-userId-albums-pictures-pictureId-comments-608006242:
       type: object
       properties:

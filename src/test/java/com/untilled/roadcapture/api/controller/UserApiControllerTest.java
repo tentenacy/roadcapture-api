@@ -2,19 +2,28 @@ package com.untilled.roadcapture.api.controller;
 
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
+import com.untilled.roadcapture.api.dto.token.TokenRequest;
+import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.LoginRequest;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
 import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
 import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.domain.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
+import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -26,9 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserApiControllerTest extends ApiDocumentationTest {
 
+    @SpyBean
     private UserService userService;
-
-    //TODO: ROLE이 ADMIN인 경우 권한 에러 핸들링 테스트
 
     @Nested
     @DisplayName("조회")
@@ -305,8 +313,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-
-                    .andExpect(jsonPath("$.code").value(ErrorCode.NICKNAME_EMAIL_DUPLICATION.getCode()))
+                    .andExpect(jsonPath("$.code").value(ErrorCode.NICKNAME_DUPLICATION.getCode()))
                     .andDo(document("회원가입 - 닉네임 중복 시 실패", "회원가입",
                             responseFields(badFields)));
         }
@@ -432,10 +439,34 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isCreated())
-                    .andExpect(jsonPath("token").exists())
                     .andDo(document("로그인 - 성공", "로그인",
                             requestFields(loginRequestFields),
-                            responseFields(loginFields)));
+                            responseFields(tokenFields)));
+        }
+    }
+
+    @Nested
+    @DisplayName("토큰재발급")
+    class TokenReissue {
+
+        @Test
+        @DisplayName("성공")
+        void Success() throws Exception {
+            //given
+            TokenRequest request = new TokenRequest("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MDg4MDEzMCwiZXhwIjoxNjQwODgzNzMwfQ.ZN13bN1EnWvG6nDXGdbS5_XbYU4WQXWQGLZnKCiQHJw", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIxMDkwNTh9.ScvhpNCJYxGBh0LDw0TaghBhwOY3-ib1WjTrZPdxN7A");
+            TokenResponse response = new TokenResponse("bearer", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MDg4MDE1MiwiZXhwIjoxNjQwODgzNzUyfQ.tVwF-kA2HzRrFRAf3sE1j791_DAyPmnBivlag2fJS4k", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIxMDkwODB9.rAD9tpJy0l_NQbKnzc-M9RBXonwQZBXKIV7CB65zbWw", 3600000L);
+            willReturn(response).given(userService).reissue(any());
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/tokens/reissue")
+                    .content(mapper.writeValueAsString(request))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isCreated())
+                    .andDo(document("토큰재발급 - 성공", "토큰재발급",
+                            requestFields(tokenRequestFields),
+                            responseFields(tokenFields)));
         }
     }
 

@@ -4,6 +4,6 @@ import com.untilled.roadcapture.api.dto.common.ErrorCode;
 
 public class UsernameDuplicatedException extends InvalidValueException {
     public UsernameDuplicatedException() {
-        super(ErrorCode.NICKNAME_EMAIL_DUPLICATION);
+        super(ErrorCode.NICKNAME_DUPLICATION);
     }
 }

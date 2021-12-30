@@ -5,6 +5,7 @@ import com.untilled.roadcapture.api.dto.common.ErrorResponse;
 import com.untilled.roadcapture.api.exception.AuthenticationEntryPointException;
 import com.untilled.roadcapture.api.exception.BusinessException;
 import com.untilled.roadcapture.api.exception.CAccessDeniedException;
+import com.untilled.roadcapture.api.exception.CSecurityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,18 +34,14 @@ public class ExceptionAdvice {
     }
 
     /**
-     * Jwt가 없거나 잘못된 경우
+     * CSecurityException 하위 클래스
+     *
+     * * TokenException
+     * * * AuthenticationEntryPointException: Jwt가 없거나 잘못된 경우
+     * * * CAccessDeniedException: 리소스에 접근할 권한이 없는 경우
      */
-    @ExceptionHandler(AuthenticationEntryPointException.class)
-    public ResponseEntity<ErrorResponse> handleAuthenticationEntryPointException(final AuthenticationEntryPointException e) {
-        return new ResponseEntity<>(ErrorResponse.of(e.getErrorCode()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
-    }
-
-    /**
-     * 리소스에 접근할 권한이 없는 경우
-     */
-    @ExceptionHandler(CAccessDeniedException.class)
-    public ResponseEntity<ErrorResponse> handleAuthenticationEntryPointException(final CAccessDeniedException e) {
+    @ExceptionHandler(CSecurityException.class)
+    public ResponseEntity<ErrorResponse> handleCSecurityException(final CSecurityException e) {
         return new ResponseEntity<>(ErrorResponse.of(e.getErrorCode()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
     }
 

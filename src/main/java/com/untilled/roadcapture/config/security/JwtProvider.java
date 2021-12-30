@@ -1,15 +1,16 @@
 package com.untilled.roadcapture.config.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.untilled.roadcapture.api.dto.token.TokenResponse;
+import com.untilled.roadcapture.api.exception.AuthenticationEntryPointException;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -17,16 +18,17 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class JwtProvider {
 
+    public final String ROLES = "roles";
+    private final Long accessTokenValidMillisecond = 60 * 60 * 1000L; //1 hour
+    private final Long refreshTokenValidMillisecond = 1000 * 365 * 24 * 60 * 60 * 1000L; //1000 years
+    private final CustomUserDetailsService userDetailsService;
     @Value("spring.jwt.secret")
     private String secretKey;
-
-    private Long tokenValidMillisecond = 60 * 60 * 1000L;
-
-    private final CustomUserDetailsService userDetailsService;
 
     @PostConstruct
     protected void init() {
@@ -36,34 +38,57 @@ public class JwtProvider {
     /**
      * Jwt 생성
      */
-    public String createToken(String userPk, List<String> roles) {
+    public TokenResponse createToken(String userPk, List<String> roles) {
 
         Claims claims = Jwts.claims().setSubject(userPk);
-        claims.put("roles", roles);
+        claims.put(ROLES, roles);
 
         Date now = new Date();
 
-        return Jwts.builder()
+        String accessToken = Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + tokenValidMillisecond))
+                .setExpiration(new Date(now.getTime() + accessTokenValidMillisecond))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
+
+        String refreshToken = Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                .setExpiration(new Date(now.getTime() + refreshTokenValidMillisecond))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+
+        return new TokenResponse("bearer", accessToken, refreshToken, accessTokenValidMillisecond);
     }
 
     /**
      * Jwt로 인증정보를 조회
      */
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
+
+        Claims claims = parseClaims(token);
+
+        if (ObjectUtils.isEmpty(claims.get(ROLES))) {
+            throw new AuthenticationEntryPointException();
+        }
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     /**
-     * Jwt에서 회원 구분 Pk 추출
+     * 만료된 토큰이어도 refresh token을 검증 후 재발급할 수 있도록 claims 반환
+     *
+     * @param token
+     * @return
      */
-    public String getUserPk(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    private Claims parseClaims(String token) {
+        try {
+            return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
     }
 
     /**
@@ -78,9 +103,10 @@ public class JwtProvider {
      */
     public boolean validationToken(String token) {
         try {
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            return !claimsJws.getBody().getExpiration().before(new Date());
-        } catch (Exception e) {
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            log.error(e.toString());
             return false;
         }
     }

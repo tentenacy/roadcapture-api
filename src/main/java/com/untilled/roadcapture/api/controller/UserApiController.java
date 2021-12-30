@@ -1,5 +1,7 @@
 package com.untilled.roadcapture.api.controller;
 
+import com.untilled.roadcapture.api.dto.token.TokenRequest;
+import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.config.security.JwtProvider;
 import com.untilled.roadcapture.domain.user.UserService;
@@ -42,8 +44,14 @@ public class UserApiController {
 
     @PostMapping("/tokens")
     @ResponseStatus(HttpStatus.CREATED)
-    public LoginResponse login(@RequestBody @Validated LoginRequest request) {
+    public TokenResponse login(@RequestBody @Validated LoginRequest request) {
         return userService.login(request);
+    }
+
+    @PostMapping("/tokens/reissue")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TokenResponse reissue(@RequestBody @Validated TokenRequest request) {
+        return userService.reissue(request);
     }
 
     @PatchMapping("/{userId}")
