@@ -7,13 +7,11 @@ import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
 import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
 import com.untilled.roadcapture.domain.address.Address;
-import com.untilled.roadcapture.domain.album.AlbumService;
-import com.untilled.roadcapture.domain.comment.CommentService;
-import com.untilled.roadcapture.domain.like.LikeService;
-import com.untilled.roadcapture.domain.user.User;
-import com.untilled.roadcapture.domain.user.UserService;
+import com.untilled.roadcapture.api.service.AlbumService;
+import com.untilled.roadcapture.api.service.CommentService;
+import com.untilled.roadcapture.api.service.LikeService;
+import com.untilled.roadcapture.api.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;

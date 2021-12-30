@@ -39,3 +39,4 @@ out/
 application.properties
 application.yaml
 application-jwt.yaml
+application-social.yaml

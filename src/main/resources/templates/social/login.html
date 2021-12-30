@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        function popupKakaoLogin(loginUrl) {
+            window.open(loginUrl, 'popupKakaoLogin', 'width=730,height=400,scrollbars=0,toolbar=0,menubar=no')
+            console.log(loginUrl)
+        }
+    </script>
+</head>
+<body>
+    <button th:attr="onclick=|popupKakaoLogin('${loginUrl}')|">KakaoLogin</button>
+</body>
+</html>

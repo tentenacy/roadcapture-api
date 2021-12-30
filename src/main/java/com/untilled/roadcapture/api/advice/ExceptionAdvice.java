@@ -1,16 +1,13 @@
-package com.untilled.roadcapture.api.controller.advice;
+package com.untilled.roadcapture.api.advice;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.common.ErrorResponse;
-import com.untilled.roadcapture.api.exception.AuthenticationEntryPointException;
 import com.untilled.roadcapture.api.exception.BusinessException;
-import com.untilled.roadcapture.api.exception.CAccessDeniedException;
 import com.untilled.roadcapture.api.exception.CSecurityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 

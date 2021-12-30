@@ -2,6 +2,7 @@ package com.untilled.roadcapture.config.security;
 
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.exception.AuthenticationEntryPointException;
+import com.untilled.roadcapture.api.service.security.CustomUserDetailsService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

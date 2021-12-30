@@ -13,6 +13,7 @@ public enum ErrorCode {
     INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST.value(), "CMM-005", "Invalid Type Value"),
     HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN.value(), "CMM-006", "접근이 거부되었습니다."),
     JSON_WRITE_ERROR(HttpStatus.UNAUTHORIZED.value(), "CMM-007", "JSON content that are not pure I/O problems"),
+    COMMUNICATION_ERROR(HttpStatus.BAD_REQUEST.value(), "CMM-008", "소셜 인증 과정 중 오류가 발생했습니다."),
 
     //TOKEN
     ACCESS_TOKEN_ERROR(HttpStatus.UNAUTHORIZED.value(), "TKN-001", "액세스 토큰이 만료되거나 잘못된 값입니다."),

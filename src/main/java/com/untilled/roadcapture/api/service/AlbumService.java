@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.domain.album;
+package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.album.*;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
@@ -8,6 +8,8 @@ import com.untilled.roadcapture.api.exception.AlbumNotFoundException;
 import com.untilled.roadcapture.api.exception.PictureNotFoundException;
 import com.untilled.roadcapture.api.exception.PlaceNotFoundException;
 import com.untilled.roadcapture.api.exception.UserNotFoundException;
+import com.untilled.roadcapture.domain.album.Album;
+import com.untilled.roadcapture.domain.album.AlbumRepository;
 import com.untilled.roadcapture.domain.picture.Picture;
 import com.untilled.roadcapture.domain.picture.PictureRepository;
 import com.untilled.roadcapture.domain.place.Place;

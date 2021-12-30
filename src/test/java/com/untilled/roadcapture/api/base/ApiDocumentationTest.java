@@ -1,15 +1,11 @@
 package com.untilled.roadcapture.api.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.untilled.roadcapture.api.controller.UserApiController;
-import com.untilled.roadcapture.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.headers.HeaderDescriptor;
-import org.springframework.restdocs.headers.HeaderDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;

@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.domain.comment;
+package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentsResponse;
@@ -6,6 +6,8 @@ import com.untilled.roadcapture.api.exception.AlbumNotFoundException;
 import com.untilled.roadcapture.api.exception.CommentNotFoundException;
 import com.untilled.roadcapture.api.exception.PictureNotFoundException;
 import com.untilled.roadcapture.api.exception.UserNotFoundException;
+import com.untilled.roadcapture.domain.comment.Comment;
+import com.untilled.roadcapture.domain.comment.CommentRepository;
 import com.untilled.roadcapture.domain.picture.Picture;
 import com.untilled.roadcapture.domain.picture.PictureRepository;
 import com.untilled.roadcapture.domain.user.User;

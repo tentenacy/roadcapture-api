@@ -47,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users", "/users/tokens", "/users/tokens/reissue").permitAll()
+                .antMatchers(HttpMethod.GET, "/oauth/kakao/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .anyRequest().hasRole("USER")

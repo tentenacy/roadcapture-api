@@ -1,7 +1,7 @@
 package com.untilled.roadcapture.api.controller;
 
 import com.untilled.roadcapture.api.dto.album.*;
-import com.untilled.roadcapture.domain.album.AlbumService;
+import com.untilled.roadcapture.api.service.AlbumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

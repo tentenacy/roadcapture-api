@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.config.security;
+package com.untilled.roadcapture.api.service.security;
 
 import com.untilled.roadcapture.api.exception.UserNotFoundException;
 import com.untilled.roadcapture.domain.user.UserRepository;

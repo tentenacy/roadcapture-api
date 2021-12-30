@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.domain.like;
+package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.exception.AlbumNotFoundException;
 import com.untilled.roadcapture.api.exception.AlreadyLikeException;
@@ -6,6 +6,8 @@ import com.untilled.roadcapture.api.exception.LikeNotFoundException;
 import com.untilled.roadcapture.api.exception.UserNotFoundException;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.album.AlbumRepository;
+import com.untilled.roadcapture.domain.like.Like;
+import com.untilled.roadcapture.domain.like.LikeRepository;
 import com.untilled.roadcapture.domain.user.User;
 import com.untilled.roadcapture.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;

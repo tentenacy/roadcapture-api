@@ -2,7 +2,7 @@ package com.untilled.roadcapture.api.controller;
 
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentsResponse;
-import com.untilled.roadcapture.domain.comment.CommentService;
+import com.untilled.roadcapture.api.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

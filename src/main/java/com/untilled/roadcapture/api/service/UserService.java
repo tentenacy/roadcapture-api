@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.domain.user;
+package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.token.TokenRequest;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
@@ -7,6 +7,8 @@ import com.untilled.roadcapture.api.exception.*;
 import com.untilled.roadcapture.config.security.JwtProvider;
 import com.untilled.roadcapture.domain.token.RefreshToken;
 import com.untilled.roadcapture.domain.token.RefreshTokenRepository;
+import com.untilled.roadcapture.domain.user.User;
+import com.untilled.roadcapture.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
