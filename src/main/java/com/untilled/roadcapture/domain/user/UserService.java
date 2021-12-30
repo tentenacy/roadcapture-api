@@ -1,21 +1,18 @@
 package com.untilled.roadcapture.domain.user;
 
-import com.untilled.roadcapture.api.dto.base.PageRequest;
 import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.api.exception.EmailDuplicatedException;
+import com.untilled.roadcapture.api.exception.EmailLoginFailedException;
 import com.untilled.roadcapture.api.exception.UsernameDuplicatedException;
 import com.untilled.roadcapture.api.exception.UserNotFoundException;
-import com.untilled.roadcapture.domain.address.Address;
+import com.untilled.roadcapture.config.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.PostConstruct;
-import java.util.List;
-import java.util.stream.IntStream;
 
 @Slf4j
 @Service
@@ -24,13 +21,24 @@ import java.util.stream.IntStream;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtProvider jwtProvider;
 
     @Transactional
-    public User signup(SignupRequest signupRequest) {
-        User createdUser = User.create(signupRequest.getEmail(), signupRequest.getPassword(), signupRequest.getUsername());
+    public void signup(SignupRequest signupRequest) {
+        User createdUser = User.create(signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()), signupRequest.getUsername());
         duplicateEmail(createdUser);
         duplicateUsername(createdUser);
-        return userRepository.save(createdUser);
+        userRepository.save(createdUser);
+    }
+
+    @Transactional
+    public LoginResponse login(LoginRequest request) {
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(EmailLoginFailedException::new);
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new EmailLoginFailedException();
+        }
+        return new LoginResponse(jwtProvider.createToken(user.getId().toString(), user.getRoles()));
     }
 
     @Transactional

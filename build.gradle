@@ -51,6 +51,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.15.1'
 	testCompileOnly 'org.projectlombok:lombok'
@@ -86,6 +87,23 @@ openapi3 {
 	version = '0.1.0'
 	format = 'yaml'
 }
+
+/*{
+  "api_key": {
+    "type": "apiKey",
+    "name": "api_key",
+    "in": "header"
+  },
+  "petstore_auth": {
+    "type": "oauth2",
+    "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+    "flow": "implicit",
+    "scopes": {
+      "write:pets": "modify pets in your account",
+      "read:pets": "read your pets"
+    }
+  }
+}*/
 
 asciidoctor {
 	inputs.dir snippetsDir

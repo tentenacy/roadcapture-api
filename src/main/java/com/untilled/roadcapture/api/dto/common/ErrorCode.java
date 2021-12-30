@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.api.dto.base;
+package com.untilled.roadcapture.api.dto.common;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -20,12 +20,11 @@ public enum ErrorCode {
     JWT_EXPIRED(HttpStatus.UNAUTHORIZED.value(), "JWT-003", "토큰이 만료되었습니다."),
 
     //USER
-    EMAIL_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "USR-001", "이메일이 존재하지 않습니다."),
+    EMAIL_LOGIN_FAIL(HttpStatus.BAD_REQUEST.value(), "USR-001", "존재하지 않는 계정이거나, 잘못된 비밀번호입니다."),
     EMAIL_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "USR-002", "중복된 이메일의 계정이 존재합니다."),
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "USR-003", "사용자가 존재하지 않습니다."),
     USER_NOT_AUTHENTICATION(HttpStatus.UNAUTHORIZED.value(), "USR-004", "인증된 사용자가 아닙니다."),
     NICKNAME_EMAIL_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "USR-005", "중복된 닉네임의 계정이 존재합니다."),
-    PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST.value(), "USR-006", "비밀번호가 일치하지 않습니다."),
 
     //ALBUM
     ALBUM_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "ABM-001", "앨범이 존재하지 않습니다."),

@@ -8,12 +8,15 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.restdocs.headers.HeaderDescriptor;
+import org.springframework.restdocs.headers.HeaderDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -87,10 +90,24 @@ public abstract class ApiDocumentationTest {
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("변경할 사용자 주소입니다.").optional(),
     };
 
-    protected FieldDescriptor[] usersElementsFields = new FieldDescriptor[]{
+    protected FieldDescriptor[] loginRequestFields = new FieldDescriptor[]{
+            fieldWithPath("email").type(JsonFieldType.STRING).description("사용자 이메일입니다."),
+            fieldWithPath("password").type(JsonFieldType.STRING).description("사용자 비밀번호입니다."),
+    };
+
+    protected FieldDescriptor[] loginFields = new FieldDescriptor[]{
+            fieldWithPath("token").type(JsonFieldType.STRING).description("jwt 입니다. api 요청 시 사용됩니다."),
+    };
+
+
+    protected FieldDescriptor[] usersFields = new FieldDescriptor[]{
             fieldWithPath("id").description("사용자 아이디입니다."),
             fieldWithPath("username").description("사용자 이름입니다."),
             fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional()
+    };
+
+    protected HeaderDescriptor[] jwtHeader = new HeaderDescriptor[]{
+            headerWithName("X-AUTH-TOKEN").description("로그인 성공 시 발급받은 jwt 입니다.")
     };
 
     protected FieldDescriptor[] userFields = new FieldDescriptor[]{

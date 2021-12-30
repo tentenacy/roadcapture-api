@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.api.dto.base;
+package com.untilled.roadcapture.api.dto.common;
 
 import lombok.Getter;
 import org.springframework.data.domain.Sort;

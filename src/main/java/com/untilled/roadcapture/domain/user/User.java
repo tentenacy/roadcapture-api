@@ -7,20 +7,27 @@ import com.untilled.roadcapture.domain.base.BaseTimeEntity;
 import com.untilled.roadcapture.domain.follower.Follower;
 import com.untilled.roadcapture.domain.place.Place;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter @Setter(value = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "USERS")
-public class User extends BaseTimeEntity {
+public class User extends BaseTimeEntity implements UserDetails {
 
     @Id @GeneratedValue
     @Column(name = "user_id")
@@ -35,6 +42,9 @@ public class User extends BaseTimeEntity {
     private String profileImageUrl;
 
     private String introduction;
+
+    @ElementCollection(fetch = EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @Embedded
     private Address address;
@@ -53,6 +63,7 @@ public class User extends BaseTimeEntity {
         user.setEmail(email);
         user.setPassword(password);
         user.setUsername(username);
+        user.setRoles(Collections.singletonList("ROLE_USER"));
         return user;
     }
 
@@ -71,4 +82,30 @@ public class User extends BaseTimeEntity {
         }
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles
+                .stream().map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

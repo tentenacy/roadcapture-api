@@ -1,34 +1,22 @@
 package com.untilled.roadcapture.api.controller;
 
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
-import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
-import com.untilled.roadcapture.api.dto.album.AlbumUpdateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
-import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
-import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
-import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
-import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
 import org.junit.jupiter.api.Nested;
 
-import com.untilled.roadcapture.domain.address.Address;
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.restdocs.request.ParameterDescriptor;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
-
-import java.util.Arrays;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CommentApiControllerTest extends ApiDocumentationTest {
 
@@ -37,6 +25,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
     class Create {
 
         @Test
+        @WithMockUser(username = "mockUser")
         public void Success() throws Exception {
             //given
             CommentCreateRequest request = new CommentCreateRequest("후기 감사합니다.");
@@ -45,11 +34,13 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             ResultActions result = mockMvc.perform(post("/users/{userId}/albums/pictures/{pictureId}/comments",
                     2L, 52L)
                     .content(mapper.writeValueAsString(request))
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isCreated())
                     .andDo(document("댓글등록 - 성공", "댓글등록",
+                            requestHeaders(jwtHeader),
                             pathParameters(commentCreatePathParams),
                             requestFields(commentCreateRequestFields)));
         }
@@ -60,17 +51,20 @@ class CommentApiControllerTest extends ApiDocumentationTest {
     class Delete {
 
         @Test
+        @WithMockUser(username = "mockUser")
         public void Success() throws Exception {
             //given
 
             //when
             ResultActions result = mockMvc.perform(delete("/pictures/{pictureId}/comments/{commentId}",
                     52L, 56L)
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isNoContent())
                     .andDo(document("댓글삭제 - 성공", "댓글삭제",
+                            requestHeaders(jwtHeader),
                             pathParameters(commentDeletePathParams)));
         }
     }
@@ -80,6 +74,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
     class AlbumComments {
 
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
@@ -88,16 +83,18 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             ResultActions result = mockMvc.perform(get("/albums/{albumId}/pictures/comments", 51L)
 //                    .param("albumId", String.valueOf(51L))
 //                    .param("pictureId", String.valueOf(52L))
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
                     .andDo(document("앨범댓글조회 - 성공", "앨범댓글조회",
+                            requestHeaders(jwtHeader),
                             pathParameters(albumCommentsPathParams),
                             requestParameters(pageParams),
                             responseFields(pageFields)
                                     .andWithPrefix("content.[].", commentsFields)
-                                    .andWithPrefix("content.[].user.", usersElementsFields)));
+                                    .andWithPrefix("content.[].user.", usersFields)));
         }
     }
 
@@ -106,6 +103,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
     class PictureComments {
 
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
@@ -113,16 +111,18 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(get("/pictures/{pictureId}/comments", 52L)
 //                    .param("pictureId", String.valueOf(52L))
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
                     .andDo(document("사진댓글조회 - 성공", "사진댓글조회",
+                            requestHeaders(jwtHeader),
                             pathParameters(pictureCommentsPathParams),
                             requestParameters(pageParams),
                             responseFields(pageFields)
                                     .andWithPrefix("content.[].", commentsFields)
-                                    .andWithPrefix("content.[].user.", usersElementsFields)));
+                                    .andWithPrefix("content.[].user.", usersFields)));
         }
     }
 

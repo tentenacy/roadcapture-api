@@ -1,23 +1,26 @@
 package com.untilled.roadcapture.api.controller;
 
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
-import com.untilled.roadcapture.api.dto.base.ErrorCode;
+import com.untilled.roadcapture.api.dto.common.ErrorCode;
+import com.untilled.roadcapture.api.dto.user.LoginRequest;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
 import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
 import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.domain.user.UserService;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.restdocs.request.ParameterDescriptor;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
-import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,11 +33,13 @@ class UserApiControllerTest extends ApiDocumentationTest {
     class Users {
 
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users")
                     .queryParam("sort", "id,asc")
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -42,8 +47,9 @@ class UserApiControllerTest extends ApiDocumentationTest {
                     .andExpect(jsonPath("$.content[0].username").value("user1"))
                     .andExpect(jsonPath("$.content[1].username").value("user2"))
                     .andDo(document("회원조회 - 성공", "회원조회",
+                            requestHeaders(jwtHeader),
                             requestParameters(pageParams),
-                            responseFields().andWithPrefix("content.[].", usersElementsFields).and(pageFields)
+                            responseFields().andWithPrefix("content.[].", usersFields).and(pageFields)
                     ));
         }
     }
@@ -52,30 +58,36 @@ class UserApiControllerTest extends ApiDocumentationTest {
     @DisplayName("단건조회")
     class User {
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}", 2L)
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.username").value("user2"))
                     .andDo(document("회원단건조회 - 성공", "회원단건조회",
+                            requestHeaders(jwtHeader),
                             pathParameters(userPathParams),
                             responseFields(userFields)));
         }
 
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("회원 존재하지 않으면 실패")
         void UserNotFound_Fail() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}", 0L)
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원단건조회 - 회원 존재하지 않으면 실패", "회원단건조회",
+                            requestHeaders(jwtHeader),
                             pathParameters(userPathParams),
                             responseFields(badFields)));
         }
@@ -86,29 +98,35 @@ class UserApiControllerTest extends ApiDocumentationTest {
     class UserDetail {
 
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}/details", 2L)
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.username").value("user2"))
                     .andDo(document("회원상세조회 - 성공", "회원상세조회",
+                            requestHeaders(jwtHeader),
                             responseFields(userDetailFields).andWithPrefix("address.", addressFields)));
         }
 
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("회원 존재하지 않으면 실패")
         void UserNotFound_Fail() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}/details", 0L)
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원상세조회 - 회원 존재하지 않으면 실패", "회원상세조회",
+                            requestHeaders(jwtHeader),
                             pathParameters(userPathParams),
                             responseFields(badFields)));
         }
@@ -118,6 +136,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
     @DisplayName("수정")
     class Update {
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         void Success() throws Exception {
             //given
@@ -137,16 +156,19 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
                     .content(mapper.writeValueAsString(userUpdateRequest))
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
                     .andDo(document("회원수정 - 성공", "회원수정",
+                            requestHeaders(jwtHeader),
                             requestFields(userUpdateRequestFields).andWithPrefix("address.", addressFields)
                     ));
         }
 
         /*@Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("닉네임 길이가 2보다 짧으면 실패")
         void UsernameSizeIsLessThan2_Fail() throws Exception {
             //given
@@ -166,15 +188,18 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
                     .content(mapper.writeValueAsString(userUpdateRequest))
-                    .contentType(MediaType.APPLICATION_JSON));
+                    .header("X-AUTH-TOKEN", "")
+        .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원수정 - 닉네임 길이가 2보다 짧으면 실패", "회원수정",
+                            requestHeaders(usersHeaders),
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("닉네임 길이가 12보다 길면 실패")
         void UsernameSizeIsGreaterThan12_Fail() throws Exception {
             //given
@@ -194,11 +219,13 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
                     .content(mapper.writeValueAsString(userUpdateRequest))
-                    .contentType(MediaType.APPLICATION_JSON));
+                    .header("X-AUTH-TOKEN", "")
+        .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isBadRequest())
                     .andDo(document("회원수정 - 닉네임 길이가 12보다 길면 실패", "회원수정",
+                            requestHeaders(usersHeaders),
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }*/
     }
@@ -207,17 +234,20 @@ class UserApiControllerTest extends ApiDocumentationTest {
     @DisplayName("삭제")
     class Delete {
         @Test
+        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         void Success() throws Exception {
             //given
 
             //when
             ResultActions result = mockMvc.perform(delete("/users/{id}", 2L)
+                    .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isNoContent())
-                    .andDo(document("회원삭제 - 성공", "회원삭제"));
+                    .andDo(document("회원삭제 - 성공", "회원삭제",
+                            requestHeaders(jwtHeader)));
         }
     }
 
@@ -381,6 +411,30 @@ class UserApiControllerTest extends ApiDocumentationTest {
                             responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
         }
 
+    }
+
+    @Nested
+    @DisplayName("로그인")
+    class Login {
+
+        @Test
+        @DisplayName("성공")
+        void Success() throws Exception {
+            //given
+            LoginRequest request = new LoginRequest("user1@gmail.com", "abcd1234");
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/tokens")
+                    .content(mapper.writeValueAsString(request))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isCreated())
+                    .andExpect(jsonPath("token").exists())
+                    .andDo(document("로그인 - 성공", "로그인",
+                            requestFields(loginRequestFields),
+                            responseFields(loginFields)));
+        }
     }
 
 }
