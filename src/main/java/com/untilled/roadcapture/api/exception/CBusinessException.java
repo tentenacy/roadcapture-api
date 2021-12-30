@@ -4,11 +4,11 @@ import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class BusinessException extends RuntimeException {
+public class CBusinessException extends RuntimeException {
 
     private ErrorCode errorCode;
 
-    public BusinessException(ErrorCode errorCode) {
+    public CBusinessException(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
 }

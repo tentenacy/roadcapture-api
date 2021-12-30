@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/users", "/users/tokens", "/users/tokens/reissue").permitAll()
+                .antMatchers(HttpMethod.POST, "/users", "/users/tokens", "/users/tokens/reissue", "/users/social/kakao/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/oauth/kakao/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()

@@ -2,10 +2,9 @@ package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentsResponse;
-import com.untilled.roadcapture.api.exception.AlbumNotFoundException;
-import com.untilled.roadcapture.api.exception.CommentNotFoundException;
-import com.untilled.roadcapture.api.exception.PictureNotFoundException;
-import com.untilled.roadcapture.api.exception.UserNotFoundException;
+import com.untilled.roadcapture.api.exception.CCommentNotFoundException;
+import com.untilled.roadcapture.api.exception.CPictureNotFoundException;
+import com.untilled.roadcapture.api.exception.CUserNotFoundException;
 import com.untilled.roadcapture.domain.comment.Comment;
 import com.untilled.roadcapture.domain.comment.CommentRepository;
 import com.untilled.roadcapture.domain.picture.Picture;
@@ -51,16 +50,16 @@ public class CommentService {
 
     private Comment getCommentIfExists(Long commentId) {
         return commentRepository.findById(commentId)
-                .orElseThrow(CommentNotFoundException::new);
+                .orElseThrow(CCommentNotFoundException::new);
     }
 
     private User getUserIfExists(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(CUserNotFoundException::new);
     }
 
     private Picture getPictureIfExists(Long pictureId) {
         return pictureRepository.findById(pictureId)
-                .orElseThrow(PictureNotFoundException::new);
+                .orElseThrow(CPictureNotFoundException::new);
     }
 }

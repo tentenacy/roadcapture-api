@@ -2,7 +2,7 @@ package com.untilled.roadcapture.api.advice;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.common.ErrorResponse;
-import com.untilled.roadcapture.api.exception.BusinessException;
+import com.untilled.roadcapture.api.exception.CBusinessException;
 import com.untilled.roadcapture.api.exception.CSecurityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +45,8 @@ public class ExceptionAdvice {
     /**
      * BusinessException 하위 클래스
      */
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ErrorResponse> handleBusinessException(final BusinessException e) {
+    @ExceptionHandler(CBusinessException.class)
+    public ResponseEntity<ErrorResponse> handleBusinessException(final CBusinessException e) {
         return new ResponseEntity<>(ErrorResponse.of(e.getErrorCode()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
     }
 

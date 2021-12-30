@@ -4,10 +4,10 @@ import com.untilled.roadcapture.api.dto.album.*;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
-import com.untilled.roadcapture.api.exception.AlbumNotFoundException;
-import com.untilled.roadcapture.api.exception.PictureNotFoundException;
-import com.untilled.roadcapture.api.exception.PlaceNotFoundException;
-import com.untilled.roadcapture.api.exception.UserNotFoundException;
+import com.untilled.roadcapture.api.exception.CAlbumNotFoundException;
+import com.untilled.roadcapture.api.exception.CPictureNotFoundException;
+import com.untilled.roadcapture.api.exception.CPlaceNotFoundException;
+import com.untilled.roadcapture.api.exception.CUserNotFoundException;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.album.AlbumRepository;
 import com.untilled.roadcapture.domain.picture.Picture;
@@ -42,7 +42,7 @@ public class AlbumService {
     }
 
     public AlbumResponse getAlbum(Long albumId) {
-        return albumRepository.getAlbum(albumId).orElseThrow(AlbumNotFoundException::new);
+        return albumRepository.getAlbum(albumId).orElseThrow(CAlbumNotFoundException::new);
     }
 
     @Transactional
@@ -110,22 +110,22 @@ public class AlbumService {
     }
 
     private Place getPlaceIfExists(Long placeId) {
-        return placeRepository.findById(placeId).orElseThrow(PlaceNotFoundException::new);
+        return placeRepository.findById(placeId).orElseThrow(CPlaceNotFoundException::new);
     }
 
     private User getUserIfExists(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(CUserNotFoundException::new);
     }
 
     private Album getAlbumIfExists(Long albumId) {
         return albumRepository.findById(albumId)
-                .orElseThrow(AlbumNotFoundException::new);
+                .orElseThrow(CAlbumNotFoundException::new);
     }
 
     private Picture getPictureIfExists(Long pictureId) {
         return pictureRepository.findById(pictureId)
-                .orElseThrow(PictureNotFoundException::new);
+                .orElseThrow(CPictureNotFoundException::new);
     }
 
 }

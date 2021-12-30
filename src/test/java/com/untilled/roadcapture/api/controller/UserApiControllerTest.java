@@ -428,7 +428,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             LoginRequest request = new LoginRequest("user1@gmail.com", "abcd1234");
 
             //when
-            ResultActions result = mockMvc.perform(post("/users/tokens")
+            ResultActions result = mockMvc.perform(post("/users/token")
                     .content(mapper.writeValueAsString(request))
                     .contentType(MediaType.APPLICATION_JSON));
 
@@ -453,7 +453,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             willReturn(response).given(userService).reissue(any());
 
             //when
-            ResultActions result = mockMvc.perform(post("/users/tokens/reissue")
+            ResultActions result = mockMvc.perform(post("/users/token/reissue")
                     .content(mapper.writeValueAsString(request))
                     .contentType(MediaType.APPLICATION_JSON));
 

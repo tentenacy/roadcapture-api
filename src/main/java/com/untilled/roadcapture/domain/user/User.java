@@ -46,6 +46,8 @@ public class User extends BaseTimeEntity implements UserDetails {
     @ElementCollection(fetch = EAGER)
     private List<String> roles = new ArrayList<>();
 
+    private String provider;
+
     @Embedded
     private Address address;
 
@@ -63,7 +65,14 @@ public class User extends BaseTimeEntity implements UserDetails {
         user.setEmail(email);
         user.setPassword(password);
         user.setUsername(username);
+        user.setProvider("none");
         user.setRoles(Collections.singletonList("ROLE_USER"));
+        return user;
+    }
+
+    public static User create(String email, String password, String username, String provider) {
+        User user = create(email, password, username);
+        user.setProvider(provider);
         return user;
     }
 

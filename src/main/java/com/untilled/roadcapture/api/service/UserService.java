@@ -17,9 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
-
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -41,10 +38,18 @@ public class UserService {
     }
 
     @Transactional
+    public void signupBySocial(SignupRequest request) {
+        if(userRepository.findByEmailAndProvider(request.getEmail(), request.getProvider()).isPresent()) {
+            throw new CAlreadySignedupException();
+        }
+        userRepository.save(User.create(request.getEmail(), request.getPassword(), request.getUsername(), request.getProvider()));
+    }
+
+    @Transactional
     public TokenResponse login(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(EmailLoginFailedException::new);
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(CEmailLoginFailedException::new);
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new EmailLoginFailedException();
+            throw new CEmailLoginFailedException();
         }
         //기존에 리프레시 토큰이 있으면
         //삭제 or 예외?
@@ -57,6 +62,13 @@ public class UserService {
         return tokenResponse;
     }
 
+    @Transactional
+    public TokenResponse loginByKakao(LoginRequest request) {
+        User user = userRepository.findByEmailAndProvider(request.getEmail(), request.getProvider())
+                .orElseThrow(CUserNotFoundException::new);
+        return jwtProvider.createToken(user.getId().toString(), user.getRoles());
+    }
+
     /**
      * TokenRequest를 통해 액세스 토큰 재발급 요청
      * * 리프레시 토큰 만료 검증 -> 만료 시 재로그인 요청
@@ -66,7 +78,7 @@ public class UserService {
 
         //리프레시 토큰 만료
         if(!jwtProvider.validationToken(request.getRefreshToken())) {
-            throw new RefreshTokenException();
+            throw new CRefreshTokenException();
         }
 
         String accessToken = request.getAccessToken();
@@ -75,11 +87,11 @@ public class UserService {
 
         //리프레시 토큰 없음
         RefreshToken refreshToken = refreshTokenRepository.findByKey(foundUser.getId())
-                .orElseThrow(RefreshTokenException::new);
+                .orElseThrow(CRefreshTokenException::new);
 
         //리프레시 토큰 불일치
         if(!refreshToken.getToken().equals(request.getRefreshToken())) {
-            throw new RefreshTokenException();
+            throw new CRefreshTokenException();
         }
 
         TokenResponse newCreatedToken = jwtProvider.createToken(foundUser.getId().toString(), foundUser.getRoles());
@@ -116,19 +128,19 @@ public class UserService {
     private void duplicateUsername(User userToCreate) {
         userRepository.findByUsername(userToCreate.getUsername())
                 .ifPresent(user -> {
-                    throw new UsernameDuplicatedException();
+                    throw new CUsernameDuplicatedException();
                 });
     }
 
     private void duplicateEmail(User createdUser) {
         userRepository.findByEmail(createdUser.getEmail())
                 .ifPresent(user -> {
-                    throw new EmailDuplicatedException();
+                    throw new CEmailDuplicatedException();
                 });
     }
 
     private User getUserIfExists(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(CUserNotFoundException::new);
     }
 }

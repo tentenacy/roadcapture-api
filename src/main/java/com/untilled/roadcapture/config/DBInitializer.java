@@ -12,6 +12,7 @@ import com.untilled.roadcapture.api.service.CommentService;
 import com.untilled.roadcapture.api.service.LikeService;
 import com.untilled.roadcapture.api.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;

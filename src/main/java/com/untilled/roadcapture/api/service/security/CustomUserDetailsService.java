@@ -1,6 +1,6 @@
 package com.untilled.roadcapture.api.service.security;
 
-import com.untilled.roadcapture.api.exception.UserNotFoundException;
+import com.untilled.roadcapture.api.exception.CUserNotFoundException;
 import com.untilled.roadcapture.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +16,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userPk) throws UsernameNotFoundException {
-        return userRepository.findById(Long.parseLong(userPk)).orElseThrow(UserNotFoundException::new);
+        return userRepository.findById(Long.parseLong(userPk)).orElseThrow(CUserNotFoundException::new);
     }
 }

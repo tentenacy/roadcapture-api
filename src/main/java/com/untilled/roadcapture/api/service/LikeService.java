@@ -1,9 +1,9 @@
 package com.untilled.roadcapture.api.service;
 
-import com.untilled.roadcapture.api.exception.AlbumNotFoundException;
-import com.untilled.roadcapture.api.exception.AlreadyLikeException;
-import com.untilled.roadcapture.api.exception.LikeNotFoundException;
-import com.untilled.roadcapture.api.exception.UserNotFoundException;
+import com.untilled.roadcapture.api.exception.CAlbumNotFoundException;
+import com.untilled.roadcapture.api.exception.CAlreadyLikeException;
+import com.untilled.roadcapture.api.exception.CLikeNotFoundException;
+import com.untilled.roadcapture.api.exception.CUserNotFoundException;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.album.AlbumRepository;
 import com.untilled.roadcapture.domain.like.Like;
@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
 @Slf4j
 @Service
@@ -52,21 +51,21 @@ public class LikeService {
 
     private void validateLikeNotExists(User user, Album album) {
         likeRepository.findByUserAndAlbum(user, album).ifPresent(like -> {
-            throw new AlreadyLikeException();
+            throw new CAlreadyLikeException();
         });
     }
 
     private Like getLikeIfExists(User user, Album album) {
-        return likeRepository.findByUserAndAlbum(user, album).orElseThrow(LikeNotFoundException::new);
+        return likeRepository.findByUserAndAlbum(user, album).orElseThrow(CLikeNotFoundException::new);
     }
 
     private User getUserIfExists(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(CUserNotFoundException::new);
     }
 
     private Album getAlbumIfExists(Long albumId) {
         return albumRepository.findById(albumId)
-                .orElseThrow(AlbumNotFoundException::new);
+                .orElseThrow(CAlbumNotFoundException::new);
     }
 }

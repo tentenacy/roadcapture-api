@@ -12,7 +12,6 @@ import javax.validation.constraints.Pattern;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class LoginRequest {
 
     @Email
@@ -23,4 +22,17 @@ public class LoginRequest {
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]+$")
     @NotEmpty
     private String password;
+
+    private String provider;
+
+    public LoginRequest(String email, String password, String provider) {
+        this.email = email;
+        this.password = password;
+        this.provider = provider;
+    }
+
+    public LoginRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

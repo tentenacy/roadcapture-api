@@ -3,9 +3,9 @@ package com.untilled.roadcapture.api.exception;
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import lombok.Getter;
 
-public class AuthenticationEntryPointException extends CSecurityException {
+public class CAuthenticationEntryPointException extends CSecurityException {
 
-    public AuthenticationEntryPointException() {
+    public CAuthenticationEntryPointException() {
         super(ErrorCode.ACCESS_TOKEN_ERROR);
     }
 }
