@@ -17,7 +17,7 @@ public class AlbumApiController {
     private final AlbumService albumService;
 
     @GetMapping("/albums")
-    public Page<AlbumsResponse> albums(AlbumsCondition cond, Pageable pageable) {
+    public Page<AlbumsResponse> albums(@Validated AlbumsCondition cond, Pageable pageable) {
         return albumService.getAlbums(cond, pageable);
     }
 

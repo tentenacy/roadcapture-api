@@ -109,8 +109,8 @@ public class UserService {
         userRepository.delete(foundUser);
     }
 
-    public Page<UsersResponse> getUsers(Pageable pageable) {
-        return userRepository.search(pageable);
+    public Page<UsersResponse> getUsers(Pageable pageable, UsersCondition cond) {
+        return userRepository.search(pageable, cond);
     }
 
     public UserResponse getUser(Long userId) {

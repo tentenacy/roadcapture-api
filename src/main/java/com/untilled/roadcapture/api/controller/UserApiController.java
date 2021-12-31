@@ -28,8 +28,8 @@ public class UserApiController {
     private final KakaoService kakaoService;
 
     @GetMapping
-    public Page<UsersResponse> users(Pageable pageable) {
-        return userService.getUsers(pageable);
+    public Page<UsersResponse> users(Pageable pageable, UsersCondition cond) {
+        return userService.getUsers(pageable, cond);
     }
 
     @GetMapping("/{userId}")

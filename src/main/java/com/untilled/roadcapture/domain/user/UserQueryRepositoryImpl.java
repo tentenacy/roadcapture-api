@@ -4,10 +4,12 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.untilled.roadcapture.api.dto.album.AlbumsResponse;
+import com.untilled.roadcapture.api.dto.user.UsersCondition;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.picture.Picture;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -38,7 +41,7 @@ public class UserQueryRepositoryImpl extends QuerydslRepositorySupport implement
     }
 
     @Override
-    public Page<UsersResponse> search(Pageable pageable) {
+    public Page<UsersResponse> search(Pageable pageable, UsersCondition cond) {
 
         log.info("offset={}, limit={}", pageable.getOffset(), pageable.getPageSize());
         JPAQuery<UsersResponse> query = queryFactory
@@ -48,6 +51,7 @@ public class UserQueryRepositoryImpl extends QuerydslRepositorySupport implement
                         user.profileImageUrl))
                 .from(user)
                 .leftJoin(user.albums, album)
+                .where(usernameEq(cond.getUsername()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
@@ -61,5 +65,9 @@ public class UserQueryRepositoryImpl extends QuerydslRepositorySupport implement
 
         //카운트 쿼리 필요에 따라 날라감
         return new PageImpl(result.getResults(), pageable, result.getTotal());
+    }
+
+    private BooleanExpression usernameEq(String username) {
+        return StringUtils.hasText(username) ? user.username.eq(username) : null;
     }
 }

@@ -101,6 +101,11 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("provider").type(JsonFieldType.STRING).description("사용자 정보 제공자입니다.").optional(),
     };
 
+    protected ParameterDescriptor[] usersParams = new ParameterDescriptor[]{
+            parameterWithName("username").description("조회할 사용자 이름입니다.").optional(),
+    };
+
+
     protected FieldDescriptor[] socialRequestFields = new FieldDescriptor[]{
             fieldWithPath("accessToken").type(JsonFieldType.STRING).description("SNS로부터 받은 액세스 토큰입니다."),
     };

@@ -36,7 +36,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users")
-                    .queryParam("sort", "id,asc")
+                    .queryParam("sort", "createdAt,desc")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
@@ -46,7 +46,27 @@ class UserApiControllerTest extends ApiDocumentationTest {
                     .andExpect(jsonPath("$.content[1].username").value("user2"))
                     .andDo(document("회원조회 - 성공", "회원조회",
                             requestHeaders(jwtHeader),
-                            requestParameters(pageParams),
+                            requestParameters(pageParams).and(usersParams),
+                            responseFields().andWithPrefix("content.[].", usersFields).and(pageFields)
+                    ));
+        }
+
+        @Test
+        @DisplayName("유저 이름으로 검색 성공")
+        void SearchByUsername_Success() throws Exception {
+            //when
+            ResultActions result = mockMvc.perform(get("/users")
+                    .queryParam("sort", "createdAt,desc")
+                    .queryParam("username", "user2")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content[0].username").value("user2"))
+                    .andDo(document("회원조회 - 유저 이름으로 검색 성공", "회원조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(usersParams),
                             responseFields().andWithPrefix("content.[].", usersFields).and(pageFields)
                     ));
         }

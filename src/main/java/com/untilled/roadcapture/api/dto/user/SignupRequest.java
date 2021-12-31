@@ -31,7 +31,7 @@ public class SignupRequest {
     @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}")
     private String profileImageUrl;
 
-    @Pattern(regexp = "\\bkakao\\b|\\bfacebook\\b|\\bnaver\\b|\\bgoogle\\b")
+    @Pattern(regexp = "^kakao$|^facebook$|^naver$|^google$")
     private String provider;
 
     public SignupRequest(String email, String password, String username, String profileImageUrl, String provider) {
