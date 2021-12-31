@@ -27,7 +27,7 @@ import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-//@Component
+@Component
 @RequiredArgsConstructor
 public class DBInitializer {
 

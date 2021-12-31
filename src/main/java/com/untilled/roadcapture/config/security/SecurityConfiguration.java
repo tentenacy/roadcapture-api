@@ -52,9 +52,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui/**").permitAll()
                 .anyRequest().hasRole("USER")
         .and()
-                .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint)
-        .and()
-                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
+                .exceptionHandling()
+                .authenticationEntryPoint(customAuthenticationEntryPoint)
+                .accessDeniedHandler(customAccessDeniedHandler)
         .and()
                 //Jwt 인증 필터를 UsernamePasswordAuthenticationFilter 전에 삽입
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);

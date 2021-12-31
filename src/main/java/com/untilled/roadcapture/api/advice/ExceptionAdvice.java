@@ -35,7 +35,7 @@ public class ExceptionAdvice {
      * CSecurityException 하위 클래스
      *
      * * TokenException
-     * * * AuthenticationEntryPointException: Jwt가 없거나 잘못된 경우
+     * * * CAuthenticationEntryPointException: Jwt가 없거나 잘못된 경우
      * * * CAccessDeniedException: 리소스에 접근할 권한이 없는 경우
      */
     @ExceptionHandler(CSecurityException.class)

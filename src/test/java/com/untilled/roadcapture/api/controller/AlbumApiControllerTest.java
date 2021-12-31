@@ -34,7 +34,6 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
     class Create {
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
@@ -63,7 +62,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(post("/users/{userId}/albums", 2L)
                     .content(mapper.writeValueAsString(request))
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -83,14 +82,13 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
     class Albums {
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
 
             //when
             ResultActions result = mockMvc.perform(get("/albums")
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -110,14 +108,13 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
     class Album {
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
 
             //when
             ResultActions result = mockMvc.perform(get("/albums/{id}", 6L)
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -142,7 +139,6 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
     class Update {
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
@@ -174,7 +170,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(put("/albums/{id}", 6L)
                     .content(mapper.writeValueAsString(request))
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -194,14 +190,13 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
     class Delete {
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
 
             //when
             ResultActions result = mockMvc.perform(delete("/albums/{id}", 6L)
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then

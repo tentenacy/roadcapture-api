@@ -23,7 +23,6 @@ class LikeApiControllerTest extends ApiDocumentationTest {
     class Create {
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
@@ -31,7 +30,7 @@ class LikeApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(post("/users/{userId}/albums/{albumId}/likes",
                     2L, 6L)
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -47,7 +46,7 @@ class LikeApiControllerTest extends ApiDocumentationTest {
     class Delete {
         
         @Test
-        @WithMockUser(username = "mockUser")
+        
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
@@ -55,7 +54,7 @@ class LikeApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(delete("/users/{userId}/albums/{albumId}/likes",
                     2L, 22L)
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then

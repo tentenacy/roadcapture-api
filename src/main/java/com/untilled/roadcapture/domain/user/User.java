@@ -7,6 +7,8 @@ import com.untilled.roadcapture.domain.base.BaseTimeEntity;
 import com.untilled.roadcapture.domain.follower.Follower;
 import com.untilled.roadcapture.domain.place.Place;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -6,20 +6,15 @@ import com.untilled.roadcapture.api.dto.token.TokenRequest;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.domain.address.Address;
-import com.untilled.roadcapture.api.service.UserService;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.core.env.Environment;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.Collections;
-
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
-import static org.mockito.BDDMockito.*;
+import static org.mockito.BDDMockito.any;
+import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -36,13 +31,13 @@ class UserApiControllerTest extends ApiDocumentationTest {
     class Users {
 
         @Test
-        @WithMockUser(username = "mockUser")
+
         @DisplayName("성공")
         void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users")
                     .queryParam("sort", "id,asc")
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -61,12 +56,12 @@ class UserApiControllerTest extends ApiDocumentationTest {
     @DisplayName("단건조회")
     class User {
         @Test
-        @WithMockUser(username = "mockUser")
+
         @DisplayName("성공")
         void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}", 2L)
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -79,12 +74,11 @@ class UserApiControllerTest extends ApiDocumentationTest {
         }
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("회원 존재하지 않으면 실패")
         void UserNotFound_Fail() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}", 0L)
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -101,12 +95,11 @@ class UserApiControllerTest extends ApiDocumentationTest {
     class UserDetail {
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         void Success() throws Exception {
             //when
-            ResultActions result = mockMvc.perform(get("/users/{id}/details", 2L)
-                    .header("X-AUTH-TOKEN", "")
+            ResultActions result = mockMvc.perform(get("/users/details")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -116,30 +109,12 @@ class UserApiControllerTest extends ApiDocumentationTest {
                             requestHeaders(jwtHeader),
                             responseFields(userDetailFields).andWithPrefix("address.", addressFields)));
         }
-
-        @Test
-        @WithMockUser(username = "mockUser")
-        @DisplayName("회원 존재하지 않으면 실패")
-        void UserNotFound_Fail() throws Exception {
-            //when
-            ResultActions result = mockMvc.perform(get("/users/{id}/details", 0L)
-                    .header("X-AUTH-TOKEN", "")
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            //then
-            result.andExpect(status().isBadRequest())
-                    .andDo(document("회원상세조회 - 회원 존재하지 않으면 실패", "회원상세조회",
-                            requestHeaders(jwtHeader),
-                            pathParameters(userPathParams),
-                            responseFields(badFields)));
-        }
     }
 
     @Nested
     @DisplayName("수정")
     class Update {
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         void Success() throws Exception {
             //given
@@ -159,7 +134,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
                     .content(mapper.writeValueAsString(userUpdateRequest))
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -171,7 +146,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         }
 
         /*@Test
-        @WithMockUser(username = "mockUser")
+        
         @DisplayName("닉네임 길이가 2보다 짧으면 실패")
         void UsernameSizeIsLessThan2_Fail() throws Exception {
             //given
@@ -191,7 +166,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
                     .content(mapper.writeValueAsString(userUpdateRequest))
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
         .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -202,7 +177,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         }
 
         @Test
-        @WithMockUser(username = "mockUser")
+        
         @DisplayName("닉네임 길이가 12보다 길면 실패")
         void UsernameSizeIsGreaterThan12_Fail() throws Exception {
             //given
@@ -222,7 +197,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
                     .content(mapper.writeValueAsString(userUpdateRequest))
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
         .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -237,14 +212,14 @@ class UserApiControllerTest extends ApiDocumentationTest {
     @DisplayName("삭제")
     class Delete {
         @Test
-        @WithMockUser(username = "mockUser")
+
         @DisplayName("성공")
         void Success() throws Exception {
             //given
 
             //when
             ResultActions result = mockMvc.perform(delete("/users/{id}", 2L)
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -408,7 +383,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(post("/users/social/kakao")
-                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(oauth2AccessToken)))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -425,7 +400,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(post("/users/social/kakao")
-                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken+"_invalid")))
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(oauth2AccessToken + "_invalid")))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -442,12 +417,12 @@ class UserApiControllerTest extends ApiDocumentationTest {
         void AlreadySignedup_Fail() throws Exception {
             //given
             mockMvc.perform(post("/users/social/kakao")
-                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(oauth2AccessToken)))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //when
             ResultActions result = mockMvc.perform(post("/users/social/kakao")
-                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(oauth2AccessToken)))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -491,13 +466,13 @@ class UserApiControllerTest extends ApiDocumentationTest {
         void Success() throws Exception {
             //given
             mockMvc.perform(post("/users/social/kakao")
-                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(oauth2AccessToken)))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //when
 
             ResultActions result = mockMvc.perform(post("/users/social/kakao/token")
-                    .content(mapper.writeValueAsString(new LoginByKakaoRequest(accessToken)))
+                    .content(mapper.writeValueAsString(new LoginByKakaoRequest(oauth2AccessToken)))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -512,12 +487,12 @@ class UserApiControllerTest extends ApiDocumentationTest {
         void TokenIsInvalid_Fail() throws Exception {
             //given
             mockMvc.perform(post("/users/social/kakao")
-                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(oauth2AccessToken)))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //when
             ResultActions result = mockMvc.perform(post("/users/social/kakao/token")
-                    .content(mapper.writeValueAsString(new LoginByKakaoRequest(accessToken+"_invaild")))
+                    .content(mapper.writeValueAsString(new LoginByKakaoRequest(oauth2AccessToken + "_invaild")))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -535,7 +510,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(post("/users/social/kakao/token")
-                    .content(mapper.writeValueAsString(new LoginByKakaoRequest(accessToken)))
+                    .content(mapper.writeValueAsString(new LoginByKakaoRequest(oauth2AccessToken)))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then

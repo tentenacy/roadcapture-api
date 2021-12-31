@@ -25,7 +25,6 @@ class CommentApiControllerTest extends ApiDocumentationTest {
     class Create {
 
         @Test
-        @WithMockUser(username = "mockUser")
         public void Success() throws Exception {
             //given
             CommentCreateRequest request = new CommentCreateRequest("후기 감사합니다.");
@@ -34,7 +33,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             ResultActions result = mockMvc.perform(post("/users/{userId}/albums/pictures/{pictureId}/comments",
                     2L, 7L)
                     .content(mapper.writeValueAsString(request))
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -51,14 +50,13 @@ class CommentApiControllerTest extends ApiDocumentationTest {
     class Delete {
 
         @Test
-        @WithMockUser(username = "mockUser")
         public void Success() throws Exception {
             //given
 
             //when
             ResultActions result = mockMvc.perform(delete("/pictures/{pictureId}/comments/{commentId}",
                     7L, 11L)
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -74,7 +72,6 @@ class CommentApiControllerTest extends ApiDocumentationTest {
     class AlbumComments {
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
@@ -83,7 +80,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             ResultActions result = mockMvc.perform(get("/albums/{albumId}/pictures/comments", 6L)
 //                    .param("albumId", String.valueOf(51L))
 //                    .param("pictureId", String.valueOf(52L))
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -103,7 +100,6 @@ class CommentApiControllerTest extends ApiDocumentationTest {
     class PictureComments {
 
         @Test
-        @WithMockUser(username = "mockUser")
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
@@ -111,7 +107,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(get("/pictures/{pictureId}/comments", 7L)
 //                    .param("pictureId", String.valueOf(52L))
-                    .header("X-AUTH-TOKEN", "")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then

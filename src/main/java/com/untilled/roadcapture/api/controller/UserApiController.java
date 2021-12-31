@@ -37,11 +37,10 @@ public class UserApiController {
         return userService.getUser(userId);
     }
 
-    @GetMapping("/{userId}/details")
-    public UserDetailResponse userDetail(@PathVariable final Long userId) {
-        return userService.getUserDetail(userId);
+    @GetMapping("/details")
+    public UserDetailResponse userDetail() {
+        return userService.getUserDetail();
     }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void signup(@RequestBody @Validated SignupRequest signupRequest) {

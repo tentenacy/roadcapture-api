@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,11 +115,12 @@ public class UserService {
     }
 
     public UserResponse getUser(Long userId) {
+//        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new UserResponse(getUserIfExists(userId));
     }
 
-    public UserDetailResponse getUserDetail(Long userId) {
-        return new UserDetailResponse(getUserIfExists(userId));
+    public UserDetailResponse getUserDetail() {
+        return new UserDetailResponse((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
     private User getUserIfExists(Long userId) {
