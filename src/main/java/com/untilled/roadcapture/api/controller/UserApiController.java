@@ -84,9 +84,9 @@ public class UserApiController {
         return userService.reissue(request);
     }
 
-    @PatchMapping("/{userId}")
-    public void update(@PathVariable final Long userId, @RequestBody UserUpdateRequest userUpdateRequest) {
-        userService.update(userId, userUpdateRequest);
+    @PatchMapping
+    public void update(@RequestBody UserUpdateRequest userUpdateRequest) {
+        userService.update(userUpdateRequest);
     }
 
     @DeleteMapping

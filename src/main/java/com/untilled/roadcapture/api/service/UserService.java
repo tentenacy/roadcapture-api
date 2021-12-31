@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 @Slf4j
 @Service
@@ -92,14 +91,14 @@ public class UserService {
         }
 
         TokenResponse newCreatedToken = jwtProvider.createToken(foundUser.getId().toString(), foundUser.getRoles());
-        refreshToken.updateToken(newCreatedToken.getRefreshToken());
+        refreshToken.update(newCreatedToken.getRefreshToken());
 
         return newCreatedToken;
     }
 
     @Transactional
-    public void update(Long userId, UserUpdateRequest userUpdateRequest) {
-        User foundUser = getUserIfExists(userId);
+    public void update(UserUpdateRequest userUpdateRequest) {
+        User foundUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         foundUser.update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
     }
 
@@ -111,7 +110,6 @@ public class UserService {
     }
 
     public Page<UsersResponse> getUsers(Pageable pageable) {
-//        return userRepository.findAll(pageable).map(UsersResponse::new);
         return userRepository.search(pageable);
     }
 

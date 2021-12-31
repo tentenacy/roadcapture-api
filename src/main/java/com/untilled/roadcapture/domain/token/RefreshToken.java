@@ -23,7 +23,7 @@ public class RefreshToken extends BaseTimeEntity {
 
     private String token;
 
-    public void updateToken(String token) {
+    public void update(String token) {
         this.token = token;
     }
 

@@ -132,7 +132,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             );
 
             //when
-            ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
+            ResultActions result = mockMvc.perform(patch("/users")
                     .content(mapper.writeValueAsString(userUpdateRequest))
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));

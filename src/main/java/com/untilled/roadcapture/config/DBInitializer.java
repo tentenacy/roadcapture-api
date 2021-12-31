@@ -38,7 +38,7 @@ public class DBInitializer {
                     return i;
                 })
                 .forEach(i -> {
-                    userService.update(Long.valueOf(i), new UserUpdateRequest(
+                    userService.update(new UserUpdateRequest(
                             null,
                             "https://www.test.com/test",
                             "안녕하세요. 저는 user" + i + "입니다.",
