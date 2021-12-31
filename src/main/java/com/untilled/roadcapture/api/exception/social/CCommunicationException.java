@@ -1,7 +1,6 @@
-package com.untilled.roadcapture.api.exception;
+package com.untilled.roadcapture.api.exception.social;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
-import lombok.Getter;
 
 public class CCommunicationException extends CSocialException {
 

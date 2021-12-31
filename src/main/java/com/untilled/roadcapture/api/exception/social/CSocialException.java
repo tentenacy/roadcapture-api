@@ -1,14 +1,14 @@
-package com.untilled.roadcapture.api.exception;
+package com.untilled.roadcapture.api.exception.social;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class CSecurityException extends RuntimeException {
+public class CSocialException extends RuntimeException {
 
     private ErrorCode errorCode;
 
-    public CSecurityException(ErrorCode errorCode) {
+    public CSocialException(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
 }

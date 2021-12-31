@@ -270,7 +270,6 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     };
 
     protected ParameterDescriptor[] commentCreatePathParams = new ParameterDescriptor[]{
-            parameterWithName("userId").description("사용자 아이디입니다."),
             parameterWithName("pictureId").description("사진 아이디입니다."),
     };
 

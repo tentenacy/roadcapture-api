@@ -4,10 +4,10 @@ import com.untilled.roadcapture.api.dto.album.*;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
-import com.untilled.roadcapture.api.exception.CAlbumNotFoundException;
-import com.untilled.roadcapture.api.exception.CPictureNotFoundException;
-import com.untilled.roadcapture.api.exception.CPlaceNotFoundException;
-import com.untilled.roadcapture.api.exception.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CAlbumNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CPictureNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CPlaceNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.album.AlbumRepository;
 import com.untilled.roadcapture.domain.picture.Picture;
@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +44,24 @@ public class AlbumService {
 
     public AlbumResponse getAlbum(Long albumId) {
         return albumRepository.getAlbum(albumId).orElseThrow(CAlbumNotFoundException::new);
+    }
+
+    @Transactional
+    public Album create(AlbumCreateRequest request) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        List<Picture> pictures = request.getPictures().stream()
+                .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
+                .collect(Collectors.toList());
+
+        return albumRepository.save(Album.create(
+                request.getTitle(),
+                request.getDescription(),
+                request.getThumbnailUrl(),
+                pictures,
+                getUserIfExists(user.getId())
+        ));
     }
 
     @Transactional
@@ -113,11 +132,6 @@ public class AlbumService {
         return placeRepository.findById(placeId).orElseThrow(CPlaceNotFoundException::new);
     }
 
-    private User getUserIfExists(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(CUserNotFoundException::new);
-    }
-
     private Album getAlbumIfExists(Long albumId) {
         return albumRepository.findById(albumId)
                 .orElseThrow(CAlbumNotFoundException::new);
@@ -126,6 +140,11 @@ public class AlbumService {
     private Picture getPictureIfExists(Long pictureId) {
         return pictureRepository.findById(pictureId)
                 .orElseThrow(CPictureNotFoundException::new);
+    }
+
+    private User getUserIfExists(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(CUserNotFoundException::new);
     }
 
 }

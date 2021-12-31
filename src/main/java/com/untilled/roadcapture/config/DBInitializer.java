@@ -1,9 +1,13 @@
 package com.untilled.roadcapture.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
+import com.untilled.roadcapture.api.dto.token.TokenResponse;
+import com.untilled.roadcapture.api.dto.user.LoginRequest;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
 import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
 import com.untilled.roadcapture.domain.address.Address;
@@ -11,14 +15,25 @@ import com.untilled.roadcapture.api.service.AlbumService;
 import com.untilled.roadcapture.api.service.CommentService;
 import com.untilled.roadcapture.api.service.LikeService;
 import com.untilled.roadcapture.api.service.UserService;
+import com.untilled.roadcapture.util.MultiValueMapConverter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+@Slf4j
 //@Component
 @RequiredArgsConstructor
 public class DBInitializer {
@@ -38,7 +53,7 @@ public class DBInitializer {
                     return i;
                 })
                 .forEach(i -> {
-                    userService.update(new UserUpdateRequest(
+                    userService.update(Long.valueOf(i), new UserUpdateRequest(
                             null,
                             "https://www.test.com/test",
                             "안녕하세요. 저는 user" + i + "입니다.",

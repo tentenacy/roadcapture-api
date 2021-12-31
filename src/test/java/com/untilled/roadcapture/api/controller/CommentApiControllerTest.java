@@ -30,8 +30,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             CommentCreateRequest request = new CommentCreateRequest("후기 감사합니다.");
 
             //when
-            ResultActions result = mockMvc.perform(post("/users/{userId}/albums/pictures/{pictureId}/comments",
-                    2L, 7L)
+            ResultActions result = mockMvc.perform(post("/albums/pictures/{pictureId}/comments", 7L)
                     .content(mapper.writeValueAsString(request))
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
@@ -40,7 +39,6 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isCreated())
                     .andDo(document("댓글등록 - 성공", "댓글등록",
                             requestHeaders(jwtHeader),
-                            pathParameters(commentCreatePathParams),
                             requestFields(commentCreateRequestFields)));
         }
     }
@@ -62,8 +60,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isNoContent())
                     .andDo(document("댓글삭제 - 성공", "댓글삭제",
-                            requestHeaders(jwtHeader),
-                            pathParameters(commentDeletePathParams)));
+                            requestHeaders(jwtHeader)));
         }
     }
 
@@ -87,7 +84,6 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isOk())
                     .andDo(document("앨범댓글조회 - 성공", "앨범댓글조회",
                             requestHeaders(jwtHeader),
-                            pathParameters(albumCommentsPathParams),
                             requestParameters(pageParams),
                             responseFields(pageFields)
                                     .andWithPrefix("content.[].", commentsFields)
@@ -114,7 +110,6 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isOk())
                     .andDo(document("사진댓글조회 - 성공", "사진댓글조회",
                             requestHeaders(jwtHeader),
-                            pathParameters(pictureCommentsPathParams),
                             requestParameters(pageParams),
                             responseFields(pageFields)
                                     .andWithPrefix("content.[].", commentsFields)

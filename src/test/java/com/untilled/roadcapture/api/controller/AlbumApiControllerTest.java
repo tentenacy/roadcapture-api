@@ -60,7 +60,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             );
 
             //when
-            ResultActions result = mockMvc.perform(post("/users/{userId}/albums", 2L)
+            ResultActions result = mockMvc.perform(post("/albums")
                     .content(mapper.writeValueAsString(request))
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));

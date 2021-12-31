@@ -26,11 +26,10 @@ public class AlbumApiController {
         return albumService.getAlbum(albumId);
     }
 
-    @PostMapping("/users/{userId}/albums")
+    @PostMapping("/albums")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@PathVariable Long userId,
-                       @Validated @RequestBody AlbumCreateRequest request) {
-        albumService.create(userId, request);
+    public void create(@Validated @RequestBody AlbumCreateRequest request) {
+        albumService.create(request);
     }
 
     @PutMapping("/albums/{albumId}")

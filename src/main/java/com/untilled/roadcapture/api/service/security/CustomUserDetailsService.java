@@ -1,6 +1,6 @@
 package com.untilled.roadcapture.api.service.security;
 
-import com.untilled.roadcapture.api.exception.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
 import com.untilled.roadcapture.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

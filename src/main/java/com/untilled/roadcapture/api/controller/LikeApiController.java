@@ -13,15 +13,15 @@ public class LikeApiController {
 
     private final LikeService likeService;
 
-    @PostMapping("/users/{userId}/albums/{albumId}/likes")
+    @PostMapping("/albums/{albumId}/likes")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@PathVariable Long userId, @PathVariable Long albumId) {
-        likeService.create(userId, albumId);
+    public void create(@PathVariable Long albumId) {
+        likeService.create(albumId);
     }
 
-    @DeleteMapping("/users/{userId}/albums/{albumId}/likes")
+    @DeleteMapping("/albums/{albumId}/likes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long userId, @PathVariable Long albumId) {
-        likeService.delete(userId, albumId);
+    public void delete(@PathVariable Long albumId) {
+        likeService.delete(albumId);
     }
 }

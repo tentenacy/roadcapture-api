@@ -1,24 +1,28 @@
 package com.untilled.roadcapture.api.controller;
 
-import com.untilled.roadcapture.api.exception.CAuthenticationEntryPointException;
-import com.untilled.roadcapture.api.exception.CAccessDeniedException;
+import com.untilled.roadcapture.api.exception.security.CAuthenticationEntryPointException;
+import com.untilled.roadcapture.api.exception.security.CAccessDeniedException;
+import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/exception")
 @RequiredArgsConstructor
 public class ExceptionController {
 
-    @GetMapping("/entrypoint")
+    @RequestMapping("/entrypoint")
     public void entryPointException() throws Exception {
         throw new CAuthenticationEntryPointException();
     }
 
-    @GetMapping("/access-denied")
+    @RequestMapping("/access-denied")
     public void accessDeniedException() {
         throw new CAccessDeniedException();
+    }
+
+    @RequestMapping(value = "/user-not-found")
+    public void userNotFoundException() {
+        throw new CUserNotFoundException();
     }
 }

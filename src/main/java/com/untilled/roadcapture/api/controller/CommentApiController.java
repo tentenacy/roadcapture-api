@@ -18,12 +18,11 @@ public class CommentApiController {
 
     private final CommentService commentService;
 
-    @PostMapping("/users/{userId}/albums/pictures/{pictureId}/comments")
+    @PostMapping("/albums/pictures/{pictureId}/comments")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@PathVariable Long userId,
-                       @PathVariable Long pictureId,
+    public void create(@PathVariable Long pictureId,
                        @RequestBody @Validated CommentCreateRequest request) {
-        commentService.create(userId, pictureId, request);
+        commentService.create(pictureId, request);
     }
 
     @DeleteMapping("/pictures/{pictureId}/comments/{commentId}")

@@ -36,7 +36,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         void Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users")
-                    .queryParam("sort", "createdAt,desc")
+                    .queryParam("sort", "createdAt,asc")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 

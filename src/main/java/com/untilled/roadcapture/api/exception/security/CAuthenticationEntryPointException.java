@@ -1,7 +1,7 @@
-package com.untilled.roadcapture.api.exception;
+package com.untilled.roadcapture.api.exception.security;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
-import lombok.Getter;
+import com.untilled.roadcapture.api.exception.security.CSecurityException;
 
 public class CAuthenticationEntryPointException extends CSecurityException {
 

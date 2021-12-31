@@ -2,9 +2,9 @@ package com.untilled.roadcapture.api.advice;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.common.ErrorResponse;
-import com.untilled.roadcapture.api.exception.CBusinessException;
-import com.untilled.roadcapture.api.exception.CSecurityException;
-import com.untilled.roadcapture.api.exception.CSocialException;
+import com.untilled.roadcapture.api.exception.business.CBusinessException;
+import com.untilled.roadcapture.api.exception.security.CSecurityException;
+import com.untilled.roadcapture.api.exception.social.CSocialException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

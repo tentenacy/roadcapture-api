@@ -1,10 +1,14 @@
 package com.untilled.roadcapture.config.security;
 
+import com.untilled.roadcapture.api.dto.common.ErrorCode;
+import com.untilled.roadcapture.api.exception.security.CAuthenticationEntryPointException;
+import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -29,11 +33,19 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         log.info("[Verifying token]");
         log.info(((HttpServletRequest) request).getRequestURL().toString());
 
-        if(StringUtils.hasText(token) && jwtProvider.validationToken(token)) {
-            Authentication authentication = jwtProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        try {
+            if(StringUtils.hasText(token) && jwtProvider.validationToken(token)) {
+                Authentication authentication = jwtProvider.getAuthentication(token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                throw new CAuthenticationEntryPointException();
+            }
+        } catch (CUserNotFoundException e) {
+            request.setAttribute("exception", ErrorCode.USER_NOT_FOUND.getCode());
+        } catch (CAuthenticationEntryPointException e) {
+            request.setAttribute("exception", ErrorCode.ACCESS_TOKEN_ERROR.getCode());
+        } finally {
+            chain.doFilter(request, response);
         }
-
-        chain.doFilter(request, response);
     }
 }

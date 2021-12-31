@@ -28,16 +28,14 @@ class LikeApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(post("/users/{userId}/albums/{albumId}/likes",
-                    2L, 6L)
+            ResultActions result = mockMvc.perform(post("/albums/{albumId}/likes", 6L)
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isCreated())
                     .andDo(document("좋아요등록 - 성공", "좋아요등록",
-                            requestHeaders(jwtHeader),
-                            pathParameters(likePathParams)));
+                            requestHeaders(jwtHeader)));
         }
     }
     
@@ -52,16 +50,14 @@ class LikeApiControllerTest extends ApiDocumentationTest {
             //given
             
             //when
-            ResultActions result = mockMvc.perform(delete("/users/{userId}/albums/{albumId}/likes",
-                    2L, 22L)
+            ResultActions result = mockMvc.perform(delete("/albums/{albumId}/likes", 22L)
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isNoContent())
                     .andDo(document("좋아요삭제 - 성공", "좋아요삭제",
-                            requestHeaders(jwtHeader),
-                            pathParameters(likePathParams)));
+                            requestHeaders(jwtHeader)));
         }
     }
 }

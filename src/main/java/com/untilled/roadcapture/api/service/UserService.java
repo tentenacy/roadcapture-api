@@ -3,7 +3,10 @@ package com.untilled.roadcapture.api.service;
 import com.untilled.roadcapture.api.dto.token.TokenRequest;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.*;
-import com.untilled.roadcapture.api.exception.*;
+import com.untilled.roadcapture.api.exception.business.CAlreadySignedupException;
+import com.untilled.roadcapture.api.exception.business.CEmailLoginFailedException;
+import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.security.CRefreshTokenException;
 import com.untilled.roadcapture.config.security.JwtProvider;
 import com.untilled.roadcapture.domain.token.RefreshToken;
 import com.untilled.roadcapture.domain.token.RefreshTokenRepository;
@@ -98,15 +101,20 @@ public class UserService {
 
     @Transactional
     public void update(UserUpdateRequest userUpdateRequest) {
-        User foundUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        foundUser.update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        getUserIfExists(user.getId()).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
+    }
+
+    @Transactional
+    public void update(Long userId, UserUpdateRequest userUpdateRequest) {
+        getUserIfExists(userId).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
     }
 
     @Transactional
     public void delete() {
-        User foundUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        refreshTokenRepository.deleteByKey(foundUser.getId());
-        userRepository.delete(foundUser);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        refreshTokenRepository.deleteByKey(user.getId());
+        userRepository.delete(getUserIfExists(user.getId()));
     }
 
     public Page<UsersResponse> getUsers(Pageable pageable, UsersCondition cond) {

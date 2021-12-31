@@ -3,7 +3,7 @@ package com.untilled.roadcapture.api.service;
 import com.google.gson.Gson;
 import com.untilled.roadcapture.api.dto.social.KakaoProfile;
 import com.untilled.roadcapture.api.dto.social.RetKakaoOAuth;
-import com.untilled.roadcapture.api.exception.CCommunicationException;
+import com.untilled.roadcapture.api.exception.social.CCommunicationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
