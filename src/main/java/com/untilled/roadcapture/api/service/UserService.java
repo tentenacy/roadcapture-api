@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Slf4j
 @Service
@@ -30,19 +31,14 @@ public class UserService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public void signup(SignupRequest signupRequest) {
-        User user = User.create(signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()), signupRequest.getUsername());
-        duplicateEmail(user);
-        duplicateUsername(user);
-        userRepository.save(user);
-    }
-
-    @Transactional
-    public void signupBySocial(SignupRequest request) {
-        if(userRepository.findByEmailAndProvider(request.getEmail(), request.getProvider()).isPresent()) {
-            throw new CAlreadySignedupException();
-        }
-        userRepository.save(User.create(request.getEmail(), request.getPassword(), request.getUsername(), request.getProvider()));
+    public void signup(SignupRequest request) {
+        User user = User.create(request.getEmail(), request.getPassword(), request.getUsername(), request.getProfileImageUrl(), request.getProvider());
+        userRepository.findByEmail(user.getEmail())
+                .ifPresentOrElse(
+                        foundUser -> {
+                            throw new CAlreadySignedupException();
+                        },
+                        () -> userRepository.save(user));
     }
 
     @Transactional
@@ -123,20 +119,6 @@ public class UserService {
 
     public UserDetailResponse getUserDetail(Long userId) {
         return new UserDetailResponse(getUserIfExists(userId));
-    }
-
-    private void duplicateUsername(User userToCreate) {
-        userRepository.findByUsername(userToCreate.getUsername())
-                .ifPresent(user -> {
-                    throw new CUsernameDuplicatedException();
-                });
-    }
-
-    private void duplicateEmail(User createdUser) {
-        userRepository.findByEmail(createdUser.getEmail())
-                .ifPresent(user -> {
-                    throw new CEmailDuplicatedException();
-                });
     }
 
     private User getUserIfExists(Long userId) {

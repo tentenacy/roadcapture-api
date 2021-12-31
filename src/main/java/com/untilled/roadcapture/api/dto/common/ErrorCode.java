@@ -19,8 +19,8 @@ public enum ErrorCode {
     /**
      * SOCIAL
      */
-    COMMUNICATION_ERROR(HttpStatus.BAD_REQUEST.value(), "SCL-008", "소셜 인증 과정 중 오류가 발생했습니다."),
-    SOCIAL_AGREEMENT_ERROR(HttpStatus.BAD_REQUEST.value(), "SCL-008", "필수동의 항목에 대해 동의가 필요합니다."),
+    COMMUNICATION_ERROR(HttpStatus.BAD_REQUEST.value(), "SCL-001", "소셜 인증 과정 중 오류가 발생했습니다."),
+    SOCIAL_AGREEMENT_ERROR(HttpStatus.BAD_REQUEST.value(), "SCL-002", "필수동의 항목에 대해 동의가 필요합니다."),
 
     /**
      * SECURITY
@@ -33,17 +33,15 @@ public enum ErrorCode {
      * BUSINESS
      */
     EMAIL_LOGIN_FAIL(HttpStatus.BAD_REQUEST.value(), "BIZ-001", "존재하지 않는 계정이거나, 잘못된 비밀번호입니다."),
-    EMAIL_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "BIZ-002", "중복된 이메일의 계정이 존재합니다."),
-    NICKNAME_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "BIZ-003", "중복된 닉네임의 계정이 존재합니다."),
-    ALREADY_SIGNEDUP(HttpStatus.BAD_REQUEST.value(), "BIZ-004", "이미 가입한 사용자입니다."),
-    USER_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-005", "사용자가 존재하지 않습니다."),
-    USER_NOT_AUTHENTICATION(HttpStatus.UNAUTHORIZED.value(), "BIZ-006", "인증된 사용자가 아닙니다."),
-    ALBUM_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-007", "앨범이 존재하지 않습니다."),
-    PICTURE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-008", "사진이 존재하지 않습니다."),
-    PLACE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-009", "장소가 존재하지 않습니다."),
-    COMMENT_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-010", "댓글이 존재하지 않습니다."),
-    ALREADY_LIKE(HttpStatus.BAD_REQUEST.value(), "BIZ-011", "이미 좋아요를 했습니다."),
-    LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-012", "좋아요가 존재하지 않습니다."),
+    ALREADY_SIGNEDUP(HttpStatus.BAD_REQUEST.value(), "BIZ-002", "이미 가입한 사용자입니다."),
+    USER_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-003", "사용자가 존재하지 않습니다."),
+    USER_NOT_AUTHENTICATION(HttpStatus.UNAUTHORIZED.value(), "BIZ-004", "인증된 사용자가 아닙니다."),
+    ALBUM_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-005", "앨범이 존재하지 않습니다."),
+    PICTURE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-006", "사진이 존재하지 않습니다."),
+    PLACE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-007", "장소가 존재하지 않습니다."),
+    COMMENT_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-008", "댓글이 존재하지 않습니다."),
+    ALREADY_LIKE(HttpStatus.BAD_REQUEST.value(), "BIZ-009", "이미 좋아요를 했습니다."),
+    LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-010", "좋아요가 존재하지 않습니다."),
             ;
 
     private final String code;

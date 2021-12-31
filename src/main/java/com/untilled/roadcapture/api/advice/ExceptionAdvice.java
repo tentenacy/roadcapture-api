@@ -4,6 +4,7 @@ import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.common.ErrorResponse;
 import com.untilled.roadcapture.api.exception.CBusinessException;
 import com.untilled.roadcapture.api.exception.CSecurityException;
+import com.untilled.roadcapture.api.exception.CSocialException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -41,6 +42,15 @@ public class ExceptionAdvice {
     public ResponseEntity<ErrorResponse> handleCSecurityException(final CSecurityException e) {
         return new ResponseEntity<>(ErrorResponse.of(e.getErrorCode()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
     }
+
+    /**
+     * CSocialException 하위 클래스
+     */
+    @ExceptionHandler(CSocialException.class)
+    public ResponseEntity<ErrorResponse> handleBusinessException(final CSocialException e) {
+        return new ResponseEntity<>(ErrorResponse.of(e.getErrorCode()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
+    }
+
 
     /**
      * BusinessException 하위 클래스

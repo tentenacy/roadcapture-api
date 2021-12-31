@@ -65,13 +65,13 @@ public class User extends BaseTimeEntity implements UserDetails {
         user.setEmail(email);
         user.setPassword(password);
         user.setUsername(username);
-        user.setProvider("none");
         user.setRoles(Collections.singletonList("ROLE_USER"));
         return user;
     }
 
-    public static User create(String email, String password, String username, String provider) {
+    public static User create(String email, String password, String username, String profileImageUrl, String provider) {
         User user = create(email, password, username);
+        user.setProfileImageUrl(profileImageUrl);
         user.setProvider(provider);
         return user;
     }

@@ -45,6 +45,7 @@ public class UserApiController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void signup(@RequestBody @Validated SignupRequest signupRequest) {
+        signupRequest.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         userService.signup(signupRequest);
     }
 
@@ -59,7 +60,7 @@ public class UserApiController {
             throw new CSocialAgreementException();
         }
 
-        userService.signupBySocial(new SignupRequest(kakaoProfile.getKakao_account().getEmail(),null, kakaoProfile.getProperties().getNickname(),"kakao"));
+        userService.signup(new SignupRequest(kakaoProfile.getKakao_account().getEmail(), null, kakaoProfile.getProperties().getNickname(),kakaoProfile.getKakao_account().getProfile().getProfile_image_url(), "kakao"));
     }
 
     @PostMapping("/token")

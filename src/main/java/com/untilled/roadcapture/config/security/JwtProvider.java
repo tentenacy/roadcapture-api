@@ -80,9 +80,6 @@ public class JwtProvider {
 
     /**
      * 만료된 토큰이어도 refresh token을 검증 후 재발급할 수 있도록 claims 반환
-     *
-     * @param token
-     * @return
      */
     private Claims parseClaims(String token) {
         try {

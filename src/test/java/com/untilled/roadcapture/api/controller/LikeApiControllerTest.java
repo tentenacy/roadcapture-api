@@ -30,7 +30,7 @@ class LikeApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(post("/users/{userId}/albums/{albumId}/likes",
-                    2L, 51L)
+                    2L, 6L)
                     .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
@@ -54,7 +54,7 @@ class LikeApiControllerTest extends ApiDocumentationTest {
             
             //when
             ResultActions result = mockMvc.perform(delete("/users/{userId}/albums/{albumId}/likes",
-                    2L, 67L)
+                    2L, 22L)
                     .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 

@@ -12,6 +12,7 @@ import com.untilled.roadcapture.api.service.CommentService;
 import com.untilled.roadcapture.api.service.LikeService;
 import com.untilled.roadcapture.api.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -26,12 +27,14 @@ public class DBInitializer {
     private final AlbumService albumService;
     private final CommentService commentService;
     private final LikeService likeService;
+    private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
     void init() {
-        IntStream.range(1, 51)
+        String encodedPassword = passwordEncoder.encode("abcd1234");
+        IntStream.range(1, 6)
                 .map(i -> {
-                    userService.signup(new SignupRequest("user" + i + "@gmail.com", "abcd1234", "user" + i));
+                    userService.signup(new SignupRequest("user" + i + "@gmail.com", encodedPassword, "user" + i));
                     return i;
                 })
                 .forEach(i -> {
@@ -48,7 +51,7 @@ public class DBInitializer {
                             )
                     ));
                 });
-        IntStream.range(1, 51)
+        IntStream.range(1, 6)
                 .forEach(i -> {
                     albumService.create(Long.valueOf(i), new AlbumCreateRequest(
                             "볼거리가 가득한 국내 여행지 " + i,
@@ -89,10 +92,11 @@ public class DBInitializer {
                                     ))
                     ));
                     IntStream.range(0, 5).forEach(j -> {
-                        commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 16 - 14), new CommentCreateRequest("후기 감사합니다."));
-                        commentService.create(Long.valueOf(i), Long.valueOf(50 + i * 16 - 12), new CommentCreateRequest("후기 감사합니다."));
+                        commentService.create(Long.valueOf(i), Long.valueOf(5 + i * 16 - 14), new CommentCreateRequest("후기 감사합니다."));
+                        commentService.create(Long.valueOf(i), Long.valueOf(5 + i * 16 - 12), new CommentCreateRequest("후기 감사합니다."));
                     });
-                    likeService.create(Long.valueOf(i), Long.valueOf(50 + i * 16 - 15));
+                    likeService.create(Long.valueOf(i), Long.valueOf(5 + i * 16 - 15));
                 });
+
     }
 }

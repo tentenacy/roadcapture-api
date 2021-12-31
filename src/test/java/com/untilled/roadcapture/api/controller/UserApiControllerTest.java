@@ -4,18 +4,19 @@ import com.untilled.roadcapture.api.base.ApiDocumentationTest;
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.token.TokenRequest;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
-import com.untilled.roadcapture.api.dto.user.LoginRequest;
-import com.untilled.roadcapture.api.dto.user.SignupRequest;
-import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
+import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.api.service.UserService;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.Collections;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.mockito.BDDMockito.*;
@@ -29,9 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class UserApiControllerTest extends ApiDocumentationTest {
-
-    @SpyBean
-    private UserService userService;
 
     @Nested
     @DisplayName("조회")
@@ -278,8 +276,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
         }
 
         @Test
-        @DisplayName("이메일 중복 시 실패")
-        void EmailIsDuplicated_Fail() throws Exception {
+        @DisplayName("기가입 시 실패")
+        void AlreadySignedup_Fail() throws Exception {
             //given
             final SignupRequest signupRequest = new SignupRequest("user1@gmail.com", "abcd1234", "test");
 
@@ -290,26 +288,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.EMAIL_DUPLICATION.getCode()))
-                    .andDo(document("회원가입 - 이메일 중복 시 실패", "회원가입",
-                            responseFields(badFields)));
-        }
-
-        @Test
-        @DisplayName("닉네임 중복 시 실패")
-        void UsernameIsDuplicated_Fail() throws Exception {
-            //given
-            final SignupRequest signupRequest = new SignupRequest("test@gmail.com", "abcd1234", "user1");
-
-            //when
-            ResultActions result = mockMvc.perform(post("/users")
-                    .content(mapper.writeValueAsString(signupRequest))
-                    .contentType(MediaType.APPLICATION_JSON));
-
-            //then
-            result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.NICKNAME_DUPLICATION.getCode()))
-                    .andDo(document("회원가입 - 닉네임 중복 시 실패", "회원가입",
+                    .andExpect(jsonPath("$.code").value(ErrorCode.ALREADY_SIGNEDUP.getCode()))
+                    .andDo(document("회원가입 - 기가입 시 실패", "회원가입",
                             responseFields(badFields)));
         }
 
@@ -418,6 +398,69 @@ class UserApiControllerTest extends ApiDocumentationTest {
     }
 
     @Nested
+    @DisplayName("카카오회원가입")
+    class SignupByKakao {
+
+        @Test
+        @DisplayName("성공")
+        void Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/kakao")
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isCreated())
+                    .andDo(document("카카오회원가입 - 성공", "카카오회원가입",
+                            requestFields(socialRequestFields)
+                    ));
+        }
+
+        @Test
+        @DisplayName("토큰 유효하지 않으면 실패")
+        void TokenIsInvalid_Fail() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/kakao")
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken+"_invalid")))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andDo(document("카카오회원가입 - 토큰 유효하지 않으면 실패", "카카오회원가입",
+                            requestFields(socialRequestFields),
+                            responseFields(badFields)
+                    ));
+        }
+
+        @Test
+        @DisplayName("기가입 시 실패")
+        void AlreadySignedup_Fail() throws Exception {
+            //given
+            mockMvc.perform(post("/users/social/kakao")
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/kakao")
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.code").value(ErrorCode.ALREADY_SIGNEDUP.getCode()))
+                    .andDo(document("카카오회원가입 - 기가입 시 실패", "카카오회원가입",
+                            requestFields(socialRequestFields),
+                            responseFields(badFields)
+                    ));
+        }
+    }
+
+    @Nested
     @DisplayName("로그인")
     class Login {
 
@@ -425,11 +468,10 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("성공")
         void Success() throws Exception {
             //given
-            LoginRequest request = new LoginRequest("user1@gmail.com", "abcd1234");
 
             //when
             ResultActions result = mockMvc.perform(post("/users/token")
-                    .content(mapper.writeValueAsString(request))
+                    .content(mapper.writeValueAsString(new LoginRequest("user1@gmail.com", "abcd1234")))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
@@ -441,6 +483,72 @@ class UserApiControllerTest extends ApiDocumentationTest {
     }
 
     @Nested
+    @DisplayName("카카오로그인")
+    class LoginByKakao {
+
+        @Test
+        @DisplayName("성공")
+        void Success() throws Exception {
+            //given
+            mockMvc.perform(post("/users/social/kakao")
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //when
+
+            ResultActions result = mockMvc.perform(post("/users/social/kakao/token")
+                    .content(mapper.writeValueAsString(new LoginByKakaoRequest(accessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isCreated())
+                    .andDo(document("카카오로그인 - 성공", "카카오로그인",
+                            requestFields(socialRequestFields),
+                            responseFields(tokenFields)));
+        }
+
+        @Test
+        @DisplayName("토큰 유효하지 않으면 실패")
+        void TokenIsInvalid_Fail() throws Exception {
+            //given
+            mockMvc.perform(post("/users/social/kakao")
+                    .content(mapper.writeValueAsString(new SignupByKakaoRequest(accessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/kakao/token")
+                    .content(mapper.writeValueAsString(new LoginByKakaoRequest(accessToken+"_invaild")))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andDo(document("카카오로그인 - 토큰 유효하지 않으면 실패", "카카오로그인",
+                            requestFields(socialRequestFields),
+                            responseFields(badFields)));
+        }
+
+        @Test
+        @DisplayName("미가입 시 실패")
+        void SignedupYet_Fail() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/kakao/token")
+                    .content(mapper.writeValueAsString(new LoginByKakaoRequest(accessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.code").value(ErrorCode.USER_NOT_FOUND.getCode()))
+                    .andDo(document("카카오로그인 - 미가입 시 실패", "카카오로그인",
+                            requestFields(socialRequestFields),
+                            responseFields(badFields)));
+        }
+
+    }
+
+    @Nested
     @DisplayName("토큰재발급")
     class TokenReissue {
 
@@ -448,13 +556,11 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("성공")
         void Success() throws Exception {
             //given
-            TokenRequest request = new TokenRequest("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MDg4MDEzMCwiZXhwIjoxNjQwODgzNzMwfQ.ZN13bN1EnWvG6nDXGdbS5_XbYU4WQXWQGLZnKCiQHJw", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIxMDkwNTh9.ScvhpNCJYxGBh0LDw0TaghBhwOY3-ib1WjTrZPdxN7A");
-            TokenResponse response = new TokenResponse("bearer", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MDg4MDE1MiwiZXhwIjoxNjQwODgzNzUyfQ.tVwF-kA2HzRrFRAf3sE1j791_DAyPmnBivlag2fJS4k", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIxMDkwODB9.rAD9tpJy0l_NQbKnzc-M9RBXonwQZBXKIV7CB65zbWw", 3600000L);
-            willReturn(response).given(userService).reissue(any());
+            willReturn(new TokenResponse("bearer", "access_token", "refresh_token", 3600000L)).given(userService).reissue(any());
 
             //when
             ResultActions result = mockMvc.perform(post("/users/token/reissue")
-                    .content(mapper.writeValueAsString(request))
+                    .content(mapper.writeValueAsString(new TokenRequest("access_token", "refresh_token")))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then

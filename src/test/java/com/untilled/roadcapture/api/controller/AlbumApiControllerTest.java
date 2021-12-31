@@ -116,15 +116,15 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(get("/albums/{id}", 51L)
+            ResultActions result = mockMvc.perform(get("/albums/{id}", 6L)
                     .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.id").value(51L))
-                    .andExpect(jsonPath("$.pictures[0].id").value(52L))
-                    .andExpect(jsonPath("$.pictures[1].id").value(54L))
+                    .andExpect(jsonPath("$.id").value(6L))
+                    .andExpect(jsonPath("$.pictures[0].id").value(7L))
+                    .andExpect(jsonPath("$.pictures[1].id").value(9L))
                     .andExpect(jsonPath("$.commentCount").value(10L))
                     .andDo(document("앨범단건조회 - 성공", "앨범단건조회",
                             requestHeaders(jwtHeader),
@@ -151,11 +151,11 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                     "https://www.test.com/test",
                     Arrays.asList(new PictureUpdateRequest(
-                            52L,
+                            7L,
                             "https://www.test.com/test",
                             "저번에 이어 이번에도 그 목적지로 향했습니다!!!",
                             new PlaceUpdateRequest(
-                                    53L,
+                                    8L,
                                     "그 은행나무!!!",
                                     36.1112512,
                                     27.1146346,
@@ -172,7 +172,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             );
 
             //when
-            ResultActions result = mockMvc.perform(put("/albums/{id}", 51L)
+            ResultActions result = mockMvc.perform(put("/albums/{id}", 6L)
                     .content(mapper.writeValueAsString(request))
                     .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
@@ -200,7 +200,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(delete("/albums/{id}", 51L)
+            ResultActions result = mockMvc.perform(delete("/albums/{id}", 6L)
                     .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -26,12 +27,18 @@ public class SignupRequest {
     @NotEmpty
     private String username;
 
+
+    @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}")
+    private String profileImageUrl;
+
+    @Pattern(regexp = "\\bkakao\\b|\\bfacebook\\b|\\bnaver\\b|\\bgoogle\\b")
     private String provider;
 
-    public SignupRequest(String email, String password, String username, String provider) {
+    public SignupRequest(String email, String password, String username, String profileImageUrl, String provider) {
         this.email = email;
         this.password = password;
         this.username = username;
+        this.profileImageUrl = profileImageUrl;
         this.provider = provider;
     }
 

@@ -32,7 +32,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(post("/users/{userId}/albums/pictures/{pictureId}/comments",
-                    2L, 52L)
+                    2L, 7L)
                     .content(mapper.writeValueAsString(request))
                     .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
@@ -57,7 +57,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(delete("/pictures/{pictureId}/comments/{commentId}",
-                    52L, 56L)
+                    7L, 11L)
                     .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));
 
@@ -80,7 +80,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(get("/albums/{albumId}/pictures/comments", 51L)
+            ResultActions result = mockMvc.perform(get("/albums/{albumId}/pictures/comments", 6L)
 //                    .param("albumId", String.valueOf(51L))
 //                    .param("pictureId", String.valueOf(52L))
                     .header("X-AUTH-TOKEN", "")
@@ -109,7 +109,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(get("/pictures/{pictureId}/comments", 52L)
+            ResultActions result = mockMvc.perform(get("/pictures/{pictureId}/comments", 7L)
 //                    .param("pictureId", String.valueOf(52L))
                     .header("X-AUTH-TOKEN", "")
                     .contentType(MediaType.APPLICATION_JSON));

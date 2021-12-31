@@ -1,10 +1,14 @@
 package com.untilled.roadcapture.api.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.untilled.roadcapture.api.service.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.core.env.Environment;
 import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -27,6 +31,14 @@ public abstract class ApiDocumentationTest {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    @Autowired
+    Environment env;
+
+    @SpyBean
+    protected UserService userService;
+
+    protected static String accessToken;
 
     //COMMON_DESC
     protected ParameterDescriptor[] pageParams = new ParameterDescriptor[]{
@@ -74,9 +86,15 @@ public abstract class ApiDocumentationTest {
 
     //USER_DESC
     protected FieldDescriptor[] signupRequestFields = new FieldDescriptor[]{
-            fieldWithPath("email").description("사용자 이메일입니다. 이메일 형식이어야 합니다."),
-            fieldWithPath("password").description("사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상에서 최대 64자 이하여야 합니다."),
-            fieldWithPath("username").description("사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.")
+            fieldWithPath("email").type(JsonFieldType.STRING).description("사용자 이메일입니다. 이메일 형식이어야 합니다."),
+            fieldWithPath("password").type(JsonFieldType.STRING).description("사용자 비밀번호입니다. 영문 숫자 조합 최소 8자 이상에서 최대 64자 이하여야 합니다."),
+            fieldWithPath("username").type(JsonFieldType.STRING).description("사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다."),
+            fieldWithPath("profileImageUrl").type(JsonFieldType.STRING).description("사용자 프로필 이미지입니다.").optional(),
+            fieldWithPath("provider").type(JsonFieldType.STRING).description("사용자 정보 제공자입니다.").optional(),
+    };
+
+    protected FieldDescriptor[] socialRequestFields = new FieldDescriptor[]{
+            fieldWithPath("accessToken").type(JsonFieldType.STRING).description("SNS로부터 받은 액세스 토큰입니다."),
     };
 
     protected FieldDescriptor[] userUpdateRequestFields = new FieldDescriptor[]{
@@ -89,6 +107,7 @@ public abstract class ApiDocumentationTest {
     protected FieldDescriptor[] loginRequestFields = new FieldDescriptor[]{
             fieldWithPath("email").type(JsonFieldType.STRING).description("사용자 이메일입니다."),
             fieldWithPath("password").type(JsonFieldType.STRING).description("사용자 비밀번호입니다."),
+            fieldWithPath("provider").type(JsonFieldType.STRING).description("사용자 정보 제공자입니다.").optional(),
     };
 
     protected FieldDescriptor[] tokenRequestFields = new FieldDescriptor[]{
@@ -270,5 +289,9 @@ public abstract class ApiDocumentationTest {
             parameterWithName("albumId").description("앨범 아이디입니다."),
     };
 
+    @BeforeEach
+    public void setup() {
+        accessToken = env.getProperty("social.kakao.accessToken");
+    }
 
 }
