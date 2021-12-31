@@ -104,8 +104,9 @@ public class UserService {
     }
 
     @Transactional
-    public void delete(Long userId) {
-        User foundUser = getUserIfExists(userId);
+    public void delete() {
+        User foundUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        refreshTokenRepository.deleteByKey(foundUser.getId());
         userRepository.delete(foundUser);
     }
 
@@ -115,7 +116,6 @@ public class UserService {
     }
 
     public UserResponse getUser(Long userId) {
-//        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new UserResponse(getUserIfExists(userId));
     }
 

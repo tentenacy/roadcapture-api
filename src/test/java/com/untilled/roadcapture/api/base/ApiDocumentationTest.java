@@ -27,35 +27,20 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 
-@AutoConfigureMockMvc
 @AutoConfigureRestDocs
-@SpringBootTest
-@Transactional
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class ApiDocumentationTest {
-
-    protected final ObjectMapper mapper = new ObjectMapper();
-
-    @Autowired
-    protected MockMvc mockMvc;
-
-    @Autowired
-    Environment env;
-
-    @Autowired
-    private RefreshTokenRepository refreshTokenRepository;
-
-    @SpyBean
-    protected UserService userService;
+public abstract class ApiDocumentationTest extends BaseSpringBootTest {
 
     protected static String oauth2AccessToken;
     protected static String jwtAccessToken;
-
+    protected static String jwtRefreshToken;
 
     @BeforeAll
     public void setup() {
         oauth2AccessToken = env.getProperty("social.kakao.accessToken");
-        jwtAccessToken = userService.login(new LoginRequest("user2@gmail.com", "abcd1234")).getAccessToken();
+        TokenResponse token = userService.login(new LoginRequest("user2@gmail.com", "abcd1234"));
+        jwtAccessToken = token.getAccessToken();
+        jwtRefreshToken = token.getRefreshToken();
     }
 
     @AfterAll

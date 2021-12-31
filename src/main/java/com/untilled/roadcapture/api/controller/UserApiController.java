@@ -89,10 +89,10 @@ public class UserApiController {
         userService.update(userId, userUpdateRequest);
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable final Long userId) {
-        userService.delete(userId);
+    public void delete() {
+        userService.delete();
     }
 
 

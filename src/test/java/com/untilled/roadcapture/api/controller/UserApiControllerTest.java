@@ -6,6 +6,7 @@ import com.untilled.roadcapture.api.dto.token.TokenRequest;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.domain.address.Address;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
     class Users {
 
         @Test
-
         @DisplayName("성공")
         void Success() throws Exception {
             //when
@@ -55,8 +55,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
     @Nested
     @DisplayName("단건조회")
     class User {
-        @Test
 
+        @Test
         @DisplayName("성공")
         void Success() throws Exception {
             //when
@@ -211,20 +211,38 @@ class UserApiControllerTest extends ApiDocumentationTest {
     @Nested
     @DisplayName("삭제")
     class Delete {
-        @Test
 
+        @Test
         @DisplayName("성공")
         void Success() throws Exception {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(delete("/users/{id}", 2L)
+            ResultActions result = mockMvc.perform(delete("/users")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isNoContent())
                     .andDo(document("회원삭제 - 성공", "회원삭제",
+                            requestHeaders(jwtHeader)));
+        }
+
+        @Test
+        @DisplayName("유저 삭제하고 리프레시토큰 삭제되면 성공")
+        void RefreshTokenDeletedAsUserDeleted_Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(delete("/users")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+
+            //then
+            Assertions.assertThat(refreshTokenRepository.findByKey(2L)).isEmpty();
+            result.andExpect(status().isNoContent())
+                    .andDo(document("회원삭제 - 유저 삭제하고 리프레시토큰 삭제되면 성공", "회원삭제",
                             requestHeaders(jwtHeader)));
         }
     }
@@ -531,11 +549,10 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("성공")
         void Success() throws Exception {
             //given
-            willReturn(new TokenResponse("bearer", "access_token", "refresh_token", 3600000L)).given(userService).reissue(any());
 
             //when
             ResultActions result = mockMvc.perform(post("/users/token/reissue")
-                    .content(mapper.writeValueAsString(new TokenRequest("access_token", "refresh_token")))
+                    .content(mapper.writeValueAsString(new TokenRequest(jwtAccessToken, jwtRefreshToken)))
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
