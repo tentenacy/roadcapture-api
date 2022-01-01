@@ -50,10 +50,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/users/token",
                         "/users/token/reissue",
                         "/users/social/kakao/**",
-                        "/users/social/google/**"
+                        "/users/social/google/**",
+                        "/users/social/naver/**"
                 ).permitAll()
                 .antMatchers(HttpMethod.GET, "/oauth/kakao/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/oauth/google/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/oauth/naver/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/exception/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/exception/**").permitAll()

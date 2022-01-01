@@ -20,7 +20,7 @@ public class FacebookOAuth implements SocialOAuth {
     }
 
     @Override
-    public void logout(String accessToken) {
+    public void unlink(String accessToken) {
 
     }
 }

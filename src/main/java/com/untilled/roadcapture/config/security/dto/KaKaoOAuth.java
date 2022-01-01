@@ -44,8 +44,8 @@ public class KaKaoOAuth implements SocialOAuth {
     @Value("${social.kakao.url.profile}")
     private String kakaoProfileUrl;
 
-    @Value("${social.kakao.url.logout}")
-    private String kakaoLogoutUrl;
+    @Value("${social.kakao.url.unlink}")
+    private String kakaoUnlinkUrl;
 
     @Override
     public String getOauthRedirectURL() {
@@ -96,13 +96,13 @@ public class KaKaoOAuth implements SocialOAuth {
     }
 
     @Override
-    public void logout(String accessToken) {
+    public void unlink(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.set("Authorization", "Bearer " + accessToken);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(kakaoLogoutUrl, request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(kakaoUnlinkUrl, request, String.class);
 
         if (response.getStatusCode() == HttpStatus.OK) return;
         throw new CCommunicationException();

@@ -50,14 +50,14 @@ public class GoogleOAuth implements SocialOAuth {
     @Value("${social.google.url.profile}")
     private String googleProfileUrl;
 
-    @Value("${social.google.url.logout}")
-    private String googleLogoutUrl;
+    @Value("${social.google.url.unlink}")
+    private String googleUnlinkUrl;
 
 
     @Override
     public String getOauthRedirectURL() {
         Map<String, Object> params = new HashMap<>();
-        //카카오를 제외하고는 parameter에 scope를 지정해줘야 동의됨
+        //카카오, 네이버를 제외하고는 parameter에 scope를 지정해줘야 동의됨
         params.put("scope", "profile email");
         params.put("response_type", "code");
         params.put("client_id", googleClientId);
@@ -112,7 +112,7 @@ public class GoogleOAuth implements SocialOAuth {
     }
 
     @Override
-    public void logout(String accessToken) {
+    public void unlink(String accessToken) {
         webClient.post()
                 .uri(googleProfileUrl, builder -> builder.queryParam("token", accessToken).build())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)

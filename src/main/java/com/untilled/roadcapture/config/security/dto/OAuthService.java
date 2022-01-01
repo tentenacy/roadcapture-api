@@ -42,7 +42,7 @@ public class OAuthService {
 
     public void unlink(SocialType socialType, String accessToken) {
         SocialOAuth socialOauth = this.findSocialOauthByType(socialType);
-        socialOauth.logout(accessToken);
+        socialOauth.unlink(accessToken);
     }
 
     private SocialOAuth findSocialOauthByType(SocialType socialType) {

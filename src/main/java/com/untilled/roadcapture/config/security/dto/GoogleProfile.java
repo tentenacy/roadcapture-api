@@ -1,10 +1,9 @@
 package com.untilled.roadcapture.config.security.dto;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@ToString
 public class GoogleProfile {
 
     // These six fields are included in all Google ID Tokens.

@@ -10,7 +10,7 @@ public interface SocialOAuth {
 
     SocialProfile getProfile(String accessToken);
 
-    void logout(String accessToken);
+    void unlink(String accessToken);
 
     default SocialType type() {
         if (this instanceof FacebookOAuth) {

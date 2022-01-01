@@ -36,7 +36,7 @@ public class KakaoService {
     @Value("${social.kakao.url.profile}")
     private String kakaoProfileUri;
 
-    @Value("${social.kakao.url.logout}")
+    @Value("${social.kakao.url.unlink}")
     private String kakaoUnlikUri;
 
     public KakaoProfile getKakaoProfile(String kakaoAccessToken) {
