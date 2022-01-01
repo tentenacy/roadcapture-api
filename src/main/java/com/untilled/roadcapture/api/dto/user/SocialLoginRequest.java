@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LoginByKakaoRequest {
+public class SocialLoginRequest {
     @NotEmpty
     private String accessToken;
 }

@@ -21,6 +21,8 @@ public enum ErrorCode {
      */
     COMMUNICATION_ERROR(HttpStatus.BAD_REQUEST.value(), "SCL-001", "소셜 인증 과정 중 오류가 발생했습니다."),
     SOCIAL_AGREEMENT_ERROR(HttpStatus.BAD_REQUEST.value(), "SCL-002", "필수동의 항목에 대해 동의가 필요합니다."),
+    INVALID_SOCIAL_TYPE(HttpStatus.BAD_REQUEST.value(), "SCL-003", "알 수 없는 소셜 타입입니다."),
+    SOCIAL_TOKEN_VALID_FAILED(HttpStatus.UNAUTHORIZED.value(), "SCR-004", "소셜 액세스 토큰 검증에 실패했습니다."),
 
     /**
      * SECURITY

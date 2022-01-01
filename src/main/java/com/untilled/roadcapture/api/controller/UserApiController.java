@@ -1,13 +1,14 @@
 package com.untilled.roadcapture.api.controller;
 
-import com.untilled.roadcapture.api.dto.social.KakaoProfile;
 import com.untilled.roadcapture.api.dto.token.TokenRequest;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.*;
 import com.untilled.roadcapture.api.exception.social.CSocialAgreementException;
 import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
-import com.untilled.roadcapture.api.service.KakaoService;
 import com.untilled.roadcapture.api.service.UserService;
+import com.untilled.roadcapture.config.security.dto.OAuthService;
+import com.untilled.roadcapture.config.security.dto.SocialProfile;
+import com.untilled.roadcapture.util.constant.SocialType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +26,7 @@ public class UserApiController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private final KakaoService kakaoService;
+    private final OAuthService oauthService;
 
     @GetMapping
     public Page<UsersResponse> users(Pageable pageable, UsersCondition cond) {
@@ -48,18 +49,20 @@ public class UserApiController {
         userService.signup(signupRequest);
     }
 
-    @PostMapping("/social/kakao")
+    @PostMapping("/social/{socialType}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void signupByKakao(@RequestBody @Validated SignupByKakaoRequest request) {
+    public void socialSignup(@PathVariable(name = "socialType") SocialType socialType,
+                             @RequestBody @Validated SocialSignupRequest request) {
 
-        KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(request.getAccessToken());
-        if (ObjectUtils.isEmpty(kakaoProfile)) throw new CUserNotFoundException();
-        if (!StringUtils.hasText(kakaoProfile.getKakao_account().getEmail())) {
-            kakaoService.kakaoUnlink(request.getAccessToken());
+        //구글은 access_token 대신 id_token 값으로 요청
+        SocialProfile socialProfile = oauthService.getProfile(socialType, request.getAccessToken());
+        if (ObjectUtils.isEmpty(socialProfile)) throw new CUserNotFoundException();
+        if (!StringUtils.hasText(socialProfile.getEmail())) {
+            oauthService.unlink(socialType, request.getAccessToken());
             throw new CSocialAgreementException();
         }
 
-        userService.signup(new SignupRequest(kakaoProfile.getKakao_account().getEmail(), null, kakaoProfile.getProperties().getNickname(),kakaoProfile.getKakao_account().getProfile().getProfile_image_url(), "kakao"));
+        userService.signup(new SignupRequest(socialProfile.getEmail(), null, socialProfile.getUsername(), socialProfile.getProfileImageUrl(), socialType.name().toLowerCase()));
     }
 
     @PostMapping("/token")
@@ -68,14 +71,15 @@ public class UserApiController {
         return userService.login(request);
     }
 
-    @PostMapping("/social/kakao/token")
+    @PostMapping("/social/{socialType}/token")
     @ResponseStatus(HttpStatus.CREATED)
-    public TokenResponse loginByKakao(@RequestBody @Validated LoginByKakaoRequest request) {
+    public TokenResponse socialLogin(@PathVariable(name = "socialType") SocialType socialType,
+                                     @RequestBody @Validated SocialLoginRequest request) {
 
-        KakaoProfile kakaoProfile = kakaoService.getKakaoProfile(request.getAccessToken());
-        if(ObjectUtils.isEmpty(kakaoProfile)) throw new CUserNotFoundException();
+        SocialProfile socialProfile = oauthService.getProfile(socialType, request.getAccessToken());
+        if(ObjectUtils.isEmpty(socialProfile)) throw new CUserNotFoundException();
 
-        return userService.loginByKakao(new LoginRequest(kakaoProfile.getKakao_account().getEmail(), null, "kakao"));
+        return userService.socialLogin(new LoginRequest(socialProfile.getEmail(), null, socialType.name().toLowerCase()));
     }
 
     @PostMapping("/token/reissue")

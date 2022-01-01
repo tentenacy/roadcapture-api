@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.api.dto.social;
+package com.untilled.roadcapture.config.security.dto;
 
 import lombok.Getter;
 import lombok.ToString;

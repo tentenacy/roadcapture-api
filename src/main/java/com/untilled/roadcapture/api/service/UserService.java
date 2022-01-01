@@ -62,7 +62,7 @@ public class UserService {
     }
 
     @Transactional
-    public TokenResponse loginByKakao(LoginRequest request) {
+    public TokenResponse socialLogin(LoginRequest request) {
         User user = userRepository.findByEmailAndProvider(request.getEmail(), request.getProvider())
                 .orElseThrow(CUserNotFoundException::new);
         return jwtProvider.createToken(user.getId().toString(), user.getRoles());

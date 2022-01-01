@@ -1,7 +1,6 @@
 package com.untilled.roadcapture.config.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -46,8 +45,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/users", "/users/token", "/users/token/reissue", "/users/social/kakao/**").permitAll()
+                .antMatchers(HttpMethod.POST,
+                        "/users",
+                        "/users/token",
+                        "/users/token/reissue",
+                        "/users/social/kakao/**",
+                        "/users/social/google/**"
+                ).permitAll()
                 .antMatchers(HttpMethod.GET, "/oauth/kakao/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/oauth/google/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/exception/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/exception/**").permitAll()

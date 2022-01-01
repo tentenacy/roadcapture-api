@@ -1,13 +1,12 @@
 package com.untilled.roadcapture.api.service;
 
 import com.google.gson.Gson;
-import com.untilled.roadcapture.api.dto.social.KakaoProfile;
-import com.untilled.roadcapture.api.dto.social.RetKakaoOAuth;
+import com.untilled.roadcapture.config.security.dto.KakaoProfile;
+import com.untilled.roadcapture.config.security.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.api.exception.social.CCommunicationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class KakaoService {
 
-    private final Environment env;
     private final RestTemplate restTemplate;
     private final Gson gson;
 
@@ -32,17 +30,25 @@ public class KakaoService {
     @Value("${social.kakao.redirect}")
     private String kakaoRedirectUri;
 
+    @Value("${social.kakao.url.token}")
+    private String kakaoTokenUri;
+
+    @Value("${social.kakao.url.profile}")
+    private String kakaoProfileUri;
+
+    @Value("${social.kakao.url.logout}")
+    private String kakaoUnlikUri;
+
     public KakaoProfile getKakaoProfile(String kakaoAccessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.set("Authorization", "Bearer " + kakaoAccessToken);
 
-        String requestUrl = env.getProperty("social.kakao.url.profile");
-        if (requestUrl == null) throw new CCommunicationException();
+        if (kakaoProfileUri == null) throw new CCommunicationException();
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(requestUrl, request, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(kakaoProfileUri, request, String.class);
             if (response.getStatusCode() == HttpStatus.OK)
                 return gson.fromJson(response.getBody(), KakaoProfile.class);
         } catch (Exception e) {
@@ -52,7 +58,7 @@ public class KakaoService {
         throw new CCommunicationException();
     }
 
-    public RetKakaoOAuth getKakaoTokenInfo(String code) {
+    public OAuthTokenResponse getKakaoTokenInfo(String code) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -62,26 +68,24 @@ public class KakaoService {
         params.add("redirect_uri", baseUrl + kakaoRedirectUri);
         params.add("code", code);
 
-        String requestUri = env.getProperty("social.kakao.url.token");
-        if (requestUri == null) throw new CCommunicationException();
+        if (kakaoTokenUri == null) throw new CCommunicationException();
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(requestUri, request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(kakaoTokenUri, request, String.class);
         if (response.getStatusCode() == HttpStatus.OK)
-            return gson.fromJson(response.getBody(), RetKakaoOAuth.class);
+            return gson.fromJson(response.getBody(), OAuthTokenResponse.class);
         throw new CCommunicationException();
     }
 
     public void kakaoUnlink(String accessToken) {
-        String unlinkUrl = env.getProperty("social.kakao.url.unlink");
-        if (unlinkUrl == null) throw new CCommunicationException();
+        if (kakaoUnlikUri == null) throw new CCommunicationException();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.set("Authorization", "Bearer " + accessToken);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(unlinkUrl, request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(kakaoUnlikUri, request, String.class);
 
         if (response.getStatusCode() == HttpStatus.OK) return;
         throw new CCommunicationException();

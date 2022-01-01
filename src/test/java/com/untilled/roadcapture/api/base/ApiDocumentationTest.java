@@ -1,26 +1,15 @@
 package com.untilled.roadcapture.api.base;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.LoginRequest;
-import com.untilled.roadcapture.api.service.UserService;
-import com.untilled.roadcapture.domain.token.RefreshTokenRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.core.env.Environment;
 import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -31,13 +20,18 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class ApiDocumentationTest extends BaseSpringBootTest {
 
-    protected static String oauth2AccessToken;
+    protected static String kakaoOAuth2AccessToken;
+    protected static String googleOAuth2AccessToken;
+    protected static String googleOAuth2IdToken;
     protected static String jwtAccessToken;
     protected static String jwtRefreshToken;
 
     @BeforeAll
     public void setup() {
-        oauth2AccessToken = env.getProperty("social.kakao.accessToken");
+        kakaoOAuth2AccessToken = env.getProperty("social.kakao.accessToken");
+        googleOAuth2AccessToken = env.getProperty("social.google.accessToken");
+        googleOAuth2IdToken = env.getProperty("social.google.idToken");
+
         TokenResponse token = userService.login(new LoginRequest("user2@gmail.com", "abcd1234"));
         jwtAccessToken = token.getAccessToken();
         jwtRefreshToken = token.getRefreshToken();
