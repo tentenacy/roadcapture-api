@@ -41,6 +41,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     private String username;
 
+    @Column(length = 500)
     private String profileImageUrl;
 
     private String introduction;

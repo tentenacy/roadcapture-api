@@ -24,6 +24,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     protected static String googleOAuth2AccessToken;
     protected static String googleOAuth2IdToken;
     protected static String naverOAuth2AccessToken;
+    protected static String facebookOAuth2AccessToken;
     protected static String jwtAccessToken;
     protected static String jwtRefreshToken;
 
@@ -33,6 +34,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
         googleOAuth2AccessToken = env.getProperty("social.google.accessToken");
         googleOAuth2IdToken = env.getProperty("social.google.idToken");
         naverOAuth2AccessToken = env.getProperty("social.naver.accessToken");
+        facebookOAuth2AccessToken = env.getProperty("social.facebook.accessToken");
 
         TokenResponse token = userService.login(new LoginRequest("user2@gmail.com", "abcd1234"));
         jwtAccessToken = token.getAccessToken();

@@ -599,6 +599,69 @@ class UserApiControllerTest extends ApiDocumentationTest {
     }
 
     @Nested
+    @DisplayName("페이스북회원가입")
+    class SignupByFacebook {
+
+        @Test
+        @DisplayName("성공")
+        void Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/facebook")
+                    .content(mapper.writeValueAsString(new SocialSignupRequest(facebookOAuth2AccessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isCreated())
+                    .andDo(document("페이스북회원가입 - 성공", "페이스북회원가입",
+                            requestFields(socialRequestFields)
+                    ));
+        }
+
+        @Test
+        @DisplayName("토큰 유효하지 않으면 실패")
+        void TokenIsInvalid_Fail() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/facebook")
+                    .content(mapper.writeValueAsString(new SocialSignupRequest(facebookOAuth2AccessToken + "_invalid")))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andDo(document("페이스북회원가입 - 토큰 유효하지 않으면 실패", "페이스북회원가입",
+                            requestFields(socialRequestFields),
+                            responseFields(badFields)
+                    ));
+        }
+
+        @Test
+        @DisplayName("기가입 시 실패")
+        void AlreadySignedup_Fail() throws Exception {
+            //given
+            mockMvc.perform(post("/users/social/facebook")
+                    .content(mapper.writeValueAsString(new SocialSignupRequest(facebookOAuth2AccessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/facebook")
+                    .content(mapper.writeValueAsString(new SocialSignupRequest(facebookOAuth2AccessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.code").value(ErrorCode.ALREADY_SIGNEDUP.getCode()))
+                    .andDo(document("페이스북회원가입 - 기가입 시 실패", "페이스북회원가입",
+                            requestFields(socialRequestFields),
+                            responseFields(badFields)
+                    ));
+        }
+    }
+
+    @Nested
     @DisplayName("로그인")
     class Login {
 
@@ -808,6 +871,70 @@ class UserApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.code").value(ErrorCode.USER_NOT_FOUND.getCode()))
                     .andDo(document("네이버로그인 - 미가입 시 실패", "네이버로그인",
+                            requestFields(socialRequestFields),
+                            responseFields(badFields)));
+        }
+    }
+
+    @Nested
+    @DisplayName("페이스북로그인")
+    class LoginByFacebook {
+
+        @Test
+        @DisplayName("성공")
+        void Success() throws Exception {
+            //given
+            mockMvc.perform(post("/users/social/facebook")
+                    .content(mapper.writeValueAsString(new SocialSignupRequest(facebookOAuth2AccessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/facebook/token")
+                    .content(mapper.writeValueAsString(new SocialLoginRequest(facebookOAuth2AccessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isCreated())
+                    .andDo(document("페이스북로그인 - 성공", "페이스북로그인",
+                            requestFields(socialRequestFields),
+                            responseFields(tokenFields)));
+        }
+
+        @Test
+        @DisplayName("토큰 유효하지 않으면 실패")
+        void TokenIsInvalid_Fail() throws Exception {
+            //given
+            mockMvc.perform(post("/users/social/facebook")
+                    .content(mapper.writeValueAsString(new SocialSignupRequest(facebookOAuth2AccessToken + "_invalid")))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/facebook/token")
+                    .content(mapper.writeValueAsString(new SocialLoginRequest("accessToken_invaild")))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andDo(document("페이스북로그인 - 토큰 유효하지 않으면 실패", "페이스북로그인",
+                            requestFields(socialRequestFields),
+                            responseFields(badFields)));
+        }
+
+        @Test
+        @DisplayName("미가입 시 실패")
+        void SignedupYet_Fail() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(post("/users/social/facebook/token")
+                    .content(mapper.writeValueAsString(new SocialLoginRequest(facebookOAuth2AccessToken)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.code").value(ErrorCode.USER_NOT_FOUND.getCode()))
+                    .andDo(document("페이스북로그인 - 미가입 시 실패", "페이스북로그인",
                             requestFields(socialRequestFields),
                             responseFields(badFields)));
         }

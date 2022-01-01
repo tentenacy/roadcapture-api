@@ -16,7 +16,6 @@ public class NaverProfile {
     @ToString
     public static class Response {
         private String nickname;
-        private String name;
         private String email;
         private String profile_image;
     }
