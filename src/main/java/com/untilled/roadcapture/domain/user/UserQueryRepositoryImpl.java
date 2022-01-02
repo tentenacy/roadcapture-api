@@ -8,11 +8,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.untilled.roadcapture.api.dto.album.AlbumsResponse;
 import com.untilled.roadcapture.api.dto.user.UsersCondition;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
-import com.untilled.roadcapture.domain.album.Album;
-import com.untilled.roadcapture.domain.picture.Picture;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,10 +18,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.untilled.roadcapture.domain.album.QAlbum.album;
 import static com.untilled.roadcapture.domain.user.QUser.user;
@@ -51,7 +44,7 @@ public class UserQueryRepositoryImpl extends QuerydslRepositorySupport implement
                         user.profileImageUrl))
                 .from(user)
                 .leftJoin(user.albums, album)
-                .where(usernameEq(cond.getUsername()))
+                .where(usernameContains(cond.getUsername()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
@@ -67,7 +60,7 @@ public class UserQueryRepositoryImpl extends QuerydslRepositorySupport implement
         return new PageImpl(result.getResults(), pageable, result.getTotal());
     }
 
-    private BooleanExpression usernameEq(String username) {
-        return StringUtils.hasText(username) ? user.username.eq(username) : null;
+    private BooleanExpression usernameContains(String username) {
+        return StringUtils.hasText(username) ? user.username.contains(username) : null;
     }
 }

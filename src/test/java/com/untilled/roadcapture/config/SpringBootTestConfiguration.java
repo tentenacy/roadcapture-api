@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.config;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
@@ -13,18 +14,23 @@ import com.untilled.roadcapture.api.service.LikeService;
 import com.untilled.roadcapture.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
 @Slf4j
-//@Component
+@TestConfiguration
 @RequiredArgsConstructor
-public class DBInitializer {
+public class SpringBootTestConfiguration {
 
     private final UserService userService;
     private final AlbumService albumService;

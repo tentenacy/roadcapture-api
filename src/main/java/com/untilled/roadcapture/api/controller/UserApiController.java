@@ -43,6 +43,7 @@ public class UserApiController {
     public UserDetailResponse userDetail() {
         return userService.getUserDetail();
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void signup(@RequestBody @Validated SignupRequest signupRequest) {
@@ -99,6 +100,4 @@ public class UserApiController {
     public void delete() {
         userService.delete();
     }
-
-
 }
