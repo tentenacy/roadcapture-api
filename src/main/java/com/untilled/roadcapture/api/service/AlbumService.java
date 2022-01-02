@@ -37,7 +37,7 @@ public class AlbumService {
     private final PlaceRepository placeRepository;
 
     public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable) {
-        return albumRepository.getAlbums(cond, pageable);
+        return albumRepository.search(cond, pageable);
     }
 
     public AlbumResponse getAlbum(Long albumId) {

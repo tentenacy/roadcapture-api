@@ -62,7 +62,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable) {
+    public Page<AlbumsResponse> search(AlbumsCondition cond, Pageable pageable) {
         JPAQuery<AlbumsResponse> query = queryFactory
                 .select(Projections.constructor(AlbumsResponse.class,
                         album.id,
@@ -87,7 +87,8 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                 .groupBy(album.id)
                 .where(
                         dateTimeLoe(cond.getDateTimeTo()),
-                        dateTimeGoe(cond.getDateTimeFrom())
+                        dateTimeGoe(cond.getDateTimeFrom()),
+                        titleContains(cond.getTitle())
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
@@ -162,5 +163,9 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
 
     private BooleanExpression dateTimeGoe(LocalDateTime dateTimeGoe) {
         return dateTimeGoe != null ? album.createdAt.goe(dateTimeGoe) : null;
+    }
+
+    private BooleanExpression titleContains(String title) {
+        return title != null ? album.title.contains(title) : null;
     }
 }
