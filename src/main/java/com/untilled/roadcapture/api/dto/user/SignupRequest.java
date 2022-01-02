@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SignupRequest {
+
     @Email
     @NotEmpty
     private String email;
@@ -28,7 +29,7 @@ public class SignupRequest {
     private String username;
 
 
-    @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}")
+    @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}.+")
     private String profileImageUrl;
 
     @Pattern(regexp = "^kakao$|^facebook$|^naver$|^google$")

@@ -1,6 +1,9 @@
-package com.untilled.roadcapture.config.security.dto;
+package com.untilled.roadcapture.api.client;
 
 import com.untilled.roadcapture.api.exception.social.CCommunicationException;
+import com.untilled.roadcapture.api.client.dto.NaverProfile;
+import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
+import com.untilled.roadcapture.api.client.dto.SocialProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -17,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class NaverOAuth implements SocialOAuth {
+public class NaverOAuthClient implements SocialOAuthClient {
 
     private final WebClient webClient;
 
@@ -44,7 +47,6 @@ public class NaverOAuth implements SocialOAuth {
 
     @Value("${social.naver.url.unlink}")
     private String naverUnlinkUrl;
-
 
     @Override
     public String getOauthRedirectURL() {

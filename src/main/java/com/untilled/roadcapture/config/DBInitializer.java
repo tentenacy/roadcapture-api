@@ -30,6 +30,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
@@ -74,6 +75,8 @@ public class DBInitializer {
                             "https://www.test.com/test",
                             Arrays.asList(
                                     new PictureCreateRequest(
+                                            LocalDateTime.now().toString(),
+                                            LocalDateTime.now().toString(),
                                             "https://www.test.com/test",
                                             "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                             new PlaceCreateRequest("곡교천 은행나무길",
@@ -90,6 +93,8 @@ public class DBInitializer {
                                             )
                                     ),
                                     new PictureCreateRequest(
+                                            LocalDateTime.now().toString(),
+                                            LocalDateTime.now().toString(),
                                             "https://www.test.com/test",
                                             "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                             new PlaceCreateRequest("곡교천 은행나무길",

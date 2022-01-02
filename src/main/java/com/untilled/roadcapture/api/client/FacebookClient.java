@@ -1,25 +1,25 @@
-package com.untilled.roadcapture.config.security.dto;
+package com.untilled.roadcapture.api.client;
 
-import com.google.gson.Gson;
 import com.untilled.roadcapture.api.exception.social.CCommunicationException;
+import com.untilled.roadcapture.api.client.dto.FacebookProfile;
+import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
+import com.untilled.roadcapture.api.client.dto.SocialProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class FacebookOAuth implements SocialOAuth {
+public class FacebookClient implements SocialOAuthClient {
 
     private final WebClient webClient;
 

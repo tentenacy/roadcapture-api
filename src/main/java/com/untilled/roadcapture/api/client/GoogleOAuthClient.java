@@ -1,9 +1,10 @@
-package com.untilled.roadcapture.config.security.dto;
+package com.untilled.roadcapture.api.client;
 
 import com.google.gson.Gson;
 import com.untilled.roadcapture.api.exception.social.CCommunicationException;
-import com.untilled.roadcapture.api.exception.social.CSocialTokenValidFailedException;
-import com.untilled.roadcapture.config.security.dto.temp.GoogleLoginRequest;
+import com.untilled.roadcapture.api.client.dto.GoogleProfile;
+import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
+import com.untilled.roadcapture.api.client.dto.SocialProfile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class GoogleOAuth implements SocialOAuth {
+public class GoogleOAuthClient implements SocialOAuthClient {
 
     private final RestTemplate restTemplate;
     private final Gson gson;

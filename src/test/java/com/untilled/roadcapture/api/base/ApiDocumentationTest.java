@@ -82,12 +82,12 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
 
     //VALUE_DESC
     protected FieldDescriptor[] addressFields = new FieldDescriptor[]{
-            fieldWithPath("addressName").type(JsonFieldType.STRING).description("지번주소입니다.").optional(),
+            fieldWithPath("addressName").type(JsonFieldType.STRING).description("지번주소입니다."),
             fieldWithPath("roadAddressName").type(JsonFieldType.STRING).description("도로명주소입니다.").optional(),
-            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("시구명입니다.").optional(),
-            fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("시군구명입니다.").optional(),
-            fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("읍면동명입니다.").optional(),
-            fieldWithPath("zoneNo").type(JsonFieldType.STRING).description("우편번호입니다.").optional(),
+            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("시구명입니다."),
+            fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("시군구명입니다."),
+            fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("읍면동명입니다."),
+            fieldWithPath("zoneNo").type(JsonFieldType.STRING).description("우편번호입니다."),
     };
 
     //USER_DESC
@@ -226,6 +226,8 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     };
 
     protected FieldDescriptor[] pictureCreateRequestFields = new FieldDescriptor[]{
+            fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
+            fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
             fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다.").optional(),
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
@@ -233,6 +235,8 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
 
     protected FieldDescriptor[] pictureUpdateRequestFields = new FieldDescriptor[]{
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("사진 이미지 주소입니다."),
+            fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
+            fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
             fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다.").optional(),
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
@@ -249,17 +253,16 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
 
     protected FieldDescriptor[] placeCreateRequestFields = new FieldDescriptor[]{
             fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다."),
-            fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다.").optional(),
-            fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다.").optional(),
-            fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다.").optional(),
+            fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다."),
+            fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다."),
+            fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다."),
     };
 
     protected FieldDescriptor[] placeUpdateRequestFields = new FieldDescriptor[]{
-            fieldWithPath("id").type(JsonFieldType.NUMBER).description("장소 아이디입니다."),
             fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다."),
-            fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다.").optional(),
-            fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다.").optional(),
-            fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다.").optional(),
+            fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다."),
+            fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다."),
+            fieldWithPath("address").type(JsonFieldType.OBJECT).description("장소 주소입니다."),
     };
 
     //COMMENT_DESC

@@ -13,8 +13,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PlaceUpdateRequest {
 
-    @NotNull
-    private Long id;
     @NotEmpty
     private String name;
     private double latitude;
@@ -22,8 +20,7 @@ public class PlaceUpdateRequest {
     @NotNull
     private Address address;
 
-    public PlaceUpdateRequest(Long id, String name, Double latitude, Double longitude, Address address) {
-        this.id = id;
+    public PlaceUpdateRequest(String name, Double latitude, Double longitude, Address address) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;

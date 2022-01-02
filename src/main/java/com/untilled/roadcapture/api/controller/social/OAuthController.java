@@ -1,7 +1,7 @@
 package com.untilled.roadcapture.api.controller.social;
 
-import com.untilled.roadcapture.config.security.dto.OAuthService;
-import com.untilled.roadcapture.config.security.dto.OAuthTokenResponse;
+import com.untilled.roadcapture.api.service.OAuthService;
+import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.util.constant.SocialType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

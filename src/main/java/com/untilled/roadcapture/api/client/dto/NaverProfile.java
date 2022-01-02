@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.config.security.dto;
+package com.untilled.roadcapture.api.client.dto;
 
 import lombok.Data;
 import lombok.Getter;

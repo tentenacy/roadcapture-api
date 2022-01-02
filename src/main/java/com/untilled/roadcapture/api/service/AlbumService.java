@@ -4,10 +4,7 @@ import com.untilled.roadcapture.api.dto.album.*;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
-import com.untilled.roadcapture.api.exception.business.CAlbumNotFoundException;
-import com.untilled.roadcapture.api.exception.business.CPictureNotFoundException;
-import com.untilled.roadcapture.api.exception.business.CPlaceNotFoundException;
-import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.business.*;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.album.AlbumRepository;
 import com.untilled.roadcapture.domain.picture.Picture;
@@ -23,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,36 +81,55 @@ public class AlbumService {
     @Transactional
     public void update(Long albumId, AlbumUpdateRequest request) {
 
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         Album foundAlbum = getAlbumIfExists(albumId);
 
-        foundAlbum.removeAllPicturesExceptFor(request.getPictures().stream()
-                .map(PictureUpdateRequest::getId).collect(Collectors.toList()));
+        List<Long> requestPictureIds = request.getPictures().stream()
+                .map(PictureUpdateRequest::getId).collect(Collectors.toList());
 
-        for(PictureUpdateRequest pictureUpdateRequest : request.getPictures()) {
+        //유저의 앨범이 아니면 예외
+        checkUserOwnAlbum(user, foundAlbum);
+
+        //사진이 해당 앨범에 속하지 않으면 예외
+        checkPictureBelong(foundAlbum, requestPictureIds);
+
+        //요청에 없는 사진 삭제
+        foundAlbum.removeAllPicturesExceptFor(requestPictureIds);
+
+        for (PictureUpdateRequest pictureUpdateRequest : request.getPictures()) {
+
             PlaceUpdateRequest placeUpdateRequest = pictureUpdateRequest.getPlace();
 
             //request에 id가 없는 Picture가 있다면 해당 Picture 앨범에 추가
-            if(pictureUpdateRequest.getId() == null) {
+            if (ObjectUtils.isEmpty(pictureUpdateRequest.getId())) {
+
                 PictureCreateRequest pictureCreateRequest = new PictureCreateRequest(pictureUpdateRequest);
+
                 foundAlbum.addPicture(Picture.create(
-                                pictureCreateRequest.getImageUrl(),
-                                pictureCreateRequest.getDescription(),
-                                pictureCreateRequest.getPlace().toEntity())
-                        );
+                        pictureCreateRequest.getImageUrl(),
+                        pictureCreateRequest.getDescription(),
+                        pictureCreateRequest.getPlace().toEntity())
+                );
             }
             //없다면 해당 Picture 및 Place 업데이트
             else {
-                getPlaceIfExists(placeUpdateRequest.getId()).update(
+
+                Picture foundPicture = getPictureIfExists(pictureUpdateRequest.getId());
+
+                getPlaceIfExists(foundPicture.getPlace().getId()).update(
                         placeUpdateRequest.getName(),
                         placeUpdateRequest.getLatitude(),
                         placeUpdateRequest.getLongitude(),
                         placeUpdateRequest.getAddress()
                 );
-                getPictureIfExists(pictureUpdateRequest.getId()).update(
+
+                foundPicture.update(
                         pictureUpdateRequest.getImageUrl(),
                         pictureUpdateRequest.getDescription()
                 );
             }
+
             //Album 업데이트
             foundAlbum
                     .update(
@@ -120,6 +137,20 @@ public class AlbumService {
                             request.getDescription(),
                             request.getThumbnailUrl()
                     );
+        }
+    }
+
+    private void checkPictureBelong(Album foundAlbum, List<Long> requestPictureIds) {
+        requestPictureIds.stream()
+                .forEach(pictureId -> {
+                    if (pictureId != null && !foundAlbum.getPictures().stream().anyMatch(picture -> picture.getId().equals(pictureId)))
+                        throw new CPictureBelongException();
+                });
+    }
+
+    private void checkUserOwnAlbum(User user, Album foundAlbum) {
+        if (!user.getId().equals(foundAlbum.getUser().getId())) {
+            throw new CUserOwnAlbumException();
         }
     }
 

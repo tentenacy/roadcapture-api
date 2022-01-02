@@ -7,14 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embedded;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PlaceCreateRequest {
 
+    @NotEmpty
     private String name;
-    private double latitude;
-    private double longitude;
+    @NotNull
+    private Double latitude;
+    @NotNull
+    private Double longitude;
+    @NotNull
     private Address address;
 
     public Place toEntity() {

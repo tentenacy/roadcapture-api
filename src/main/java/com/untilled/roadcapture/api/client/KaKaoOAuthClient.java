@@ -1,7 +1,10 @@
-package com.untilled.roadcapture.config.security.dto;
+package com.untilled.roadcapture.api.client;
 
 import com.google.gson.Gson;
 import com.untilled.roadcapture.api.exception.social.CCommunicationException;
+import com.untilled.roadcapture.api.client.dto.KakaoProfile;
+import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
+import com.untilled.roadcapture.api.client.dto.SocialProfile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class KaKaoOAuth implements SocialOAuth {
+public class KaKaoOAuthClient implements SocialOAuthClient {
 
     private final RestTemplate restTemplate;
     private final Gson gson;

@@ -44,6 +44,8 @@ public enum ErrorCode {
     COMMENT_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-008", "댓글이 존재하지 않습니다."),
     ALREADY_LIKE(HttpStatus.BAD_REQUEST.value(), "BIZ-009", "이미 좋아요를 했습니다."),
     LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-010", "좋아요가 존재하지 않습니다."),
+    USER_OWN_ALBUM_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-011", "사용자의 앨범이 아닙니다."),
+    PICTURE_BELONG_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-012", "앨범의 사진이 아닙니다."),
             ;
 
     private final String code;

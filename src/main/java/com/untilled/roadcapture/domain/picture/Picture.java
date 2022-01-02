@@ -4,6 +4,7 @@ import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.base.BaseTimeEntity;
 import com.untilled.roadcapture.domain.comment.Comment;
 import com.untilled.roadcapture.domain.place.Place;
+import com.untilled.roadcapture.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
