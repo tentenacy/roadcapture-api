@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.api.dto.picture;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
@@ -9,6 +10,7 @@ import com.untilled.roadcapture.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

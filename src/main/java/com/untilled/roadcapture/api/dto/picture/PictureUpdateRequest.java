@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.api.dto.picture;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
@@ -8,6 +9,7 @@ import com.untilled.roadcapture.domain.picture.Picture;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -20,9 +22,7 @@ public class PictureUpdateRequest {
 
     @NotNull
     private Long id;
-    @NotEmpty
     private String createdAt;
-    @NotEmpty
     private String lastModifiedAt;
     @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}.+")
     private String imageUrl;

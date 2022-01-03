@@ -38,7 +38,11 @@ out/
 
 application.properties
 application.yaml
+application-local.yaml
 application-dev.yaml
 application-test.yaml
 application-jwt.yaml
+application-credentials.yaml
 application-social.yaml
+application-cloud.yaml
+application-cloudmock.yaml

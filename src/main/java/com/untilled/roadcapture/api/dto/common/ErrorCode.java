@@ -46,6 +46,7 @@ public enum ErrorCode {
     LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-010", "좋아요가 존재하지 않습니다."),
     USER_OWN_ALBUM_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-011", "사용자의 앨범이 아닙니다."),
     PICTURE_BELONG_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-012", "앨범의 사진이 아닙니다."),
+    ENTITY_MULTIPART_SIZE_MISMATCH(HttpStatus.BAD_REQUEST.value(), "BIZ-013", "요청 데이터와 업로드할 파일 개수가 일치하지 않습니다."),
             ;
 
     private final String code;

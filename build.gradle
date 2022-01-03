@@ -1,17 +1,18 @@
 buildscript {
-	ext {
-		queryDslVersion = "4.4.0"
-		swaggerVersion = "3.0.0"
-	}
+    ext {
+        queryDslVersion = "4.4.0"
+        swaggerVersion = "3.0.0"
+    }
 }
 
 plugins {
-	id 'org.springframework.boot' version '2.5.8'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'org.asciidoctor.convert' version '1.5.8'
-	id 'java'
-	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
-	id 'com.epages.restdocs-api-spec' version '0.15.1'
+    id 'org.springframework.boot' version '2.5.8'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.asciidoctor.convert' version '1.5.8'
+    id 'java'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id 'com.epages.restdocs-api-spec' version '0.15.1'
+    id "org.hidetake.swagger.generator" version "2.18.2"
 }
 
 group = 'com.untilled'
@@ -19,122 +20,110 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 ext {
-	set('snippetsDir', file("build/generated-snippets"))
+    set('snippetsDir', file("build/generated-snippets"))
 }
 
 dependencies {
-	implementation fileTree(dir: 'libs', include: ['*.jar'])
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.6"
-	implementation 'com.google.code.gson:gson'
-	implementation 'io.jsonwebtoken:jjwt:0.9.1'
-	implementation 'net.rakugakibox.util:yaml-resource-bundle:1.1'
-	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
-	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5', version: '2.11.3'
-	implementation 'mysql:mysql-connector-java'
-	implementation "io.springfox:springfox-boot-starter:${swaggerVersion}"
-	implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.15.1'
-	testCompileOnly 'org.projectlombok:lombok'
-	testAnnotationProcessor 'org.projectlombok:lombok'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.6"
+    implementation 'com.google.code.gson:gson'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'net.rakugakibox.util:yaml-resource-bundle:1.1'
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5', version: '2.11.3'
+    implementation 'mysql:mysql-connector-java'
+    implementation "io.springfox:springfox-boot-starter:${swaggerVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+    swaggerUI "org.webjars:swagger-ui:3.52.3"
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.15.1'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 //querydsl 추가 시작
 def querydslDir = "$buildDir/generated/querydsl"
 
 querydsl {
-	jpa = true
-	querydslSourcesDir = querydslDir
+    jpa = true
+    querydslSourcesDir = querydslDir
 }
+
 sourceSets {
-	main.java.srcDir querydslDir
+    main.java.srcDir querydslDir
 }
+
 compileQuerydsl{
-	options.annotationProcessorPath = configurations.querydsl
+    options.annotationProcessorPath = configurations.querydsl
 }
+
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-	querydsl.extendsFrom compileClasspath
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
 }
 //querydsl 추가 끝
 
 openapi3 {
-	server = 'http://localhost:8080'
-	title = 'Roadcapture API'
-	description = 'Roadcapture API Description'
-	tagDescriptionsPropertiesFile = 'src/test/resources/tags.yaml'
-	version = '0.1.0'
-	format = 'yaml'
+    server = 'http://localhost:8080'
+    title = 'Roadcapture API'
+    description = 'Roadcapture API Description'
+    tagDescriptionsPropertiesFile = 'src/test/resources/tags.yaml'
+    version = '0.1.0'
+    format = 'yaml'
 }
 
-/*{
-  "api_key": {
-    "type": "apiKey",
-    "name": "api_key",
-    "in": "header"
-  },
-  "petstore_auth": {
-    "type": "oauth2",
-    "authorizationUrl": "http://swagger.io/api/oauth/dialog",
-    "flow": "implicit",
-    "scopes": {
-      "write:pets": "modify pets in your account",
-      "read:pets": "read your pets"
-    }
-  }
-}*/
-
 asciidoctor {
-	inputs.dir snippetsDir
-	outputs.dir snippetsDir
+    inputs.dir snippetsDir
+            outputs.dir snippetsDir
 }
 
 task createOpenApi {
-	dependsOn 'openapi3'
-	dependsOn 'asciidoctor'
-	doLast {
-		copy {
-			from 'build/api-spec'
-			include '*.yaml'
-			into 'src/main/resources/static/docs'
-		}
-	}
+    dependsOn 'openapi3'
+    dependsOn 'asciidoctor'
+    doLast {
+        copy {
+            from 'build/api-spec'
+            include '*.yaml'
+            into 'src/main/resources/static/docs'
+        }
+    }
 }
 
 bootJar {
-	dependsOn 'openapi3'
-	from ("build/api-spec") {
-		include "*.yaml"
-		into "static/docs"
-	}
+    dependsOn 'openapi3'
+    from ("build/api-spec") {
+        include "*.yaml"
+        into "static/docs"
+    }
 }
 
 build {
-	dependsOn createOpenApi
+    dependsOn createOpenApi
 }

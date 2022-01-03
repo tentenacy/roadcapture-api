@@ -35,15 +35,21 @@ paths:
         required: false
         schema:
           type: string
+      - name: title
+        in: query
+        description: 조회할 앨범의 제목입니다.
+        required: false
+        schema:
+          type: string
       - name: dateTimeFrom
         in: query
-        description: 조회할 앨범의 최소 시각입니다.
+        description: 조회할 앨범의 최소 시각입니다. 포맷은 yy-MM-dd HH:mm:ss 입니다.
         required: false
         schema:
           type: string
       - name: dateTimeTo
         in: query
-        description: 조회할 앨범의 최대 시각입니다.
+        description: 조회할 앨범의 최대 시각입니다. 포맷은 yy-MM-dd HH:mm:ss 입니다.
         required: false
         schema:
           type: string
@@ -53,7 +59,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Nzg1NywiZXhwIjoxNjQxMTUxNDU3fQ.SZkd85V38lWPkkFN0nb_mNzhsG8RaRJGdyueldCFYzk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNSwiZXhwIjoxNjQxMTU2MzI1fQ.CLYDQ9WPJJalwsVqysO46CqA8wtHZiTnV8D2RHz6PUk
       responses:
         "200":
           description: "200"
@@ -63,42 +69,42 @@ paths:
                 $ref: '#/components/schemas/albums1485267483'
               examples:
                 앨범조회 - 성공:
-                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-03T03:24:14.128409\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T03:24:14.128409\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-03T04:45:21.078501\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.078501\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 1\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10},{\"id\":22,\"createdAt\":\"2022-01-03T03:24:14.428877\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T03:24:14.428877\",\"title\":\"\
+                    :1,\"commentCount\":10},{\"id\":22,\"createdAt\":\"2022-01-03T04:45:21.331688\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.331688\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 2\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":2,\"username\":\"user2\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10},{\"id\":38,\"createdAt\":\"2022-01-03T03:24:14.613931\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T03:24:14.613931\",\"title\":\"\
+                    :1,\"commentCount\":10},{\"id\":38,\"createdAt\":\"2022-01-03T04:45:21.508476\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.508476\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 3\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":3,\"username\":\"user3\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10},{\"id\":54,\"createdAt\":\"2022-01-03T03:24:14.797958\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T03:24:14.797958\",\"title\":\"\
+                    :1,\"commentCount\":10},{\"id\":54,\"createdAt\":\"2022-01-03T04:45:21.682613\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.682613\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 4\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":4,\"username\":\"user4\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10},{\"id\":70,\"createdAt\":\"2022-01-03T03:24:14.977529\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T03:24:14.977529\",\"title\":\"\
+                    :1,\"commentCount\":10},{\"id\":70,\"createdAt\":\"2022-01-03T04:45:21.860409\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.860409\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 5\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":5,\"username\":\"user5\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10}],\"pageable\":{\"sort\":{\"sorted\":false,\"\
-                    unsorted\":true,\"empty\":true},\"pageSize\":10,\"pageNumber\"\
-                    :0,\"offset\":0,\"unpaged\":false,\"paged\":true},\"last\":true,\"\
-                    totalPages\":1,\"totalElements\":5,\"first\":true,\"numberOfElements\"\
-                    :5,\"size\":10,\"number\":0,\"sort\":{\"sorted\":false,\"unsorted\"\
-                    :true,\"empty\":true},\"empty\":false}"
+                    :1,\"commentCount\":10}],\"pageable\":{\"sort\":{\"empty\":true,\"\
+                    sorted\":false,\"unsorted\":true},\"offset\":0,\"pageSize\":10,\"\
+                    pageNumber\":0,\"unpaged\":false,\"paged\":true},\"last\":true,\"\
+                    totalPages\":1,\"totalElements\":5,\"size\":10,\"number\":0,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    first\":true,\"numberOfElements\":5,\"empty\":false}"
     post:
       tags:
       - albums
@@ -112,7 +118,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Nzg1NywiZXhwIjoxNjQxMTUxNDU3fQ.SZkd85V38lWPkkFN0nb_mNzhsG8RaRJGdyueldCFYzk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNSwiZXhwIjoxNjQxMTU2MzI1fQ.CLYDQ9WPJJalwsVqysO46CqA8wtHZiTnV8D2RHz6PUk
       requestBody:
         content:
           application/json;charset=UTF-8:
@@ -122,8 +128,8 @@ paths:
               앨범등록 - 성공:
                 value: "{\"title\":\"볼거리가 가득한 국내 여행지\",\"description\":\"전국의 아름다운\
                   \ 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\"\
-                  :\"https://www.test.com/test\",\"pictures\":[{\"createdAt\":\"2022-01-03T03:24:19.081277600\"\
-                  ,\"lastModifiedAt\":\"2022-01-03T03:24:19.081277600\",\"imageUrl\"\
+                  :\"https://www.test.com/test\",\"pictures\":[{\"createdAt\":\"2022-01-03T04:45:26.523273800\"\
+                  ,\"lastModifiedAt\":\"2022-01-03T04:45:26.523273800\",\"imageUrl\"\
                   :\"https://www.test.com/test\",\"description\":\"저번에 이어 이번에도 그 목\
                   적지로 향했습니다.\",\"place\":{\"name\":\"곡교천 은행나무길\",\"latitude\":36.1112512,\"\
                   longitude\":27.1146346,\"address\":{\"addressName\":\"충남 아산시 염치읍\
@@ -153,7 +159,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Nzg1NywiZXhwIjoxNjQxMTUxNDU3fQ.SZkd85V38lWPkkFN0nb_mNzhsG8RaRJGdyueldCFYzk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNSwiZXhwIjoxNjQxMTU2MzI1fQ.CLYDQ9WPJJalwsVqysO46CqA8wtHZiTnV8D2RHz6PUk
       responses:
         "200":
           description: "200"
@@ -163,22 +169,22 @@ paths:
                 $ref: '#/components/schemas/albums-id1265395297'
               examples:
                 앨범단건조회 - 성공:
-                  value: "{\"id\":6,\"createdAt\":\"2022-01-03T03:24:14.128409\",\"\
-                    lastModifiedAt\":\"2022-01-03T03:24:14.128409\",\"title\":\"볼거\
+                  value: "{\"id\":6,\"createdAt\":\"2022-01-03T04:45:21.078501\",\"\
+                    lastModifiedAt\":\"2022-01-03T04:45:21.078501\",\"title\":\"볼거\
                     리가 가득한 국내 여행지 1\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로 선정\
                     된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
                     :1,\"commentCount\":10,\"pictures\":[{\"id\":7,\"createdAt\":\"\
-                    2022-01-03T03:24:14.140407\",\"lastModifiedAt\":\"2022-01-03T03:24:14.140407\"\
+                    2022-01-03T04:45:21.090519\",\"lastModifiedAt\":\"2022-01-03T04:45:21.090519\"\
                     ,\"imageUrl\":\"https://www.test.com/test\",\"description\":\"\
                     저번에 이어 이번에도 그 목적지로 향했습니다.\",\"place\":{\"id\":8,\"name\":\"곡교천\
                     \ 은행나무길\",\"latitude\":36.1112512,\"longitude\":27.1146346,\"\
                     address\":{\"addressName\":\"충남 아산시 염치읍 백암리 502-3\",\"roadAddressName\"\
                     :null,\"region1DepthName\":\"충남\",\"region2DepthName\":\"아산시\"\
                     ,\"region3DepthName\":\"염치읍\",\"zoneNo\":\"336-813\"}}},{\"id\"\
-                    :9,\"createdAt\":\"2022-01-03T03:24:14.165409\",\"lastModifiedAt\"\
-                    :\"2022-01-03T03:24:14.165409\",\"imageUrl\":\"https://www.test.com/test\"\
+                    :9,\"createdAt\":\"2022-01-03T04:45:21.108549\",\"lastModifiedAt\"\
+                    :\"2022-01-03T04:45:21.108549\",\"imageUrl\":\"https://www.test.com/test\"\
                     ,\"description\":\"저번에 이어 이번에도 그 목적지로 향했습니다.\",\"place\":{\"id\"\
                     :10,\"name\":\"곡교천 은행나무길\",\"latitude\":36.1112512,\"longitude\"\
                     :27.1146346,\"address\":{\"addressName\":\"충남 아산시 염치읍 백암리 502-3\"\
@@ -203,7 +209,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Nzg1NywiZXhwIjoxNjQxMTUxNDU3fQ.SZkd85V38lWPkkFN0nb_mNzhsG8RaRJGdyueldCFYzk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNSwiZXhwIjoxNjQxMTU2MzI1fQ.CLYDQ9WPJJalwsVqysO46CqA8wtHZiTnV8D2RHz6PUk
       requestBody:
         content:
           application/json;charset=UTF-8:
@@ -214,7 +220,7 @@ paths:
                 value: "{\"title\":\"볼거리가 가득한 국내 여행지!!!\",\"description\":\"전국의 아름\
                   다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\"\
                   :\"https://www.test.com/test\",\"pictures\":[{\"id\":23,\"createdAt\"\
-                  :\"2022-01-03T03:24:18.545524600\",\"lastModifiedAt\":\"2022-01-03T03:24:18.545524600\"\
+                  :\"2022-01-03T04:45:26.003320600\",\"lastModifiedAt\":\"2022-01-03T04:45:26.003320600\"\
                   ,\"imageUrl\":\"https://www.test.com/test\",\"description\":\"저번\
                   에 이어 이번에도 그 목적지로 향했습니다!!!\",\"place\":{\"name\":\"그 은행나무!!!\",\"\
                   latitude\":36.1112512,\"longitude\":27.1146346,\"address\":{\"addressName\"\
@@ -243,7 +249,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Nzg1NywiZXhwIjoxNjQxMTUxNDU3fQ.SZkd85V38lWPkkFN0nb_mNzhsG8RaRJGdyueldCFYzk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNSwiZXhwIjoxNjQxMTU2MzI1fQ.CLYDQ9WPJJalwsVqysO46CqA8wtHZiTnV8D2RHz6PUk
       responses:
         "204":
           description: "204"
@@ -267,7 +273,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.B4SlDH9e5FROPQfPtSkdGUPkO-5KkwrqZke0I3pGRBg
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.zNMFSeoLve8D54xbp4AHwi8pAvCam01YsqL2xQ4ZuDY
       responses:
         "201":
           description: "201"
@@ -290,7 +296,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.B4SlDH9e5FROPQfPtSkdGUPkO-5KkwrqZke0I3pGRBg
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.zNMFSeoLve8D54xbp4AHwi8pAvCam01YsqL2xQ4ZuDY
       responses:
         "204":
           description: "204"
@@ -314,7 +320,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MiwiZXhwIjoxNjQxMTQ2NTYyfQ.VIlk79pQsm6LV6-6i5_G6q9a7aQIn7kxvBn4n56vRHM
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNiwiZXhwIjoxNjQxMTU2MzI2fQ.0jQlzW7wpm5xQGYcOUngooALaOTqi7kTmiL4CbYspo4
       requestBody:
         content:
           application/json;charset=UTF-8:
@@ -364,57 +370,57 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MiwiZXhwIjoxNjQxMTQ2NTYyfQ.VIlk79pQsm6LV6-6i5_G6q9a7aQIn7kxvBn4n56vRHM
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNiwiZXhwIjoxNjQxMTU2MzI2fQ.0jQlzW7wpm5xQGYcOUngooALaOTqi7kTmiL4CbYspo4
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/pictures-pictureId-comments-118929108'
+                $ref: '#/components/schemas/albums-albumId-pictures-comments-118929108'
               examples:
                 앨범댓글조회 - 성공:
                   value: "{\"content\":[{\"id\":11,\"pictureId\":7,\"createdAt\":\"\
-                    2022-01-03T02:01:27.560627\",\"lastModifiedAt\":\"2022-01-03T02:01:27.560627\"\
+                    2022-01-03T04:45:21.157526\",\"lastModifiedAt\":\"2022-01-03T04:45:21.157526\"\
                     ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
                     user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    id\":13,\"pictureId\":7,\"createdAt\":\"2022-01-03T02:01:27.597627\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T02:01:27.597627\",\"content\"\
+                    id\":13,\"pictureId\":7,\"createdAt\":\"2022-01-03T04:45:21.19229\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.19229\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":15,\"pictureId\":7,\"\
-                    createdAt\":\"2022-01-03T02:01:27.630894\",\"lastModifiedAt\"\
-                    :\"2022-01-03T02:01:27.630894\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2022-01-03T04:45:21.21829\",\"lastModifiedAt\":\"\
+                    2022-01-03T04:45:21.21829\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":17,\"pictureId\":7,\"createdAt\":\"2022-01-03T02:01:27.65929\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T02:01:27.65929\",\"content\"\
+                    }},{\"id\":17,\"pictureId\":7,\"createdAt\":\"2022-01-03T04:45:21.247291\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.247291\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":19,\"pictureId\":7,\"\
-                    createdAt\":\"2022-01-03T02:01:27.690355\",\"lastModifiedAt\"\
-                    :\"2022-01-03T02:01:27.690355\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2022-01-03T04:45:21.273809\",\"lastModifiedAt\"\
+                    :\"2022-01-03T04:45:21.273809\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":12,\"pictureId\":9,\"createdAt\":\"2022-01-03T02:01:27.582627\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T02:01:27.582627\",\"content\"\
+                    }},{\"id\":12,\"pictureId\":9,\"createdAt\":\"2022-01-03T04:45:21.17829\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.17829\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":14,\"pictureId\":9,\"\
-                    createdAt\":\"2022-01-03T02:01:27.612627\",\"lastModifiedAt\"\
-                    :\"2022-01-03T02:01:27.612627\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2022-01-03T04:45:21.205291\",\"lastModifiedAt\"\
+                    :\"2022-01-03T04:45:21.205291\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":16,\"pictureId\":9,\"createdAt\":\"2022-01-03T02:01:27.644939\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T02:01:27.644939\",\"content\"\
+                    }},{\"id\":16,\"pictureId\":9,\"createdAt\":\"2022-01-03T04:45:21.23229\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.23229\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":18,\"pictureId\":9,\"\
-                    createdAt\":\"2022-01-03T02:01:27.673614\",\"lastModifiedAt\"\
-                    :\"2022-01-03T02:01:27.673614\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2022-01-03T04:45:21.260809\",\"lastModifiedAt\"\
+                    :\"2022-01-03T04:45:21.260809\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":20,\"pictureId\":9,\"createdAt\":\"2022-01-03T02:01:27.706391\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T02:01:27.706391\",\"content\"\
+                    }},{\"id\":20,\"pictureId\":9,\"createdAt\":\"2022-01-03T04:45:21.287809\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.287809\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}}],\"pageable\":{\"sort\":{\"sorted\"\
-                    :false,\"unsorted\":true,\"empty\":true},\"pageNumber\":0,\"pageSize\"\
-                    :10,\"offset\":0,\"paged\":true,\"unpaged\":false},\"last\":true,\"\
-                    totalElements\":10,\"totalPages\":1,\"number\":0,\"sort\":{\"\
-                    sorted\":false,\"unsorted\":true,\"empty\":true},\"first\":true,\"\
-                    numberOfElements\":10,\"size\":10,\"empty\":false}"
+                    :\"https://www.test.com/test\"}}],\"pageable\":{\"sort\":{\"empty\"\
+                    :true,\"sorted\":false,\"unsorted\":true},\"offset\":0,\"pageSize\"\
+                    :10,\"pageNumber\":0,\"unpaged\":false,\"paged\":true},\"last\"\
+                    :true,\"totalPages\":1,\"totalElements\":10,\"size\":10,\"number\"\
+                    :0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    first\":true,\"numberOfElements\":10,\"empty\":false}"
   /pictures/{pictureId}/comments:
     get:
       tags:
@@ -453,40 +459,40 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MiwiZXhwIjoxNjQxMTQ2NTYyfQ.VIlk79pQsm6LV6-6i5_G6q9a7aQIn7kxvBn4n56vRHM
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNiwiZXhwIjoxNjQxMTU2MzI2fQ.0jQlzW7wpm5xQGYcOUngooALaOTqi7kTmiL4CbYspo4
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/pictures-pictureId-comments-118929108'
+                $ref: '#/components/schemas/albums-albumId-pictures-comments-118929108'
               examples:
                 사진댓글조회 - 성공:
                   value: "{\"content\":[{\"id\":11,\"pictureId\":7,\"createdAt\":\"\
-                    2022-01-03T02:01:27.560627\",\"lastModifiedAt\":\"2022-01-03T02:01:27.560627\"\
+                    2022-01-03T04:45:21.157526\",\"lastModifiedAt\":\"2022-01-03T04:45:21.157526\"\
                     ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"\
                     user1\",\"profileImageUrl\":\"https://www.test.com/test\"}},{\"\
-                    id\":13,\"pictureId\":7,\"createdAt\":\"2022-01-03T02:01:27.597627\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T02:01:27.597627\",\"content\"\
+                    id\":13,\"pictureId\":7,\"createdAt\":\"2022-01-03T04:45:21.19229\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.19229\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":15,\"pictureId\":7,\"\
-                    createdAt\":\"2022-01-03T02:01:27.630894\",\"lastModifiedAt\"\
-                    :\"2022-01-03T02:01:27.630894\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2022-01-03T04:45:21.21829\",\"lastModifiedAt\":\"\
+                    2022-01-03T04:45:21.21829\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }},{\"id\":17,\"pictureId\":7,\"createdAt\":\"2022-01-03T02:01:27.65929\"\
-                    ,\"lastModifiedAt\":\"2022-01-03T02:01:27.65929\",\"content\"\
+                    }},{\"id\":17,\"pictureId\":7,\"createdAt\":\"2022-01-03T04:45:21.247291\"\
+                    ,\"lastModifiedAt\":\"2022-01-03T04:45:21.247291\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}},{\"id\":19,\"pictureId\":7,\"\
-                    createdAt\":\"2022-01-03T02:01:27.690355\",\"lastModifiedAt\"\
-                    :\"2022-01-03T02:01:27.690355\",\"content\":\"후기 감사합니다.\",\"user\"\
+                    createdAt\":\"2022-01-03T04:45:21.273809\",\"lastModifiedAt\"\
+                    :\"2022-01-03T04:45:21.273809\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }}],\"pageable\":{\"sort\":{\"sorted\":false,\"unsorted\":true,\"\
-                    empty\":true},\"pageNumber\":0,\"pageSize\":10,\"offset\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
-                    :5,\"totalPages\":1,\"number\":0,\"sort\":{\"sorted\":false,\"\
-                    unsorted\":true,\"empty\":true},\"first\":true,\"numberOfElements\"\
-                    :5,\"size\":10,\"empty\":false}"
+                    }}],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
+                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
+                    unpaged\":false,\"paged\":true},\"last\":true,\"totalPages\":1,\"\
+                    totalElements\":5,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
+                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
+                    :5,\"empty\":false}"
   /pictures/{pictureId}/comments/{commentId}:
     delete:
       tags:
@@ -513,7 +519,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MiwiZXhwIjoxNjQxMTQ2NTYyfQ.VIlk79pQsm6LV6-6i5_G6q9a7aQIn7kxvBn4n56vRHM
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNiwiZXhwIjoxNjQxMTU2MzI2fQ.0jQlzW7wpm5xQGYcOUngooALaOTqi7kTmiL4CbYspo4
       responses:
         "204":
           description: "204"
@@ -555,7 +561,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.B4SlDH9e5FROPQfPtSkdGUPkO-5KkwrqZke0I3pGRBg
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.zNMFSeoLve8D54xbp4AHwi8pAvCam01YsqL2xQ4ZuDY
       responses:
         "200":
           description: "200"
@@ -571,20 +577,20 @@ paths:
                     username\":\"user3\",\"profileImageUrl\":\"https://www.test.com/test\"\
                     },{\"id\":4,\"username\":\"user4\",\"profileImageUrl\":\"https://www.test.com/test\"\
                     },{\"id\":5,\"username\":\"user5\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }],\"pageable\":{\"sort\":{\"sorted\":true,\"unsorted\":false,\"\
-                    empty\":false},\"pageNumber\":0,\"pageSize\":10,\"offset\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
-                    :5,\"totalPages\":1,\"number\":0,\"sort\":{\"sorted\":true,\"\
-                    unsorted\":false,\"empty\":false},\"first\":true,\"numberOfElements\"\
-                    :5,\"size\":10,\"empty\":false}"
+                    }],\"pageable\":{\"sort\":{\"empty\":false,\"sorted\":true,\"\
+                    unsorted\":false},\"offset\":0,\"pageSize\":10,\"pageNumber\"\
+                    :0,\"unpaged\":false,\"paged\":true},\"last\":true,\"totalPages\"\
+                    :1,\"totalElements\":5,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
+                    :false,\"sorted\":true,\"unsorted\":false},\"first\":true,\"numberOfElements\"\
+                    :5,\"empty\":false}"
                 회원조회 - 유저 이름으로 검색 성공:
                   value: "{\"content\":[{\"id\":2,\"username\":\"user2\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"}],\"pageable\":{\"sort\":{\"sorted\"\
-                    :true,\"unsorted\":false,\"empty\":false},\"pageNumber\":0,\"\
-                    pageSize\":10,\"offset\":0,\"paged\":true,\"unpaged\":false},\"\
-                    last\":true,\"totalElements\":1,\"totalPages\":1,\"number\":0,\"\
-                    sort\":{\"sorted\":true,\"unsorted\":false,\"empty\":false},\"\
-                    first\":true,\"numberOfElements\":1,\"size\":10,\"empty\":false}"
+                    :\"https://www.test.com/test\"}],\"pageable\":{\"sort\":{\"empty\"\
+                    :false,\"sorted\":true,\"unsorted\":false},\"offset\":0,\"pageSize\"\
+                    :10,\"pageNumber\":0,\"unpaged\":false,\"paged\":true},\"last\"\
+                    :true,\"totalPages\":1,\"totalElements\":1,\"size\":10,\"number\"\
+                    :0,\"sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"\
+                    first\":true,\"numberOfElements\":1,\"empty\":false}"
     post:
       tags:
       - users
@@ -673,7 +679,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.B4SlDH9e5FROPQfPtSkdGUPkO-5KkwrqZke0I3pGRBg
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.zNMFSeoLve8D54xbp4AHwi8pAvCam01YsqL2xQ4ZuDY
       responses:
         "204":
           description: "204"
@@ -690,7 +696,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.B4SlDH9e5FROPQfPtSkdGUPkO-5KkwrqZke0I3pGRBg
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.zNMFSeoLve8D54xbp4AHwi8pAvCam01YsqL2xQ4ZuDY
       requestBody:
         content:
           application/json;charset=UTF-8:
@@ -720,7 +726,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.B4SlDH9e5FROPQfPtSkdGUPkO-5KkwrqZke0I3pGRBg
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.zNMFSeoLve8D54xbp4AHwi8pAvCam01YsqL2xQ4ZuDY
       responses:
         "200":
           description: "200"
@@ -761,8 +767,8 @@ paths:
                 $ref: '#/components/schemas/users-social-facebook-token1434215141'
               examples:
                 로그인 - 성공:
-                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.8bBaWeinsvgOpCZWgEp-Aw-3Uv8HujgoLcHkWWPCZmc\"\
-                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIzNzE4OTF9.2jHKbwE_oLhCrc6kX9GcZ9hkkSnv17Yi96RCr8LHD8c\"\
+                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.CoXm4xzmiP3SL2l58oQVupW8rWjrT1oIEYc0lMfE3Eo\"\
+                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIzODE2NTV9.DzpDL_1TYyGKDNMFN5B94FZAxtHzOAhAl6QXkYf8wfw\"\
                     ,\"accessTokenExpireDate\":3600000}"
   /users/{id}:
     get:
@@ -784,7 +790,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.B4SlDH9e5FROPQfPtSkdGUPkO-5KkwrqZke0I3pGRBg
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.zNMFSeoLve8D54xbp4AHwi8pAvCam01YsqL2xQ4ZuDY
       responses:
         "200":
           description: "200"
@@ -973,8 +979,8 @@ paths:
               $ref: '#/components/schemas/users-token-reissue1815000917'
             examples:
               토큰재발급 - 성공:
-                value: "{\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.B4SlDH9e5FROPQfPtSkdGUPkO-5KkwrqZke0I3pGRBg\"\
-                  ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIzNzE4OTF9.2jHKbwE_oLhCrc6kX9GcZ9hkkSnv17Yi96RCr8LHD8c\"\
+                value: "{\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.zNMFSeoLve8D54xbp4AHwi8pAvCam01YsqL2xQ4ZuDY\"\
+                  ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIzODE2NTV9.DzpDL_1TYyGKDNMFN5B94FZAxtHzOAhAl6QXkYf8wfw\"\
                   }"
       responses:
         "201":
@@ -985,8 +991,8 @@ paths:
                 $ref: '#/components/schemas/users-social-facebook-token1434215141'
               examples:
                 토큰재발급 - 성공:
-                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE0Mjk2MywiZXhwIjoxNjQxMTQ2NTYzfQ.B4SlDH9e5FROPQfPtSkdGUPkO-5KkwrqZke0I3pGRBg\"\
-                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIzNzE4OTF9.2jHKbwE_oLhCrc6kX9GcZ9hkkSnv17Yi96RCr8LHD8c\"\
+                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNywiZXhwIjoxNjQxMTU2MzI3fQ.zNMFSeoLve8D54xbp4AHwi8pAvCam01YsqL2xQ4ZuDY\"\
+                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTIzODE2NTV9.DzpDL_1TYyGKDNMFN5B94FZAxtHzOAhAl6QXkYf8wfw\"\
                     ,\"accessTokenExpireDate\":3600000}"
   /users/social/facebook/token:
     post:
@@ -1195,7 +1201,7 @@ components:
         username:
           type: string
           description: 사용자 이름입니다.
-    pictures-pictureId-comments-118929108:
+    albums-albumId-pictures-comments-118929108:
       type: object
       properties:
         size:
@@ -1632,12 +1638,6 @@ components:
         refreshToken:
           type: string
           description: 리프레시 토큰입니다.
-    albums-pictures-pictureId-comments-608006242:
-      type: object
-      properties:
-        content:
-          type: string
-          description: 댓글 내용입니다.
     albums1485267483:
       type: object
       properties:
@@ -1770,3 +1770,9 @@ components:
         thumbnailUrl:
           type: string
           description: 앨범 썸네일 이미지 주소입니다.
+    albums-pictures-pictureId-comments-608006242:
+      type: object
+      properties:
+        content:
+          type: string
+          description: 댓글 내용입니다.

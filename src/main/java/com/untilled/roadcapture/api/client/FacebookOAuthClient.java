@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class FacebookClient implements SocialOAuthClient {
+public class FacebookOAuthClient implements SocialOAuthClient {
 
     private final WebClient webClient;
 

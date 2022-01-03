@@ -4,10 +4,7 @@ import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.picture.Picture;
 import com.untilled.roadcapture.domain.place.Place;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

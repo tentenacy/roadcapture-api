@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.api.service;
+package com.untilled.roadcapture.api.service.social;
 
 import com.untilled.roadcapture.api.client.SocialOAuthClient;
 import com.untilled.roadcapture.api.exception.social.CCommunicationException;

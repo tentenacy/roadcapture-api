@@ -166,8 +166,9 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
 
     //ALBUM_DESC
     protected ParameterDescriptor[] albumsParams = new ParameterDescriptor[]{
-            parameterWithName("dateTimeFrom").description("조회할 앨범의 최소 시각입니다.").optional(),
-            parameterWithName("dateTimeTo").description("조회할 앨범의 최대 시각입니다.").optional(),
+            parameterWithName("title").description("조회할 앨범의 제목입니다.").optional(),
+            parameterWithName("dateTimeFrom").description("조회할 앨범의 최소 시각입니다. 포맷은 yy-MM-dd HH:mm:ss 입니다.").optional(),
+            parameterWithName("dateTimeTo").description("조회할 앨범의 최대 시각입니다. 포맷은 yy-MM-dd HH:mm:ss 입니다.").optional(),
     };
 
     protected ParameterDescriptor[] albumPathParams = new ParameterDescriptor[]{

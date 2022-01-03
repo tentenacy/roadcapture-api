@@ -19,7 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BaseSpringBootTest {
 
-    protected final ObjectMapper mapper = new ObjectMapper();
+    @Autowired
+    protected ObjectMapper mapper;
 
     @Autowired
     protected Environment env;

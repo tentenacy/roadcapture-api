@@ -15,7 +15,7 @@ public interface SocialOAuthClient {
     void unlink(String accessToken);
 
     default SocialType type() {
-        if (this instanceof FacebookClient) {
+        if (this instanceof FacebookOAuthClient) {
             return SocialType.FACEBOOK;
         } else if (this instanceof GoogleOAuthClient) {
             return SocialType.GOOGLE;

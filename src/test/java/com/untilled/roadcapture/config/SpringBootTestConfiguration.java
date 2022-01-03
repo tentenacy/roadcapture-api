@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 @Slf4j
-@TestConfiguration
+@Component
 @RequiredArgsConstructor
 public class SpringBootTestConfiguration {
 

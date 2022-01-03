@@ -153,8 +153,8 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                     "https://www.test.com/test",
                     Arrays.asList(new PictureUpdateRequest(
                             23L,
-                            LocalDateTime.now().toString(),
-                            LocalDateTime.now().toString(),
+                            LocalDateTime.now().toString().toString(),
+                            LocalDateTime.now().toString().toString(),
                             "https://www.test.com/test",
                             "저번에 이어 이번에도 그 목적지로 향했습니다!!!",
                             new PlaceUpdateRequest(
