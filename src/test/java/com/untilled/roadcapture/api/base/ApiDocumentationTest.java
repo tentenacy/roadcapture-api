@@ -10,11 +10,13 @@ import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
+import org.springframework.restdocs.request.RequestPartDescriptor;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 
 @AutoConfigureRestDocs
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -167,8 +169,8 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     //ALBUM_DESC
     protected ParameterDescriptor[] albumsParams = new ParameterDescriptor[]{
             parameterWithName("title").description("조회할 앨범의 제목입니다.").optional(),
-            parameterWithName("dateTimeFrom").description("조회할 앨범의 최소 시각입니다. 포맷은 yy-MM-dd HH:mm:ss 입니다.").optional(),
-            parameterWithName("dateTimeTo").description("조회할 앨범의 최대 시각입니다. 포맷은 yy-MM-dd HH:mm:ss 입니다.").optional(),
+            parameterWithName("dateTimeFrom").description("조회할 앨범의 최소 시각입니다. 포맷은 yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS 입니다.").optional(),
+            parameterWithName("dateTimeTo").description("조회할 앨범의 최대 시각입니다. 포맷은 yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS 입니다.").optional(),
     };
 
     protected ParameterDescriptor[] albumPathParams = new ParameterDescriptor[]{

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -27,6 +28,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,8 +47,8 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                     "https://www.test.com/test",
                     Arrays.asList(new PictureCreateRequest(
-                            LocalDateTime.now().toString(),
-                            LocalDateTime.now().toString(),
+                            LocalDateTime.now(),
+                            LocalDateTime.now(),
                             "https://www.test.com/test",
                             "저번에 이어 이번에도 그 목적지로 향했습니다.",
                             new PlaceCreateRequest("곡교천 은행나무길",
@@ -65,7 +67,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             );
 
             //when
-            ResultActions result = mockMvc.perform(post("/albums")
+            ResultActions result = mockMvc.perform(post("/albums/temp")
                     .content(mapper.writeValueAsString(request))
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
@@ -153,8 +155,8 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                     "https://www.test.com/test",
                     Arrays.asList(new PictureUpdateRequest(
                             23L,
-                            LocalDateTime.now().toString().toString(),
-                            LocalDateTime.now().toString().toString(),
+                            LocalDateTime.now(),
+                            LocalDateTime.now(),
                             "https://www.test.com/test",
                             "저번에 이어 이번에도 그 목적지로 향했습니다!!!",
                             new PlaceUpdateRequest(

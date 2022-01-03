@@ -22,14 +22,18 @@ public class PictureUpdateRequest {
 
     @NotNull
     private Long id;
-    private String createdAt;
-    private String lastModifiedAt;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
+    private LocalDateTime createdAt;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
+    private LocalDateTime lastModifiedAt;
     @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}.+")
     private String imageUrl;
     private String description;
     private PlaceUpdateRequest place;
 
-    public PictureUpdateRequest(Long id, String createdAt, String lastModifiedAt, String imageUrl, String description, PlaceUpdateRequest place) {
+    public PictureUpdateRequest(Long id, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String imageUrl, String description, PlaceUpdateRequest place) {
         this.id = id;
         this.createdAt = createdAt;
         this.lastModifiedAt = lastModifiedAt;

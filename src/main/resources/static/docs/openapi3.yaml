@@ -105,6 +105,7 @@ paths:
                     totalPages\":1,\"totalElements\":5,\"size\":10,\"number\":0,\"\
                     sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
                     first\":true,\"numberOfElements\":5,\"empty\":false}"
+  /albums/temp:
     post:
       tags:
       - albums
@@ -118,18 +119,18 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTE1MjcyNSwiZXhwIjoxNjQxMTU2MzI1fQ.CLYDQ9WPJJalwsVqysO46CqA8wtHZiTnV8D2RHz6PUk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTIxNDI2NywiZXhwIjoxNjQxMjE3ODY3fQ.X0FEaNcRhudBkJHrX_hrySNUOS0BXrUx0EZAoe8gECA
       requestBody:
         content:
           application/json;charset=UTF-8:
             schema:
-              $ref: '#/components/schemas/albums-1363830007'
+              $ref: '#/components/schemas/albums-temp-1363830007'
             examples:
               앨범등록 - 성공:
                 value: "{\"title\":\"볼거리가 가득한 국내 여행지\",\"description\":\"전국의 아름다운\
                   \ 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\"\
-                  :\"https://www.test.com/test\",\"pictures\":[{\"createdAt\":\"2022-01-03T04:45:26.523273800\"\
-                  ,\"lastModifiedAt\":\"2022-01-03T04:45:26.523273800\",\"imageUrl\"\
+                  :\"https://www.test.com/test\",\"pictures\":[{\"createdAt\":\"2022-01-03T21:51:07.475348700\"\
+                  ,\"lastModifiedAt\":\"2022-01-03T21:51:07.475348700\",\"imageUrl\"\
                   :\"https://www.test.com/test\",\"description\":\"저번에 이어 이번에도 그 목\
                   적지로 향했습니다.\",\"place\":{\"name\":\"곡교천 은행나무길\",\"latitude\":36.1112512,\"\
                   longitude\":27.1146346,\"address\":{\"addressName\":\"충남 아산시 염치읍\
@@ -1705,7 +1706,7 @@ components:
         totalElements:
           type: number
           description: 전체 요소 수입니다.
-    albums-1363830007:
+    albums-temp-1363830007:
       type: object
       properties:
         description:

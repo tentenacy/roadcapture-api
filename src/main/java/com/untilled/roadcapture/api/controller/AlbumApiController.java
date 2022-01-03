@@ -59,7 +59,7 @@ public class AlbumApiController {
 
     @PostMapping("/albums")
     @ResponseStatus(HttpStatus.CREATED)
-    public void upload(@ModelAttribute AlbumMultiPartRequest request, BindingResult bindingResult) throws IOException, BindException {
+    public void create(@ModelAttribute AlbumMultiPartRequest request, BindingResult bindingResult) throws IOException, BindException {
 
         AlbumCreateRequest albumCreateRequest = mapper.readValue(request.getData(), AlbumCreateRequest.class);
         log.info("albumCreateRequest={}", albumCreateRequest);
@@ -83,11 +83,30 @@ public class AlbumApiController {
 
         for (PictureCreateRequest picture : albumCreateRequest.getPictures()) {
             log.info("createdAt={}", picture.getCreatedAt());
-            log.info("originalFileName={}", request.getImages().get(picture.getCreatedAt()).getOriginalFilename());
-            String imageUrl = fileUploadService.uploadImage(request.getImages().get(picture.getCreatedAt()));
+            log.info("originalFileName={}", request.getImages().get(picture.getCreatedAt().toString()).getOriginalFilename());
+            String imageUrl = fileUploadService.uploadImage(request.getImages().get(picture.getCreatedAt().toString()));
             picture.setImageUrl(imageUrl);
         }
         albumService.create(albumCreateRequest);
+    }
+
+    @PostMapping("/albums/temp")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void create(@Validated @RequestBody AlbumCreateRequest request, BindingResult bindingResult) throws BindException {
+
+        //TODO: 리팩토링
+        validator.validate(request.getPictures(), bindingResult);
+        request.getPictures().stream()
+                .forEach(picture -> {
+                    validator.validate(picture.getPlace(), bindingResult);
+                    validator.validate(picture.getPlace().getAddress(), bindingResult);
+                });
+
+        if(bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+
+        albumService.create(request);
     }
 
     @DeleteMapping("/albums/{albumId}")

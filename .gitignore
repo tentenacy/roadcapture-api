@@ -46,3 +46,5 @@ application-credentials.yaml
 application-social.yaml
 application-cloud.yaml
 application-cloudmock.yaml
+
+images/

@@ -44,7 +44,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
-    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.6"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1"
     implementation 'com.google.code.gson:gson'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'net.rakugakibox.util:yaml-resource-bundle:1.1'

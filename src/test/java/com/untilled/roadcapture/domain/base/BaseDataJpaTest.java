@@ -108,8 +108,8 @@ public class BaseDataJpaTest {
                 "https://www.test.com/test",
                 Arrays.asList(
                         new PictureCreateRequest(
-                                LocalDateTime.now().toString(),
-                                LocalDateTime.now().toString(),
+                                LocalDateTime.now(),
+                                LocalDateTime.now(),
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
@@ -126,8 +126,8 @@ public class BaseDataJpaTest {
                                 )
                         ),
                         new PictureCreateRequest(
-                                LocalDateTime.now().toString(),
-                                LocalDateTime.now().toString(),
+                                LocalDateTime.now(),
+                                LocalDateTime.now(),
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
@@ -154,8 +154,8 @@ public class BaseDataJpaTest {
                 "https://www.test.com/test",
                 Arrays.asList(
                         new PictureCreateRequest(
-                                LocalDateTime.now().toString(),
-                                LocalDateTime.now().toString(),
+                                LocalDateTime.now(),
+                                LocalDateTime.now(),
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
@@ -172,8 +172,8 @@ public class BaseDataJpaTest {
                                 )
                         ),
                         new PictureCreateRequest(
-                                LocalDateTime.now().toString(),
-                                LocalDateTime.now().toString(),
+                                LocalDateTime.now(),
+                                LocalDateTime.now(),
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
