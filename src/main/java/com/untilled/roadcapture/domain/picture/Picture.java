@@ -42,15 +42,19 @@ public class Picture extends BaseTimeEntity {
     @OneToMany(mappedBy = "picture", fetch = LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    public static Picture create(String imageUrl, String description, Place place) {
+    private boolean isThumbnail;
+
+    public static Picture create(boolean isThumbnail, String imageUrl, String description, Place place) {
         Picture picture = new Picture();
+        picture.setThumbnail(isThumbnail);
         picture.setImageUrl(imageUrl);
         picture.setDescription(description);
         picture.setPlace(place);
         return picture;
     }
 
-    public void update(String imageUrl, String description) {
+    public void update(boolean isThumbnail, String imageUrl, String description) {
+        this.isThumbnail = isThumbnail;
         this.imageUrl = imageUrl;
         this.description = description;
     }

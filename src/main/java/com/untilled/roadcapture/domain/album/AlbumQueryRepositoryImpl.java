@@ -1,32 +1,21 @@
 package com.untilled.roadcapture.domain.album;
 
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.group.GroupBy;
-import com.querydsl.core.group.GroupByList;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.untilled.roadcapture.api.dto.album.AlbumResponse;
-import com.untilled.roadcapture.api.dto.album.AlbumsCondition;
-import com.untilled.roadcapture.api.dto.album.AlbumsResponse;
-import com.untilled.roadcapture.api.dto.album.QAlbumResponse;
+import com.untilled.roadcapture.api.dto.album.*;
 import com.untilled.roadcapture.api.dto.picture.PictureResponse;
+import com.untilled.roadcapture.api.dto.picture.ThumbnailPictureResponse;
 import com.untilled.roadcapture.api.dto.place.PlaceResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
-import com.untilled.roadcapture.domain.address.Address;
-import com.untilled.roadcapture.domain.address.QAddress;
-import com.untilled.roadcapture.domain.comment.QComment;
-import com.untilled.roadcapture.domain.like.QLike;
-import com.untilled.roadcapture.domain.picture.Picture;
 import com.untilled.roadcapture.domain.picture.QPicture;
-import com.untilled.roadcapture.domain.place.QPlace;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -38,11 +27,8 @@ import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static com.untilled.roadcapture.domain.address.QAddress.*;
 import static com.untilled.roadcapture.domain.album.QAlbum.album;
 import static com.untilled.roadcapture.domain.comment.QComment.*;
 import static com.untilled.roadcapture.domain.like.QLike.*;
@@ -62,7 +48,55 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<AlbumsResponse> search(AlbumsCondition cond, Pageable pageable) {
+    public Page<UserAlbumsResponse> searchUserAlbums(UserAlbumsCondition cond, Pageable pageable, Long userId) {
+        JPAQuery<UserAlbumsResponse> query = queryFactory
+                .select(Projections.constructor(UserAlbumsResponse.class,
+                        album.id,
+                        album.createdAt,
+                        album.lastModifiedAt,
+                        album.title,
+                        Projections.constructor(ThumbnailPictureResponse.class,
+                                picture.id,
+                                picture.createdAt,
+                                picture.lastModifiedAt,
+                                picture.imageUrl,
+                                Projections.constructor(PlaceResponse.class,
+                                        place.id,
+                                        place.name,
+                                        place.latitude,
+                                        place.longitude,
+                                        place.address))
+                ))
+                .from(album)
+                .join(album.user, user).on(user.id.eq(userId))
+                .join(album.pictures, picture).on(picture.isThumbnail.eq(true))
+                .join(picture.place, place)
+                .where(
+                        addressNameContains(ObjectUtils.isEmpty(cond.getPlaceCond()) ? null : cond.getPlaceCond().getRegion1DepthName()),
+                        addressNameContains(ObjectUtils.isEmpty(cond.getPlaceCond()) ? null : cond.getPlaceCond().getRegion2DepthName()),
+                        addressNameContains(ObjectUtils.isEmpty(cond.getPlaceCond()) ? null : cond.getPlaceCond().getRegion3DepthName())
+                )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize());
+
+        for (Sort.Order o : pageable.getSort()) {
+            PathBuilder pathBuilder = new PathBuilder(album.getType(), album.getMetadata());
+            query.orderBy(new OrderSpecifier<>(o.isAscending() ? Order.ASC : Order.DESC,
+                    pathBuilder.get(o.getProperty())));
+        }
+
+        QueryResults<UserAlbumsResponse> result = query.fetchResults();
+
+        List<UserAlbumsResponse> results = result.getResults();
+
+        //카운트 쿼리 필요에 따라 날라감
+        return new PageImpl(result.getResults(), pageable, result.getTotal());
+    }
+
+    @Override
+    public Page<AlbumsResponse> searchAlbums(AlbumsCondition cond, Pageable pageable) {
+        QAlbum qAlbum = new QAlbum("qAlbum");
+        QPicture qPicture = new QPicture("qPicture");
         JPAQuery<AlbumsResponse> query = queryFactory
                 .select(Projections.constructor(AlbumsResponse.class,
                         album.id,
@@ -70,7 +104,10 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.lastModifiedAt,
                         album.title,
                         album.description,
-                        album.thumbnailUrl,
+                        ExpressionUtils.as(JPAExpressions.select(qPicture.imageUrl)
+                                .from(qAlbum)
+                                .join(qAlbum.pictures, qPicture).on(qPicture.isThumbnail.eq(true))
+                                .where(qAlbum.id.eq(album.id)), "thumbnailUrl"),
                         Projections.constructor(UsersResponse.class,
                                 user.id,
                                 user.username,
@@ -108,13 +145,12 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     @Override
     public Optional<AlbumResponse> getAlbum(Long albumId) {
         AlbumResponse albumResponse = queryFactory
-                .select(new QAlbumResponse(
+                .select(Projections.constructor(AlbumResponse.class,
                         QAlbum.album.id,
                         QAlbum.album.createdAt,
                         QAlbum.album.lastModifiedAt,
                         QAlbum.album.title,
                         QAlbum.album.description,
-                        QAlbum.album.thumbnailUrl,
                         Projections.constructor(UsersResponse.class,
                                 user.id,
                                 user.username,
@@ -167,5 +203,9 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
 
     private BooleanExpression titleContains(String title) {
         return title != null ? album.title.contains(title) : null;
+    }
+
+    private BooleanExpression addressNameContains(String regionDepthName) {
+        return regionDepthName != null ? place.address.addressName.contains(regionDepthName) : null;
     }
 }

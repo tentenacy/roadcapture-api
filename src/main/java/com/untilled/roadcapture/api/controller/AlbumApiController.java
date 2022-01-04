@@ -29,6 +29,12 @@ public class AlbumApiController {
     private final FileUploadService fileUploadService;
     private final ObjectMapper mapper;
 
+    @GetMapping("/users/albums")
+    public Page<UserAlbumsResponse> userAlbums(@Validated UserAlbumsCondition cond, Pageable pageable) {
+        return albumService.getUserAlbums(cond, pageable);
+    }
+
+
     @GetMapping("/albums")
     public Page<AlbumsResponse> albums(@Validated AlbumsCondition cond, Pageable pageable) {
         return albumService.getAlbums(cond, pageable);
@@ -62,7 +68,6 @@ public class AlbumApiController {
     public void create(@ModelAttribute AlbumMultiPartRequest request, BindingResult bindingResult) throws IOException, BindException {
 
         AlbumCreateRequest albumCreateRequest = mapper.readValue(request.getData(), AlbumCreateRequest.class);
-        log.info("albumCreateRequest={}", albumCreateRequest);
 
         //TODO: 리팩토링
         validator.validate(albumCreateRequest, bindingResult);
@@ -77,16 +82,16 @@ public class AlbumApiController {
             throw new BindException(bindingResult);
         }
 
+        //json data와 file이 part가 다르기 때문에 개수 검증
         if(albumCreateRequest.getPictures().size() != request.getImages().size()) {
             throw new CEntityMultipartSizeMismatchException();
         }
 
         for (PictureCreateRequest picture : albumCreateRequest.getPictures()) {
-            log.info("createdAt={}", picture.getCreatedAt());
-            log.info("originalFileName={}", request.getImages().get(picture.getCreatedAt().toString()).getOriginalFilename());
             String imageUrl = fileUploadService.uploadImage(request.getImages().get(picture.getCreatedAt().toString()));
             picture.setImageUrl(imageUrl);
         }
+
         albumService.create(albumCreateRequest);
     }
 

@@ -105,14 +105,16 @@ public class BaseDataJpaTest {
         AlbumCreateRequest albumCreateRequest = new AlbumCreateRequest(
                 "볼거리가 가득한 국내 여행지 " + i,
                 "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
-                "https://www.test.com/test",
                 Arrays.asList(
                         new PictureCreateRequest(
+                                true,
                                 LocalDateTime.now(),
                                 LocalDateTime.now(),
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
+                                        LocalDateTime.now(),
+                                        LocalDateTime.now(),
                                         36.1112512,
                                         27.1146346,
                                         new Address(
@@ -126,11 +128,14 @@ public class BaseDataJpaTest {
                                 )
                         ),
                         new PictureCreateRequest(
+                                false,
                                 LocalDateTime.now(),
                                 LocalDateTime.now(),
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
+                                        LocalDateTime.now(),
+                                        LocalDateTime.now(),
                                         36.1112512,
                                         27.1146346,
                                         new Address(
@@ -144,21 +149,23 @@ public class BaseDataJpaTest {
                                 )
                         ))
         );
-        return Album.create(albumCreateRequest.getTitle(), albumCreateRequest.getDescription(), albumCreateRequest.getThumbnailUrl(), albumCreateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()), createdUser);
+        return Album.create(albumCreateRequest.getTitle(), albumCreateRequest.getDescription(), albumCreateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()), createdUser);
     }
 
     private Album createAnotherAlbum(int i, User createdUser) {
         AlbumCreateRequest albumCreateRequest = new AlbumCreateRequest(
                 "먹거리가 가득한 국내 여행지 " + i,
                 "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
-                "https://www.test.com/test",
                 Arrays.asList(
                         new PictureCreateRequest(
+                                true,
                                 LocalDateTime.now(),
                                 LocalDateTime.now(),
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
+                                        LocalDateTime.now(),
+                                        LocalDateTime.now(),
                                         36.1112512,
                                         27.1146346,
                                         new Address(
@@ -172,11 +179,14 @@ public class BaseDataJpaTest {
                                 )
                         ),
                         new PictureCreateRequest(
+                                false,
                                 LocalDateTime.now(),
                                 LocalDateTime.now(),
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
+                                        LocalDateTime.now(),
+                                        LocalDateTime.now(),
                                         36.1112512,
                                         27.1146346,
                                         new Address(
@@ -190,6 +200,6 @@ public class BaseDataJpaTest {
                                 )
                         ))
         );
-        return Album.create(albumCreateRequest.getTitle(), albumCreateRequest.getDescription(), albumCreateRequest.getThumbnailUrl(), albumCreateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()), createdUser);
+        return Album.create(albumCreateRequest.getTitle(), albumCreateRequest.getDescription(), albumCreateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()), createdUser);
     }
 }

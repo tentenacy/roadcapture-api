@@ -37,11 +37,18 @@ public class AlbumService {
     private final PlaceRepository placeRepository;
 
     public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable) {
-        return albumRepository.search(cond, pageable);
+        return albumRepository.searchAlbums(cond, pageable);
     }
 
     public AlbumResponse getAlbum(Long albumId) {
         return albumRepository.getAlbum(albumId).orElseThrow(CAlbumNotFoundException::new);
+    }
+
+    public Page<UserAlbumsResponse> getUserAlbums(UserAlbumsCondition cond, Pageable pageable) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return albumRepository.searchUserAlbums(cond, pageable, getUserIfExists(user.getId()).getId());
     }
 
     @Transactional
@@ -53,13 +60,20 @@ public class AlbumService {
                 .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
                 .collect(Collectors.toList());
 
+        validateThumbnailUnique(pictures);
+
         return albumRepository.save(Album.create(
                 request.getTitle(),
                 request.getDescription(),
-                request.getThumbnailUrl(),
                 pictures,
                 getUserIfExists(user.getId())
         ));
+    }
+
+    private void validateThumbnailUnique(List<Picture> pictures) {
+        if (pictures.stream().filter(picture -> picture.isThumbnail()).count() != 1L) {
+            throw new ThumbnailNonUniqueException();
+        }
     }
 
     @Transactional
@@ -69,10 +83,11 @@ public class AlbumService {
                 .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
                 .collect(Collectors.toList());
 
+        validateThumbnailUnique(pictures);
+
         return albumRepository.save(Album.create(
                 request.getTitle(),
                 request.getDescription(),
-                request.getThumbnailUrl(),
                 pictures,
                 getUserIfExists(userId)
         ));
@@ -107,6 +122,7 @@ public class AlbumService {
                 PictureCreateRequest pictureCreateRequest = new PictureCreateRequest(pictureUpdateRequest);
 
                 foundAlbum.addPicture(Picture.create(
+                        pictureCreateRequest.isThumbnail(),
                         pictureCreateRequest.getImageUrl(),
                         pictureCreateRequest.getDescription(),
                         pictureCreateRequest.getPlace().toEntity())
@@ -125,18 +141,14 @@ public class AlbumService {
                 );
 
                 foundPicture.update(
+                        pictureUpdateRequest.isThumbnail(),
                         pictureUpdateRequest.getImageUrl(),
                         pictureUpdateRequest.getDescription()
                 );
             }
 
             //Album 업데이트
-            foundAlbum
-                    .update(
-                            request.getTitle(),
-                            request.getDescription(),
-                            request.getThumbnailUrl()
-                    );
+            foundAlbum.update(request.toEntity());
         }
     }
 
@@ -177,5 +189,4 @@ public class AlbumService {
         return userRepository.findById(userId)
                 .orElseThrow(CUserNotFoundException::new);
     }
-
 }

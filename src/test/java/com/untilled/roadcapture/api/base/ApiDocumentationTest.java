@@ -19,7 +19,6 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 
 @AutoConfigureRestDocs
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class ApiDocumentationTest extends BaseSpringBootTest {
 
     protected static String kakaoOAuth2AccessToken;
@@ -86,7 +85,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     protected FieldDescriptor[] addressFields = new FieldDescriptor[]{
             fieldWithPath("addressName").type(JsonFieldType.STRING).description("지번주소입니다."),
             fieldWithPath("roadAddressName").type(JsonFieldType.STRING).description("도로명주소입니다.").optional(),
-            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("시구명입니다."),
+            fieldWithPath("region1DepthName").type(JsonFieldType.STRING).description("시도명입니다."),
             fieldWithPath("region2DepthName").type(JsonFieldType.STRING).description("시군구명입니다."),
             fieldWithPath("region3DepthName").type(JsonFieldType.STRING).description("읍면동명입니다."),
             fieldWithPath("zoneNo").type(JsonFieldType.STRING).description("우편번호입니다."),
@@ -173,21 +172,26 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             parameterWithName("dateTimeTo").description("조회할 앨범의 최대 시각입니다. 포맷은 yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS 입니다.").optional(),
     };
 
+    protected ParameterDescriptor[] userAlbumsParams = new ParameterDescriptor[]{
+            parameterWithName("placeCond.region1DepthName").description("시도명입니다.").optional(),
+            parameterWithName("placeCond.region2DepthName").description("시군구명입니다.").optional(),
+            parameterWithName("placeCond.region3DepthName").description("읍면동명입니다.").optional(),
+    };
+
+
     protected ParameterDescriptor[] albumPathParams = new ParameterDescriptor[]{
-            parameterWithName("id").description("조회할 앨범 아이디입니다."),
+            parameterWithName("id").description("앨범 아이디입니다."),
     };
 
     protected FieldDescriptor[] albumCreateRequestFields = new FieldDescriptor[]{
             fieldWithPath("title").description("앨범 제목입니다."),
             fieldWithPath("description").description("앨범 설명입니다.").optional(),
-            fieldWithPath("thumbnailUrl").description("앨범 썸네일 이미지 주소입니다."),
             fieldWithPath("pictures").type(JsonFieldType.ARRAY).description("앨범 사진 리스트입니다."),
     };
 
     protected FieldDescriptor[] albumUpdateRequestFields = new FieldDescriptor[]{
             fieldWithPath("title").description("앨범 제목입니다."),
             fieldWithPath("description").description("앨범 설명입니다.").optional(),
-            fieldWithPath("thumbnailUrl").description("앨범 썸네일 이미지 주소입니다."),
             fieldWithPath("pictures").type(JsonFieldType.ARRAY).description("앨범 사진 리스트입니다."),
     };
 
@@ -197,7 +201,6 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("lastModifiedAt").description("앨범 수정 시각입니다."),
             fieldWithPath("title").description("앨범 제목입니다."),
             fieldWithPath("description").description("앨범 설명입니다.").optional(),
-            fieldWithPath("thumbnailUrl").description("앨범 썸네일 이미지 주소입니다."),
             fieldWithPath("viewCount").type(JsonFieldType.NUMBER).description("앨범 조회수입니다."),
             fieldWithPath("user").type(JsonFieldType.OBJECT).description("앨범 등록자입니다."),
             fieldWithPath("likeCount").type(JsonFieldType.NUMBER).description("앨범 좋아요수입니다."),
@@ -218,6 +221,14 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("commentCount").type(JsonFieldType.NUMBER).description("앨범 댓글수입니다."),
     };
 
+    protected FieldDescriptor[] userAlbumsFields = new FieldDescriptor[]{
+            fieldWithPath("id").description("앨범 아이디입니다."),
+            fieldWithPath("createdAt").type(JsonFieldType.STRING).description("앨범 생성 시각입니다."),
+            fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("앨범 수정 시각입니다."),
+            fieldWithPath("title").type(JsonFieldType.STRING).description("앨범 제목입니다."),
+            fieldWithPath("thumbnailPicture").type(JsonFieldType.OBJECT).description("앨범 썸네일 사진입니다."),
+    };
+
     //PICTURE_DESC
     protected FieldDescriptor[] pictureFields = new FieldDescriptor[]{
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("사진 아이디입니다."),
@@ -228,7 +239,17 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
     };
 
+    protected FieldDescriptor[] thumbnailPictureFields = new FieldDescriptor[]{
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("사진 아이디입니다."),
+            fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
+            fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
+            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
+            fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
+    };
+
+
     protected FieldDescriptor[] pictureCreateRequestFields = new FieldDescriptor[]{
+            fieldWithPath("thumbnail").type(JsonFieldType.BOOLEAN).description("썸네일 플래그입니다."),
             fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
@@ -238,6 +259,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
 
     protected FieldDescriptor[] pictureUpdateRequestFields = new FieldDescriptor[]{
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("사진 이미지 주소입니다."),
+            fieldWithPath("thumbnail").type(JsonFieldType.BOOLEAN).description("썸네일 플래그입니다."),
             fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
@@ -255,6 +277,8 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     };
 
     protected FieldDescriptor[] placeCreateRequestFields = new FieldDescriptor[]{
+            fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
+            fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
             fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다."),
             fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다."),
             fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다."),
@@ -262,6 +286,8 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     };
 
     protected FieldDescriptor[] placeUpdateRequestFields = new FieldDescriptor[]{
+            fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
+            fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
             fieldWithPath("name").type(JsonFieldType.STRING).description("장소 이름입니다."),
             fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("장소 위도입니다."),
             fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("장소 경도입니다."),

@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 @Slf4j
-@Component
+//@Component
 @RequiredArgsConstructor
 public class SpringBootTestConfiguration {
 
@@ -65,32 +65,37 @@ public class SpringBootTestConfiguration {
                     albumService.create(Long.valueOf(i), new AlbumCreateRequest(
                             "볼거리가 가득한 국내 여행지 " + i,
                             "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
-                            "https://www.test.com/test",
                             Arrays.asList(
                                     new PictureCreateRequest(
+                                            true,
                                             LocalDateTime.now(),
                                             LocalDateTime.now(),
                                             "https://www.test.com/test",
                                             "저번에 이어 이번에도 그 목적지로 향했습니다.",
-                                            new PlaceCreateRequest("곡교천 은행나무길",
-                                                    36.1112512,
-                                                    27.1146346,
+                                            new PlaceCreateRequest("한국공학대학교",
+                                                    LocalDateTime.now(),
+                                                    LocalDateTime.now(),
+                                                    32.1112512,
+                                                    24.1146346,
                                                     new Address(
-                                                            "충남 아산시 염치읍 백암리 502-3",
-                                                            null,
-                                                            "충남",
-                                                            "아산시",
-                                                            "염치읍",
-                                                            "336-813"
+                                                            "경기 시흥시 정왕동 2121-1 한국산업기술대학교",
+                                                            "경기 시흥시 산기대학로 237 한국산업기술대학교",
+                                                            "경기",
+                                                            "시흥시",
+                                                            "정왕동",
+                                                            "15073"
                                                     )
                                             )
                                     ),
                                     new PictureCreateRequest(
+                                            false,
                                             LocalDateTime.now(),
                                             LocalDateTime.now(),
                                             "https://www.test.com/test",
                                             "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                             new PlaceCreateRequest("곡교천 은행나무길",
+                                                    LocalDateTime.now(),
+                                                    LocalDateTime.now(),
                                                     36.1112512,
                                                     27.1146346,
                                                     new Address(

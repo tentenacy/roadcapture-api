@@ -9,6 +9,7 @@ import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
 import com.untilled.roadcapture.config.SpringBootTestConfiguration;
 import com.untilled.roadcapture.domain.address.Address;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -29,6 +31,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,13 +48,15 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             AlbumCreateRequest request = new AlbumCreateRequest(
                     "볼거리가 가득한 국내 여행지",
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
-                    "https://www.test.com/test",
                     Arrays.asList(new PictureCreateRequest(
+                            true,
                             LocalDateTime.now(),
                             LocalDateTime.now(),
                             "https://www.test.com/test",
                             "저번에 이어 이번에도 그 목적지로 향했습니다.",
                             new PlaceCreateRequest("곡교천 은행나무길",
+                                    LocalDateTime.now(),
+                                    LocalDateTime.now(),
                                     36.1112512,
                                     27.1146346,
                                     new Address(
@@ -142,6 +147,102 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
     }
 
     @Nested
+    @DisplayName("유저앨범조회")
+    class UserAlbums {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/albums")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andDo(document("유저앨범조회 - 성공", "유저앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(userAlbumsParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", userAlbumsFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
+        }
+
+        @Test
+        @DisplayName("시도명으로 검색 성공")
+        public void SearchByRegion1DepthName_Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/albums")
+                    .queryParam("placeCond.region1DepthName", "경기")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(1))
+                    .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region1DepthName").value("경기"))
+                    .andDo(document("유저앨범조회 - 시도명으로 검색 성공", "유저앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(userAlbumsParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", userAlbumsFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
+        }
+
+        @Test
+        @DisplayName("시군구명으로 검색 성공")
+        public void SearchByRegion2DepthName_Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/albums")
+                    .queryParam("placeCond.region2DepthName", "시흥시")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(1))
+                    .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region2DepthName").value("시흥시"))
+                    .andDo(document("유저앨범조회 - 시군구명으로 검색 성공", "유저앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(userAlbumsParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", userAlbumsFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
+        }
+
+        @Test
+        @DisplayName("읍면동명으로 검색 성공")
+        public void SearchByRegion3DepthName_Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/albums")
+                    .queryParam("placeCond.region3DepthName", "염치읍")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(0))
+                    .andDo(document("유저앨범조회 - 읍면동명으로 검색 성공", "유저앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(userAlbumsParams)));
+        }
+    }
+
+    @Nested
     @DisplayName("수정")
     class Update {
 
@@ -152,15 +253,17 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             AlbumUpdateRequest request = new AlbumUpdateRequest(
                     "볼거리가 가득한 국내 여행지!!!",
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
-                    "https://www.test.com/test",
                     Arrays.asList(new PictureUpdateRequest(
                             23L,
+                            true,
                             LocalDateTime.now(),
                             LocalDateTime.now(),
                             "https://www.test.com/test",
                             "저번에 이어 이번에도 그 목적지로 향했습니다!!!",
                             new PlaceUpdateRequest(
                                     "그 은행나무!!!",
+                                    LocalDateTime.now(),
+                                    LocalDateTime.now(),
                                     36.1112512,
                                     27.1146346,
                                     new Address(
@@ -182,7 +285,8 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
-            result.andExpect(status().isOk())
+            result.andDo(print())
+                    .andExpect(status().isOk())
                     .andDo(document("앨범수정 - 성공", "앨범수정",
                             requestHeaders(jwtHeader),
                             pathParameters(albumPathParams),

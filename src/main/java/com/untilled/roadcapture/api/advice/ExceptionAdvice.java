@@ -3,6 +3,7 @@ package com.untilled.roadcapture.api.advice;
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.common.ErrorResponse;
 import com.untilled.roadcapture.api.exception.business.CBusinessException;
+import com.untilled.roadcapture.api.exception.io.CIOException;
 import com.untilled.roadcapture.api.exception.security.CSecurityException;
 import com.untilled.roadcapture.api.exception.social.CSocialException;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,14 @@ public class ExceptionAdvice {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException() {
         return new ResponseEntity<>(ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * CIOException 하위 클래스
+     */
+    @ExceptionHandler(CIOException.class)
+    public ResponseEntity<ErrorResponse> handleCIOException(final CIOException e) {
+        return new ResponseEntity<>(ErrorResponse.of(e.getErrorCode()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
     }
 
     /**

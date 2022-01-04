@@ -17,9 +17,15 @@ public enum ErrorCode {
     JSON_WRITE_ERROR(HttpStatus.UNAUTHORIZED.value(), "CMM-007", "JSON content that are not pure I/O problems"),
 
     /**
+     * IO
+     */
+    FILE_CONVERT_FAILED(HttpStatus.BAD_REQUEST.value(), "IO-001", "파일을 변환할 수 없습니다."),
+    INVALID_FILE_FORMAT(HttpStatus.BAD_REQUEST.value(), "IO-002", "잘못된 형식의 파일입니다."),
+
+    /**
      * SOCIAL
      */
-    COMMUNICATION_ERROR(HttpStatus.BAD_REQUEST.value(), "SCL-001", "소셜 인증 과정 중 오류가 발생했습니다."),
+    COMMUNICATION_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "SCL-001", "소셜 인증 과정 중 오류가 발생했습니다."),
     SOCIAL_AGREEMENT_ERROR(HttpStatus.BAD_REQUEST.value(), "SCL-002", "필수동의 항목에 대해 동의가 필요합니다."),
     INVALID_SOCIAL_TYPE(HttpStatus.BAD_REQUEST.value(), "SCL-003", "알 수 없는 소셜 타입입니다."),
     SOCIAL_TOKEN_VALID_FAILED(HttpStatus.UNAUTHORIZED.value(), "SCR-004", "소셜 액세스 토큰 검증에 실패했습니다."),
@@ -47,6 +53,7 @@ public enum ErrorCode {
     USER_OWN_ALBUM_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-011", "사용자의 앨범이 아닙니다."),
     PICTURE_BELONG_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-012", "앨범의 사진이 아닙니다."),
     ENTITY_MULTIPART_SIZE_MISMATCH(HttpStatus.BAD_REQUEST.value(), "BIZ-013", "요청 데이터와 업로드할 파일 개수가 일치하지 않습니다."),
+    THUMBNAIL_NON_UNIQUE(HttpStatus.BAD_REQUEST.value(), "BIZ-014", "앨범 썸네일이 유일하지 않습니다."),
             ;
 
     private final String code;

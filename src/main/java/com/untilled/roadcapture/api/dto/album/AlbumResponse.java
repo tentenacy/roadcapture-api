@@ -23,21 +23,18 @@ public class AlbumResponse {
     private LocalDateTime lastModifiedAt;
     private String title;
     private String description;
-    private String thumbnailUrl;
     private UsersResponse user;
     private int viewCount;
     private int likeCount;
     private int commentCount;
     private List<PictureResponse> pictures;
 
-    @QueryProjection
-    public AlbumResponse(Long id, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String title, String description, String thumbnailUrl, UsersResponse user, int viewCount, int likeCount, int commentCount) {
+    public AlbumResponse(Long id, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String title, String description, UsersResponse user, int viewCount, int likeCount, int commentCount) {
         this.id = id;
         this.createdAt = createdAt;
         this.lastModifiedAt = lastModifiedAt;
         this.title = title;
         this.description = description;
-        this.thumbnailUrl = thumbnailUrl;
         this.user = user;
         this.viewCount = viewCount;
         this.likeCount = likeCount;

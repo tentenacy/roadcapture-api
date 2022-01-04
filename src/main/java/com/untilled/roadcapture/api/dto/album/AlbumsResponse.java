@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
 public class AlbumsResponse {
 
     private Long id;
@@ -24,17 +25,4 @@ public class AlbumsResponse {
     private int viewCount;
     private int likeCount;
     private int commentCount;
-
-    public AlbumsResponse(Long id, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String title, String description, String thumbnailUrl, UsersResponse user, int viewCount, int likeCount, int commentCount) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.lastModifiedAt = lastModifiedAt;
-        this.title = title;
-        this.description = description;
-        this.thumbnailUrl = thumbnailUrl;
-        this.user = user;
-        this.viewCount = viewCount;
-        this.likeCount = likeCount;
-        this.commentCount = commentCount;
-    }
 }

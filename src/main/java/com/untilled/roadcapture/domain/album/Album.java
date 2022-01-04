@@ -4,11 +4,13 @@ import com.untilled.roadcapture.domain.base.BaseTimeEntity;
 import com.untilled.roadcapture.domain.comment.Comment;
 import com.untilled.roadcapture.domain.like.Like;
 import com.untilled.roadcapture.domain.picture.Picture;
+import com.untilled.roadcapture.domain.place.Place;
 import com.untilled.roadcapture.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
 import java.util.*;
@@ -30,8 +32,6 @@ public class Album extends BaseTimeEntity {
 
     private String description;
 
-    private String thumbnailUrl;
-
     private int viewCount;
 
     @ManyToOne(fetch = LAZY)
@@ -44,20 +44,18 @@ public class Album extends BaseTimeEntity {
     @OneToMany(mappedBy = "album", fetch = LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Picture> pictures = new ArrayList<>();
 
-    public static Album create(String title, String description, String thumbnailUrl, List<Picture> pictures, User user) {
+    public static Album create(String title, String description, List<Picture> pictures, User user) {
         Album album = new Album();
         album.setTitle(title);
         album.setDescription(description);
-        album.setThumbnailUrl(thumbnailUrl);
         pictures.forEach(picture -> album.addPicture(picture));
         album.setUser(user);
         return album;
     }
 
-    public void update(String title, String description, String thumbnailUrl) {
-        this.title = title;
-        this.description = description;
-        this.thumbnailUrl = thumbnailUrl;
+    public void update(Album album) {
+        this.title = album.getTitle();
+        this.description = album.getDescription();
     }
 
     public void addPicture(Picture picture) {
