@@ -19,7 +19,7 @@ public class UserDetailResponse {
     private String username;
     private String profileImageUrl;
     private String introduction;
-    @Embedded
+    private String provider;
     private Address address;
 
     public UserDetailResponse(User user) {
@@ -28,6 +28,7 @@ public class UserDetailResponse {
         this.username = user.getUsername();
         this.profileImageUrl = user.getProfileImageUrl();
         this.introduction = user.getIntroduction();
+        this.provider = user.getProvider();
         this.address = user.getAddress();
     }
 }

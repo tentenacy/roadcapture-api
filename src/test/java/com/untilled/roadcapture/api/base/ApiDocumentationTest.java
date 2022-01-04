@@ -153,11 +153,12 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     };
 
     protected FieldDescriptor[] userDetailFields = new FieldDescriptor[]{
-            fieldWithPath("id").description("사용자 아이디입니다."),
-            fieldWithPath("email").description("사용자 이메일입니다."),
-            fieldWithPath("username").description("사용자 이름입니다."),
-            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional(),
-            fieldWithPath("introduction").description("사용자 소개글입니다.").optional(),
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("사용자 아이디입니다."),
+            fieldWithPath("email").type(JsonFieldType.STRING).description("사용자 이메일입니다."),
+            fieldWithPath("username").type(JsonFieldType.STRING).description("사용자 이름입니다."),
+            fieldWithPath("profileImageUrl").type(JsonFieldType.STRING).description("사용자 프로필 사진입니다.").optional(),
+            fieldWithPath("introduction").type(JsonFieldType.STRING).description("사용자 소개글입니다.").optional(),
+            fieldWithPath("provider").type(JsonFieldType.STRING).description("사용자 정보 제공자입니다.").optional(),
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("사용자 주소입니다.").optional(),
     };
 
