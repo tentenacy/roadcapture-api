@@ -44,4 +44,8 @@ public class Comment extends BaseTimeEntity {
         comment.setUser(user);
         return comment;
     }
+
+    public void delete() {
+        this.picture.removeComment(this);
+    }
 }

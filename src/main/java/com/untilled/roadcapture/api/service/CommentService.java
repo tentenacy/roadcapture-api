@@ -45,8 +45,8 @@ public class CommentService {
     }
 
     @Transactional
-    public void delete(Long pictureId, Long commentId) {
-        getPictureIfExists(pictureId).removeComment(getCommentIfExists(commentId));
+    public void delete(Long commentId) {
+        getCommentIfExists(commentId).delete();
     }
 
     public Page<CommentsResponse> pictureComments(Long pictureId, Pageable pageable) {

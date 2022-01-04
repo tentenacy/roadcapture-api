@@ -1,12 +1,15 @@
 package com.untilled.roadcapture.api.controller;
 
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
+
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import org.junit.jupiter.api.Nested;
 
 import org.junit.jupiter.api.*;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
@@ -30,7 +33,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             CommentCreateRequest request = new CommentCreateRequest("후기 감사합니다.");
 
             //when
-            ResultActions result = mockMvc.perform(post("/albums/pictures/{pictureId}/comments", 7L)
+            ResultActions result = mockMvc.perform(post("/pictures/{pictureId}/comments", 7L)
                     .content(mapper.writeValueAsString(request))
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
@@ -52,8 +55,7 @@ class CommentApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(delete("/pictures/{pictureId}/comments/{commentId}",
-                    7L, 11L)
+            ResultActions result = mockMvc.perform(delete("/comments/{commentId}", 11L)
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 

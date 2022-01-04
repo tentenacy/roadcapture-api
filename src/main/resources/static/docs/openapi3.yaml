@@ -303,38 +303,6 @@ paths:
       responses:
         "204":
           description: "204"
-  /albums/pictures/{pictureId}/comments:
-    post:
-      tags:
-      - albums
-      summary: 댓글등록
-      description: 댓글등록
-      operationId: 댓글등록 - 성공
-      parameters:
-      - name: pictureId
-        in: path
-        description: ""
-        required: true
-        schema:
-          type: string
-      - name: X-AUTH-TOKEN
-        in: header
-        description: 로그인 성공 시 발급받은 액세스토큰입니다.
-        required: true
-        schema:
-          type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTI3NDIyNiwiZXhwIjoxNjQxMjc3ODI2fQ.Z0TU5rdHEC3QUSoGgfOkZqx6iT1bCb-tL0_XVnrojIE
-      requestBody:
-        content:
-          application/json;charset=UTF-8:
-            schema:
-              $ref: '#/components/schemas/albums-pictures-pictureId-comments-608006242'
-            examples:
-              댓글등록 - 성공:
-                value: "{\"content\":\"후기 감사합니다.\"}"
-      responses:
-        "201":
-          description: "201"
   /albums/{albumId}/pictures/comments:
     get:
       tags:
@@ -373,14 +341,14 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTI3NDIyNiwiZXhwIjoxNjQxMjc3ODI2fQ.Z0TU5rdHEC3QUSoGgfOkZqx6iT1bCb-tL0_XVnrojIE
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTI3NzEyNywiZXhwIjoxNjQxMjgwNzI3fQ.qac4IJ1v_Qoy1zTi5M8fGkUE7v-79Zopc7RK3WeI9Ho
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/pictures-pictureId-comments-118929108'
+                $ref: '#/components/schemas/albums-albumId-pictures-comments-118929108'
               examples:
                 앨범댓글조회 - 성공:
                   value: "{\"content\":[{\"id\":11,\"pictureId\":7,\"createdAt\":\"\
@@ -419,11 +387,35 @@ paths:
                     ,\"lastModifiedAt\":\"2022-01-04T13:19:12.431075\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"}}],\"pageable\":{\"sort\":{\"empty\"\
-                    :true,\"unsorted\":true,\"sorted\":false},\"offset\":0,\"pageNumber\"\
-                    :0,\"pageSize\":10,\"paged\":true,\"unpaged\":false},\"last\"\
+                    :true,\"sorted\":false,\"unsorted\":true},\"offset\":0,\"pageSize\"\
+                    :10,\"pageNumber\":0,\"unpaged\":false,\"paged\":true},\"last\"\
                     :true,\"totalPages\":1,\"totalElements\":10,\"size\":10,\"number\"\
-                    :0,\"sort\":{\"empty\":true,\"unsorted\":true,\"sorted\":false},\"\
+                    :0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
                     first\":true,\"numberOfElements\":10,\"empty\":false}"
+  /comments/{commentId}:
+    delete:
+      tags:
+      - comments
+      summary: 댓글삭제
+      description: 댓글삭제
+      operationId: 댓글삭제 - 성공
+      parameters:
+      - name: commentId
+        in: path
+        description: ""
+        required: true
+        schema:
+          type: string
+      - name: X-AUTH-TOKEN
+        in: header
+        description: 로그인 성공 시 발급받은 액세스토큰입니다.
+        required: true
+        schema:
+          type: string
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTI3NzEyNywiZXhwIjoxNjQxMjgwNzI3fQ.qac4IJ1v_Qoy1zTi5M8fGkUE7v-79Zopc7RK3WeI9Ho
+      responses:
+        "204":
+          description: "204"
   /pictures/{pictureId}/comments:
     get:
       tags:
@@ -462,14 +454,14 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTI3NDIyNiwiZXhwIjoxNjQxMjc3ODI2fQ.Z0TU5rdHEC3QUSoGgfOkZqx6iT1bCb-tL0_XVnrojIE
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTI3NzEyNywiZXhwIjoxNjQxMjgwNzI3fQ.qac4IJ1v_Qoy1zTi5M8fGkUE7v-79Zopc7RK3WeI9Ho
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/pictures-pictureId-comments-118929108'
+                $ref: '#/components/schemas/albums-albumId-pictures-comments-118929108'
               examples:
                 사진댓글조회 - 성공:
                   value: "{\"content\":[{\"id\":11,\"pictureId\":7,\"createdAt\":\"\
@@ -490,27 +482,20 @@ paths:
                     createdAt\":\"2022-01-04T13:19:12.418075\",\"lastModifiedAt\"\
                     :\"2022-01-04T13:19:12.418075\",\"content\":\"후기 감사합니다.\",\"user\"\
                     :{\"id\":1,\"username\":\"user1\",\"profileImageUrl\":\"https://www.test.com/test\"\
-                    }}],\"pageable\":{\"sort\":{\"empty\":true,\"unsorted\":true,\"\
-                    sorted\":false},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
+                    }}],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
+                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
+                    unpaged\":false,\"paged\":true},\"last\":true,\"totalPages\":1,\"\
                     totalElements\":5,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"unsorted\":true,\"sorted\":false},\"first\":true,\"numberOfElements\"\
+                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
                     :5,\"empty\":false}"
-  /pictures/{pictureId}/comments/{commentId}:
-    delete:
+    post:
       tags:
       - pictures
-      summary: 댓글삭제
-      description: 댓글삭제
-      operationId: 댓글삭제 - 성공
+      summary: 댓글등록
+      description: 댓글등록
+      operationId: 댓글등록 - 성공
       parameters:
       - name: pictureId
-        in: path
-        description: ""
-        required: true
-        schema:
-          type: string
-      - name: commentId
         in: path
         description: ""
         required: true
@@ -522,10 +507,18 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTI3NDIyNiwiZXhwIjoxNjQxMjc3ODI2fQ.Z0TU5rdHEC3QUSoGgfOkZqx6iT1bCb-tL0_XVnrojIE
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTI3NzEyNywiZXhwIjoxNjQxMjgwNzI3fQ.qac4IJ1v_Qoy1zTi5M8fGkUE7v-79Zopc7RK3WeI9Ho
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/pictures-pictureId-comments-608006242'
+            examples:
+              댓글등록 - 성공:
+                value: "{\"content\":\"후기 감사합니다.\"}"
       responses:
-        "204":
-          description: "204"
+        "201":
+          description: "201"
   /users:
     get:
       tags:
@@ -1581,7 +1574,7 @@ components:
         username:
           type: string
           description: 사용자 이름입니다.
-    pictures-pictureId-comments-118929108:
+    albums-albumId-pictures-comments-118929108:
       type: object
       properties:
         size:
@@ -1808,6 +1801,12 @@ components:
         refreshToken:
           type: string
           description: 리프레시 토큰입니다.
+    pictures-pictureId-comments-608006242:
+      type: object
+      properties:
+        content:
+          type: string
+          description: 댓글 내용입니다.
     albums-id495116606:
       type: object
       properties:
@@ -1882,12 +1881,6 @@ components:
               id:
                 type: number
                 description: 사진 이미지 주소입니다.
-    albums-pictures-pictureId-comments-608006242:
-      type: object
-      properties:
-        content:
-          type: string
-          description: 댓글 내용입니다.
     users-details-1417119020:
       type: object
       properties:
