@@ -1,7 +1,10 @@
 package com.untilled.roadcapture.api.service.cloud;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.untilled.roadcapture.api.client.UploadClient;
+import com.untilled.roadcapture.api.exception.io.CCloudCommunicationException;
 import com.untilled.roadcapture.api.exception.io.CFileConvertFailedException;
 import com.untilled.roadcapture.api.exception.io.CInvalidFileFormatException;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,17 +23,35 @@ public class FileUploadService {
     private final UploadClient s3Service;
 
     //Multipart를 통해 전송된 파일 업로드
-    public String uploadImage(MultipartFile file) {
+    public String upload(MultipartFile file) {
         String fileName = createFileName(file.getOriginalFilename());
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(file.getSize());
         objectMetadata.setContentType(file.getContentType());
         try (InputStream inputStream = file.getInputStream()) {
-            s3Service.uploadFile(inputStream, objectMetadata, fileName);
+            s3Service.upload(inputStream, objectMetadata, fileName);
+        } catch (SdkClientException e) {
+            throw new CCloudCommunicationException();
         } catch (IOException e) {
             throw new CFileConvertFailedException();
         }
         return s3Service.getFileUrl(fileName);
+    }
+
+    public void delete(String fileName) {
+        try {
+            s3Service.delete(fileName);
+        } catch (SdkClientException e) {
+            throw new CCloudCommunicationException();
+        }
+    }
+
+    public void deleteFiles(List<String> fileNames) {
+        try {
+            s3Service.deleteFiles(fileNames);
+        } catch (SdkClientException e) {
+            throw new CCloudCommunicationException();
+        }
     }
 
     //기존 확장자명 유지한 채 유니크한 파일의 이름 생성

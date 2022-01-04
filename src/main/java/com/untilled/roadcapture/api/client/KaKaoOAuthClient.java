@@ -1,7 +1,7 @@
 package com.untilled.roadcapture.api.client;
 
 import com.google.gson.Gson;
-import com.untilled.roadcapture.api.exception.social.CCommunicationException;
+import com.untilled.roadcapture.api.exception.social.CSocialCommunicationException;
 import com.untilled.roadcapture.api.client.dto.KakaoProfile;
 import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.api.client.dto.SocialProfile;
@@ -79,7 +79,7 @@ public class KaKaoOAuthClient implements SocialOAuthClient {
         ResponseEntity<String> response = restTemplate.postForEntity(kakaoTokenUrl, request, String.class);
         if (response.getStatusCode() == HttpStatus.OK)
             return gson.fromJson(response.getBody(), OAuthTokenResponse.class);
-        throw new CCommunicationException();
+        throw new CSocialCommunicationException();
     }
 
     @Override
@@ -90,8 +90,8 @@ public class KaKaoOAuthClient implements SocialOAuthClient {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .header("Authorization", "Bearer " + accessToken)
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CCommunicationException()))
-                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CCommunicationException()))
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CSocialCommunicationException()))
+                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CSocialCommunicationException()))
                 .bodyToMono(KakaoProfile.class)
                 .block();
 
@@ -108,6 +108,6 @@ public class KaKaoOAuthClient implements SocialOAuthClient {
         ResponseEntity<String> response = restTemplate.postForEntity(kakaoUnlinkUrl, request, String.class);
 
         if (response.getStatusCode() == HttpStatus.OK) return;
-        throw new CCommunicationException();
+        throw new CSocialCommunicationException();
     }
 }

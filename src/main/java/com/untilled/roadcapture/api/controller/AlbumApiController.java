@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -90,8 +91,12 @@ public class AlbumApiController {
         }
 
         for (PictureCreateRequest picture : albumCreateRequest.getPictures()) {
-            String imageUrl = fileUploadService.uploadImage(Optional.ofNullable(request.getImages().get(picture.getCreatedAt().toString())).orElseThrow(CMultiPartKeyMismatchException::new));
-            picture.setImageUrl(imageUrl);
+            picture.setImageUrl(
+                    fileUploadService.upload(Optional.ofNullable(
+                            request.getImages().get(picture.getCreatedAt().toString()))
+                                .orElseThrow(CMultiPartKeyMismatchException::new)
+                    )
+            );
         }
 
         albumService.create(albumCreateRequest);
@@ -119,6 +124,7 @@ public class AlbumApiController {
     @DeleteMapping("/albums/{albumId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long albumId) {
-        albumService.delete(albumId);
+        List<String> delete = albumService.delete(albumId);
+        fileUploadService.deleteFiles(delete);
     }
 }

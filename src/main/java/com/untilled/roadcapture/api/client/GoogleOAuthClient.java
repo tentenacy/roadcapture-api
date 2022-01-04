@@ -1,7 +1,7 @@
 package com.untilled.roadcapture.api.client;
 
 import com.google.gson.Gson;
-import com.untilled.roadcapture.api.exception.social.CCommunicationException;
+import com.untilled.roadcapture.api.exception.social.CSocialCommunicationException;
 import com.untilled.roadcapture.api.client.dto.GoogleProfile;
 import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.api.client.dto.SocialProfile;
@@ -95,7 +95,7 @@ public class GoogleOAuthClient implements SocialOAuthClient {
         } catch (HttpClientErrorException e) {
             log.error("e={}", e.toString());
         }
-        throw new CCommunicationException();
+        throw new CSocialCommunicationException();
     }
 
     @Override
@@ -104,8 +104,8 @@ public class GoogleOAuthClient implements SocialOAuthClient {
         GoogleProfile googleProfile = webClient.get()
                 .uri(googleProfileUrl, builder -> builder.queryParam("id_token", idToken).build())
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CCommunicationException()))
-                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CCommunicationException()))
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CSocialCommunicationException()))
+                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CSocialCommunicationException()))
                 .bodyToMono(GoogleProfile.class)
                 .block();
 
@@ -118,7 +118,7 @@ public class GoogleOAuthClient implements SocialOAuthClient {
                 .uri(googleProfileUrl, builder -> builder.queryParam("token", accessToken).build())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CCommunicationException()))
-                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CCommunicationException()));
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CSocialCommunicationException()))
+                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CSocialCommunicationException()));
     }
 }

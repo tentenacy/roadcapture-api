@@ -21,6 +21,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -152,6 +154,28 @@ public class AlbumService {
         }
     }
 
+    @Transactional
+    public List<String> delete(Long albumId) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Album foundAlbum = getAlbumIfExists(albumId);
+
+        //유저의 앨범이 아니면 예외
+        checkUserOwnAlbum(user, foundAlbum);
+
+        albumRepository.delete(foundAlbum);
+
+        return foundAlbum.getPictures().stream().map(picture -> UriComponentsBuilder.fromUriString(picture.getImageUrl()).build().getPath().substring(1)).collect(Collectors.toList());
+    }
+
+    /*private List<String> getPictureFilenamesByAlbum(Album foundAlbum) {
+        List<String> filenames = foundAlbum.getPictures().stream().map(picture -> {
+            String[] split = picture.getImageUrl().split("/");
+            return split[split.length - 1];
+        }).collect(Collectors.toList());
+        return filenames;
+    }*/
+
     private void checkPictureBelong(Album foundAlbum, List<Long> requestPictureIds) {
         requestPictureIds.stream()
                 .forEach(pictureId -> {
@@ -164,11 +188,6 @@ public class AlbumService {
         if (!user.getId().equals(foundAlbum.getUser().getId())) {
             throw new CUserOwnAlbumException();
         }
-    }
-
-    @Transactional
-    public void delete(Long albumId) {
-        albumRepository.delete(getAlbumIfExists(albumId));
     }
 
     private Place getPlaceIfExists(Long placeId) {

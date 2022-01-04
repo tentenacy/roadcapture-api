@@ -1,7 +1,7 @@
 package com.untilled.roadcapture.api.service.social;
 
 import com.untilled.roadcapture.api.client.SocialOAuthClient;
-import com.untilled.roadcapture.api.exception.social.CCommunicationException;
+import com.untilled.roadcapture.api.exception.social.CSocialCommunicationException;
 import com.untilled.roadcapture.api.exception.social.CInvalidSocialTypeException;
 import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.api.client.dto.SocialProfile;
@@ -29,7 +29,7 @@ public class OAuthService {
             response.sendRedirect(redirectURL);
         } catch (IOException e) {
             log.error(e.toString());
-            throw new CCommunicationException();
+            throw new CSocialCommunicationException();
         }
     }
 

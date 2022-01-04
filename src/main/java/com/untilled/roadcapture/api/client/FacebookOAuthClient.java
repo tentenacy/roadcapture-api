@@ -1,6 +1,6 @@
 package com.untilled.roadcapture.api.client;
 
-import com.untilled.roadcapture.api.exception.social.CCommunicationException;
+import com.untilled.roadcapture.api.exception.social.CSocialCommunicationException;
 import com.untilled.roadcapture.api.client.dto.FacebookProfile;
 import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.api.client.dto.SocialProfile;
@@ -72,8 +72,8 @@ public class FacebookOAuthClient implements SocialOAuthClient {
         return webClient.get()
                 .uri(facebookTokenUrl, builder -> builder.queryParams(params).build())
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CCommunicationException()))
-                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CCommunicationException()))
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CSocialCommunicationException()))
+                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CSocialCommunicationException()))
                 .bodyToMono(OAuthTokenResponse.class)
                 .block();
     }
@@ -88,8 +88,8 @@ public class FacebookOAuthClient implements SocialOAuthClient {
         FacebookProfile facebookProfile = webClient.get()
                 .uri(facebookProfileUrl, builder -> builder.queryParams(params).build())
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CCommunicationException()))
-                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CCommunicationException()))
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new CSocialCommunicationException()))
+                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new CSocialCommunicationException()))
                 .bodyToMono(FacebookProfile.class)
                 .block();
 

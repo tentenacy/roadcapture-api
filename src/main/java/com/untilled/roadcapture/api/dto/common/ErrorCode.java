@@ -21,11 +21,12 @@ public enum ErrorCode {
      */
     FILE_CONVERT_FAILED(HttpStatus.BAD_REQUEST.value(), "IO-001", "파일을 변환할 수 없습니다."),
     INVALID_FILE_FORMAT(HttpStatus.BAD_REQUEST.value(), "IO-002", "잘못된 형식의 파일입니다."),
+    CLOUD_COMMUNICATION_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "IO-003", "파일 업로드 중 오류가 발생했습니다."),
 
     /**
      * SOCIAL
      */
-    COMMUNICATION_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "SCL-001", "소셜 인증 과정 중 오류가 발생했습니다."),
+    SOCIAL_COMMUNICATION_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "SCL-001", "소셜 인증 과정 중 오류가 발생했습니다."),
     SOCIAL_AGREEMENT_ERROR(HttpStatus.BAD_REQUEST.value(), "SCL-002", "필수동의 항목에 대해 동의가 필요합니다."),
     INVALID_SOCIAL_TYPE(HttpStatus.BAD_REQUEST.value(), "SCL-003", "알 수 없는 소셜 타입입니다."),
     SOCIAL_TOKEN_VALID_FAILED(HttpStatus.UNAUTHORIZED.value(), "SCR-004", "소셜 액세스 토큰 검증에 실패했습니다."),

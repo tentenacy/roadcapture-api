@@ -52,7 +52,7 @@ public class SocialUserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andExpect(jsonPath("$.code").value(ErrorCode.SOCIAL_COMMUNICATION_ERROR.getCode()))
                     .andDo(document("카카오회원가입 - 토큰 유효하지 않으면 실패", "카카오회원가입",
                             requestFields(socialRequestFields),
                             responseFields(badFields)
@@ -115,7 +115,7 @@ public class SocialUserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andExpect(jsonPath("$.code").value(ErrorCode.SOCIAL_COMMUNICATION_ERROR.getCode()))
                     .andDo(document("구글회원가입 - 토큰 유효하지 않으면 실패", "구글회원가입",
                             requestFields(socialRequestFields),
                             responseFields(badFields)
@@ -178,7 +178,7 @@ public class SocialUserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andExpect(jsonPath("$.code").value(ErrorCode.SOCIAL_COMMUNICATION_ERROR.getCode()))
                     .andDo(document("네이버회원가입 - 토큰 유효하지 않으면 실패", "네이버회원가입",
                             requestFields(socialRequestFields),
                             responseFields(badFields)
@@ -241,7 +241,7 @@ public class SocialUserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andExpect(jsonPath("$.code").value(ErrorCode.SOCIAL_COMMUNICATION_ERROR.getCode()))
                     .andDo(document("페이스북회원가입 - 토큰 유효하지 않으면 실패", "페이스북회원가입",
                             requestFields(socialRequestFields),
                             responseFields(badFields)
@@ -311,7 +311,7 @@ public class SocialUserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andExpect(jsonPath("$.code").value(ErrorCode.SOCIAL_COMMUNICATION_ERROR.getCode()))
                     .andDo(document("카카오로그인 - 토큰 유효하지 않으면 실패", "카카오로그인",
                             requestFields(socialRequestFields),
                             responseFields(badFields)));
@@ -375,7 +375,7 @@ public class SocialUserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andExpect(jsonPath("$.code").value(ErrorCode.SOCIAL_COMMUNICATION_ERROR.getCode()))
                     .andDo(document("구글로그인 - 토큰 유효하지 않으면 실패", "구글로그인",
                             requestFields(socialRequestFields),
                             responseFields(badFields)));
@@ -439,7 +439,7 @@ public class SocialUserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andExpect(jsonPath("$.code").value(ErrorCode.SOCIAL_COMMUNICATION_ERROR.getCode()))
                     .andDo(document("네이버로그인 - 토큰 유효하지 않으면 실패", "네이버로그인",
                             requestFields(socialRequestFields),
                             responseFields(badFields)));
@@ -503,7 +503,7 @@ public class SocialUserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.code").value(ErrorCode.COMMUNICATION_ERROR.getCode()))
+                    .andExpect(jsonPath("$.code").value(ErrorCode.SOCIAL_COMMUNICATION_ERROR.getCode()))
                     .andDo(document("페이스북로그인 - 토큰 유효하지 않으면 실패", "페이스북로그인",
                             requestFields(socialRequestFields),
                             responseFields(badFields)));
