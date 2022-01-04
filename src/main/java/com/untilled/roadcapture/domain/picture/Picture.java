@@ -9,9 +9,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +24,15 @@ import static javax.persistence.FetchType.LAZY;
 @ToString
 @Entity
 @Getter @Setter(value = AccessLevel.PROTECTED)
-public class Picture extends BaseTimeEntity {
+public class Picture {
 
     @Id @GeneratedValue
     @Column(name = "picture_id")
     private Long id;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime lastModifiedAt;
 
     private String imageUrl;
 
@@ -44,19 +51,23 @@ public class Picture extends BaseTimeEntity {
 
     private boolean isThumbnail;
 
-    public static Picture create(boolean isThumbnail, String imageUrl, String description, Place place) {
+    public static Picture create(boolean isThumbnail, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String imageUrl, String description, Place place) {
         Picture picture = new Picture();
-        picture.setThumbnail(isThumbnail);
-        picture.setImageUrl(imageUrl);
-        picture.setDescription(description);
-        picture.setPlace(place);
+        picture.createdAt = createdAt;
+        picture.lastModifiedAt = lastModifiedAt;
+        picture.isThumbnail = isThumbnail;
+        picture.imageUrl = imageUrl;
+        picture.description = description;
+        picture.place = place;
         return picture;
     }
 
-    public void update(boolean isThumbnail, String imageUrl, String description) {
-        this.isThumbnail = isThumbnail;
-        this.imageUrl = imageUrl;
-        this.description = description;
+    public void update(Picture picture) {
+        this.isThumbnail = picture.isThumbnail();
+        this.createdAt = picture.getCreatedAt();
+        this.lastModifiedAt = picture.getLastModifiedAt();
+        this.imageUrl = picture.getImageUrl();
+        this.description = picture.getDescription();
     }
 
     public void setAlbum(Album album) {

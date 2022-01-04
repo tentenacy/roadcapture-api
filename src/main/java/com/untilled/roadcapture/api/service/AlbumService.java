@@ -3,7 +3,6 @@ package com.untilled.roadcapture.api.service;
 import com.untilled.roadcapture.api.dto.album.*;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
-import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
 import com.untilled.roadcapture.api.exception.business.*;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.album.AlbumRepository;
@@ -13,6 +12,7 @@ import com.untilled.roadcapture.domain.place.Place;
 import com.untilled.roadcapture.domain.place.PlaceRepository;
 import com.untilled.roadcapture.domain.user.User;
 import com.untilled.roadcapture.domain.user.UserRepository;
+import com.untilled.roadcapture.util.CUrlUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,8 +21,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,24 +56,12 @@ public class AlbumService {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<Picture> pictures = request.getPictures().stream()
-                .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
-                .collect(Collectors.toList());
-
-        validateThumbnailUnique(pictures);
-
         return albumRepository.save(Album.create(
                 request.getTitle(),
                 request.getDescription(),
-                pictures,
+                request.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()),
                 getUserIfExists(user.getId())
         ));
-    }
-
-    private void validateThumbnailUnique(List<Picture> pictures) {
-        if (pictures.stream().filter(picture -> picture.isThumbnail()).count() != 1L) {
-            throw new CThumbnailNonUniqueException();
-        }
     }
 
     @Transactional
@@ -84,8 +70,6 @@ public class AlbumService {
         List<Picture> pictures = request.getPictures().stream()
                 .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
                 .collect(Collectors.toList());
-
-        validateThumbnailUnique(pictures);
 
         return albumRepository.save(Album.create(
                 request.getTitle(),
@@ -96,7 +80,7 @@ public class AlbumService {
     }
 
     @Transactional
-    public void update(Long albumId, AlbumUpdateRequest request) {
+    public List<String> update(Long albumId, AlbumUpdateRequest request) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -105,53 +89,39 @@ public class AlbumService {
         List<Long> requestPictureIds = request.getPictures().stream()
                 .map(PictureUpdateRequest::getId).collect(Collectors.toList());
 
-        //유저의 앨범이 아니면 예외
+        //유저의 앨범인 지 확인
         checkUserOwnAlbum(user, foundAlbum);
 
-        //사진이 해당 앨범에 속하지 않으면 예외
+        //사진이 해당 앨범에 속하는 지 확인
         checkPictureBelong(foundAlbum, requestPictureIds);
 
         //요청에 없는 사진 삭제
-        foundAlbum.removeAllPicturesExceptFor(requestPictureIds);
+        List<String> fileNamesToDelete = foundAlbum.removeAllPicturesExceptFor(requestPictureIds).stream()
+                .map(picture -> CUrlUtils.extractFileNameFrom(picture.getImageUrl()))
+                .collect(Collectors.toList());
 
-        for (PictureUpdateRequest pictureUpdateRequest : request.getPictures()) {
+        for (PictureUpdateRequest picture : request.getPictures()) {
 
-            PlaceUpdateRequest placeUpdateRequest = pictureUpdateRequest.getPlace();
-
-            //request에 id가 없는 Picture가 있다면 해당 Picture 앨범에 추가
-            if (ObjectUtils.isEmpty(pictureUpdateRequest.getId())) {
-
-                PictureCreateRequest pictureCreateRequest = new PictureCreateRequest(pictureUpdateRequest);
-
-                foundAlbum.addPicture(Picture.create(
-                        pictureCreateRequest.isThumbnail(),
-                        pictureCreateRequest.getImageUrl(),
-                        pictureCreateRequest.getDescription(),
-                        pictureCreateRequest.getPlace().toEntity())
-                );
+            //request에 id가 없는 사진이 있다면 해당 사진 앨범에 추가
+            if (ObjectUtils.isEmpty(picture.getId())) {
+                foundAlbum.addPicture(new PictureCreateRequest(picture).toEntity());
             }
             //없다면 해당 Picture 및 Place 업데이트
             else {
+                Picture foundPicture = getPictureIfExists(picture.getId());
+                getPlaceIfExists(foundPicture.getPlace().getId()).update(picture.getPlace().toEntity());
 
-                Picture foundPicture = getPictureIfExists(pictureUpdateRequest.getId());
-
-                getPlaceIfExists(foundPicture.getPlace().getId()).update(
-                        placeUpdateRequest.getName(),
-                        placeUpdateRequest.getLatitude(),
-                        placeUpdateRequest.getLongitude(),
-                        placeUpdateRequest.getAddress()
-                );
-
-                foundPicture.update(
-                        pictureUpdateRequest.isThumbnail(),
-                        pictureUpdateRequest.getImageUrl(),
-                        pictureUpdateRequest.getDescription()
-                );
+                //파일이 없는 요청은 이미지 업데이트 하지 않음
+                if(picture.isImageUrlNotUpdatable()) picture.updateImageUrl(foundPicture.getImageUrl());
+                else fileNamesToDelete.add(CUrlUtils.extractFileNameFrom(foundPicture.getImageUrl()));
+                foundPicture.update(picture.toEntity());
             }
 
             //Album 업데이트
             foundAlbum.update(request.toEntity());
         }
+
+        return fileNamesToDelete;
     }
 
     @Transactional
@@ -165,16 +135,8 @@ public class AlbumService {
 
         albumRepository.delete(foundAlbum);
 
-        return foundAlbum.getPictures().stream().map(picture -> UriComponentsBuilder.fromUriString(picture.getImageUrl()).build().getPath().substring(1)).collect(Collectors.toList());
+        return foundAlbum.getPictures().stream().map(picture -> CUrlUtils.extractFileNameFrom(picture.getImageUrl())).collect(Collectors.toList());
     }
-
-    /*private List<String> getPictureFilenamesByAlbum(Album foundAlbum) {
-        List<String> filenames = foundAlbum.getPictures().stream().map(picture -> {
-            String[] split = picture.getImageUrl().split("/");
-            return split[split.length - 1];
-        }).collect(Collectors.toList());
-        return filenames;
-    }*/
 
     private void checkPictureBelong(Album foundAlbum, List<Long> requestPictureIds) {
         requestPictureIds.stream()

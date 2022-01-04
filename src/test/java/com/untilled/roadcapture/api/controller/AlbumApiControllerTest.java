@@ -5,6 +5,8 @@ import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.album.AlbumUpdateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
+import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
+import com.untilled.roadcapture.api.dto.picture.TempPictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
 import com.untilled.roadcapture.config.SpringBootTestConfiguration;
@@ -48,7 +50,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             AlbumCreateRequest request = new AlbumCreateRequest(
                     "볼거리가 가득한 국내 여행지",
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
-                    Arrays.asList(new PictureCreateRequest(
+                    Arrays.asList(new TempPictureCreateRequest(
                             true,
                             LocalDateTime.now(),
                             LocalDateTime.now(),
@@ -68,7 +70,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                                             "336-813"
                                     )
                             )
-                    ))
+                    ).toPictureCreateRequest())
             );
 
             //when
@@ -253,7 +255,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             AlbumUpdateRequest request = new AlbumUpdateRequest(
                     "볼거리가 가득한 국내 여행지!!!",
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
-                    Arrays.asList(new PictureUpdateRequest(
+                    Arrays.asList(new TempPictureUpdateRequest(
                             23L,
                             true,
                             LocalDateTime.now(),
@@ -275,7 +277,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                                             "336-813"
                                     )
                             )
-                    ))
+                    ).toPictureUpdateRequest())
             );
 
             //when

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -35,7 +36,11 @@ public class FileUploadService {
         } catch (IOException e) {
             throw new CFileConvertFailedException();
         }
-        return s3Service.getFileUrl(fileName);
+        return Optional.ofNullable(s3Service.getFileUrl(fileName)).orElseThrow(CCloudCommunicationException::new);
+    }
+
+    public boolean doesFileExists(String fileName) {
+        return s3Service.doesFileExists(fileName);
     }
 
     public void delete(String fileName) {

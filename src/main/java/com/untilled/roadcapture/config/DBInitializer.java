@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
+import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.LoginRequest;
@@ -35,7 +36,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 @Slf4j
-//@Component
+@Component
 @RequiredArgsConstructor
 public class DBInitializer {
 
@@ -73,7 +74,7 @@ public class DBInitializer {
                             "볼거리가 가득한 국내 여행지 " + i,
                             "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                             Arrays.asList(
-                                    new PictureCreateRequest(
+                                    new TempPictureCreateRequest(
                                             true,
                                             LocalDateTime.now(),
                                             LocalDateTime.now(),
@@ -93,8 +94,8 @@ public class DBInitializer {
                                                             "15073"
                                                     )
                                             )
-                                    ),
-                                    new PictureCreateRequest(
+                                    ).toPictureCreateRequest(),
+                                    new TempPictureCreateRequest(
                                             false,
                                             LocalDateTime.now(),
                                             LocalDateTime.now(),
@@ -114,7 +115,7 @@ public class DBInitializer {
                                                             "336-813"
                                                     )
                                             )
-                                    ))
+                                    ).toPictureCreateRequest())
                     ));
                     IntStream.range(0, 5).forEach(j -> {
                         commentService.create(Long.valueOf(i), Long.valueOf(5 + i * 16 - 14), new CommentCreateRequest("후기 감사합니다."));

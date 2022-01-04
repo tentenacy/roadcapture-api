@@ -13,7 +13,6 @@ import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PictureCreateRequest {
 
@@ -24,11 +23,25 @@ public class PictureCreateRequest {
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
     private LocalDateTime lastModifiedAt;
-    @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}.+")
-    private String imageUrl;
     private String description;
     @NotNull
     private PlaceCreateRequest place;
+
+    private String imageUrl;
+
+    public PictureCreateRequest(boolean isThumbnail, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String description, PlaceCreateRequest place) {
+        this.isThumbnail = isThumbnail;
+        this.createdAt = createdAt;
+        this.lastModifiedAt = lastModifiedAt;
+        this.description = description;
+        this.place = place;
+    }
+
+    private void setImageUrl(String imageUrl) {}
+
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public PictureCreateRequest(PictureUpdateRequest request) {
         this.isThumbnail = request.isThumbnail();
@@ -40,6 +53,6 @@ public class PictureCreateRequest {
     }
 
     public Picture toEntity() {
-        return Picture.create(this.isThumbnail, this.imageUrl, this.description, this.place.toEntity());
+        return Picture.create(this.isThumbnail, this.createdAt, this.lastModifiedAt, this.imageUrl, this.description, this.place.toEntity());
     }
 }

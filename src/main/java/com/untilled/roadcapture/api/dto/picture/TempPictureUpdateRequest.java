@@ -13,8 +13,9 @@ import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PictureUpdateRequest {
+public class TempPictureUpdateRequest {
 
     private Long id;
     private boolean isThumbnail;
@@ -24,30 +25,13 @@ public class PictureUpdateRequest {
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
     private LocalDateTime lastModifiedAt;
+    @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}")
+    private String imageUrl;
     private String description;
     private PlaceUpdateRequest place;
 
-    private String imageUrl;
-    private boolean isImageUrlNotUpdatable = false;
-
-    public PictureUpdateRequest(Long id, boolean isThumbnail, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String description, PlaceUpdateRequest place) {
-        this.id = id;
-        this.isThumbnail = isThumbnail;
-        this.createdAt = createdAt;
-        this.lastModifiedAt = lastModifiedAt;
-        this.description = description;
-        this.place = place;
-    }
-
-    private void setImageUrl(String imageUrl) {}
-    private void setImageUrlNotUpdatable(boolean imageUrlNotUpdatable) {}
-
-    public void updateImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public void imageUrlNotUpdatable() {
-        this.isImageUrlNotUpdatable = true;
+    public PictureUpdateRequest toPictureUpdateRequest() {
+        return new PictureUpdateRequest(this.id, this.isThumbnail, this.createdAt, this.lastModifiedAt, this.description, this.place);
     }
 
     public Picture toEntity() {

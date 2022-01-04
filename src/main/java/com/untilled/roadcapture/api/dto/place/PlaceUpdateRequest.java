@@ -33,6 +33,6 @@ public class PlaceUpdateRequest {
     private Address address;
 
     public Place toEntity() {
-        return Place.create(this.name, this.latitude, this.longitude, this.address);
+        return Place.create(this.name, this.createdAt, this.lastModifiedAt, this.latitude, this.longitude, this.address);
     }
 }

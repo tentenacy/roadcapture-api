@@ -63,15 +63,16 @@ public class Album extends BaseTimeEntity {
         this.pictures.add(picture);
     }
 
-    public void removeAllPicturesExceptFor(List<Long> ids) {
-        List<Picture> collect = this.pictures.stream()
+    public List<Picture> removeAllPicturesExceptFor(List<Long> ids) {
+        List<Picture> picturesToRemove = this.pictures.stream()
                 .filter(picture -> !(ids.contains(picture.getId())))
                 .collect(Collectors.toList());
-        for(Iterator<Picture> itr = collect.iterator(); itr.hasNext();) {
+        for(Iterator<Picture> itr = picturesToRemove.iterator(); itr.hasNext();) {
             Picture next = itr.next();
             next.setAlbum(null);
             this.pictures.remove(next);
         }
+        return picturesToRemove;
     }
 
     public void addLike(Like like) {
