@@ -72,7 +72,7 @@ public class AlbumService {
 
     private void validateThumbnailUnique(List<Picture> pictures) {
         if (pictures.stream().filter(picture -> picture.isThumbnail()).count() != 1L) {
-            throw new ThumbnailNonUniqueException();
+            throw new CThumbnailNonUniqueException();
         }
     }
 

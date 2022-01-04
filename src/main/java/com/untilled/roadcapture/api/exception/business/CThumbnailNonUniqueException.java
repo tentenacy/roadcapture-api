@@ -2,9 +2,9 @@ package com.untilled.roadcapture.api.exception.business;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 
-public class ThumbnailNonUniqueException extends CInvalidValueException {
+public class CThumbnailNonUniqueException extends CInvalidValueException {
 
-    public ThumbnailNonUniqueException() {
+    public CThumbnailNonUniqueException() {
         super(ErrorCode.THUMBNAIL_NON_UNIQUE);
     }
 }

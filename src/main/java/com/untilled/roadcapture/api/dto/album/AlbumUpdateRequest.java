@@ -1,11 +1,7 @@
 package com.untilled.roadcapture.api.dto.album;
 
-import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
-import com.untilled.roadcapture.api.exception.business.ThumbnailNonUniqueException;
 import com.untilled.roadcapture.domain.album.Album;
-import com.untilled.roadcapture.domain.picture.Picture;
-import com.untilled.roadcapture.domain.place.Place;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

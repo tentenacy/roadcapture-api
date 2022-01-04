@@ -54,6 +54,7 @@ public enum ErrorCode {
     PICTURE_BELONG_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-012", "앨범의 사진이 아닙니다."),
     ENTITY_MULTIPART_SIZE_MISMATCH(HttpStatus.BAD_REQUEST.value(), "BIZ-013", "요청 데이터와 업로드할 파일 개수가 일치하지 않습니다."),
     THUMBNAIL_NON_UNIQUE(HttpStatus.BAD_REQUEST.value(), "BIZ-014", "앨범 썸네일이 유일하지 않습니다."),
+    MULTIPART_KEY_MISMATCH(HttpStatus.BAD_REQUEST.value(), "BIZ-015", "사진 파일 키가 생성 시간과 다릅니다."),
             ;
 
     private final String code;

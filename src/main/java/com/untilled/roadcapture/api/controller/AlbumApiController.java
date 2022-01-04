@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.untilled.roadcapture.api.dto.album.*;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.exception.business.CEntityMultipartSizeMismatchException;
+import com.untilled.roadcapture.api.exception.business.CMultiPartKeyMismatchException;
 import com.untilled.roadcapture.api.service.AlbumService;
 import com.untilled.roadcapture.api.service.cloud.FileUploadService;
 import com.untilled.roadcapture.util.validator.CustomCollectionValidator;
@@ -18,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -51,12 +53,12 @@ public class AlbumApiController {
         //TODO: 리팩토링
         validator.validate(request.getPictures(), bindingResult);
         request.getPictures().stream()
-                        .forEach(picture -> {
-                            validator.validate(picture.getPlace(), bindingResult);
-                            validator.validate(picture.getPlace().getAddress(), bindingResult);
-                        });
+                .forEach(picture -> {
+                    validator.validate(picture.getPlace(), bindingResult);
+                    validator.validate(picture.getPlace().getAddress(), bindingResult);
+                });
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             throw new BindException(bindingResult);
         }
 
@@ -78,17 +80,17 @@ public class AlbumApiController {
                     validator.validate(picture.getPlace().getAddress(), bindingResult);
                 });
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             throw new BindException(bindingResult);
         }
 
         //json data와 file이 part가 다르기 때문에 개수 검증
-        if(albumCreateRequest.getPictures().size() != request.getImages().size()) {
+        if (albumCreateRequest.getPictures().size() != request.getImages().size()) {
             throw new CEntityMultipartSizeMismatchException();
         }
 
         for (PictureCreateRequest picture : albumCreateRequest.getPictures()) {
-            String imageUrl = fileUploadService.uploadImage(request.getImages().get(picture.getCreatedAt().toString()));
+            String imageUrl = fileUploadService.uploadImage(Optional.ofNullable(request.getImages().get(picture.getCreatedAt().toString())).orElseThrow(CMultiPartKeyMismatchException::new));
             picture.setImageUrl(imageUrl);
         }
 
@@ -107,7 +109,7 @@ public class AlbumApiController {
                     validator.validate(picture.getPlace().getAddress(), bindingResult);
                 });
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             throw new BindException(bindingResult);
         }
 
