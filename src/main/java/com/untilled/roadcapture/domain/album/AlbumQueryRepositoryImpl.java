@@ -101,7 +101,6 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable, Long userId) {
         QAlbum thumbnailUrlAlbum = new QAlbum("thumbnailUrlAlbum");
         QPicture thumbnailUrlPicture = new QPicture("thumbnailUrlPicture");
-        QUser doesLikeUser = new QUser("doesLikeUser");
         JPAQuery<AlbumsResponse> query = queryFactory
                 .select(Projections.constructor(AlbumsResponse.class,
                         album.id,
@@ -120,14 +119,13 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.viewCount,
                         like.countDistinct().intValue().as("likeCount"),
                         comment.countDistinct().intValue().as("commentCount"),
-                        doesLikeUser.isNotNull().as("doesLike")
+                        like.user.isNotNull().as("doesLike")
                 ))
-                .from(album, doesLikeUser)
+                .from(album)
                 .join(album.user, user)
-                .leftJoin(album.likes, like)
+                .leftJoin(album.likes, like).on(like.user.id.eq(userId))
                 .join(album.pictures, picture)
                 .leftJoin(picture.comments, comment)
-                .leftJoin(like.user, doesLikeUser).on(doesLikeUser.id.eq(userId))
                 .groupBy(album.id)
                 .where(
                         dateTimeLoe(cond.getDateTimeTo()),
@@ -153,7 +151,6 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     public Page<AlbumsResponse> getFollowingAlbums(FollowingAlbumsCondition cond, Pageable pageable, Long userId) {
         QAlbum thumbnailUrlAlbum = new QAlbum("thumbnailUrlAlbum");
         QPicture thumbnailUrlPicture = new QPicture("thumbnailUrlPicture");
-        QUser doesLikeUser = new QUser("doesLikeUser");
         QUser followingUser = new QUser("followingUser");
         JPAQuery<AlbumsResponse> query = queryFactory
                 .select(Projections.constructor(AlbumsResponse.class,
@@ -173,16 +170,15 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.viewCount,
                         like.countDistinct().intValue().as("likeCount"),
                         comment.countDistinct().intValue().as("commentCount"),
-                        doesLikeUser.isNotNull().as("doesLike")
+                        like.user.isNotNull().as("doesLike")
                 ))
-                .from(follower, doesLikeUser)
+                .from(follower)
                 .join(follower.from, user).on(user.id.eq(userId))
                 .join(follower.to, followingUser)
                 .leftJoin(followingUser.albums, album)
-                .leftJoin(album.likes, like)
+                .leftJoin(album.likes, like).on(like.user.id.eq(userId))
                 .join(album.pictures, picture)
                 .leftJoin(picture.comments, comment)
-                .leftJoin(like.user, doesLikeUser).on(doesLikeUser.id.eq(userId))
                 .groupBy(album.id)
                 .where(followingIdEq(cond.getFollowingId()))
                 .offset(pageable.getOffset())
