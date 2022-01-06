@@ -3,10 +3,9 @@ package com.untilled.roadcapture.api.service;
 import com.untilled.roadcapture.api.dto.token.TokenRequest;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.*;
-import com.untilled.roadcapture.api.exception.business.CAlreadySignedupException;
-import com.untilled.roadcapture.api.exception.business.CEmailLoginFailedException;
-import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
-import com.untilled.roadcapture.api.exception.security.CRefreshTokenException;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CInvalidValueException.CAlreadySignedupException;
+import com.untilled.roadcapture.api.exception.business.CInvalidValueException.CEmailLoginFailedException;
 import com.untilled.roadcapture.config.security.JwtProvider;
 import com.untilled.roadcapture.domain.token.RefreshToken;
 import com.untilled.roadcapture.domain.token.RefreshTokenRepository;
@@ -21,6 +20,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.untilled.roadcapture.api.exception.security.CTokenException.*;
 
 @Slf4j
 @Service

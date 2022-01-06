@@ -2,9 +2,9 @@ package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserToFollowNotFoundException;
 import com.untilled.roadcapture.api.exception.business.CInvalidValueException;
-import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
-import com.untilled.roadcapture.api.exception.business.CUserToFollowNotFoundException;
 import com.untilled.roadcapture.domain.follower.Follower;
 import com.untilled.roadcapture.domain.follower.FollowerRepository;
 import com.untilled.roadcapture.domain.user.User;

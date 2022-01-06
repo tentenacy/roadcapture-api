@@ -1,6 +1,5 @@
 package com.untilled.roadcapture.api.client;
 
-import com.untilled.roadcapture.api.exception.social.CSocialCommunicationException;
 import com.untilled.roadcapture.api.client.dto.NaverProfile;
 import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.api.client.dto.SocialProfile;
@@ -17,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static com.untilled.roadcapture.api.exception.social.CSocialException.*;
 
 @Component
 @RequiredArgsConstructor

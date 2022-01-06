@@ -2,9 +2,10 @@ package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentsResponse;
-import com.untilled.roadcapture.api.exception.business.CCommentNotFoundException;
-import com.untilled.roadcapture.api.exception.business.CPictureNotFoundException;
-import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CCommentNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CPictureNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserNotFoundException;
 import com.untilled.roadcapture.domain.comment.Comment;
 import com.untilled.roadcapture.domain.comment.CommentRepository;
 import com.untilled.roadcapture.domain.picture.Picture;

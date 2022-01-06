@@ -11,4 +11,12 @@ public class CSecurityException extends RuntimeException {
     public CSecurityException(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
+
+    public static class CAuthenticationEntryPointException extends CSecurityException {
+
+        public CAuthenticationEntryPointException() {
+            super(ErrorCode.ACCESS_TOKEN_ERROR);
+        }
+    }
+
 }

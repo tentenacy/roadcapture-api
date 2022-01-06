@@ -1,6 +1,5 @@
 package com.untilled.roadcapture.api.client;
 
-import com.untilled.roadcapture.api.exception.social.CSocialCommunicationException;
 import com.untilled.roadcapture.api.client.dto.FacebookProfile;
 import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.api.client.dto.SocialProfile;
@@ -16,6 +15,8 @@ import reactor.core.publisher.Mono;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.untilled.roadcapture.api.exception.social.CSocialException.*;
 
 @Component
 @RequiredArgsConstructor

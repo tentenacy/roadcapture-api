@@ -1,7 +1,6 @@
 package com.untilled.roadcapture.api.client;
 
 import com.google.gson.Gson;
-import com.untilled.roadcapture.api.exception.social.CSocialCommunicationException;
 import com.untilled.roadcapture.api.client.dto.GoogleProfile;
 import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.api.client.dto.SocialProfile;
@@ -20,6 +19,8 @@ import reactor.core.publisher.Mono;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.untilled.roadcapture.api.exception.social.CSocialException.*;
 
 @Slf4j
 @Component

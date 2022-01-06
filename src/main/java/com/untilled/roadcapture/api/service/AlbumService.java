@@ -7,6 +7,8 @@ import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.TempPictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
 import com.untilled.roadcapture.api.exception.business.*;
+import com.untilled.roadcapture.api.exception.business.CEntityBelongException.CPictureBelongException;
+import com.untilled.roadcapture.api.exception.business.CEntityBelongException.CUserOwnAlbumException;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.album.AlbumRepository;
 import com.untilled.roadcapture.domain.picture.Picture;
@@ -27,6 +29,8 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.*;
 
 @Slf4j
 @Service

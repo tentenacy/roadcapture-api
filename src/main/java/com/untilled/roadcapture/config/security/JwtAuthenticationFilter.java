@@ -1,10 +1,8 @@
 package com.untilled.roadcapture.config.security;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
-import com.untilled.roadcapture.api.exception.security.CAuthenticationEntryPointException;
-import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.MalformedJwtException;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.security.CSecurityException.CAuthenticationEntryPointException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

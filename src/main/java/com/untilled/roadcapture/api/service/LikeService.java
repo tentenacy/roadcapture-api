@@ -1,9 +1,6 @@
 package com.untilled.roadcapture.api.service;
 
-import com.untilled.roadcapture.api.exception.business.CAlbumNotFoundException;
-import com.untilled.roadcapture.api.exception.business.CAlreadyLikeException;
-import com.untilled.roadcapture.api.exception.business.CLikeNotFoundException;
-import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CInvalidValueException.CAlreadyLikeException;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.album.AlbumRepository;
 import com.untilled.roadcapture.domain.like.Like;
@@ -15,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.*;
 
 @Slf4j
 @Service

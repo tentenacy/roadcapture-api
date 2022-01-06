@@ -1,8 +1,6 @@
 package com.untilled.roadcapture.api.service.social;
 
 import com.untilled.roadcapture.api.client.SocialOAuthClient;
-import com.untilled.roadcapture.api.exception.social.CSocialCommunicationException;
-import com.untilled.roadcapture.api.exception.social.CInvalidSocialTypeException;
 import com.untilled.roadcapture.api.client.dto.OAuthTokenResponse;
 import com.untilled.roadcapture.api.client.dto.SocialProfile;
 import com.untilled.roadcapture.util.constant.SocialType;
@@ -13,6 +11,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+
+import static com.untilled.roadcapture.api.exception.social.CSocialException.*;
 
 @Slf4j
 @Service

@@ -3,8 +3,7 @@ package com.untilled.roadcapture.api.controller;
 import com.untilled.roadcapture.api.dto.token.TokenRequest;
 import com.untilled.roadcapture.api.dto.token.TokenResponse;
 import com.untilled.roadcapture.api.dto.user.*;
-import com.untilled.roadcapture.api.exception.social.CSocialAgreementException;
-import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserNotFoundException;
 import com.untilled.roadcapture.api.service.UserService;
 import com.untilled.roadcapture.api.service.social.OAuthService;
 import com.untilled.roadcapture.api.client.dto.SocialProfile;
@@ -18,6 +17,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import static com.untilled.roadcapture.api.exception.social.CSocialException.*;
 
 @RestController
 @RequestMapping("/users")
