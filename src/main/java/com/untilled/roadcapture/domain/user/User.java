@@ -57,12 +57,6 @@ public class User extends BaseTimeEntity implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Album> albums = new ArrayList<>();
 
-    @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
-    private List<Follower> followers = new ArrayList<>();
-
-    @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
-    private List<Follower> followings = new ArrayList<>();
-
     public static User create(String email, String password, String username) {
         User user = new User();
         user.setEmail(email);

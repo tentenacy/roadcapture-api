@@ -55,7 +55,10 @@ public enum ErrorCode {
     PICTURE_BELONG_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-012", "앨범의 사진이 아닙니다."),
     THUMBNAIL_NON_UNIQUE(HttpStatus.BAD_REQUEST.value(), "BIZ-013", "앨범 썸네일이 유일하지 않습니다."),
     MULTIPART_KEY_MISMATCH(HttpStatus.BAD_REQUEST.value(), "BIZ-014", "업로드 파일 키와 일치하는 데이터가 없습니다."),
-    PICTURE_MULTIPART_REQUIRED(HttpStatus.BAD_REQUEST.value(), "BIZ-014", "사진을 생성하기 위한 파일이 필요합니다."),
+    PICTURE_MULTIPART_REQUIRED(HttpStatus.BAD_REQUEST.value(), "BIZ-015", "사진을 생성하기 위한 파일이 필요합니다."),
+    USERTOFOLLOW_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-016", "팔로우할 사용자가 존재하지 않습니다."),
+    ALREADY_FOLLOW(HttpStatus.BAD_REQUEST.value(), "BIZ-017", "이미 팔로우를 했습니다."),
+    FOLLOW_MYSELF_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-018", "자신은 팔로우할 수 없습니다."),
             ;
 
     private final String code;
