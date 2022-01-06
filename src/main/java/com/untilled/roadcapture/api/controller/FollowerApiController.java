@@ -58,4 +58,16 @@ public class FollowerApiController {
 
         return followService.getFollowers(cond, pageable, user.getId());
     }
+
+    @GetMapping("/users/{userId}/followers/to")
+    public Page<UsersResponse> userFollowings(FollowingsCondition cond, Pageable pageable, @PathVariable Long userId) {
+
+        return followService.getFollowings(cond, pageable, userId);
+    }
+
+    @GetMapping("/users/{userId}/followers/from")
+    public Page<UsersResponse> userFollowers(FollowersCondition cond, Pageable pageable, @PathVariable Long userId) {
+
+        return followService.getFollowers(cond, pageable, userId);
+    }
 }

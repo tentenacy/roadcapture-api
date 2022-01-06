@@ -131,4 +131,64 @@ class FollowerApiControllerTest extends ApiDocumentationTest {
                             responseFields(pageFields).andWithPrefix("content.[].", usersFields)));
         }
     }
+
+    @Nested
+    @DisplayName("유저팔로워조회")
+    class UserFollowers {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+            followerService.create(1L, 2L);
+            followerService.create(3L, 2L);
+            followerService.create(4L, 2L);
+            followerService.create(5L, 2L);
+
+            followerService.create(1L, 3L);
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{userId}/followers/from", 2L)
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(4))
+                    .andDo(document("유저팔로워조회 - 성공", "유저팔로워조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(followersParams),
+                            responseFields(pageFields).andWithPrefix("content.[].", usersFields)));
+        }
+    }
+
+    @Nested
+    @DisplayName("유저팔로잉조회")
+    class UserFollowings {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+            followerService.create(2L, 1L);
+            followerService.create(2L, 3L);
+            followerService.create(2L, 4L);
+            followerService.create(2L, 5L);
+
+            followerService.create(3L, 1L);
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{userId}/followers/to", 2L)
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(4))
+                    .andDo(document("유저팔로잉조회 - 성공", "유저팔로잉조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(followingsParams),
+                            responseFields(pageFields).andWithPrefix("content.[].", usersFields)));
+        }
+    }
 }
