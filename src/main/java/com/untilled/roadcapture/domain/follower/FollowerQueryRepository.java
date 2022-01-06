@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface FollowerQueryRepository {
     Page<UsersResponse> getFollowings(FollowingsCondition cond, Pageable pageable, Long fromUserId);
     Page<UsersResponse> getFollowers(FollowersCondition cond, Pageable pageable, Long toUserId);
-    Optional<Follower> getFollowerByFromUserIdAndToUserId(Long fromUserId, Long toUserId);
+    Optional<Follower> getFollowerByFromIdAndToId(Long fromUserId, Long toUserId);
 }

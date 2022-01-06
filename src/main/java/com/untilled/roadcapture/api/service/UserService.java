@@ -83,7 +83,7 @@ public class UserService {
 
         String accessToken = request.getAccessToken();
         Authentication authentication = jwtProvider.getAuthentication(accessToken);
-        User foundUser = getUserIfExists(((User)authentication.getPrincipal()).getId());
+        User foundUser = getUserThrowable(((User)authentication.getPrincipal()).getId());
 
         //리프레시 토큰 없음
         RefreshToken refreshToken = refreshTokenRepository.findByKey(foundUser.getId())
@@ -103,19 +103,19 @@ public class UserService {
     @Transactional
     public void update(UserUpdateRequest userUpdateRequest) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        getUserIfExists(user.getId()).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
+        getUserThrowable(user.getId()).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
     }
 
     @Transactional
     public void update(Long userId, UserUpdateRequest userUpdateRequest) {
-        getUserIfExists(userId).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
+        getUserThrowable(userId).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
     }
 
     @Transactional
     public void delete() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         refreshTokenRepository.deleteByKey(user.getId());
-        userRepository.delete(getUserIfExists(user.getId()));
+        userRepository.delete(getUserThrowable(user.getId()));
     }
 
     public Page<UsersResponse> getUsers(Pageable pageable, UsersCondition cond) {
@@ -123,14 +123,14 @@ public class UserService {
     }
 
     public UserResponse getUser(Long userId) {
-        return new UserResponse(getUserIfExists(userId));
+        return new UserResponse(getUserThrowable(userId));
     }
 
     public UserDetailResponse getUserDetail() {
         return new UserDetailResponse((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
-    private User getUserIfExists(Long userId) {
+    private User getUserThrowable(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(CUserNotFoundException::new);
     }

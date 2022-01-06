@@ -1,4 +1,4 @@
-package com.untilled.roadcapture.api.dto.follower;
+package com.untilled.roadcapture.api.dto.album;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class FollowingsCondition {
+public class FollowingAlbumsCondition {
 
-    private String username;
+    private Long followingId;
 }

@@ -2,7 +2,6 @@ package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentsResponse;
-import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException;
 import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CCommentNotFoundException;
 import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CPictureNotFoundException;
 import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserNotFoundException;
@@ -33,21 +32,21 @@ public class CommentService {
     @Transactional
     public Comment create(Long pictureId, CommentCreateRequest request) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Comment comment = Comment.create(request.getContent(), getUserIfExists(user.getId()));
-        getPictureIfExists(pictureId).addComment(comment);
+        Comment comment = Comment.create(request.getContent(), getUserThrowable(user.getId()));
+        getPictureThrowable(pictureId).addComment(comment);
         return comment;
     }
 
     @Transactional
     public Comment create(Long userId, Long pictureId, CommentCreateRequest request) {
-        Comment comment = Comment.create(request.getContent(), getUserIfExists(userId));
-        getPictureIfExists(pictureId).addComment(comment);
+        Comment comment = Comment.create(request.getContent(), getUserThrowable(userId));
+        getPictureThrowable(pictureId).addComment(comment);
         return comment;
     }
 
     @Transactional
     public void delete(Long commentId) {
-        getCommentIfExists(commentId).delete();
+        getCommentThrowable(commentId).delete();
     }
 
     public Page<CommentsResponse> pictureComments(Long pictureId, Pageable pageable) {
@@ -58,16 +57,16 @@ public class CommentService {
         return commentRepository.getAlbumComments(albumId, pageable);
     }
 
-    private Comment getCommentIfExists(Long commentId) {
+    private Comment getCommentThrowable(Long commentId) {
         return commentRepository.findById(commentId)
                 .orElseThrow(CCommentNotFoundException::new);
     }
 
-    private Picture getPictureIfExists(Long pictureId) {
+    private Picture getPictureThrowable(Long pictureId) {
         return pictureRepository.findById(pictureId)
                 .orElseThrow(CPictureNotFoundException::new);
     }
-    private User getUserIfExists(Long userId) {
+    private User getUserThrowable(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(CUserNotFoundException::new);
     }

@@ -1,11 +1,6 @@
 package com.untilled.roadcapture.api.controller;
 
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
-import com.untilled.roadcapture.api.dto.common.ErrorCode;
-import com.untilled.roadcapture.api.dto.token.TokenRequest;
-import com.untilled.roadcapture.api.dto.user.*;
-import com.untilled.roadcapture.domain.address.Address;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -63,7 +58,7 @@ class FollowerApiControllerTest extends ApiDocumentationTest {
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
-            assertThat(followerRepository.getFollowerByFromUserIdAndToUserId(2L, 1L).orElse(null)).isNull();
+            assertThat(followerRepository.getFollowerByFromIdAndToId(2L, 1L).orElse(null)).isNull();
 
             //then
             result.andExpect(status().isNoContent())

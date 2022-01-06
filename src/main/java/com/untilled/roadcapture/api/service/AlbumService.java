@@ -6,7 +6,6 @@ import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.TempPictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
-import com.untilled.roadcapture.api.exception.business.*;
 import com.untilled.roadcapture.api.exception.business.CEntityBelongException.CPictureBelongException;
 import com.untilled.roadcapture.api.exception.business.CEntityBelongException.CUserOwnAlbumException;
 import com.untilled.roadcapture.domain.album.Album;
@@ -43,11 +42,18 @@ public class AlbumService {
     private final PictureRepository pictureRepository;
     private final PlaceRepository placeRepository;
 
-    public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable) {
+    public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable, Long userId) {
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        getUserThrowable(userId);
 
-        return albumRepository.searchAlbums(cond, pageable, user.getId());
+        return albumRepository.getAlbums(cond, pageable, userId);
+    }
+
+    public Page<AlbumsResponse> getFollowingAlbums(FollowingAlbumsCondition cond, Pageable pageable, Long userId) {
+
+        getUserThrowable(userId);
+
+        return albumRepository.getFollowingAlbums(cond, pageable, userId);
     }
 
     public AlbumResponse getAlbum(Long albumId) {
@@ -58,7 +64,7 @@ public class AlbumService {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return albumRepository.searchUserAlbums(cond, pageable, getUserIfExists(user.getId()).getId());
+        return albumRepository.getUserAlbums(cond, pageable, getUserThrowable(user.getId()).getId());
     }
 
     @Transactional
@@ -70,7 +76,7 @@ public class AlbumService {
                 request.getTitle(),
                 request.getDescription(),
                 request.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()),
-                getUserIfExists(user.getId())
+                getUserThrowable(user.getId())
         ));
     }
 
@@ -83,7 +89,7 @@ public class AlbumService {
                 request.getTitle(),
                 request.getDescription(),
                 request.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()),
-                getUserIfExists(user.getId())
+                getUserThrowable(user.getId())
         ));
     }
 
@@ -98,7 +104,7 @@ public class AlbumService {
                 request.getTitle(),
                 request.getDescription(),
                 pictures,
-                getUserIfExists(userId)
+                getUserThrowable(userId)
         ));
     }
 
@@ -107,7 +113,7 @@ public class AlbumService {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Album foundAlbum = getAlbumIfExists(albumId);
+        Album foundAlbum = getAlbumThrowable(albumId);
 
         List<Long> requestPictureIds = request.getPictures().stream()
                 .map(PictureUpdateRequest::getId).collect(Collectors.toList());
@@ -131,8 +137,8 @@ public class AlbumService {
             }
             //없다면 해당 Picture 및 Place 업데이트
             else {
-                Picture foundPicture = getPictureIfExists(picture.getId());
-                getPlaceIfExists(foundPicture.getPlace().getId()).update(picture.getPlace().toEntity());
+                Picture foundPicture = getPictureThrowable(picture.getId());
+                getPlaceThrowable(foundPicture.getPlace().getId()).update(picture.getPlace().toEntity());
 
                 //파일이 없는 요청은 이미지 업데이트 하지 않음
                 if(picture.isImageUrlNotUpdatable()) picture.updateImageUrl(foundPicture.getImageUrl());
@@ -152,7 +158,7 @@ public class AlbumService {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Album foundAlbum = getAlbumIfExists(albumId);
+        Album foundAlbum = getAlbumThrowable(albumId);
 
         List<Long> requestPictureIds = request.getPictures().stream()
                 .map(TempPictureUpdateRequest::getId).collect(Collectors.toList());
@@ -187,9 +193,9 @@ public class AlbumService {
             //없다면 해당 Picture 및 Place 업데이트
             else {
 
-                Picture foundPicture = getPictureIfExists(pictureUpdateRequest.getId());
+                Picture foundPicture = getPictureThrowable(pictureUpdateRequest.getId());
 
-                getPlaceIfExists(foundPicture.getPlace().getId()).update(placeUpdateRequest.toEntity());
+                getPlaceThrowable(foundPicture.getPlace().getId()).update(placeUpdateRequest.toEntity());
 
                 foundPicture.update(pictureUpdateRequest.toEntity());
             }
@@ -203,7 +209,7 @@ public class AlbumService {
     public List<String> delete(Long albumId) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Album foundAlbum = getAlbumIfExists(albumId);
+        Album foundAlbum = getAlbumThrowable(albumId);
 
         //유저의 앨범이 아니면 예외
         checkUserOwnAlbum(user, foundAlbum);
@@ -227,21 +233,21 @@ public class AlbumService {
         }
     }
 
-    private Place getPlaceIfExists(Long placeId) {
+    private Place getPlaceThrowable(Long placeId) {
         return placeRepository.findById(placeId).orElseThrow(CPlaceNotFoundException::new);
     }
 
-    private Album getAlbumIfExists(Long albumId) {
+    private Album getAlbumThrowable(Long albumId) {
         return albumRepository.findById(albumId)
                 .orElseThrow(CAlbumNotFoundException::new);
     }
 
-    private Picture getPictureIfExists(Long pictureId) {
+    private Picture getPictureThrowable(Long pictureId) {
         return pictureRepository.findById(pictureId)
                 .orElseThrow(CPictureNotFoundException::new);
     }
 
-    private User getUserIfExists(Long userId) {
+    private User getUserThrowable(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(CUserNotFoundException::new);
     }

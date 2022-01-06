@@ -15,6 +15,7 @@ import com.untilled.roadcapture.api.dto.picture.PictureResponse;
 import com.untilled.roadcapture.api.dto.picture.ThumbnailPictureResponse;
 import com.untilled.roadcapture.api.dto.place.PlaceResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
+import com.untilled.roadcapture.domain.follower.QFollower;
 import com.untilled.roadcapture.domain.like.QLike;
 import com.untilled.roadcapture.domain.picture.QPicture;
 import com.untilled.roadcapture.domain.user.QUser;
@@ -33,6 +34,7 @@ import java.util.Optional;
 
 import static com.untilled.roadcapture.domain.album.QAlbum.album;
 import static com.untilled.roadcapture.domain.comment.QComment.*;
+import static com.untilled.roadcapture.domain.follower.QFollower.*;
 import static com.untilled.roadcapture.domain.like.QLike.*;
 import static com.untilled.roadcapture.domain.picture.QPicture.*;
 import static com.untilled.roadcapture.domain.place.QPlace.*;
@@ -50,7 +52,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<UserAlbumsResponse> searchUserAlbums(UserAlbumsCondition cond, Pageable pageable, Long userId) {
+    public Page<UserAlbumsResponse> getUserAlbums(UserAlbumsCondition cond, Pageable pageable, Long userId) {
         JPAQuery<UserAlbumsResponse> query = queryFactory
                 .select(Projections.constructor(UserAlbumsResponse.class,
                         album.id,
@@ -96,7 +98,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<AlbumsResponse> searchAlbums(AlbumsCondition cond, Pageable pageable, Long userId) {
+    public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable, Long userId) {
         QAlbum thumbnailUrlAlbum = new QAlbum("thumbnailUrlAlbum");
         QPicture thumbnailUrlPicture = new QPicture("thumbnailUrlPicture");
         QUser doesLikeUser = new QUser("doesLikeUser");
@@ -120,12 +122,12 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         comment.countDistinct().intValue().as("commentCount"),
                         doesLikeUser.isNotNull().as("doesLike")
                 ))
-                .from(album)
+                .from(album, doesLikeUser)
                 .join(album.user, user)
                 .leftJoin(album.likes, like)
                 .join(album.pictures, picture)
                 .leftJoin(picture.comments, comment)
-                .leftJoin(like.user, doesLikeUser).on(like.user.id.eq(userId))
+                .leftJoin(like.user, doesLikeUser).on(doesLikeUser.id.eq(userId))
                 .groupBy(album.id)
                 .where(
                         dateTimeLoe(cond.getDateTimeTo()),
@@ -144,6 +146,56 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
         QueryResults<AlbumsResponse> result = query.fetchResults();
 
         //카운트 쿼리 필요에 따라 날라감
+        return new PageImpl(result.getResults(), pageable, result.getTotal());
+    }
+
+    @Override
+    public Page<AlbumsResponse> getFollowingAlbums(FollowingAlbumsCondition cond, Pageable pageable, Long userId) {
+        QAlbum thumbnailUrlAlbum = new QAlbum("thumbnailUrlAlbum");
+        QPicture thumbnailUrlPicture = new QPicture("thumbnailUrlPicture");
+        QUser doesLikeUser = new QUser("doesLikeUser");
+        QUser followingUser = new QUser("followingUser");
+        JPAQuery<AlbumsResponse> query = queryFactory
+                .select(Projections.constructor(AlbumsResponse.class,
+                        album.id,
+                        album.createdAt,
+                        album.lastModifiedAt,
+                        album.title,
+                        album.description,
+                        ExpressionUtils.as(JPAExpressions.select(thumbnailUrlPicture.imageUrl)
+                                .from(thumbnailUrlAlbum)
+                                .join(thumbnailUrlAlbum.pictures, thumbnailUrlPicture).on(thumbnailUrlPicture.isThumbnail.eq(true))
+                                .where(thumbnailUrlAlbum.id.eq(album.id)), "thumbnailUrl"),
+                        Projections.constructor(UsersResponse.class,
+                                followingUser.id,
+                                followingUser.username,
+                                followingUser.profileImageUrl),
+                        album.viewCount,
+                        like.countDistinct().intValue().as("likeCount"),
+                        comment.countDistinct().intValue().as("commentCount"),
+                        doesLikeUser.isNotNull().as("doesLike")
+                ))
+                .from(follower, doesLikeUser)
+                .join(follower.from, user).on(user.id.eq(userId))
+                .join(follower.to, followingUser)
+                .leftJoin(followingUser.albums, album)
+                .leftJoin(album.likes, like)
+                .join(album.pictures, picture)
+                .leftJoin(picture.comments, comment)
+                .leftJoin(like.user, doesLikeUser).on(doesLikeUser.id.eq(userId))
+                .groupBy(album.id)
+                .where(followingIdEq(cond.getFollowingId()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize());
+
+        for (Sort.Order o : pageable.getSort()) {
+            PathBuilder pathBuilder = new PathBuilder(album.getType(), album.getMetadata());
+            query.orderBy(new OrderSpecifier<>(o.isAscending() ? Order.ASC : Order.DESC,
+                    pathBuilder.get(o.getProperty())));
+        }
+
+        QueryResults<AlbumsResponse> result = query.fetchResults();
+
         return new PageImpl(result.getResults(), pageable, result.getTotal());
     }
 
@@ -212,5 +264,9 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
 
     private BooleanExpression addressNameContains(String regionDepthName) {
         return regionDepthName != null ? place.address.addressName.contains(regionDepthName) : null;
+    }
+
+    private BooleanExpression followingIdEq(Long followingId) {
+        return followingId != null ? follower.to.id.eq(followingId) : null;
     }
 }

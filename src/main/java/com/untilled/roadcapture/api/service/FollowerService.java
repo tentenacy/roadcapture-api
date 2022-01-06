@@ -1,13 +1,10 @@
 package com.untilled.roadcapture.api.service;
 
-import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.follower.FollowersCondition;
 import com.untilled.roadcapture.api.dto.follower.FollowingsCondition;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
-import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException;
 import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserNotFoundException;
 import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserToFollowNotFoundException;
-import com.untilled.roadcapture.api.exception.business.CInvalidValueException;
 import com.untilled.roadcapture.domain.follower.Follower;
 import com.untilled.roadcapture.domain.follower.FollowerRepository;
 import com.untilled.roadcapture.domain.user.User;
@@ -15,7 +12,6 @@ import com.untilled.roadcapture.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +29,8 @@ public class FollowerService {
     @Transactional
     public void create(Long fromUserId, Long toUserId) {
 
-        User foundUser = getUserIfExists(fromUserId);
-        User foundUserToFollow = getUserToFollowIfExists(toUserId);
+        User foundUser = getUserThrowable(fromUserId);
+        User foundUserToFollow = getUserToFollowThrowable(toUserId);
 
         checkFollowMyselfException(foundUser, foundUserToFollow);
 
@@ -44,20 +40,17 @@ public class FollowerService {
     @Transactional
     public void delete(Long fromUserId, Long toUserId) {
 
-        User foundUser = getUserIfExists(fromUserId);
-        User foundUserToUnFollow = getUserToFollowIfExists(toUserId);
+        checkUnFollowMyselfException(getUserThrowable(fromUserId), getUserToFollowThrowable(toUserId));
 
-        checkUnFollowMyselfException(foundUser, foundUserToUnFollow);
-
-        followerRepository.delete(getFollowerIfExists(foundUser.getId(), foundUserToUnFollow.getId()));
+        followerRepository.delete(getFollowerIfExists(fromUserId, toUserId));
     }
 
     public Page<UsersResponse> getFollowings(FollowingsCondition cond, Pageable pageable, Long userId) {
-        return followerRepository.getFollowings(cond, pageable, getUserIfExists(userId).getId());
+        return followerRepository.getFollowings(cond, pageable, getUserThrowable(userId).getId());
     }
 
     public Page<UsersResponse> getFollowers(FollowersCondition cond, Pageable pageable, Long userId) {
-        return followerRepository.getFollowers(cond, pageable, getUserIfExists(userId).getId());
+        return followerRepository.getFollowers(cond, pageable, getUserThrowable(userId).getId());
     }
 
     private void checkFollowMyselfException(User foundUser, User userToFollow) {
@@ -73,16 +66,16 @@ public class FollowerService {
     }
 
     private Follower getFollowerIfExists(Long fromUserId, Long toUserId) {
-        return followerRepository.getFollowerByFromUserIdAndToUserId(fromUserId, toUserId)
+        return followerRepository.getFollowerByFromIdAndToId(fromUserId, toUserId)
                 .orElseThrow(CFollowerNotFoundException::new);
     }
 
-    private User getUserToFollowIfExists(Long toUserId) {
+    private User getUserToFollowThrowable(Long toUserId) {
         return userRepository.findById(toUserId)
                 .orElseThrow(CUserToFollowNotFoundException::new);
     }
 
-    private User getUserIfExists(Long userId) {
+    private User getUserThrowable(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(CUserNotFoundException::new);
     }

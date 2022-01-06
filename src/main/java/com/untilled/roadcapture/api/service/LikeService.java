@@ -32,8 +32,8 @@ public class LikeService {
     public Like create(Long albumId) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User foundUser = getUserIfExists(user.getId());
-        Album foundAlbum = getAlbumIfExists(albumId);
+        User foundUser = getUserThrowable(user.getId());
+        Album foundAlbum = getAlbumThrowable(albumId);
 
         validateLikeNotExists(foundUser, foundAlbum);
 
@@ -46,9 +46,9 @@ public class LikeService {
     @Transactional
     public Like create(Long userId, Long albumId) {
 
-        User foundUser = getUserIfExists(userId);
+        User foundUser = getUserThrowable(userId);
 
-        Album foundAlbum = getAlbumIfExists(albumId);
+        Album foundAlbum = getAlbumThrowable(albumId);
 
         validateLikeNotExists(foundUser, foundAlbum);
 
@@ -61,8 +61,8 @@ public class LikeService {
     @Transactional
     public void delete(Long albumId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Album foundAlbum = getAlbumIfExists(albumId);
-        Like foundLike = getLikeIfExists(getUserIfExists(user.getId()), foundAlbum);
+        Album foundAlbum = getAlbumThrowable(albumId);
+        Like foundLike = getLikeThrowable(getUserThrowable(user.getId()), foundAlbum);
         foundAlbum.removeLike(foundLike);
     }
 
@@ -72,16 +72,16 @@ public class LikeService {
         });
     }
 
-    private Like getLikeIfExists(User user, Album album) {
+    private Like getLikeThrowable(User user, Album album) {
         return likeRepository.findByUserAndAlbum(user, album).orElseThrow(CLikeNotFoundException::new);
     }
 
-    private Album getAlbumIfExists(Long albumId) {
+    private Album getAlbumThrowable(Long albumId) {
         return albumRepository.findById(albumId)
                 .orElseThrow(CAlbumNotFoundException::new);
     }
 
-    private User getUserIfExists(Long userId) {
+    private User getUserThrowable(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(CUserNotFoundException::new);
     }

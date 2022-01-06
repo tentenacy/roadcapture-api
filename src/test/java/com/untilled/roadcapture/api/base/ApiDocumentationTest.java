@@ -173,6 +173,11 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             parameterWithName("dateTimeTo").description("조회할 앨범의 최대 시각입니다. 포맷은 yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS 입니다.").optional(),
     };
 
+    protected ParameterDescriptor[] followingAlbumsParams = new ParameterDescriptor[]{
+            parameterWithName("followingId").description("조회할 팔로잉의 아이디입니다.").optional(),
+    };
+
+
     protected ParameterDescriptor[] userAlbumsParams = new ParameterDescriptor[]{
             parameterWithName("placeCond.region1DepthName").description("시도명입니다.").optional(),
             parameterWithName("placeCond.region2DepthName").description("시군구명입니다.").optional(),

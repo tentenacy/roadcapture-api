@@ -13,6 +13,7 @@ import com.untilled.roadcapture.api.exception.io.CIOException.CFileConvertFailed
 import com.untilled.roadcapture.api.service.AlbumService;
 import com.untilled.roadcapture.api.service.cloud.FileUploadService;
 import com.untilled.roadcapture.domain.picture.Picture;
+import com.untilled.roadcapture.domain.user.User;
 import com.untilled.roadcapture.util.CUrlUtils;
 import com.untilled.roadcapture.util.validator.CustomCollectionValidator;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -51,7 +53,18 @@ public class AlbumApiController {
 
     @GetMapping("/albums")
     public Page<AlbumsResponse> albums(@Validated AlbumsCondition cond, Pageable pageable) {
-        return albumService.getAlbums(cond, pageable);
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return albumService.getAlbums(cond, pageable, user.getId());
+    }
+
+    @GetMapping("/followers/to/albums")
+    public Page<AlbumsResponse> followingAlbums(@Validated FollowingAlbumsCondition cond, Pageable pageable) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return albumService.getFollowingAlbums(cond, pageable, user.getId());
     }
 
     @GetMapping("/albums/{albumId}")

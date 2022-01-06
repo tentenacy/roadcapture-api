@@ -87,7 +87,7 @@ public class FollowerQueryRepositoryImpl extends QuerydslRepositorySupport imple
     }
 
     @Override
-    public Optional<Follower> getFollowerByFromUserIdAndToUserId(Long fromUserId, Long toUserId) {
+    public Optional<Follower> getFollowerByFromIdAndToId(Long fromUserId, Long toUserId) {
 
         QUser fromUser = new QUser("fromUser");
         QUser toUser = new QUser("toUser");

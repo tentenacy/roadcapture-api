@@ -121,6 +121,62 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
     }
 
     @Nested
+    @DisplayName("팔로잉앨범조회")
+    class FollowingAlbums {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+            followerService.create(2L, 1L);
+            followerService.create(2L, 3L);
+            followerService.create(2L, 4L);
+            followerService.create(2L, 5L);
+
+            //when
+            ResultActions result = mockMvc.perform(get("/followers/to/albums")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(4))
+                    .andDo(document("팔로잉앨범조회 - 성공", "팔로잉앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(followingAlbumsParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", albumsFields)
+                                    .andWithPrefix("content.[].user.", usersFields)));
+        }
+
+        @Test
+        @DisplayName("팔로잉 아이디 조건 추가 성공")
+        public void FollowingIdAdded_Success() throws Exception {
+            //given
+            followerService.create(2L, 1L);
+            followerService.create(2L, 3L);
+            followerService.create(2L, 4L);
+            followerService.create(2L, 5L);
+
+            //when
+            ResultActions result = mockMvc.perform(get("/followers/to/albums")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .queryParam("followingId", "1")
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(1))
+                    .andDo(document("팔로잉앨범조회 - 팔로잉 아이디 조건 추가 성공", "팔로잉앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(followingAlbumsParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", albumsFields)
+                                    .andWithPrefix("content.[].user.", usersFields)));
+        }
+    }
+
+    @Nested
     @DisplayName("단건조회")
     class Album {
 

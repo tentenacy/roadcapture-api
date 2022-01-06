@@ -7,7 +7,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface AlbumQueryRepository {
-    Page<AlbumsResponse> searchAlbums(AlbumsCondition cond, Pageable pageable, Long userId);
+    Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable, Long userId);
+    Page<AlbumsResponse> getFollowingAlbums(FollowingAlbumsCondition cond, Pageable pageable, Long userId);
     Optional<AlbumResponse> getAlbum(Long albumId);
-    Page<UserAlbumsResponse> searchUserAlbums(UserAlbumsCondition cond, Pageable pageable, Long userId);
+    Page<UserAlbumsResponse> getUserAlbums(UserAlbumsCondition cond, Pageable pageable, Long userId);
 }
