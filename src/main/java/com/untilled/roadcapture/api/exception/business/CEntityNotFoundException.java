@@ -49,4 +49,10 @@ public class CEntityNotFoundException extends CBusinessException {
         }
     }
 
+    public static class CFollowerNotFoundException extends CEntityNotFoundException {
+        public CFollowerNotFoundException() {
+            super(ErrorCode.FOLLOWER_NOT_FOUND);
+        }
+    }
+
 }

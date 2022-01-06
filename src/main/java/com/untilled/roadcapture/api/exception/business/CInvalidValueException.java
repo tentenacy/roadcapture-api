@@ -46,5 +46,19 @@ public class CInvalidValueException extends CBusinessException {
         }
     }
 
+    public static class CFollowMyselfException extends CInvalidValueException {
+
+        public CFollowMyselfException() {
+            super(ErrorCode.FOLLOW_MYSELF_ERROR);
+        }
+    }
+
+    public static class CUnfollowMyselfException extends CInvalidValueException {
+
+        public CUnfollowMyselfException() {
+            super(ErrorCode.UNFOLLOW_MYSELF_ERROR);
+        }
+    }
+
 
 }

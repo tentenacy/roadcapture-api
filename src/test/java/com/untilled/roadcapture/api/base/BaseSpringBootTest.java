@@ -1,8 +1,11 @@
 package com.untilled.roadcapture.api.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.untilled.roadcapture.api.service.FollowerService;
 import com.untilled.roadcapture.api.service.UserService;
+import com.untilled.roadcapture.domain.follower.FollowerRepository;
 import com.untilled.roadcapture.domain.token.RefreshTokenRepository;
+import com.untilled.roadcapture.domain.user.UserRepository;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,5 +38,14 @@ public class BaseSpringBootTest {
 
     @SpyBean
     protected UserService userService;
+
+    @SpyBean
+    protected FollowerService followerService;
+
+    @SpyBean
+    protected UserRepository userRepository;
+
+    @SpyBean
+    protected FollowerRepository followerRepository;
 
 }

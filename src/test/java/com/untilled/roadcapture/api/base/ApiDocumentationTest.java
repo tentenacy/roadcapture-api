@@ -333,4 +333,13 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             parameterWithName("albumId").description("앨범 아이디입니다."),
     };
 
+    //FOLLOWER_DESC
+    protected ParameterDescriptor[] followersParams = new ParameterDescriptor[]{
+            parameterWithName("username").description("조회할 팔로워 이름입니다.").optional(),
+    };
+
+    protected ParameterDescriptor[] followingsParams = new ParameterDescriptor[]{
+            parameterWithName("username").description("조회할 팔로잉 이름입니다.").optional(),
+    };
+
 }

@@ -5,6 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface FollowerRepository extends JpaRepository<Follower, Long> {
-    Optional<Follower> findByFromAndTo(User from, User to);
+public interface FollowerRepository extends JpaRepository<Follower, Long>, FollowerQueryRepository {
 }
