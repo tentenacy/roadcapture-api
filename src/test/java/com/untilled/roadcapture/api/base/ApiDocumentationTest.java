@@ -220,6 +220,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("viewCount").type(JsonFieldType.NUMBER).description("앨범 조회수입니다."),
             fieldWithPath("likeCount").type(JsonFieldType.NUMBER).description("앨범 좋아요수입니다."),
             fieldWithPath("commentCount").type(JsonFieldType.NUMBER).description("앨범 댓글수입니다."),
+            fieldWithPath("doesLike").type(JsonFieldType.BOOLEAN).description("유저의 앨범 좋아요 여부입니다."),
     };
 
     protected FieldDescriptor[] userAlbumsFields = new FieldDescriptor[]{

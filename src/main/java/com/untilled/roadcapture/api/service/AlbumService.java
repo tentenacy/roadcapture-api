@@ -40,7 +40,10 @@ public class AlbumService {
     private final PlaceRepository placeRepository;
 
     public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable) {
-        return albumRepository.searchAlbums(cond, pageable);
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return albumRepository.searchAlbums(cond, pageable, user.getId());
     }
 
     public AlbumResponse getAlbum(Long albumId) {

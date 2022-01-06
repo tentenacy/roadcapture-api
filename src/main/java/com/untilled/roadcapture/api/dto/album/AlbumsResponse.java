@@ -25,4 +25,5 @@ public class AlbumsResponse {
     private int viewCount;
     private int likeCount;
     private int commentCount;
+    private boolean doesLike;
 }

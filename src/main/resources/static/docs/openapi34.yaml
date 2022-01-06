@@ -59,52 +59,55 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTM0MjY3MywiZXhwIjoxNjQxMzQ2MjczfQ.5BxZa-PjzsGWHC-Wi3ZoZ7G9BwS-J9SijByEJTNmjEg
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTQzNDA1MSwiZXhwIjoxNjQxNDM3NjUxfQ.LBuq12Cbpp0ezaQmCdP8hwZnM1dd9rTCGi3IEWhA0V0
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/albums1485267483'
+                $ref: '#/components/schemas/albums1595798647'
               examples:
                 앨범조회 - 성공:
-                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-05T09:31:09.04792\"\
-                    ,\"lastModifiedAt\":\"2022-01-05T09:31:09.04792\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-06T10:54:07.28054\"\
+                    ,\"lastModifiedAt\":\"2022-01-06T10:54:07.28054\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 1\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":1,\"username\":\"user1\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10},{\"id\":22,\"createdAt\":\"2022-01-05T09:31:09.307919\"\
-                    ,\"lastModifiedAt\":\"2022-01-05T09:31:09.307919\",\"title\":\"\
-                    볼거리가 가득한 국내 여행지 2\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
-                    \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
-                    ,\"user\":{\"id\":2,\"username\":\"user2\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10},{\"id\":38,\"createdAt\":\"2022-01-05T09:31:09.484915\"\
-                    ,\"lastModifiedAt\":\"2022-01-05T09:31:09.484915\",\"title\":\"\
+                    :1,\"commentCount\":10,\"doesLike\":false},{\"id\":22,\"createdAt\"\
+                    :\"2022-01-06T10:54:07.547752\",\"lastModifiedAt\":\"2022-01-06T10:54:07.547752\"\
+                    ,\"title\":\"볼거리가 가득한 국내 여행지 2\",\"description\":\"전국의 아름다운 10대\
+                    \ 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\"\
+                    :\"https://www.test.com/test\",\"user\":{\"id\":2,\"username\"\
+                    :\"user2\",\"profileImageUrl\":\"https://www.test.com/test\"},\"\
+                    viewCount\":0,\"likeCount\":1,\"commentCount\":10,\"doesLike\"\
+                    :true},{\"id\":38,\"createdAt\":\"2022-01-06T10:54:07.729659\"\
+                    ,\"lastModifiedAt\":\"2022-01-06T10:54:07.729659\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 3\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":3,\"username\":\"user3\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10},{\"id\":54,\"createdAt\":\"2022-01-05T09:31:09.65355\"\
-                    ,\"lastModifiedAt\":\"2022-01-05T09:31:09.65355\",\"title\":\"\
-                    볼거리가 가득한 국내 여행지 4\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
-                    \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
-                    ,\"user\":{\"id\":4,\"username\":\"user4\",\"profileImageUrl\"\
-                    :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10},{\"id\":70,\"createdAt\":\"2022-01-05T09:31:09.83517\"\
-                    ,\"lastModifiedAt\":\"2022-01-05T09:31:09.83517\",\"title\":\"\
+                    :1,\"commentCount\":10,\"doesLike\":false},{\"id\":54,\"createdAt\"\
+                    :\"2022-01-06T10:54:07.908413\",\"lastModifiedAt\":\"2022-01-06T10:54:07.908413\"\
+                    ,\"title\":\"볼거리가 가득한 국내 여행지 4\",\"description\":\"전국의 아름다운 10대\
+                    \ 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\"\
+                    :\"https://www.test.com/test\",\"user\":{\"id\":4,\"username\"\
+                    :\"user4\",\"profileImageUrl\":\"https://www.test.com/test\"},\"\
+                    viewCount\":0,\"likeCount\":1,\"commentCount\":10,\"doesLike\"\
+                    :false},{\"id\":70,\"createdAt\":\"2022-01-06T10:54:08.151412\"\
+                    ,\"lastModifiedAt\":\"2022-01-06T10:54:08.151412\",\"title\":\"\
                     볼거리가 가득한 국내 여행지 5\",\"description\":\"전국의 아름다운 10대 가로수길 중 하나로\
                     \ 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"thumbnailUrl\":\"https://www.test.com/test\"\
                     ,\"user\":{\"id\":5,\"username\":\"user5\",\"profileImageUrl\"\
                     :\"https://www.test.com/test\"},\"viewCount\":0,\"likeCount\"\
-                    :1,\"commentCount\":10}],\"pageable\":{\"sort\":{\"sorted\":false,\"\
-                    unsorted\":true,\"empty\":true},\"pageSize\":10,\"pageNumber\"\
-                    :0,\"offset\":0,\"paged\":true,\"unpaged\":false},\"last\":true,\"\
-                    totalPages\":1,\"totalElements\":5,\"first\":true,\"numberOfElements\"\
-                    :5,\"size\":10,\"number\":0,\"sort\":{\"sorted\":false,\"unsorted\"\
-                    :true,\"empty\":true},\"empty\":false}"
+                    :1,\"commentCount\":10,\"doesLike\":false}],\"pageable\":{\"sort\"\
+                    :{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"offset\"\
+                    :0,\"pageSize\":10,\"pageNumber\":0,\"unpaged\":false,\"paged\"\
+                    :true},\"last\":true,\"totalPages\":1,\"totalElements\":5,\"size\"\
+                    :10,\"number\":0,\"sort\":{\"empty\":true,\"sorted\":false,\"\
+                    unsorted\":true},\"first\":true,\"numberOfElements\":5,\"empty\"\
+                    :false}"
   /albums/temp:
     post:
       tags:
@@ -1630,6 +1633,76 @@ components:
         totalElements:
           type: number
           description: 전체 요소 수입니다.
+    albums1595798647:
+      type: object
+      properties:
+        size:
+          type: number
+          description: 한 페이지에 보여줄 사이즈 수입니다.
+        last:
+          type: boolean
+          description: 마지막 페이지 여부입니다.
+        totalPages:
+          type: number
+          description: 전체 페이지 수입니다.
+        content:
+          type: array
+          description: 페이지 요소 리스트입니다.
+          items:
+            type: object
+            properties:
+              createdAt:
+                type: string
+                description: 앨범 생성 시각입니다.
+              lastModifiedAt:
+                type: string
+                description: 앨범 수정 시각입니다.
+              description:
+                type: string
+                description: 앨범 설명입니다.
+              likeCount:
+                type: number
+                description: 앨범 좋아요수입니다.
+              doesLike:
+                type: boolean
+                description: 유저의 앨범 좋아요 여부입니다.
+              viewCount:
+                type: number
+                description: 앨범 조회수입니다.
+              id:
+                type: number
+                description: 앨범 아이디입니다.
+              title:
+                type: string
+                description: 앨범 제목입니다.
+              user:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: 사용자 아이디입니다.
+                  profileImageUrl:
+                    type: string
+                    description: 사용자 프로필 사진입니다.
+                  username:
+                    type: string
+                    description: 사용자 이름입니다.
+                description: 앨범 등록자입니다.
+              commentCount:
+                type: number
+                description: 앨범 댓글수입니다.
+              thumbnailUrl:
+                type: string
+                description: 앨범 썸네일 이미지 주소입니다.
+        first:
+          type: boolean
+          description: 첫 페이지 여부입니다.
+        empty:
+          type: boolean
+          description: 리스트가 비어 있는지 여부입니다.
+        totalElements:
+          type: number
+          description: 전체 요소 수입니다.
     users-395173474:
       type: object
       properties:
@@ -1882,73 +1955,6 @@ components:
         content:
           type: string
           description: 댓글 내용입니다.
-    albums1485267483:
-      type: object
-      properties:
-        size:
-          type: number
-          description: 한 페이지에 보여줄 사이즈 수입니다.
-        last:
-          type: boolean
-          description: 마지막 페이지 여부입니다.
-        totalPages:
-          type: number
-          description: 전체 페이지 수입니다.
-        content:
-          type: array
-          description: 페이지 요소 리스트입니다.
-          items:
-            type: object
-            properties:
-              createdAt:
-                type: string
-                description: 앨범 생성 시각입니다.
-              lastModifiedAt:
-                type: string
-                description: 앨범 수정 시각입니다.
-              description:
-                type: string
-                description: 앨범 설명입니다.
-              likeCount:
-                type: number
-                description: 앨범 좋아요수입니다.
-              viewCount:
-                type: number
-                description: 앨범 조회수입니다.
-              id:
-                type: number
-                description: 앨범 아이디입니다.
-              title:
-                type: string
-                description: 앨범 제목입니다.
-              user:
-                type: object
-                properties:
-                  id:
-                    type: number
-                    description: 사용자 아이디입니다.
-                  profileImageUrl:
-                    type: string
-                    description: 사용자 프로필 사진입니다.
-                  username:
-                    type: string
-                    description: 사용자 이름입니다.
-                description: 앨범 등록자입니다.
-              commentCount:
-                type: number
-                description: 앨범 댓글수입니다.
-              thumbnailUrl:
-                type: string
-                description: 앨범 썸네일 이미지 주소입니다.
-        first:
-          type: boolean
-          description: 첫 페이지 여부입니다.
-        empty:
-          type: boolean
-          description: 리스트가 비어 있는지 여부입니다.
-        totalElements:
-          type: number
-          description: 전체 요소 수입니다.
     users-details-1417119020:
       type: object
       properties:

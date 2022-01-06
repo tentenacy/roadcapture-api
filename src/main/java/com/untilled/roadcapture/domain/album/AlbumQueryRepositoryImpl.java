@@ -15,7 +15,9 @@ import com.untilled.roadcapture.api.dto.picture.PictureResponse;
 import com.untilled.roadcapture.api.dto.picture.ThumbnailPictureResponse;
 import com.untilled.roadcapture.api.dto.place.PlaceResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
+import com.untilled.roadcapture.domain.like.QLike;
 import com.untilled.roadcapture.domain.picture.QPicture;
+import com.untilled.roadcapture.domain.user.QUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -94,9 +96,10 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<AlbumsResponse> searchAlbums(AlbumsCondition cond, Pageable pageable) {
-        QAlbum qAlbum = new QAlbum("qAlbum");
-        QPicture qPicture = new QPicture("qPicture");
+    public Page<AlbumsResponse> searchAlbums(AlbumsCondition cond, Pageable pageable, Long userId) {
+        QAlbum thumbnailUrlAlbum = new QAlbum("thumbnailUrlAlbum");
+        QPicture thumbnailUrlPicture = new QPicture("thumbnailUrlPicture");
+        QUser doesLikeUser = new QUser("doesLikeUser");
         JPAQuery<AlbumsResponse> query = queryFactory
                 .select(Projections.constructor(AlbumsResponse.class,
                         album.id,
@@ -104,23 +107,25 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.lastModifiedAt,
                         album.title,
                         album.description,
-                        ExpressionUtils.as(JPAExpressions.select(qPicture.imageUrl)
-                                .from(qAlbum)
-                                .join(qAlbum.pictures, qPicture).on(qPicture.isThumbnail.eq(true))
-                                .where(qAlbum.id.eq(album.id)), "thumbnailUrl"),
+                        ExpressionUtils.as(JPAExpressions.select(thumbnailUrlPicture.imageUrl)
+                                .from(thumbnailUrlAlbum)
+                                .join(thumbnailUrlAlbum.pictures, thumbnailUrlPicture).on(thumbnailUrlPicture.isThumbnail.eq(true))
+                                .where(thumbnailUrlAlbum.id.eq(album.id)), "thumbnailUrl"),
                         Projections.constructor(UsersResponse.class,
                                 user.id,
                                 user.username,
                                 user.profileImageUrl),
                         album.viewCount,
                         like.countDistinct().intValue().as("likeCount"),
-                        comment.countDistinct().intValue().as("commentCount")
+                        comment.countDistinct().intValue().as("commentCount"),
+                        doesLikeUser.isNotNull().as("doesLike")
                 ))
                 .from(album)
                 .join(album.user, user)
                 .leftJoin(album.likes, like)
                 .join(album.pictures, picture)
                 .leftJoin(picture.comments, comment)
+                .leftJoin(like.user, doesLikeUser).on(like.user.id.eq(userId))
                 .groupBy(album.id)
                 .where(
                         dateTimeLoe(cond.getDateTimeTo()),

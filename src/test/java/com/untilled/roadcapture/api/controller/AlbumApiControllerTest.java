@@ -109,7 +109,8 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.content[0].commentCount").value(10L))
+                    .andExpect(jsonPath("$.content[1].commentCount").value(10L))
+                    .andExpect(jsonPath("$.content[1].doesLike").value(true))
                     .andDo(document("앨범조회 - 성공", "앨범조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(albumsParams),
