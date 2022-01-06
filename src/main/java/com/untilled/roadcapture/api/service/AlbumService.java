@@ -3,6 +3,9 @@ package com.untilled.roadcapture.api.service;
 import com.untilled.roadcapture.api.dto.album.*;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
+import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
+import com.untilled.roadcapture.api.dto.picture.TempPictureUpdateRequest;
+import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
 import com.untilled.roadcapture.api.exception.business.*;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.album.AlbumRepository;
@@ -65,7 +68,20 @@ public class AlbumService {
     }
 
     @Transactional
-    public Album create(Long userId, AlbumCreateRequest request) {
+    public Album tempCreate(TempAlbumCreateRequest request) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return albumRepository.save(Album.create(
+                request.getTitle(),
+                request.getDescription(),
+                request.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()),
+                getUserIfExists(user.getId())
+        ));
+    }
+
+    @Transactional
+    public Album create(Long userId, TempAlbumCreateRequest request) {
 
         List<Picture> pictures = request.getPictures().stream()
                 .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
@@ -122,6 +138,58 @@ public class AlbumService {
         }
 
         return fileNamesToDelete;
+    }
+
+    @Transactional
+    public void tempUpdate(Long albumId, TempAlbumUpdateRequest request) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Album foundAlbum = getAlbumIfExists(albumId);
+
+        List<Long> requestPictureIds = request.getPictures().stream()
+                .map(TempPictureUpdateRequest::getId).collect(Collectors.toList());
+
+        //유저의 앨범이 아니면 예외
+        checkUserOwnAlbum(user, foundAlbum);
+
+        //사진이 해당 앨범에 속하지 않으면 예외
+        checkPictureBelong(foundAlbum, requestPictureIds);
+
+        //요청에 없는 사진 삭제
+        foundAlbum.removeAllPicturesExceptFor(requestPictureIds);
+
+        for (TempPictureUpdateRequest pictureUpdateRequest : request.getPictures()) {
+
+            PlaceUpdateRequest placeUpdateRequest = pictureUpdateRequest.getPlace();
+
+            //request에 id가 없는 Picture가 있다면 해당 Picture 앨범에 추가
+            if (ObjectUtils.isEmpty(pictureUpdateRequest.getId())) {
+
+                TempPictureCreateRequest pictureCreateRequest = new TempPictureCreateRequest(pictureUpdateRequest);
+
+                foundAlbum.addPicture(Picture.create(
+                        pictureCreateRequest.isThumbnail(),
+                        pictureCreateRequest.getCreatedAt(),
+                        pictureCreateRequest.getLastModifiedAt(),
+                        pictureCreateRequest.getImageUrl(),
+                        pictureCreateRequest.getDescription(),
+                        pictureCreateRequest.getPlace().toEntity())
+                );
+            }
+            //없다면 해당 Picture 및 Place 업데이트
+            else {
+
+                Picture foundPicture = getPictureIfExists(pictureUpdateRequest.getId());
+
+                getPlaceIfExists(foundPicture.getPlace().getId()).update(placeUpdateRequest.toEntity());
+
+                foundPicture.update(pictureUpdateRequest.toEntity());
+            }
+
+            //Album 업데이트
+            foundAlbum.update(request.toEntity());
+        }
     }
 
     @Transactional

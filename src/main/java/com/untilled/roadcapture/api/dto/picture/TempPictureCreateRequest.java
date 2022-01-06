@@ -24,23 +24,19 @@ public class TempPictureCreateRequest {
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
     private LocalDateTime lastModifiedAt;
-    @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}")
+    @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}.+")
     private String imageUrl;
     private String description;
     @NotNull
     private PlaceCreateRequest place;
 
-    public TempPictureCreateRequest(PictureUpdateRequest request) {
+    public TempPictureCreateRequest(TempPictureUpdateRequest request) {
         this.isThumbnail = request.isThumbnail();
         this.createdAt = request.getCreatedAt();
         this.lastModifiedAt = request.getLastModifiedAt();
         this.imageUrl = request.getImageUrl();
         this.description = request.getDescription();
         this.place = new PlaceCreateRequest(request.getPlace());
-    }
-
-    public PictureCreateRequest toPictureCreateRequest() {
-        return new PictureCreateRequest(this.isThumbnail, this.createdAt, this.lastModifiedAt, this.description, this.place);
     }
 
     public Picture toEntity() {

@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.api.dto.picture;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
 import com.untilled.roadcapture.domain.picture.Picture;
 import lombok.AccessLevel;
@@ -26,7 +27,7 @@ public class PictureCreateRequest {
     private String description;
     @NotNull
     private PlaceCreateRequest place;
-
+    @JsonIgnore
     private String imageUrl;
 
     public PictureCreateRequest(boolean isThumbnail, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String description, PlaceCreateRequest place) {
@@ -50,6 +51,10 @@ public class PictureCreateRequest {
         this.imageUrl = request.getImageUrl();
         this.description = request.getDescription();
         this.place = new PlaceCreateRequest(request.getPlace());
+    }
+
+    public PictureUpdateRequest toPictureUpdateRequest() {
+        return new PictureUpdateRequest(null, this.isThumbnail, this.createdAt, this.lastModifiedAt, this.description, this.place.toPlaceUpdateRequest());
     }
 
     public Picture toEntity() {

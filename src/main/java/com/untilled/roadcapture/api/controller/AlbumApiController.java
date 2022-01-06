@@ -10,6 +10,7 @@ import com.untilled.roadcapture.api.exception.io.CFileConvertFailedException;
 import com.untilled.roadcapture.api.service.AlbumService;
 import com.untilled.roadcapture.api.service.cloud.FileUploadService;
 import com.untilled.roadcapture.domain.picture.Picture;
+import com.untilled.roadcapture.util.CUrlUtils;
 import com.untilled.roadcapture.util.validator.CustomCollectionValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,14 +64,11 @@ public class AlbumApiController {
 
         validateAlbumUpdateRequest(bindingResult, albumUpdateRequest);
 
-        //TODO: null id에 해당하는 키가 아님에도 수정됨. 물론 imageUrl은 null임.
-
         //썸네일이 유일한 지 확인
         checkThumbnailUnique(albumUpdateRequest.getPictures().stream()
                 .map(pictureUpdateRequest -> pictureUpdateRequest.toEntity()).collect(Collectors.toList()));
 
         //사진을 생성하기 위한 파일이 있는 지 확인
-//        checkPictureMultipartRequired(request.getImages(), albumUpdateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()));
         checkPictureMultipartRequired(request.getImages(), albumUpdateRequest.getPictures());
 
         //불일치하는 키가 있는 지 확인
@@ -88,6 +86,18 @@ public class AlbumApiController {
         updateRollbackable(albumId, uploadedFiles, albumUpdateRequest);
     }
 
+    @PutMapping("/albums/{albumId}/temp")
+    public void tempUpdate(@PathVariable Long albumId, @Validated @RequestBody TempAlbumUpdateRequest request, BindingResult bindingResult) throws BindException {
+
+        validateTempAlbumUpdateRequest(bindingResult, request);
+
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+
+        albumService.tempUpdate(albumId, request);
+    }
+
     @PostMapping("/albums")
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@ModelAttribute AlbumMultiPartRequest request, BindingResult bindingResult) throws IOException, BindException {
@@ -97,15 +107,15 @@ public class AlbumApiController {
 
         validateAlbumCreateRequest(bindingResult, albumCreateRequest);
 
-        //TODO: 파일 안 보내는 경우 확인
-
-        //불일치하는 키가 있는 지 확인
-        checkMultiPartKeyMismatch(request.getImages(), albumCreateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()));
-
         //썸네일이 유일한 지 확인
         checkThumbnailUnique(albumCreateRequest.getPictures().stream()
                 .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
                 .collect(Collectors.toList()));
+
+        //사진을 생성하기 위한 파일이 있는 지 확인
+        checkPictureMultipartRequired(request.getImages(), albumCreateRequest.getPictures().stream().map(picture -> picture.toPictureUpdateRequest()).collect(Collectors.toList()));
+        //불일치하는 키가 있는 지 확인
+        checkMultiPartKeyMismatch(request.getImages(), albumCreateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()));
 
         //이미지 업로드
         //만약 업로드 중 오류가 발생하면 기존에 업로드한 사진 모두 삭제
@@ -120,16 +130,16 @@ public class AlbumApiController {
 
     @PostMapping("/albums/temp")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@Validated @RequestBody AlbumCreateRequest request, BindingResult bindingResult) throws BindException {
+    public void tempCreate(@Validated @RequestBody TempAlbumCreateRequest request, BindingResult bindingResult) throws BindException {
 
-        validateAlbumCreateRequest(bindingResult, request);
+        validateTempAlbumCreateRequest(bindingResult, request);
 
         //썸네일이 유일한 지 확인
         checkThumbnailUnique(request.getPictures().stream()
                 .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
                 .collect(Collectors.toList()));
 
-        albumService.create(request);
+        albumService.tempCreate(request);
     }
 
     @DeleteMapping("/albums/{albumId}")
@@ -145,7 +155,7 @@ public class AlbumApiController {
             if(fileNamesToDelete.size() > 0) {
                 fileUploadService.deleteFiles(fileNamesToDelete);
             }
-        } catch (CUserOwnAlbumException | CPictureBelongException e) {
+        } catch (CBusinessException e) {
             fileUploadService.deleteFiles(uploadedFiles);
             throw e;
         }
@@ -165,7 +175,7 @@ public class AlbumApiController {
             //업로드 중 오류가 발생하면 기존에 업로드한 사진 모두 삭제
             String uploadedImageUrl = uploadRollbackable(images, picture.toEntity(), uploadedFiles);
             picture.updateImageUrl(uploadedImageUrl);
-            uploadedFiles.add(uploadedImageUrl);
+            uploadedFiles.add(CUrlUtils.extractFileNameFrom(uploadedImageUrl));
         } else {
             picture.imageUrlNotUpdatable();
         }
@@ -212,6 +222,32 @@ public class AlbumApiController {
     }
 
     private void validateAlbumCreateRequest(BindingResult bindingResult, AlbumCreateRequest albumCreateRequest) throws BindException {
+        validator.validate(albumCreateRequest.getPictures(), bindingResult);
+        albumCreateRequest.getPictures().stream()
+                .forEach(picture -> {
+                    validator.validate(picture.getPlace(), bindingResult);
+                    validator.validate(picture.getPlace().getAddress(), bindingResult);
+                });
+
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+    }
+
+    private void validateTempAlbumUpdateRequest(BindingResult bindingResult, TempAlbumUpdateRequest albumUpdateRequest) throws BindException {
+        validator.validate(albumUpdateRequest.getPictures(), bindingResult);
+        albumUpdateRequest.getPictures().stream()
+                .forEach(picture -> {
+                    validator.validate(picture.getPlace(), bindingResult);
+                    validator.validate(picture.getPlace().getAddress(), bindingResult);
+                });
+
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+    }
+
+    private void validateTempAlbumCreateRequest(BindingResult bindingResult, TempAlbumCreateRequest albumCreateRequest) throws BindException {
         validator.validate(albumCreateRequest.getPictures(), bindingResult);
         albumCreateRequest.getPictures().stream()
                 .forEach(picture -> {

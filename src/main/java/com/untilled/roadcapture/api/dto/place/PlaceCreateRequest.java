@@ -45,4 +45,8 @@ public class PlaceCreateRequest {
         this.longitude = request.getLongitude();
         this.address = request.getAddress();
     }
+
+    public PlaceUpdateRequest toPlaceUpdateRequest() {
+        return new PlaceUpdateRequest(this.name, this.createdAt, this.lastModifiedAt, this.latitude, this.longitude, this.address);
+    }
 }

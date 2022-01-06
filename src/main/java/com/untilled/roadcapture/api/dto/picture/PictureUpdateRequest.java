@@ -1,5 +1,6 @@
 package com.untilled.roadcapture.api.dto.picture;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
 import com.untilled.roadcapture.domain.picture.Picture;
 import lombok.AccessLevel;
@@ -27,7 +28,9 @@ public class PictureUpdateRequest {
     private String description;
     private PlaceUpdateRequest place;
 
+    @JsonIgnore
     private String imageUrl;
+    @JsonIgnore
     private boolean isImageUrlNotUpdatable = false;
 
     public PictureUpdateRequest(Long id, boolean isThumbnail, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String description, PlaceUpdateRequest place) {

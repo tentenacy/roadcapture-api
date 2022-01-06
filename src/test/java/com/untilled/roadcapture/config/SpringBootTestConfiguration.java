@@ -2,6 +2,7 @@ package com.untilled.roadcapture.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
+import com.untilled.roadcapture.api.dto.album.TempAlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
@@ -63,7 +64,7 @@ public class SpringBootTestConfiguration {
                 });
         IntStream.range(1, 6)
                 .forEach(i -> {
-                    albumService.create(Long.valueOf(i), new AlbumCreateRequest(
+                    albumService.create(Long.valueOf(i), new TempAlbumCreateRequest(
                             "볼거리가 가득한 국내 여행지 " + i,
                             "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                             Arrays.asList(
@@ -87,7 +88,7 @@ public class SpringBootTestConfiguration {
                                                             "15073"
                                                     )
                                             )
-                                    ).toPictureCreateRequest(),
+                                    ),
                                     new TempPictureCreateRequest(
                                             false,
                                             LocalDateTime.now(),
@@ -108,7 +109,7 @@ public class SpringBootTestConfiguration {
                                                             "336-813"
                                                     )
                                             )
-                                    ).toPictureCreateRequest())
+                                    ))
                     ));
                     IntStream.range(0, 5).forEach(j -> {
                         commentService.create(Long.valueOf(i), Long.valueOf(5 + i * 16 - 14), new CommentCreateRequest("후기 감사합니다."));

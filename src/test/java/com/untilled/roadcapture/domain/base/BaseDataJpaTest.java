@@ -1,6 +1,7 @@
 package com.untilled.roadcapture.domain.base;
 
 import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
+import com.untilled.roadcapture.api.dto.album.TempAlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
@@ -105,7 +106,7 @@ public class BaseDataJpaTest {
     }
 
     private Album createAlbum(int i, User createdUser) {
-        AlbumCreateRequest albumCreateRequest = new AlbumCreateRequest(
+        TempAlbumCreateRequest albumCreateRequest = new TempAlbumCreateRequest(
                 "볼거리가 가득한 국내 여행지 " + i,
                 "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                 Arrays.asList(
@@ -129,7 +130,7 @@ public class BaseDataJpaTest {
                                                 "336-813"
                                         )
                                 )
-                        ).toPictureCreateRequest(),
+                        ),
                         new TempPictureCreateRequest(
                                 false,
                                 LocalDateTime.now(),
@@ -150,13 +151,13 @@ public class BaseDataJpaTest {
                                                 "336-813"
                                         )
                                 )
-                        ).toPictureCreateRequest())
+                        ))
         );
         return Album.create(albumCreateRequest.getTitle(), albumCreateRequest.getDescription(), albumCreateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()), createdUser);
     }
 
     private Album createAnotherAlbum(int i, User createdUser) {
-        AlbumCreateRequest albumCreateRequest = new AlbumCreateRequest(
+        TempAlbumCreateRequest albumCreateRequest = new TempAlbumCreateRequest(
                 "먹거리가 가득한 국내 여행지 " + i,
                 "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                 Arrays.asList(
@@ -180,7 +181,7 @@ public class BaseDataJpaTest {
                                                 "336-813"
                                         )
                                 )
-                        ).toPictureCreateRequest(),
+                        ),
                         new TempPictureCreateRequest(
                                 false,
                                 LocalDateTime.now(),
@@ -201,7 +202,7 @@ public class BaseDataJpaTest {
                                                 "336-813"
                                         )
                                 )
-                        ).toPictureCreateRequest())
+                        ))
         );
         return Album.create(albumCreateRequest.getTitle(), albumCreateRequest.getDescription(), albumCreateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()), createdUser);
     }

@@ -3,6 +3,8 @@ package com.untilled.roadcapture.api.controller;
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
 import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.album.AlbumUpdateRequest;
+import com.untilled.roadcapture.api.dto.album.TempAlbumCreateRequest;
+import com.untilled.roadcapture.api.dto.album.TempAlbumUpdateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
@@ -47,7 +49,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
-            AlbumCreateRequest request = new AlbumCreateRequest(
+            TempAlbumCreateRequest request = new TempAlbumCreateRequest(
                     "볼거리가 가득한 국내 여행지",
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                     Arrays.asList(new TempPictureCreateRequest(
@@ -70,7 +72,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                                             "336-813"
                                     )
                             )
-                    ).toPictureCreateRequest())
+                    ))
             );
 
             //when
@@ -252,7 +254,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
         @DisplayName("성공")
         public void Success() throws Exception {
             //given
-            AlbumUpdateRequest request = new AlbumUpdateRequest(
+            TempAlbumUpdateRequest request = new TempAlbumUpdateRequest(
                     "볼거리가 가득한 국내 여행지!!!",
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                     Arrays.asList(new TempPictureUpdateRequest(
@@ -277,11 +279,11 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                                             "336-813"
                                     )
                             )
-                    ).toPictureUpdateRequest())
+                    ))
             );
 
             //when
-            ResultActions result = mockMvc.perform(put("/albums/{id}", 22L)
+            ResultActions result = mockMvc.perform(put("/albums/{id}/temp", 22L)
                     .content(mapper.writeValueAsString(request))
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
@@ -309,7 +311,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(delete("/albums/{id}", 6L)
+            ResultActions result = mockMvc.perform(delete("/albums/{id}", 22L)
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 

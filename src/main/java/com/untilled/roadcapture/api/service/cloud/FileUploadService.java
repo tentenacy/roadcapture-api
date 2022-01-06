@@ -36,7 +36,7 @@ public class FileUploadService {
         } catch (IOException e) {
             throw new CFileConvertFailedException();
         }
-        return Optional.ofNullable(s3Service.getFileUrl(fileName)).orElseThrow(CCloudCommunicationException::new);
+        return s3Service.getFileUrl(fileName);
     }
 
     public boolean doesFileExists(String fileName) {
