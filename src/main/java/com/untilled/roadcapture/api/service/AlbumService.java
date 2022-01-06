@@ -56,8 +56,11 @@ public class AlbumService {
         return albumRepository.getFollowingAlbums(cond, pageable, userId);
     }
 
-    public AlbumResponse getAlbum(Long albumId) {
-        return albumRepository.getAlbum(albumId).orElseThrow(CAlbumNotFoundException::new);
+    public AlbumResponse getAlbum(Long albumId, Long userId) {
+
+        getUserThrowable(userId);
+
+        return albumRepository.getAlbum(albumId, userId).orElseThrow(CAlbumNotFoundException::new);
     }
 
     public Page<UserAlbumsResponse> getUserAlbums(UserAlbumsCondition cond, Pageable pageable) {

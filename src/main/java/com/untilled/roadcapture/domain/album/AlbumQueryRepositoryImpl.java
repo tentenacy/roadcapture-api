@@ -14,11 +14,13 @@ import com.untilled.roadcapture.api.dto.album.*;
 import com.untilled.roadcapture.api.dto.picture.PictureResponse;
 import com.untilled.roadcapture.api.dto.picture.ThumbnailPictureResponse;
 import com.untilled.roadcapture.api.dto.place.PlaceResponse;
+import com.untilled.roadcapture.api.dto.user.AlbumUserResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.domain.follower.QFollower;
 import com.untilled.roadcapture.domain.like.QLike;
 import com.untilled.roadcapture.domain.picture.QPicture;
 import com.untilled.roadcapture.domain.user.QUser;
+import javassist.expr.Expr;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -32,6 +34,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static com.untilled.roadcapture.domain.album.QAlbum.*;
 import static com.untilled.roadcapture.domain.album.QAlbum.album;
 import static com.untilled.roadcapture.domain.comment.QComment.*;
 import static com.untilled.roadcapture.domain.follower.QFollower.*;
@@ -170,7 +173,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.viewCount,
                         like.countDistinct().intValue().as("likeCount"),
                         comment.countDistinct().intValue().as("commentCount"),
-                        like.user.isNotNull().as("doesLike")
+                        like.user.isNotNull().as("liked")
                 ))
                 .from(follower)
                 .join(follower.from, user).on(user.id.eq(userId))
@@ -196,27 +199,30 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Optional<AlbumResponse> getAlbum(Long albumId) {
+    public Optional<AlbumResponse> getAlbum(Long albumId, Long userId) {
+        QUser followingUser = new QUser("followingUser");
         AlbumResponse albumResponse = queryFactory
                 .select(Projections.constructor(AlbumResponse.class,
-                        QAlbum.album.id,
-                        QAlbum.album.createdAt,
-                        QAlbum.album.lastModifiedAt,
-                        QAlbum.album.title,
-                        QAlbum.album.description,
-                        Projections.constructor(UsersResponse.class,
+                        album.id,
+                        album.createdAt,
+                        album.lastModifiedAt,
+                        album.title,
+                        album.description,
+                        Projections.constructor(AlbumUserResponse.class,
                                 user.id,
                                 user.username,
-                                user.profileImageUrl),
-                        QAlbum.album.viewCount,
+                                user.profileImageUrl,
+                                follower.from.isNotNull().as("liked")),
+                        album.viewCount,
                         like.countDistinct().intValue().as("likeCount"),
-                        comment.countDistinct().intValue().as("commentCount")))
-                .from(QAlbum.album)
-                .join(QAlbum.album.user, user)
-                .leftJoin(QAlbum.album.likes, like)
-                .join(QAlbum.album.pictures, picture)
+                        comment.countDistinct().intValue().as("commentCount"),
+                        like.user.isNotNull().as("liked")))
+                .from(follower)
+                .rightJoin(follower.to, user).on(follower.from.id.eq(userId))
+                .leftJoin(user.albums, album).on(album.id.eq(albumId))
+                .leftJoin(album.likes, like).on(like.user.id.eq(userId))
+                .join(album.pictures, picture)
                 .leftJoin(picture.comments, comment)
-                .where(QAlbum.album.id.eq(albumId))
                 .fetchOne();
 
         if(!ObjectUtils.isEmpty(albumResponse.getId())) {

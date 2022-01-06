@@ -110,7 +110,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.content[1].commentCount").value(10L))
-                    .andExpect(jsonPath("$.content[1].doesLike").value(true))
+                    .andExpect(jsonPath("$.content[1].liked").value(true))
                     .andDo(document("앨범조회 - 성공", "앨범조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(albumsParams),
@@ -200,7 +200,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                             requestHeaders(jwtHeader),
                             pathParameters(albumPathParams),
                             responseFields(albumFields)
-                                    .andWithPrefix("user.", usersFields)
+                                    .andWithPrefix("user.", albumUserFields)
                                     .andWithPrefix("pictures.[].", pictureFields)
                                     .andWithPrefix("pictures.[].place.", placeFields)
                                     .andWithPrefix("pictures.[].place.address.", addressFields)));

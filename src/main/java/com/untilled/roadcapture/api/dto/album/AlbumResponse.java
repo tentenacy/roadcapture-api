@@ -2,6 +2,7 @@ package com.untilled.roadcapture.api.dto.album;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.untilled.roadcapture.api.dto.picture.PictureResponse;
+import com.untilled.roadcapture.api.dto.user.AlbumUserResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.domain.album.Album;
 import com.untilled.roadcapture.domain.picture.Picture;
@@ -23,13 +24,14 @@ public class AlbumResponse {
     private LocalDateTime lastModifiedAt;
     private String title;
     private String description;
-    private UsersResponse user;
+    private AlbumUserResponse user;
     private int viewCount;
     private int likeCount;
     private int commentCount;
+    private boolean liked;
     private List<PictureResponse> pictures;
 
-    public AlbumResponse(Long id, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String title, String description, UsersResponse user, int viewCount, int likeCount, int commentCount) {
+    public AlbumResponse(Long id, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String title, String description, AlbumUserResponse user, int viewCount, int likeCount, int commentCount, boolean liked) {
         this.id = id;
         this.createdAt = createdAt;
         this.lastModifiedAt = lastModifiedAt;
@@ -38,6 +40,7 @@ public class AlbumResponse {
         this.user = user;
         this.viewCount = viewCount;
         this.likeCount = likeCount;
+        this.liked = liked;
         this.commentCount = commentCount;
     }
 }

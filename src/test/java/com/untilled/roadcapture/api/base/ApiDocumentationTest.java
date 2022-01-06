@@ -152,6 +152,15 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("introduction").description("사용자 소개글입니다.").optional(),
     };
 
+    protected FieldDescriptor[] albumUserFields = new FieldDescriptor[]{
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("사용자 아이디입니다."),
+            fieldWithPath("username").type(JsonFieldType.STRING).description("사용자 이름입니다."),
+            fieldWithPath("profileImageUrl").type(JsonFieldType.STRING).description("사용자 프로필 사진입니다.").optional(),
+            fieldWithPath("introduction").type(JsonFieldType.STRING).description("사용자 소개글입니다.").optional(),
+            fieldWithPath("followed").type(JsonFieldType.BOOLEAN).description("팔로우 여부입니다.").optional(),
+    };
+
+
     protected FieldDescriptor[] userDetailFields = new FieldDescriptor[]{
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("사용자 아이디입니다."),
             fieldWithPath("email").type(JsonFieldType.STRING).description("사용자 이메일입니다."),
@@ -211,6 +220,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("user").type(JsonFieldType.OBJECT).description("앨범 등록자입니다."),
             fieldWithPath("likeCount").type(JsonFieldType.NUMBER).description("앨범 좋아요수입니다."),
             fieldWithPath("commentCount").type(JsonFieldType.NUMBER).description("앨범 댓글수입니다."),
+            fieldWithPath("liked").type(JsonFieldType.BOOLEAN).description("앨범 좋아요 여부입니다."),
             fieldWithPath("pictures").type(JsonFieldType.ARRAY).description("앨범 사진 리스트입니다."),
     };
 
@@ -225,7 +235,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("viewCount").type(JsonFieldType.NUMBER).description("앨범 조회수입니다."),
             fieldWithPath("likeCount").type(JsonFieldType.NUMBER).description("앨범 좋아요수입니다."),
             fieldWithPath("commentCount").type(JsonFieldType.NUMBER).description("앨범 댓글수입니다."),
-            fieldWithPath("doesLike").type(JsonFieldType.BOOLEAN).description("유저의 앨범 좋아요 여부입니다."),
+            fieldWithPath("liked").type(JsonFieldType.BOOLEAN).description("앨범 좋아요 여부입니다."),
     };
 
     protected FieldDescriptor[] userAlbumsFields = new FieldDescriptor[]{

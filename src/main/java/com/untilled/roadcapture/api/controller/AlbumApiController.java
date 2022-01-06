@@ -69,7 +69,10 @@ public class AlbumApiController {
 
     @GetMapping("/albums/{albumId}")
     public AlbumResponse album(@PathVariable Long albumId) {
-        return albumService.getAlbum(albumId);
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return albumService.getAlbum(albumId, user.getId());
     }
 
     @PutMapping("/albums/{albumId}")
