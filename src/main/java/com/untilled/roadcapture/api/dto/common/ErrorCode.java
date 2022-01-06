@@ -59,6 +59,8 @@ public enum ErrorCode {
     USERTOFOLLOW_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-016", "팔로우할 사용자가 존재하지 않습니다."),
     ALREADY_FOLLOW(HttpStatus.BAD_REQUEST.value(), "BIZ-017", "이미 팔로우를 했습니다."),
     FOLLOW_MYSELF_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-018", "자신은 팔로우할 수 없습니다."),
+    UNFOLLOW_MYSELF_ERROR(HttpStatus.BAD_REQUEST.value(), "BIZ-019", "자신은 언팔로우할 수 없습니다."),
+    FOLLOWER_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "BIZ-020", "사용자를 팔로우하지 않았습니다."),
             ;
 
     private final String code;

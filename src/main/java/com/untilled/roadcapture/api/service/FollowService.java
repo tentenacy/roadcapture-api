@@ -1,6 +1,7 @@
 package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
+import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException;
 import com.untilled.roadcapture.api.exception.business.CInvalidValueException;
 import com.untilled.roadcapture.api.exception.business.CUserNotFoundException;
 import com.untilled.roadcapture.api.exception.business.CUserToFollowNotFoundException;
@@ -25,20 +26,43 @@ public class FollowService {
     private final FollowerRepository followerRepository;
 
     @Transactional
-    public void follow(Long toUserId) {
+    public void create(Long toUserId) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User foundUser = getUserIfExists(user.getId());
-        User userToFollow = getUserToFollowIfExists(toUserId);
+        User foundUserToFollow = getUserToFollowIfExists(toUserId);
 
-        checkFollowMyselfException(foundUser, userToFollow);
+        checkFollowMyselfException(foundUser, foundUserToFollow);
 
-        followerRepository.save(Follower.create(foundUser, userToFollow));
+        followerRepository.save(Follower.create(foundUser, foundUserToFollow));
+    }
+
+    @Transactional
+    public void delete(Long toUserId) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User foundUser = getUserIfExists(user.getId());
+        User foundUserToUnFollow = getUserToFollowIfExists(toUserId);
+
+        checkUnFollowMyselfException(foundUser, foundUserToUnFollow);
+
+        followerRepository.delete(getFollowerIfExists(foundUser, foundUserToUnFollow));
+    }
+
+    private Follower getFollowerIfExists(User foundUser, User foundUserToUnFollow) {
+        return followerRepository.findByFromAndTo(foundUser, foundUserToUnFollow)
+                .orElseThrow(() -> new CEntityNotFoundException(ErrorCode.FOLLOWER_NOT_FOUND));
     }
 
     private void checkFollowMyselfException(User foundUser, User userToFollow) {
         if(foundUser.equals(userToFollow)) {
             throw new CInvalidValueException(ErrorCode.FOLLOW_MYSELF_ERROR);
+        }
+    }
+
+    private void checkUnFollowMyselfException(User foundUser, User userToFollow) {
+        if(foundUser.equals(userToFollow)) {
+            throw new CInvalidValueException(ErrorCode.UNFOLLOW_MYSELF_ERROR);
         }
     }
 

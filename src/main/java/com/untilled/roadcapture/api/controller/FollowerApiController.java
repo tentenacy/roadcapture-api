@@ -5,13 +5,7 @@ import com.untilled.roadcapture.api.exception.business.CInvalidValueException;
 import com.untilled.roadcapture.api.service.FollowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.SQLIntegrityConstraintViolationException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/followers")
@@ -23,9 +17,14 @@ public class FollowerApiController {
     @PostMapping("/{toUserId}")
     public void create(@PathVariable Long toUserId) {
         try {
-            followService.follow(toUserId);
+            followService.create(toUserId);
         } catch (DataIntegrityViolationException e) {
             throw new CInvalidValueException(ErrorCode.ALREADY_FOLLOW);
         }
+    }
+
+    @DeleteMapping("/{toUserId}")
+    public void delete(@PathVariable Long toUserId) {
+        followService.delete(toUserId);
     }
 }
