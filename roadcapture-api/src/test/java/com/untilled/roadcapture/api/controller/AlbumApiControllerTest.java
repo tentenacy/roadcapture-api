@@ -240,14 +240,14 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(get("/users/albums")
-                    .queryParam("placeCond.region1DepthName", "경기")
+                    .queryParam("placeCond.region1DepthName", "경기도")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.content.length()").value(1))
-                    .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region1DepthName").value("경기"))
+                    .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region1DepthName").value("경기도"))
                     .andDo(document("유저앨범조회 - 시도명으로 검색 성공", "유저앨범조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams),
@@ -265,14 +265,14 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(get("/users/albums")
-                    .queryParam("placeCond.region2DepthName", "시흥시")
+                    .queryParam("placeCond.region2DepthName", "김포시")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.content.length()").value(1))
-                    .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region2DepthName").value("시흥시"))
+                    .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region2DepthName").value("김포시"))
                     .andDo(document("유저앨범조회 - 시군구명으로 검색 성공", "유저앨범조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams),
@@ -290,13 +290,13 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
 
             //when
             ResultActions result = mockMvc.perform(get("/users/albums")
-                    .queryParam("placeCond.region3DepthName", "염치읍")
+                    .queryParam("placeCond.region3DepthName", "양촌읍")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.content.length()").value(0))
+                    .andExpect(jsonPath("$.content.length()").value(1))
                     .andDo(document("유저앨범조회 - 읍면동명으로 검색 성공", "유저앨범조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams)));

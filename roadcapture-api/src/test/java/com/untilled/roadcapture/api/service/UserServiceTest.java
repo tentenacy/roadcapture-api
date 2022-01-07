@@ -15,9 +15,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserServiceTest extends BaseSpringBootTest {
 
-    @Nested
+    /*@Nested
     @DisplayName("삭제")
     class Delete {
 
-    }
+    }*/
 }

@@ -41,8 +41,8 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.content[0].username").value("user1"))
-                    .andExpect(jsonPath("$.content[1].username").value("user2"))
+                    .andExpect(jsonPath("$.content[0].username").value("유저1"))
+                    .andExpect(jsonPath("$.content[1].username").value("유저2"))
                     .andDo(document("회원조회 - 성공", "회원조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(usersParams),
@@ -56,13 +56,13 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //when
             ResultActions result = mockMvc.perform(get("/users")
                     .queryParam("sort", "createdAt,desc")
-                    .queryParam("username", "user2")
+                    .queryParam("username", "유저2")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.content[0].username").value("user2"))
+                    .andExpect(jsonPath("$.content[0].username").value("유저2"))
                     .andDo(document("회원조회 - 유저 이름으로 검색 성공", "회원조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(usersParams),
@@ -85,7 +85,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.username").value("user2"))
+                    .andExpect(jsonPath("$.username").value("유저2"))
                     .andDo(document("회원단건조회 - 성공", "회원단건조회",
                             requestHeaders(jwtHeader),
                             pathParameters(userPathParams),
@@ -123,7 +123,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.username").value("user2"))
+                    .andExpect(jsonPath("$.username").value("유저2"))
                     .andDo(document("회원상세조회 - 성공", "회원상세조회",
                             requestHeaders(jwtHeader),
                             responseFields(userDetailFields).andWithPrefix("address.", addressFields)));

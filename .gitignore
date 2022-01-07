@@ -37,14 +37,14 @@ out/
 .vscode/
 
 application.properties
-application.yaml
-application-local.yaml
-application-dev.yaml
-application-test.yaml
-application-jwt.yaml
-application-credentials.yaml
-application-social.yaml
-application-cloud.yaml
-application-cloudmock.yaml
+application.yml
+application-real1.yml
+application-real2.yml
+application-local.yml
+application-dev.yml
+application-test.yml
+application-jwt.yml
+application-social.yml
+application-cloud.yml
 
 images/

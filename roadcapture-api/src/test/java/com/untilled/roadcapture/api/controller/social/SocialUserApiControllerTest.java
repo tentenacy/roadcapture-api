@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class SocialUserApiControllerTest extends ApiDocumentationTest {
 
-    @Nested
+    /*@Nested
     @DisplayName("카카오회원가입")
     class SignupByKakao {
 
@@ -526,5 +526,5 @@ public class SocialUserApiControllerTest extends ApiDocumentationTest {
                             requestFields(socialRequestFields),
                             responseFields(badFields)));
         }
-    }
+    }*/
 }

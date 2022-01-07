@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.*;
 
 class UserQueryRepositoryImplTest extends BaseDataJpaTest {
 
-    @Test
+    /*@Test
     public void search() throws Exception {
         //given
         String textToSearch = "use";
@@ -25,5 +25,5 @@ class UserQueryRepositoryImplTest extends BaseDataJpaTest {
         usersPage.forEach(usersResponse -> {
             assertThat(usersResponse.getUsername()).contains(textToSearch);
         });
-    }
+    }*/
 }
