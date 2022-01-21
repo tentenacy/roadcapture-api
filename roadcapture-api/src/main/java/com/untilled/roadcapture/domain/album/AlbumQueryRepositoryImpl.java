@@ -51,9 +51,9 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<MyStudioAlbumsResponse> getUserAlbums(MyStudioAlbumsCondition cond, Pageable pageable, Long userId) {
-        JPAQuery<MyStudioAlbumsResponse> query = queryFactory
-                .select(Projections.constructor(MyStudioAlbumsResponse.class,
+    public Page<StudioAlbumsResponse> getStudioAlbums(MyStudioAlbumsCondition cond, Pageable pageable, Long userId) {
+        JPAQuery<StudioAlbumsResponse> query = queryFactory
+                .select(Projections.constructor(StudioAlbumsResponse.class,
                         album.id,
                         album.createdAt,
                         album.lastModifiedAt,
@@ -88,9 +88,9 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                     pathBuilder.get(o.getProperty())));
         }
 
-        QueryResults<MyStudioAlbumsResponse> result = query.fetchResults();
+        QueryResults<StudioAlbumsResponse> result = query.fetchResults();
 
-        List<MyStudioAlbumsResponse> results = result.getResults();
+        List<StudioAlbumsResponse> results = result.getResults();
 
         //카운트 쿼리 필요에 따라 날라감
         return new PageImpl(result.getResults(), pageable, result.getTotal());

@@ -187,10 +187,6 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("address").type(JsonFieldType.OBJECT).description("사용자 주소입니다.").optional(),
     };
 
-    protected ParameterDescriptor[] userPathParams = new ParameterDescriptor[] {
-            parameterWithName("id").description("조회할 사용자 아이디입니다."),
-    };
-
     //ALBUM_DESC
     protected ParameterDescriptor[] albumsParams = new ParameterDescriptor[] {
             parameterWithName("title").description("조회할 앨범의 제목입니다.").optional(),
@@ -207,11 +203,6 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             parameterWithName("placeCond.region1DepthName").description("시도명입니다.").optional(),
             parameterWithName("placeCond.region2DepthName").description("시군구명입니다.").optional(),
             parameterWithName("placeCond.region3DepthName").description("읍면동명입니다.").optional(),
-    };
-
-
-    protected ParameterDescriptor[] albumPathParams = new ParameterDescriptor[] {
-            parameterWithName("id").description("앨범 아이디입니다."),
     };
 
     protected FieldDescriptor[] albumCreateRequestFields = new FieldDescriptor[] {
@@ -254,7 +245,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("liked").type(JsonFieldType.BOOLEAN).description("앨범 좋아요 여부입니다."),
     };
 
-    protected FieldDescriptor[] myStudioAlbumsFields = new FieldDescriptor[] {
+    protected FieldDescriptor[] studioAlbumsFields = new FieldDescriptor[] {
             fieldWithPath("id").description("앨범 아이디입니다."),
             fieldWithPath("createdAt").type(JsonFieldType.STRING).description("앨범 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("앨범 수정 시각입니다."),
@@ -350,19 +341,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("user").type(JsonFieldType.OBJECT).description("댓글 작성자입니다."),
     };
 
-    protected ParameterDescriptor[] albumCommentsPathParams = new ParameterDescriptor[] {
-            parameterWithName("albumId").description("앨범 아이디입니다."),
-    };
-
-    protected ParameterDescriptor[] pictureCommentsPathParams = new ParameterDescriptor[] {
-            parameterWithName("pictureId").description("사진 아이디입니다."),
-    };
-
     //LIKE_DESC
-    protected ParameterDescriptor[] likePathParams = new ParameterDescriptor[] {
-            parameterWithName("userId").description("유저 아이디입니다."),
-            parameterWithName("albumId").description("앨범 아이디입니다."),
-    };
 
     //FOLLOWER_DESC
     protected ParameterDescriptor[] followersParams = new ParameterDescriptor[] {

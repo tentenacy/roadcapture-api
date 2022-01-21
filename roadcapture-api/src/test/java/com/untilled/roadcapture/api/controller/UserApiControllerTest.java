@@ -79,7 +79,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         @DisplayName("성공")
         void Success() throws Exception {
             //when
-            ResultActions result = mockMvc.perform(get("/users/{id}", 2L)
+            ResultActions result = mockMvc.perform(get("/users/{userId}", 2L)
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
@@ -88,7 +88,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
                     .andExpect(jsonPath("$.username").value("유저2"))
                     .andDo(document("스튜디오회원조회 - 성공", "스튜디오회원조회",
                             requestHeaders(jwtHeader),
-                            pathParameters(userPathParams),
                             responseFields(studioUserFields)));
         }
     }

@@ -176,7 +176,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(get("/albums/{id}", 6L)
+            ResultActions result = mockMvc.perform(get("/albums/{albumId}", 6L)
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
@@ -188,7 +188,6 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                     .andExpect(jsonPath("$.commentCount").value(10L))
                     .andDo(document("앨범단건조회 - 성공", "앨범단건조회",
                             requestHeaders(jwtHeader),
-                            pathParameters(albumPathParams),
                             responseFields(albumFields)
                                     .andWithPrefix("user.", albumUserFields)
                                     .andWithPrefix("pictures.[].", pictureFields)
@@ -198,8 +197,104 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
     }
 
     @Nested
+    @DisplayName("스튜디오앨범조회")
+    class StudioAlbums {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{userId}/albums", 2L)
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andDo(document("스튜디오앨범조회 - 성공", "스튜디오앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(userAlbumsParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", studioAlbumsFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
+        }
+
+        @Test
+        @DisplayName("시도명으로 검색 성공")
+        public void SearchByRegion1DepthName_Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{userId}/albums", 2L)
+                    .queryParam("placeCond.region1DepthName", "경기도")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(1))
+                    .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region1DepthName").value("경기도"))
+                    .andDo(document("스튜디오앨범조회 - 시도명으로 검색 성공", "스튜디오앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(userAlbumsParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", studioAlbumsFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
+        }
+
+        @Test
+        @DisplayName("시군구명으로 검색 성공")
+        public void SearchByRegion2DepthName_Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{userId}/albums", 2L)
+                    .queryParam("placeCond.region2DepthName", "김포시")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(1))
+                    .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region2DepthName").value("김포시"))
+                    .andDo(document("스튜디오앨범조회 - 시군구명으로 검색 성공", "스튜디오앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(userAlbumsParams),
+                            responseFields(pageFields)
+                                    .andWithPrefix("content.[].", studioAlbumsFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
+                                    .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
+        }
+
+        @Test
+        @DisplayName("읍면동명으로 검색 성공")
+        public void SearchByRegion3DepthName_Success() throws Exception {
+            //given
+
+            //when
+            ResultActions result = mockMvc.perform(get("/users/{userId}/albums", 2L)
+                    .queryParam("placeCond.region3DepthName", "양촌읍")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(1))
+                    .andDo(document("스튜디오앨범조회 - 읍면동명으로 검색 성공", "스튜디오앨범조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams).and(userAlbumsParams)));
+        }
+    }
+
+    @Nested
     @DisplayName("마이스튜디오앨범조회")
-    class UserAlbums {
+    class MyStudioAlbums {
 
         @Test
         @DisplayName("성공")
@@ -217,7 +312,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams),
                             responseFields(pageFields)
-                                    .andWithPrefix("content.[].", myStudioAlbumsFields)
+                                    .andWithPrefix("content.[].", studioAlbumsFields)
                                     .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
@@ -238,11 +333,11 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.content.length()").value(1))
                     .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region1DepthName").value("경기도"))
-                    .andDo(document("유저앨범조회 - 시도명으로 검색 성공", "유저앨범조회",
+                    .andDo(document("마이스튜디오앨범조회 - 시도명으로 검색 성공", "마이스튜디오앨범조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams),
                             responseFields(pageFields)
-                                    .andWithPrefix("content.[].", myStudioAlbumsFields)
+                                    .andWithPrefix("content.[].", studioAlbumsFields)
                                     .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
@@ -263,11 +358,11 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.content.length()").value(1))
                     .andExpect(jsonPath("$.content[0].thumbnailPicture.place.address.region2DepthName").value("김포시"))
-                    .andDo(document("유저앨범조회 - 시군구명으로 검색 성공", "유저앨범조회",
+                    .andDo(document("마이스튜디오앨범조회 - 시군구명으로 검색 성공", "마이스튜디오앨범조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams),
                             responseFields(pageFields)
-                                    .andWithPrefix("content.[].", myStudioAlbumsFields)
+                                    .andWithPrefix("content.[].", studioAlbumsFields)
                                     .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
@@ -287,7 +382,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.content.length()").value(1))
-                    .andDo(document("유저앨범조회 - 읍면동명으로 검색 성공", "유저앨범조회",
+                    .andDo(document("마이스튜디오앨범조회 - 읍면동명으로 검색 성공", "마이스튜디오앨범조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams)));
         }
@@ -330,7 +425,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             );
 
             //when
-            ResultActions result = mockMvc.perform(put("/albums/{id}/temp", 22L)
+            ResultActions result = mockMvc.perform(put("/albums/{albumId}/temp", 22L)
                     .content(mapper.writeValueAsString(request))
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
@@ -340,7 +435,6 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                     .andExpect(status().isOk())
                     .andDo(document("앨범수정 - 성공", "앨범수정",
                             requestHeaders(jwtHeader),
-                            pathParameters(albumPathParams),
                             requestFields(albumUpdateRequestFields)
                                     .andWithPrefix("pictures.[].", pictureUpdateRequestFields)
                                     .andWithPrefix("pictures.[].place.", placeUpdateRequestFields)
@@ -358,15 +452,14 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(delete("/albums/{id}", 22L)
+            ResultActions result = mockMvc.perform(delete("/albums/{albumId}", 22L)
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isNoContent())
                     .andDo(document("앨범삭제 - 성공", "앨범삭제",
-                            requestHeaders(jwtHeader),
-                            pathParameters(albumPathParams)));
+                            requestHeaders(jwtHeader)));
 
         }
     }

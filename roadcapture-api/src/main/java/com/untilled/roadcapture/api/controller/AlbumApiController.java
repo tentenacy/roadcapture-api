@@ -46,8 +46,13 @@ public class AlbumApiController {
     private final ObjectMapper mapper;
 
     @GetMapping("/users/me/albums")
-    public Page<MyStudioAlbumsResponse> myStudioAlbums(@Validated MyStudioAlbumsCondition cond, Pageable pageable) {
+    public Page<StudioAlbumsResponse> myStudioAlbums(@Validated MyStudioAlbumsCondition cond, Pageable pageable) {
         return albumService.getMyStudioAlbums(cond, pageable);
+    }
+
+    @GetMapping("/users/{userId}/albums")
+    public Page<StudioAlbumsResponse> studioAlbums(@PathVariable Long userId, @Validated MyStudioAlbumsCondition cond, Pageable pageable) {
+        return albumService.getStudioAlbums(userId, cond, pageable);
     }
 
     @GetMapping("/albums")
