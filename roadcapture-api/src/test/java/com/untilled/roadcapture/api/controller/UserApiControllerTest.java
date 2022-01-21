@@ -73,7 +73,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
     @Nested
     @DisplayName("스튜디오회원조회")
-    class User {
+    class StudioUser {
 
         @Test
         @DisplayName("성공")
@@ -91,21 +91,26 @@ class UserApiControllerTest extends ApiDocumentationTest {
                             pathParameters(userPathParams),
                             responseFields(studioUserFields)));
         }
+    }
+
+    @Nested
+    @DisplayName("마이스튜디오회원조회")
+    class MyStudioUser {
 
         @Test
-        @DisplayName("스튜디오회원 존재하지 않으면 실패")
-        void UserNotFound_Fail() throws Exception {
+        @DisplayName("성공")
+        void Success() throws Exception {
             //when
-            ResultActions result = mockMvc.perform(get("/users/{id}", 0L)
+            ResultActions result = mockMvc.perform(get("/users/me")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
-            result.andExpect(status().isBadRequest())
-                    .andDo(document("스튜디오회원조회 - 회원 존재하지 않으면 실패", "스튜디오회원조회",
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.username").value("유저2"))
+                    .andDo(document("마이스튜디오회원조회 - 성공", "마이스튜디오회원조회",
                             requestHeaders(jwtHeader),
-                            pathParameters(userPathParams),
-                            responseFields(badFields)));
+                            responseFields(myStudioUserFields)));
         }
     }
 

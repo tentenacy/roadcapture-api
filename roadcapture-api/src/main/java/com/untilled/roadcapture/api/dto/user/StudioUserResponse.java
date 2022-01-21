@@ -17,4 +17,16 @@ public class StudioUserResponse {
     private int followerCount;
     private int followingCount;
     private boolean followed;
+
+    public MyStudioUserResponse toMyStudioUserResponse() {
+        return new MyStudioUserResponse(
+                this.id,
+                this.username,
+                this.profileImageUrl,
+                this.backgroundImageUrl,
+                this.introduction,
+                this.followerCount,
+                this.followingCount
+        );
+    }
 }

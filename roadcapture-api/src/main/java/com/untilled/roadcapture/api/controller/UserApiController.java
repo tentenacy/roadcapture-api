@@ -39,6 +39,11 @@ public class UserApiController {
         return userService.getStudioUser(userId);
     }
 
+    @GetMapping("/me")
+    public MyStudioUserResponse myStudioUserResponse() {
+        return userService.getMyStudioUser();
+    }
+
     @GetMapping("/details")
     public UserDetailResponse userDetail() {
         return userService.getUserDetail();

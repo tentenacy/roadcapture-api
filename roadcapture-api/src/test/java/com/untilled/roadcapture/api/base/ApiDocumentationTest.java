@@ -157,6 +157,17 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("followed").type(JsonFieldType.BOOLEAN).description("스튜디오 사용자 팔로우 유무입니다.").optional(),
     };
 
+    protected FieldDescriptor[] myStudioUserFields = new FieldDescriptor[] {
+            fieldWithPath("id").description("마이스튜디오 사용자 아이디입니다."),
+            fieldWithPath("username").description("마이스튜디오 사용자 이름입니다."),
+            fieldWithPath("profileImageUrl").description("마이스튜디오 사용자 프로필 사진입니다.").optional(),
+            fieldWithPath("backgroundImageUrl").description("마이스튜디오 사용자 배경 사진입니다.").optional(),
+            fieldWithPath("introduction").description("마이스튜디오 사용자 소개글입니다.").optional(),
+            fieldWithPath("followerCount").type(JsonFieldType.NUMBER).description("마이스튜디오 사용자 팔로워 수입니다.").optional(),
+            fieldWithPath("followingCount").type(JsonFieldType.NUMBER).description("마이스튜디오 사용자 팔로잉 수입니다.").optional(),
+    };
+
+
     protected FieldDescriptor[] albumUserFields = new FieldDescriptor[] {
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("사용자 아이디입니다."),
             fieldWithPath("username").type(JsonFieldType.STRING).description("사용자 이름입니다."),

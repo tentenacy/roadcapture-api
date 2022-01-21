@@ -128,6 +128,11 @@ public class UserService {
         return userRepository.studioUser(foundUser.getId(), studioUserId).orElseThrow(CUserNotFoundException::new);
     }
 
+    public MyStudioUserResponse getMyStudioUser() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return getStudioUser(user.getId()).toMyStudioUserResponse();
+    }
+
     public UserDetailResponse getUserDetail() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User foundUser = getUserThrowable(user.getId());
