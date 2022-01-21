@@ -10,5 +10,5 @@ public interface AlbumQueryRepository {
     Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable, Long userId);
     Page<AlbumsResponse> getFollowingAlbums(FollowingAlbumsCondition cond, Pageable pageable, Long userId);
     Optional<AlbumResponse> getAlbum(Long albumId, Long userId);
-    Page<UserAlbumsResponse> getUserAlbums(UserAlbumsCondition cond, Pageable pageable, Long userId);
+    Page<MyStudioAlbumsResponse> getUserAlbums(MyStudioAlbumsCondition cond, Pageable pageable, Long userId);
 }

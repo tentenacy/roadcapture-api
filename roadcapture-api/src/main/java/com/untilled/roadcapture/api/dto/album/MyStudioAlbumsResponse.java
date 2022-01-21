@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-public class UserAlbumsResponse {
+public class MyStudioAlbumsResponse {
 
     private Long id;
     private LocalDateTime createdAt;

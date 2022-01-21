@@ -16,11 +16,8 @@ import com.untilled.roadcapture.api.dto.picture.ThumbnailPictureResponse;
 import com.untilled.roadcapture.api.dto.place.PlaceResponse;
 import com.untilled.roadcapture.api.dto.user.AlbumUserResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
-import com.untilled.roadcapture.domain.follower.QFollower;
-import com.untilled.roadcapture.domain.like.QLike;
 import com.untilled.roadcapture.domain.picture.QPicture;
 import com.untilled.roadcapture.domain.user.QUser;
-import javassist.expr.Expr;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -34,7 +31,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.untilled.roadcapture.domain.album.QAlbum.*;
 import static com.untilled.roadcapture.domain.album.QAlbum.album;
 import static com.untilled.roadcapture.domain.comment.QComment.*;
 import static com.untilled.roadcapture.domain.follower.QFollower.*;
@@ -55,9 +51,9 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<UserAlbumsResponse> getUserAlbums(UserAlbumsCondition cond, Pageable pageable, Long userId) {
-        JPAQuery<UserAlbumsResponse> query = queryFactory
-                .select(Projections.constructor(UserAlbumsResponse.class,
+    public Page<MyStudioAlbumsResponse> getUserAlbums(MyStudioAlbumsCondition cond, Pageable pageable, Long userId) {
+        JPAQuery<MyStudioAlbumsResponse> query = queryFactory
+                .select(Projections.constructor(MyStudioAlbumsResponse.class,
                         album.id,
                         album.createdAt,
                         album.lastModifiedAt,
@@ -92,9 +88,9 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                     pathBuilder.get(o.getProperty())));
         }
 
-        QueryResults<UserAlbumsResponse> result = query.fetchResults();
+        QueryResults<MyStudioAlbumsResponse> result = query.fetchResults();
 
-        List<UserAlbumsResponse> results = result.getResults();
+        List<MyStudioAlbumsResponse> results = result.getResults();
 
         //카운트 쿼리 필요에 따라 날라감
         return new PageImpl(result.getResults(), pageable, result.getTotal());

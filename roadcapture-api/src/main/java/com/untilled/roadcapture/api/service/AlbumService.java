@@ -63,7 +63,7 @@ public class AlbumService {
         return albumRepository.getAlbum(albumId, userId).orElseThrow(CAlbumNotFoundException::new);
     }
 
-    public Page<UserAlbumsResponse> getUserAlbums(UserAlbumsCondition cond, Pageable pageable) {
+    public Page<MyStudioAlbumsResponse> getMyStudioAlbums(MyStudioAlbumsCondition cond, Pageable pageable) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

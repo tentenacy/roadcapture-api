@@ -254,7 +254,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("liked").type(JsonFieldType.BOOLEAN).description("앨범 좋아요 여부입니다."),
     };
 
-    protected FieldDescriptor[] userAlbumsFields = new FieldDescriptor[] {
+    protected FieldDescriptor[] myStudioAlbumsFields = new FieldDescriptor[] {
             fieldWithPath("id").description("앨범 아이디입니다."),
             fieldWithPath("createdAt").type(JsonFieldType.STRING).description("앨범 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("앨범 수정 시각입니다."),

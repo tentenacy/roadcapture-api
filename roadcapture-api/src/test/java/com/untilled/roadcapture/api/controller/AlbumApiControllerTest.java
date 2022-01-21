@@ -198,7 +198,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
     }
 
     @Nested
-    @DisplayName("유저앨범조회")
+    @DisplayName("마이스튜디오앨범조회")
     class UserAlbums {
 
         @Test
@@ -207,17 +207,17 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(get("/users/albums")
+            ResultActions result = mockMvc.perform(get("/users/me/albums")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
 
             //then
             result.andExpect(status().isOk())
-                    .andDo(document("유저앨범조회 - 성공", "유저앨범조회",
+                    .andDo(document("마이스튜디오앨범조회 - 성공", "마이스튜디오앨범조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams),
                             responseFields(pageFields)
-                                    .andWithPrefix("content.[].", userAlbumsFields)
+                                    .andWithPrefix("content.[].", myStudioAlbumsFields)
                                     .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
@@ -229,7 +229,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(get("/users/albums")
+            ResultActions result = mockMvc.perform(get("/users/me/albums")
                     .queryParam("placeCond.region1DepthName", "경기도")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
@@ -242,7 +242,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams),
                             responseFields(pageFields)
-                                    .andWithPrefix("content.[].", userAlbumsFields)
+                                    .andWithPrefix("content.[].", myStudioAlbumsFields)
                                     .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
@@ -254,7 +254,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(get("/users/albums")
+            ResultActions result = mockMvc.perform(get("/users/me/albums")
                     .queryParam("placeCond.region2DepthName", "김포시")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));
@@ -267,7 +267,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(userAlbumsParams),
                             responseFields(pageFields)
-                                    .andWithPrefix("content.[].", userAlbumsFields)
+                                    .andWithPrefix("content.[].", myStudioAlbumsFields)
                                     .andWithPrefix("content.[].thumbnailPicture.", thumbnailPictureFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.", placeFields)
                                     .andWithPrefix("content.[].thumbnailPicture.place.address.", addressFields)));
@@ -279,7 +279,7 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             //given
 
             //when
-            ResultActions result = mockMvc.perform(get("/users/albums")
+            ResultActions result = mockMvc.perform(get("/users/me/albums")
                     .queryParam("placeCond.region3DepthName", "양촌읍")
                     .header("X-AUTH-TOKEN", jwtAccessToken)
                     .contentType(MediaType.APPLICATION_JSON));

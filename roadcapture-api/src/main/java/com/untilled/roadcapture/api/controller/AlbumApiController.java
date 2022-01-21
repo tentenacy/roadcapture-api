@@ -45,11 +45,10 @@ public class AlbumApiController {
     private final FileUploadService fileUploadService;
     private final ObjectMapper mapper;
 
-    @GetMapping("/users/albums")
-    public Page<UserAlbumsResponse> userAlbums(@Validated UserAlbumsCondition cond, Pageable pageable) {
-        return albumService.getUserAlbums(cond, pageable);
+    @GetMapping("/users/me/albums")
+    public Page<MyStudioAlbumsResponse> myStudioAlbums(@Validated MyStudioAlbumsCondition cond, Pageable pageable) {
+        return albumService.getMyStudioAlbums(cond, pageable);
     }
-
 
     @GetMapping("/albums")
     public Page<AlbumsResponse> albums(@Validated AlbumsCondition cond, Pageable pageable) {
