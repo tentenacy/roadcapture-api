@@ -103,12 +103,12 @@ public class UserService {
     @Transactional
     public void update(UserUpdateRequest userUpdateRequest) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        getUserThrowable(user.getId()).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
+        getUserThrowable(user.getId()).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getBackgroundImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
     }
 
     @Transactional
     public void update(Long userId, UserUpdateRequest userUpdateRequest) {
-        getUserThrowable(userId).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
+        getUserThrowable(userId).update(userUpdateRequest.getUsername(), userUpdateRequest.getProfileImageUrl(), userUpdateRequest.getBackgroundImageUrl(), userUpdateRequest.getIntroduction(), userUpdateRequest.getAddress());
     }
 
     @Transactional
@@ -122,12 +122,16 @@ public class UserService {
         return userRepository.search(pageable, cond);
     }
 
-    public UserResponse getUser(Long userId) {
-        return new UserResponse(getUserThrowable(userId));
+    public StudioUserResponse getStudioUser(Long studioUserId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User foundUser = getUserThrowable(user.getId());
+        return userRepository.studioUser(foundUser.getId(), studioUserId).orElseThrow(CUserNotFoundException::new);
     }
 
     public UserDetailResponse getUserDetail() {
-        return new UserDetailResponse((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User foundUser = getUserThrowable(user.getId());
+        return new UserDetailResponse(foundUser);
     }
 
     private User getUserThrowable(Long userId) {

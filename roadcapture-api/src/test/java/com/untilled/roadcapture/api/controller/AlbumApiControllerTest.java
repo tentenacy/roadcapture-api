@@ -1,28 +1,18 @@
 package com.untilled.roadcapture.api.controller;
 
 import com.untilled.roadcapture.api.base.ApiDocumentationTest;
-import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
-import com.untilled.roadcapture.api.dto.album.AlbumUpdateRequest;
 import com.untilled.roadcapture.api.dto.album.TempAlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.album.TempAlbumUpdateRequest;
-import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
-import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.TempPictureUpdateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceUpdateRequest;
-import com.untilled.roadcapture.config.SpringBootTestConfiguration;
 import com.untilled.roadcapture.domain.address.Address;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

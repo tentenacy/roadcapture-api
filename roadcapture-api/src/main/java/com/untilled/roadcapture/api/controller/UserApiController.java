@@ -35,8 +35,8 @@ public class UserApiController {
     }
 
     @GetMapping("/{userId}")
-    public UserResponse user(@PathVariable final Long userId) {
-        return userService.getUser(userId);
+    public StudioUserResponse studioUser(@PathVariable final Long userId) {
+        return userService.getStudioUser(userId);
     }
 
     @GetMapping("/details")

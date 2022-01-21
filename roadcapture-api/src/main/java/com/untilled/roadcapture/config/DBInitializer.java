@@ -21,6 +21,7 @@ import com.untilled.roadcapture.util.MultiValueMapConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,6 +37,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+@Profile({"local"})
 @Slf4j
 //@Component
 @RequiredArgsConstructor
@@ -59,6 +61,7 @@ public class DBInitializer {
                     userService.update(Long.valueOf(i), new UserUpdateRequest(
                             null,
                             "https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png",
+                            "https://usercontents-d.styleshare.io/images/46615561/1280x-",
                             "안녕하세요. 저는 user" + i + "입니다.",
                             new Address("경기 시흥시 정왕동 2121-1 한국산업기술대학교",
                                     "경기 시흥시 산기대학로 237 한국산업기술대학교",

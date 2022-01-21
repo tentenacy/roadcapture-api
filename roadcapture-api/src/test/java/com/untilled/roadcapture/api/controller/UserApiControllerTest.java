@@ -51,7 +51,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
         }
 
         @Test
-        @DisplayName("유저 이름으로 검색 성공")
+        @DisplayName("회원 이름으로 검색 성공")
         void SearchByUsername_Success() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users")
@@ -72,7 +72,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
     }
 
     @Nested
-    @DisplayName("단건조회")
+    @DisplayName("스튜디오회원조회")
     class User {
 
         @Test
@@ -86,14 +86,14 @@ class UserApiControllerTest extends ApiDocumentationTest {
             //then
             result.andExpect(status().isOk())
                     .andExpect(jsonPath("$.username").value("유저2"))
-                    .andDo(document("회원단건조회 - 성공", "회원단건조회",
+                    .andDo(document("스튜디오회원조회 - 성공", "스튜디오회원조회",
                             requestHeaders(jwtHeader),
                             pathParameters(userPathParams),
-                            responseFields(userFields)));
+                            responseFields(studioUserFields)));
         }
 
         @Test
-        @DisplayName("회원 존재하지 않으면 실패")
+        @DisplayName("스튜디오회원 존재하지 않으면 실패")
         void UserNotFound_Fail() throws Exception {
             //when
             ResultActions result = mockMvc.perform(get("/users/{id}", 0L)
@@ -102,7 +102,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
 
             //then
             result.andExpect(status().isBadRequest())
-                    .andDo(document("회원단건조회 - 회원 존재하지 않으면 실패", "회원단건조회",
+                    .andDo(document("스튜디오회원조회 - 회원 존재하지 않으면 실패", "스튜디오회원조회",
                             requestHeaders(jwtHeader),
                             pathParameters(userPathParams),
                             responseFields(badFields)));
@@ -140,6 +140,7 @@ class UserApiControllerTest extends ApiDocumentationTest {
             UserUpdateRequest userUpdateRequest = new UserUpdateRequest(
                     "updated101",
                     "https://test.com/updatedTest",
+                    "https://usercontents-d.styleshare.io/images/46615561/1280x-",
                     "안녕하세요. 저는 updated101입니다.",
                     new Address("경기 시흥시 정왕동 2121-3 경기과학기술대학",
                             "경기 시흥시 경기과기대로 269 경기과학기술대학",
@@ -163,66 +164,6 @@ class UserApiControllerTest extends ApiDocumentationTest {
                             requestFields(userUpdateRequestFields).andWithPrefix("address.", addressFields)
                     ));
         }
-
-        /*@Test
-        @DisplayName("닉네임 길이가 2보다 짧으면 실패")
-        void UsernameSizeIsLessThan2_Fail() throws Exception {
-            //given
-            UserUpdateRequest userUpdateRequest = new UserUpdateRequest(
-                    "u",
-                    "https://test.com/updatedTest",
-                    "안녕하세요. 저는 updated101입니다.",
-                    new Address("경기 시흥시 정왕동 2121-3 경기과학기술대학",
-                            "경기 시흥시 경기과기대로 269 경기과학기술대학",
-                            "경기도",
-                            "시흥시",
-                            "정왕동",
-                            "15073"
-                    )
-            );
-
-            //when
-            ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
-                    .content(mapper.writeValueAsString(userUpdateRequest))
-                    .header("X-AUTH-TOKEN", jwtAccessToken)
-        .contentType(MediaType.APPLICATION_JSON));
-
-            //then
-            result.andExpect(status().isBadRequest())
-                    .andDo(document("회원수정 - 닉네임 길이가 2보다 짧으면 실패", "회원수정",
-                            requestHeaders(usersHeaders),
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
-        }
-
-        @Test
-        @DisplayName("닉네임 길이가 12보다 길면 실패")
-        void UsernameSizeIsGreaterThan12_Fail() throws Exception {
-            //given
-            UserUpdateRequest userUpdateRequest = new UserUpdateRequest(
-                    "updated101updated101",
-                    "https://test.com/updatedTest",
-                    "안녕하세요. 저는 updated101입니다.",
-                    new Address("경기 시흥시 정왕동 2121-3 경기과학기술대학",
-                            "경기 시흥시 경기과기대로 269 경기과학기술대학",
-                            "경기도",
-                            "시흥시",
-                            "정왕동",
-                            "15073"
-                    )
-            );
-
-            //when
-            ResultActions result = mockMvc.perform(patch("/users/{id}", 2L)
-                    .content(mapper.writeValueAsString(userUpdateRequest))
-                    .header("X-AUTH-TOKEN", jwtAccessToken)
-        .contentType(MediaType.APPLICATION_JSON));
-
-            //then
-            result.andExpect(status().isBadRequest())
-                    .andDo(document("회원수정 - 닉네임 길이가 12보다 길면 실패", "회원수정",
-                            requestHeaders(usersHeaders),
-                            responseFields(badFields).andWithPrefix("errors.[].", errorsFields)));
-        }*/
     }
 
     @Nested

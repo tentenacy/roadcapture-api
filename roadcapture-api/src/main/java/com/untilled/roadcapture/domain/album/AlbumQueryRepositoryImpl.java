@@ -200,7 +200,6 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
 
     @Override
     public Optional<AlbumResponse> getAlbum(Long albumId, Long userId) {
-        QUser followingUser = new QUser("followingUser");
         AlbumResponse albumResponse = queryFactory
                 .select(Projections.constructor(AlbumResponse.class,
                         album.id,
@@ -212,7 +211,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                                 user.id,
                                 user.username,
                                 user.profileImageUrl,
-                                follower.from.isNotNull().as("liked")),
+                                follower.from.isNotNull().as("followed")),
                         album.viewCount,
                         like.countDistinct().intValue().as("likeCount"),
                         comment.countDistinct().intValue().as("commentCount"),

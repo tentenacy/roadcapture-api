@@ -59,57 +59,57 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MSwiZXhwIjoxNjQxNTQ1MzkxfQ.pB5QIL6JJF5IbkZwCraq7vbNhcMnqa7YJHGSJICfioU
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIyOSwiZXhwIjoxNjQyNzg2ODI5fQ.h2CoL1-UsJmQUf0TnE4KB1Lr9LHDaYUNSvgpNhsLfnw
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/albums-1364441400'
+                $ref: '#/components/schemas/followers-to-albums-1364441400'
               examples:
                 앨범조회 - 성공:
-                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-07T16:49:46.670527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.670527\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-22T01:40:23.588939\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.588939\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 1\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":0,\"commentCount\":10,\"liked\"\
-                    :false},{\"id\":22,\"createdAt\":\"2022-01-07T16:49:46.936527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.936527\",\"title\":\"\
+                    :false},{\"id\":22,\"createdAt\":\"2022-01-22T01:40:24.055445\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:24.055445\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 2\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":2,\"username\":\"유저2\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":1,\"commentCount\":10,\"liked\"\
-                    :true},{\"id\":38,\"createdAt\":\"2022-01-07T16:49:47.14753\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:47.14753\",\"title\":\"\
+                    :true},{\"id\":38,\"createdAt\":\"2022-01-22T01:40:24.426527\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:24.426527\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 3\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":3,\"username\":\"유저3\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":0,\"commentCount\":10,\"liked\"\
-                    :false},{\"id\":54,\"createdAt\":\"2022-01-07T16:49:47.362528\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:47.362528\",\"title\":\"\
+                    :false},{\"id\":54,\"createdAt\":\"2022-01-22T01:40:24.754589\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:24.754589\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 4\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":4,\"username\":\"유저4\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":0,\"commentCount\":10,\"liked\"\
-                    :false},{\"id\":70,\"createdAt\":\"2022-01-07T16:49:47.680816\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:47.680816\",\"title\":\"\
+                    :false},{\"id\":70,\"createdAt\":\"2022-01-22T01:40:25.065611\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:25.065611\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 5\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":5,\"username\":\"유저5\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":0,\"commentCount\":10,\"liked\"\
                     :false}],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
-                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":5,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :5,\"empty\":false}"
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :5,\"totalPages\":1,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    numberOfElements\":5,\"empty\":false}"
   /albums/temp:
     post:
       tags:
@@ -124,7 +124,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MSwiZXhwIjoxNjQxNTQ1MzkxfQ.pB5QIL6JJF5IbkZwCraq7vbNhcMnqa7YJHGSJICfioU
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIyOSwiZXhwIjoxNjQyNzg2ODI5fQ.h2CoL1-UsJmQUf0TnE4KB1Lr9LHDaYUNSvgpNhsLfnw
       requestBody:
         content:
           application/json;charset=UTF-8:
@@ -134,11 +134,11 @@ paths:
               앨범등록 - 성공:
                 value: "{\"title\":\"볼거리가 가득한 국내 여행지\",\"description\":\"전국의 아름다운\
                   \ 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"pictures\":[{\"\
-                  createdAt\":\"2022-01-07T16:49:53.7355007\",\"lastModifiedAt\":\"\
-                  2022-01-07T16:49:53.7355007\",\"imageUrl\":\"https://www.test.com/test\"\
+                  createdAt\":\"2022-01-22T01:40:32.1058011\",\"lastModifiedAt\":\"\
+                  2022-01-22T01:40:32.1058011\",\"imageUrl\":\"https://www.test.com/test\"\
                   ,\"description\":\"저번에 이어 이번에도 그 목적지로 향했습니다.\",\"place\":{\"name\"\
-                  :\"곡교천 은행나무길\",\"createdAt\":\"2022-01-07T16:49:53.7355007\",\"\
-                  lastModifiedAt\":\"2022-01-07T16:49:53.7355007\",\"latitude\":36.1112512,\"\
+                  :\"곡교천 은행나무길\",\"createdAt\":\"2022-01-22T01:40:32.1058011\",\"\
+                  lastModifiedAt\":\"2022-01-22T01:40:32.1058011\",\"latitude\":36.1112512,\"\
                   longitude\":27.1146346,\"address\":{\"addressName\":\"충남 아산시 염치읍\
                   \ 백암리 502-3\",\"roadAddressName\":null,\"region1DepthName\":\"충남\
                   \",\"region2DepthName\":\"아산시\",\"region3DepthName\":\"염치읍\",\"\
@@ -166,7 +166,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MSwiZXhwIjoxNjQxNTQ1MzkxfQ.pB5QIL6JJF5IbkZwCraq7vbNhcMnqa7YJHGSJICfioU
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIyOSwiZXhwIjoxNjQyNzg2ODI5fQ.h2CoL1-UsJmQUf0TnE4KB1Lr9LHDaYUNSvgpNhsLfnw
       responses:
         "200":
           description: "200"
@@ -176,22 +176,22 @@ paths:
                 $ref: '#/components/schemas/albums-id1802130727'
               examples:
                 앨범단건조회 - 성공:
-                  value: "{\"id\":6,\"createdAt\":\"2022-01-07T16:49:46.670527\",\"\
-                    lastModifiedAt\":\"2022-01-07T16:49:46.670527\",\"title\":\"맑은\
+                  value: "{\"id\":6,\"createdAt\":\"2022-01-22T01:40:23.588939\",\"\
+                    lastModifiedAt\":\"2022-01-22T01:40:23.588939\",\"title\":\"맑은\
                     \ 하늘 아래 함께 떠나요 - 1\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기분\
                     을 느껴보세요.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     ,\"followed\":false},\"viewCount\":0,\"likeCount\":0,\"commentCount\"\
-                    :10,\"liked\":false,\"pictures\":[{\"id\":7,\"createdAt\":\"2022-01-07T16:49:46.658552\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.658552\",\"imageUrl\"\
+                    :10,\"liked\":false,\"pictures\":[{\"id\":7,\"createdAt\":\"2022-01-22T01:40:23.57167\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.57167\",\"imageUrl\"\
                     :\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"description\":\"맑은 하늘\",\"place\":{\"id\":8,\"name\":\"양곡신협\
                     \ 주변\",\"latitude\":37.65450778860656,\"longitude\":126.62440348079012,\"\
                     address\":{\"addressName\":\"경기도 김포시 양촌읍 양곡리 408-1\",\"roadAddressName\"\
                     :\"양곡1로40번길 13\",\"region1DepthName\":\"경기도\",\"region2DepthName\"\
                     :\"김포시\",\"region3DepthName\":\"양촌읍\",\"zoneNo\":\"408-1\"}}},{\"\
-                    id\":9,\"createdAt\":\"2022-01-07T16:49:46.659554\",\"lastModifiedAt\"\
-                    :\"2022-01-07T16:49:46.659554\",\"imageUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea5nc5blb0.jpg\"\
+                    id\":9,\"createdAt\":\"2022-01-22T01:40:23.57276\",\"lastModifiedAt\"\
+                    :\"2022-01-22T01:40:23.57276\",\"imageUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea5nc5blb0.jpg\"\
                     ,\"description\":\"멋쟁이 고양이\",\"place\":{\"id\":10,\"name\":\"양\
                     곡휴먼시아7단지아파트\",\"latitude\":37.65533081566674,\"longitude\":126.63105692431945,\"\
                     address\":{\"addressName\":\"경기도 김포시 양촌읍 양곡리 1316\",\"roadAddressName\"\
@@ -216,7 +216,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MSwiZXhwIjoxNjQxNTQ1MzkxfQ.pB5QIL6JJF5IbkZwCraq7vbNhcMnqa7YJHGSJICfioU
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIyOSwiZXhwIjoxNjQyNzg2ODI5fQ.h2CoL1-UsJmQUf0TnE4KB1Lr9LHDaYUNSvgpNhsLfnw
       responses:
         "204":
           description: "204"
@@ -240,7 +240,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMywiZXhwIjoxNjQyNzg2ODMzfQ.gtxCQdkaiadnGDlot1btCHUixGxf4zs5z4e08pyWjww
       responses:
         "201":
           description: "201"
@@ -263,7 +263,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMywiZXhwIjoxNjQyNzg2ODMzfQ.gtxCQdkaiadnGDlot1btCHUixGxf4zs5z4e08pyWjww
       responses:
         "204":
           description: "204"
@@ -287,7 +287,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MSwiZXhwIjoxNjQxNTQ1MzkxfQ.pB5QIL6JJF5IbkZwCraq7vbNhcMnqa7YJHGSJICfioU
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIyOSwiZXhwIjoxNjQyNzg2ODI5fQ.h2CoL1-UsJmQUf0TnE4KB1Lr9LHDaYUNSvgpNhsLfnw
       requestBody:
         content:
           application/json;charset=UTF-8:
@@ -297,11 +297,11 @@ paths:
               앨범수정 - 성공:
                 value: "{\"title\":\"볼거리가 가득한 국내 여행지!!!\",\"description\":\"전국의 아름\
                   다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.\",\"pictures\":[{\"\
-                  id\":23,\"createdAt\":\"2022-01-07T16:49:52.6235026\",\"lastModifiedAt\"\
-                  :\"2022-01-07T16:49:52.6235026\",\"imageUrl\":\"https://www.test.com/test\"\
+                  id\":23,\"createdAt\":\"2022-01-22T01:40:30.6443802\",\"lastModifiedAt\"\
+                  :\"2022-01-22T01:40:30.6443802\",\"imageUrl\":\"https://www.test.com/test\"\
                   ,\"description\":\"저번에 이어 이번에도 그 목적지로 향했습니다!!!\",\"place\":{\"name\"\
-                  :\"그 은행나무!!!\",\"createdAt\":\"2022-01-07T16:49:52.6235026\",\"\
-                  lastModifiedAt\":\"2022-01-07T16:49:52.6235026\",\"latitude\":36.1112512,\"\
+                  :\"그 은행나무!!!\",\"createdAt\":\"2022-01-22T01:40:30.6443802\",\"\
+                  lastModifiedAt\":\"2022-01-22T01:40:30.6443802\",\"latitude\":36.1112512,\"\
                   longitude\":27.1146346,\"address\":{\"addressName\":\"충남 아산시 염치읍\
                   \ 백암리 502-3\",\"roadAddressName\":\"\",\"region1DepthName\":\"충남\
                   \",\"region2DepthName\":\"아산시\",\"region3DepthName\":\"염치읍\",\"\
@@ -347,62 +347,62 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MywiZXhwIjoxNjQxNTQ1MzkzfQ.oZvroR7Mlhbp0b6FWdjgYe97RaxFG9WFmd30zjKHR3A
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/albums-albumId-pictures-comments-118929108'
+                $ref: '#/components/schemas/pictures-pictureId-comments-118929108'
               examples:
                 앨범댓글조회 - 성공:
                   value: "{\"content\":[{\"id\":11,\"pictureId\":7,\"createdAt\":\"\
-                    2022-01-07T16:49:46.742528\",\"lastModifiedAt\":\"2022-01-07T16:49:46.742528\"\
+                    2022-01-22T01:40:23.721115\",\"lastModifiedAt\":\"2022-01-22T01:40:23.721115\"\
                     ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유\
                     저1\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":13,\"pictureId\":7,\"createdAt\":\"2022-01-07T16:49:46.784529\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.784529\",\"content\"\
+                    }},{\"id\":13,\"pictureId\":7,\"createdAt\":\"2022-01-22T01:40:23.798594\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.798594\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":15,\"pictureId\":7,\"createdAt\":\"2022-01-07T16:49:46.816528\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.816528\",\"content\"\
+                    }},{\"id\":15,\"pictureId\":7,\"createdAt\":\"2022-01-22T01:40:23.867245\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.867245\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":17,\"pictureId\":7,\"createdAt\":\"2022-01-07T16:49:46.847527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.847527\",\"content\"\
+                    }},{\"id\":17,\"pictureId\":7,\"createdAt\":\"2022-01-22T01:40:23.918269\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.918269\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":19,\"pictureId\":7,\"createdAt\":\"2022-01-07T16:49:46.877552\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.877552\",\"content\"\
+                    }},{\"id\":19,\"pictureId\":7,\"createdAt\":\"2022-01-22T01:40:23.964957\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.964957\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":12,\"pictureId\":9,\"createdAt\":\"2022-01-07T16:49:46.767529\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.767529\",\"content\"\
+                    }},{\"id\":12,\"pictureId\":9,\"createdAt\":\"2022-01-22T01:40:23.7636\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.7636\",\"content\":\"\
+                    후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
+                    :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
+                    }},{\"id\":14,\"pictureId\":9,\"createdAt\":\"2022-01-22T01:40:23.829593\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.829593\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":14,\"pictureId\":9,\"createdAt\":\"2022-01-07T16:49:46.801528\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.801528\",\"content\"\
+                    }},{\"id\":16,\"pictureId\":9,\"createdAt\":\"2022-01-22T01:40:23.894028\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.894028\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":16,\"pictureId\":9,\"createdAt\":\"2022-01-07T16:49:46.831527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.831527\",\"content\"\
+                    }},{\"id\":18,\"pictureId\":9,\"createdAt\":\"2022-01-22T01:40:23.943188\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.943188\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":18,\"pictureId\":9,\"createdAt\":\"2022-01-07T16:49:46.863528\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.863528\",\"content\"\
-                    :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
-                    :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":20,\"pictureId\":9,\"createdAt\":\"2022-01-07T16:49:46.893528\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.893528\",\"content\"\
+                    }},{\"id\":20,\"pictureId\":9,\"createdAt\":\"2022-01-22T01:40:23.988865\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.988865\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     }}],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
-                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":10,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :10,\"empty\":false}"
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :10,\"totalPages\":1,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    numberOfElements\":10,\"empty\":false}"
   /comments/{commentId}:
     delete:
       tags:
@@ -423,7 +423,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MywiZXhwIjoxNjQxNTQ1MzkzfQ.oZvroR7Mlhbp0b6FWdjgYe97RaxFG9WFmd30zjKHR3A
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       responses:
         "204":
           description: "204"
@@ -465,14 +465,14 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-userId-followers-from-804852034'
+                $ref: '#/components/schemas/followers-from-804852034'
               examples:
                 팔로워조회 - 성공:
                   value: "{\"content\":[{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
@@ -481,11 +481,11 @@ paths:
                     },{\"id\":4,\"username\":\"유저4\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },{\"id\":5,\"username\":\"유저5\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     }],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
-                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":4,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :4,\"empty\":false}"
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :4,\"totalPages\":1,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    numberOfElements\":4,\"empty\":false}"
   /followers/to:
     get:
       tags:
@@ -524,14 +524,14 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-userId-followers-from-804852034'
+                $ref: '#/components/schemas/followers-from-804852034'
               examples:
                 팔로잉조회 - 성공:
                   value: "{\"content\":[{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
@@ -540,11 +540,11 @@ paths:
                     },{\"id\":4,\"username\":\"유저4\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },{\"id\":5,\"username\":\"유저5\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     }],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
-                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":4,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :4,\"empty\":false}"
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :4,\"totalPages\":1,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    numberOfElements\":4,\"empty\":false}"
   /followers/{toUserId}:
     post:
       tags:
@@ -565,7 +565,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       responses:
         "201":
           description: "201"
@@ -588,7 +588,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       responses:
         "204":
           description: "204"
@@ -630,64 +630,64 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MSwiZXhwIjoxNjQxNTQ1MzkxfQ.pB5QIL6JJF5IbkZwCraq7vbNhcMnqa7YJHGSJICfioU
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIyOSwiZXhwIjoxNjQyNzg2ODI5fQ.h2CoL1-UsJmQUf0TnE4KB1Lr9LHDaYUNSvgpNhsLfnw
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/albums-1364441400'
+                $ref: '#/components/schemas/followers-to-albums-1364441400'
               examples:
                 팔로잉앨범조회 - 성공:
-                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-07T16:49:46.670527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.670527\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-22T01:40:23.588939\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.588939\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 1\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":0,\"commentCount\":10,\"liked\"\
-                    :false},{\"id\":38,\"createdAt\":\"2022-01-07T16:49:47.14753\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:47.14753\",\"title\":\"\
+                    :false},{\"id\":38,\"createdAt\":\"2022-01-22T01:40:24.426527\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:24.426527\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 3\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":3,\"username\":\"유저3\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":0,\"commentCount\":10,\"liked\"\
-                    :false},{\"id\":54,\"createdAt\":\"2022-01-07T16:49:47.362528\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:47.362528\",\"title\":\"\
+                    :false},{\"id\":54,\"createdAt\":\"2022-01-22T01:40:24.754589\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:24.754589\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 4\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":4,\"username\":\"유저4\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":0,\"commentCount\":10,\"liked\"\
-                    :false},{\"id\":70,\"createdAt\":\"2022-01-07T16:49:47.680816\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:47.680816\",\"title\":\"\
+                    :false},{\"id\":70,\"createdAt\":\"2022-01-22T01:40:25.065611\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:25.065611\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 5\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":5,\"username\":\"유저5\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":0,\"commentCount\":10,\"liked\"\
                     :false}],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
-                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":4,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :4,\"empty\":false}"
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :4,\"totalPages\":1,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    numberOfElements\":4,\"empty\":false}"
                 팔로잉앨범조회 - 팔로잉 아이디 조건 추가 성공:
-                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-07T16:49:46.670527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.670527\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":6,\"createdAt\":\"2022-01-22T01:40:23.588939\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.588939\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 1\",\"description\":\"제가 다닌 흔적을 따라 함께 여행하는 기\
                     분을 느껴보세요.\",\"thumbnailUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\":\"\
                     https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },\"viewCount\":0,\"likeCount\":0,\"commentCount\":10,\"liked\"\
                     :false}],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
-                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":1,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :1,\"empty\":false}"
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :1,\"totalPages\":1,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    numberOfElements\":1,\"empty\":false}"
   /pictures/{pictureId}/comments:
     get:
       tags:
@@ -726,42 +726,42 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MywiZXhwIjoxNjQxNTQ1MzkzfQ.oZvroR7Mlhbp0b6FWdjgYe97RaxFG9WFmd30zjKHR3A
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/albums-albumId-pictures-comments-118929108'
+                $ref: '#/components/schemas/pictures-pictureId-comments-118929108'
               examples:
                 사진댓글조회 - 성공:
                   value: "{\"content\":[{\"id\":11,\"pictureId\":7,\"createdAt\":\"\
-                    2022-01-07T16:49:46.742528\",\"lastModifiedAt\":\"2022-01-07T16:49:46.742528\"\
+                    2022-01-22T01:40:23.721115\",\"lastModifiedAt\":\"2022-01-22T01:40:23.721115\"\
                     ,\"content\":\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유\
                     저1\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":13,\"pictureId\":7,\"createdAt\":\"2022-01-07T16:49:46.784529\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.784529\",\"content\"\
+                    }},{\"id\":13,\"pictureId\":7,\"createdAt\":\"2022-01-22T01:40:23.798594\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.798594\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":15,\"pictureId\":7,\"createdAt\":\"2022-01-07T16:49:46.816528\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.816528\",\"content\"\
+                    }},{\"id\":15,\"pictureId\":7,\"createdAt\":\"2022-01-22T01:40:23.867245\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.867245\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":17,\"pictureId\":7,\"createdAt\":\"2022-01-07T16:49:46.847527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.847527\",\"content\"\
+                    }},{\"id\":17,\"pictureId\":7,\"createdAt\":\"2022-01-22T01:40:23.918269\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.918269\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    }},{\"id\":19,\"pictureId\":7,\"createdAt\":\"2022-01-07T16:49:46.877552\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.877552\",\"content\"\
+                    }},{\"id\":19,\"pictureId\":7,\"createdAt\":\"2022-01-22T01:40:23.964957\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:23.964957\",\"content\"\
                     :\"후기 감사합니다.\",\"user\":{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     }}],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
-                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":5,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :5,\"empty\":false}"
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :5,\"totalPages\":1,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    numberOfElements\":5,\"empty\":false}"
     post:
       tags:
       - pictures
@@ -781,7 +781,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MywiZXhwIjoxNjQxNTQ1MzkzfQ.oZvroR7Mlhbp0b6FWdjgYe97RaxFG9WFmd30zjKHR3A
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       requestBody:
         content:
           application/json;charset=UTF-8:
@@ -831,14 +831,14 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzE4OCwiZXhwIjoxNjQyNzg2Nzg4fQ.9XTFRB1CPF4btjnHarVHyrYTIaGMdiyLEYxxqg-8Mhc
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-userId-followers-from-804852034'
+                $ref: '#/components/schemas/followers-from-804852034'
               examples:
                 회원조회 - 성공:
                   value: "{\"content\":[{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
@@ -849,8 +849,8 @@ paths:
                     },{\"id\":5,\"username\":\"유저5\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     }],\"pageable\":{\"sort\":{\"empty\":false,\"sorted\":true,\"\
                     unsorted\":false},\"offset\":0,\"pageSize\":10,\"pageNumber\"\
-                    :0,\"paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\"\
-                    :1,\"totalElements\":5,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
+                    :0,\"paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :5,\"totalPages\":1,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
                     :false,\"sorted\":true,\"unsorted\":false},\"first\":true,\"numberOfElements\"\
                     :5,\"empty\":false}"
                 회원조회 - 유저 이름으로 검색 성공:
@@ -858,8 +858,8 @@ paths:
                     :\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     }],\"pageable\":{\"sort\":{\"empty\":false,\"sorted\":true,\"\
                     unsorted\":false},\"offset\":0,\"pageSize\":10,\"pageNumber\"\
-                    :0,\"paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\"\
-                    :1,\"totalElements\":1,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
+                    :0,\"paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :1,\"totalPages\":1,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
                     :false,\"sorted\":true,\"unsorted\":false},\"first\":true,\"numberOfElements\"\
                     :1,\"empty\":false}"
     post:
@@ -950,7 +950,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzE4OCwiZXhwIjoxNjQyNzg2Nzg4fQ.9XTFRB1CPF4btjnHarVHyrYTIaGMdiyLEYxxqg-8Mhc
       responses:
         "204":
           description: "204"
@@ -967,15 +967,16 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzE4OCwiZXhwIjoxNjQyNzg2Nzg4fQ.9XTFRB1CPF4btjnHarVHyrYTIaGMdiyLEYxxqg-8Mhc
       requestBody:
         content:
           application/json;charset=UTF-8:
             schema:
-              $ref: '#/components/schemas/users-524924092'
+              $ref: '#/components/schemas/users-346814192'
             examples:
               회원수정 - 성공:
                 value: "{\"username\":\"updated101\",\"profileImageUrl\":\"https://test.com/updatedTest\"\
+                  ,\"backgroundImageUrl\":\"https://usercontents-d.styleshare.io/images/46615561/1280x-\"\
                   ,\"introduction\":\"안녕하세요. 저는 updated101입니다.\",\"address\":{\"addressName\"\
                   :\"경기 시흥시 정왕동 2121-3 경기과학기술대학\",\"roadAddressName\":\"경기 시흥시 경기과\
                   기대로 269 경기과학기술대학\",\"region1DepthName\":\"경기도\",\"region2DepthName\"\
@@ -1033,7 +1034,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5MSwiZXhwIjoxNjQxNTQ1MzkxfQ.pB5QIL6JJF5IbkZwCraq7vbNhcMnqa7YJHGSJICfioU
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIyOSwiZXhwIjoxNjQyNzg2ODI5fQ.h2CoL1-UsJmQUf0TnE4KB1Lr9LHDaYUNSvgpNhsLfnw
       responses:
         "200":
           description: "200"
@@ -1043,10 +1044,10 @@ paths:
                 $ref: '#/components/schemas/users-albums2043951958'
               examples:
                 유저앨범조회 - 성공:
-                  value: "{\"content\":[{\"id\":22,\"createdAt\":\"2022-01-07T16:49:46.936527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.936527\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":22,\"createdAt\":\"2022-01-22T01:40:24.055445\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:24.055445\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 2\",\"thumbnailPicture\":{\"id\":23,\"createdAt\"\
-                    :\"2022-01-07T16:49:46.933526\",\"lastModifiedAt\":\"2022-01-07T16:49:46.933526\"\
+                    :\"2022-01-22T01:40:24.050615\",\"lastModifiedAt\":\"2022-01-22T01:40:24.050615\"\
                     ,\"imageUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"place\":{\"id\":24,\"name\":\"양곡신협 주변\",\"latitude\":37.65450778860656,\"\
                     longitude\":126.62440348079012,\"address\":{\"addressName\":\"\
@@ -1054,15 +1055,15 @@ paths:
                     region1DepthName\":\"경기도\",\"region2DepthName\":\"김포시\",\"region3DepthName\"\
                     :\"양촌읍\",\"zoneNo\":\"408-1\"}}}}],\"pageable\":{\"sort\":{\"\
                     empty\":true,\"sorted\":false,\"unsorted\":true},\"offset\":0,\"\
-                    pageSize\":10,\"pageNumber\":0,\"paged\":true,\"unpaged\":false},\"\
-                    last\":true,\"totalPages\":1,\"totalElements\":1,\"size\":10,\"\
-                    number\":0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\"\
-                    :true},\"first\":true,\"numberOfElements\":1,\"empty\":false}"
+                    pageNumber\":0,\"pageSize\":10,\"paged\":true,\"unpaged\":false},\"\
+                    last\":true,\"totalElements\":1,\"totalPages\":1,\"size\":10,\"\
+                    number\":0,\"first\":true,\"sort\":{\"empty\":true,\"sorted\"\
+                    :false,\"unsorted\":true},\"numberOfElements\":1,\"empty\":false}"
                 유저앨범조회 - 시군구명으로 검색 성공:
-                  value: "{\"content\":[{\"id\":22,\"createdAt\":\"2022-01-07T16:49:46.936527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.936527\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":22,\"createdAt\":\"2022-01-22T01:40:24.055445\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:24.055445\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 2\",\"thumbnailPicture\":{\"id\":23,\"createdAt\"\
-                    :\"2022-01-07T16:49:46.933526\",\"lastModifiedAt\":\"2022-01-07T16:49:46.933526\"\
+                    :\"2022-01-22T01:40:24.050615\",\"lastModifiedAt\":\"2022-01-22T01:40:24.050615\"\
                     ,\"imageUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"place\":{\"id\":24,\"name\":\"양곡신협 주변\",\"latitude\":37.65450778860656,\"\
                     longitude\":126.62440348079012,\"address\":{\"addressName\":\"\
@@ -1070,15 +1071,15 @@ paths:
                     region1DepthName\":\"경기도\",\"region2DepthName\":\"김포시\",\"region3DepthName\"\
                     :\"양촌읍\",\"zoneNo\":\"408-1\"}}}}],\"pageable\":{\"sort\":{\"\
                     empty\":true,\"sorted\":false,\"unsorted\":true},\"offset\":0,\"\
-                    pageSize\":10,\"pageNumber\":0,\"paged\":true,\"unpaged\":false},\"\
-                    last\":true,\"totalPages\":1,\"totalElements\":1,\"size\":10,\"\
-                    number\":0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\"\
-                    :true},\"first\":true,\"numberOfElements\":1,\"empty\":false}"
+                    pageNumber\":0,\"pageSize\":10,\"paged\":true,\"unpaged\":false},\"\
+                    last\":true,\"totalElements\":1,\"totalPages\":1,\"size\":10,\"\
+                    number\":0,\"first\":true,\"sort\":{\"empty\":true,\"sorted\"\
+                    :false,\"unsorted\":true},\"numberOfElements\":1,\"empty\":false}"
                 유저앨범조회 - 시도명으로 검색 성공:
-                  value: "{\"content\":[{\"id\":22,\"createdAt\":\"2022-01-07T16:49:46.936527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.936527\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":22,\"createdAt\":\"2022-01-22T01:40:24.055445\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:24.055445\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 2\",\"thumbnailPicture\":{\"id\":23,\"createdAt\"\
-                    :\"2022-01-07T16:49:46.933526\",\"lastModifiedAt\":\"2022-01-07T16:49:46.933526\"\
+                    :\"2022-01-22T01:40:24.050615\",\"lastModifiedAt\":\"2022-01-22T01:40:24.050615\"\
                     ,\"imageUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"place\":{\"id\":24,\"name\":\"양곡신협 주변\",\"latitude\":37.65450778860656,\"\
                     longitude\":126.62440348079012,\"address\":{\"addressName\":\"\
@@ -1086,15 +1087,15 @@ paths:
                     region1DepthName\":\"경기도\",\"region2DepthName\":\"김포시\",\"region3DepthName\"\
                     :\"양촌읍\",\"zoneNo\":\"408-1\"}}}}],\"pageable\":{\"sort\":{\"\
                     empty\":true,\"sorted\":false,\"unsorted\":true},\"offset\":0,\"\
-                    pageSize\":10,\"pageNumber\":0,\"paged\":true,\"unpaged\":false},\"\
-                    last\":true,\"totalPages\":1,\"totalElements\":1,\"size\":10,\"\
-                    number\":0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\"\
-                    :true},\"first\":true,\"numberOfElements\":1,\"empty\":false}"
+                    pageNumber\":0,\"pageSize\":10,\"paged\":true,\"unpaged\":false},\"\
+                    last\":true,\"totalElements\":1,\"totalPages\":1,\"size\":10,\"\
+                    number\":0,\"first\":true,\"sort\":{\"empty\":true,\"sorted\"\
+                    :false,\"unsorted\":true},\"numberOfElements\":1,\"empty\":false}"
                 유저앨범조회 - 읍면동명으로 검색 성공:
-                  value: "{\"content\":[{\"id\":22,\"createdAt\":\"2022-01-07T16:49:46.936527\"\
-                    ,\"lastModifiedAt\":\"2022-01-07T16:49:46.936527\",\"title\":\"\
+                  value: "{\"content\":[{\"id\":22,\"createdAt\":\"2022-01-22T01:40:24.055445\"\
+                    ,\"lastModifiedAt\":\"2022-01-22T01:40:24.055445\",\"title\":\"\
                     맑은 하늘 아래 함께 떠나요 - 2\",\"thumbnailPicture\":{\"id\":23,\"createdAt\"\
-                    :\"2022-01-07T16:49:46.933526\",\"lastModifiedAt\":\"2022-01-07T16:49:46.933526\"\
+                    :\"2022-01-22T01:40:24.050615\",\"lastModifiedAt\":\"2022-01-22T01:40:24.050615\"\
                     ,\"imageUrl\":\"https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg\"\
                     ,\"place\":{\"id\":24,\"name\":\"양곡신협 주변\",\"latitude\":37.65450778860656,\"\
                     longitude\":126.62440348079012,\"address\":{\"addressName\":\"\
@@ -1102,10 +1103,10 @@ paths:
                     region1DepthName\":\"경기도\",\"region2DepthName\":\"김포시\",\"region3DepthName\"\
                     :\"양촌읍\",\"zoneNo\":\"408-1\"}}}}],\"pageable\":{\"sort\":{\"\
                     empty\":true,\"sorted\":false,\"unsorted\":true},\"offset\":0,\"\
-                    pageSize\":10,\"pageNumber\":0,\"paged\":true,\"unpaged\":false},\"\
-                    last\":true,\"totalPages\":1,\"totalElements\":1,\"size\":10,\"\
-                    number\":0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\"\
-                    :true},\"first\":true,\"numberOfElements\":1,\"empty\":false}"
+                    pageNumber\":0,\"pageSize\":10,\"paged\":true,\"unpaged\":false},\"\
+                    last\":true,\"totalElements\":1,\"totalPages\":1,\"size\":10,\"\
+                    number\":0,\"first\":true,\"sort\":{\"empty\":true,\"sorted\"\
+                    :false,\"unsorted\":true},\"numberOfElements\":1,\"empty\":false}"
   /users/details:
     get:
       tags:
@@ -1120,7 +1121,7 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzE4OCwiZXhwIjoxNjQyNzg2Nzg4fQ.9XTFRB1CPF4btjnHarVHyrYTIaGMdiyLEYxxqg-8Mhc
       responses:
         "200":
           description: "200"
@@ -1162,16 +1163,16 @@ paths:
                 $ref: '#/components/schemas/users-token1434215141'
               examples:
                 로그인 - 성공:
-                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NSwiZXhwIjoxNjQxNTQ1Mzk1fQ.wbPlL0BB7zhN8hNNFwKtkfIr-81pzp4XWRVhv3kC1CM\"\
-                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTI3NzA3MjN9.q5jHq1JZY-F6LtxcibjU1yUArKrAiG6fGhDz-9bkeQQ\"\
+                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzE4OCwiZXhwIjoxNjQyNzg2Nzg4fQ.5KlGUgU_5-TB3jZqtjIAQadxzvdgN-clA2YMygJpbmk\"\
+                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTA1NTkxODh9.oyVs42Q0ZsW9K5eWf83k91f6ryT70IOruYZxa_TyTno\"\
                     ,\"accessTokenExpireDate\":3600000}"
   /users/{id}:
     get:
       tags:
       - users
-      summary: 회원단건조회
-      description: 회원단건조회
-      operationId: '회원단건조회 - '
+      summary: 스튜디오회원조회
+      description: 스튜디오회원조회
+      operationId: '스튜디오회원조회 - '
       parameters:
       - name: id
         in: path
@@ -1185,18 +1186,20 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzE4OCwiZXhwIjoxNjQyNzg2Nzg4fQ.9XTFRB1CPF4btjnHarVHyrYTIaGMdiyLEYxxqg-8Mhc
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-id1467703423'
+                $ref: '#/components/schemas/users-id1747923301'
               examples:
-                회원단건조회 - 성공:
+                스튜디오회원조회 - 성공:
                   value: "{\"id\":2,\"username\":\"유저2\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
-                    ,\"introduction\":\"안녕하세요. 저는 user2입니다.\"}"
+                    ,\"backgroundImageUrl\":\"https://usercontents-d.styleshare.io/images/46615561/1280x-\"\
+                    ,\"introduction\":\"안녕하세요. 저는 user2입니다.\",\"followerCount\":0,\"\
+                    followingCount\":0,\"followed\":false}"
         "400":
           description: "400"
           content:
@@ -1204,7 +1207,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/users-id-883544378'
               examples:
-                회원단건조회 - 회원 존재하지 않으면 실패:
+                스튜디오회원조회 - 회원 존재하지 않으면 실패:
                   value: "{\"code\":\"BIZ-003\",\"status\":400,\"message\":\"사용자가\
                     \ 존재하지 않습니다.\",\"errors\":[]}"
   /users/token/reissue:
@@ -1221,8 +1224,8 @@ paths:
               $ref: '#/components/schemas/users-token-reissue1815000917'
             examples:
               토큰재발급 - 성공:
-                value: "{\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk\"\
-                  ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTI3NzA3MjJ9.QfAxvL2HCASHADvOeD2H5hPutbOB-BAg3yRgYKu8TdA\"\
+                value: "{\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzE4OCwiZXhwIjoxNjQyNzg2Nzg4fQ.9XTFRB1CPF4btjnHarVHyrYTIaGMdiyLEYxxqg-8Mhc\"\
+                  ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTA1NTkxODh9.oyVs42Q0ZsW9K5eWf83k91f6ryT70IOruYZxa_TyTno\"\
                   }"
       responses:
         "201":
@@ -1233,8 +1236,8 @@ paths:
                 $ref: '#/components/schemas/users-token1434215141'
               examples:
                 토큰재발급 - 성공:
-                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NSwiZXhwIjoxNjQxNTQ1Mzk1fQ.u7XB8TTSN6ZDEHAAqL_VaK0_B5NsbyCXFPPj-T6HRV0\"\
-                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxMTI3NzA3MjN9.q5jHq1JZY-F6LtxcibjU1yUArKrAiG6fGhDz-9bkeQQ\"\
+                  value: "{\"grantType\":\"bearer\",\"accessToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzE4OCwiZXhwIjoxNjQyNzg2Nzg4fQ.9XTFRB1CPF4btjnHarVHyrYTIaGMdiyLEYxxqg-8Mhc\"\
+                    ,\"refreshToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTA1NTkxODh9.oyVs42Q0ZsW9K5eWf83k91f6ryT70IOruYZxa_TyTno\"\
                     ,\"accessTokenExpireDate\":3600000}"
   /users/{userId}/followers/from:
     get:
@@ -1280,14 +1283,14 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-userId-followers-from-804852034'
+                $ref: '#/components/schemas/followers-from-804852034'
               examples:
                 유저팔로워조회 - 성공:
                   value: "{\"content\":[{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
@@ -1296,11 +1299,11 @@ paths:
                     },{\"id\":4,\"username\":\"유저4\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },{\"id\":5,\"username\":\"유저5\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     }],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
-                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":4,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :4,\"empty\":false}"
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :4,\"totalPages\":1,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    numberOfElements\":4,\"empty\":false}"
   /users/{userId}/followers/to:
     get:
       tags:
@@ -1345,14 +1348,14 @@ paths:
         required: true
         schema:
           type: string
-        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0MTU0MTc5NCwiZXhwIjoxNjQxNTQ1Mzk0fQ.Ud7nXBa5Zqdr5LLreec-s7WvWT5e0uZfzLrWNMRCYtk
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0Mjc4MzIzMiwiZXhwIjoxNjQyNzg2ODMyfQ.8ewfl2wMuL5S_ulsIIZ2VvjWP3hXtefZyXpEDK_RB1c
       responses:
         "200":
           description: "200"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users-userId-followers-from-804852034'
+                $ref: '#/components/schemas/followers-from-804852034'
               examples:
                 유저팔로잉조회 - 성공:
                   value: "{\"content\":[{\"id\":1,\"username\":\"유저1\",\"profileImageUrl\"\
@@ -1361,11 +1364,11 @@ paths:
                     },{\"id\":4,\"username\":\"유저4\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     },{\"id\":5,\"username\":\"유저5\",\"profileImageUrl\":\"https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png\"\
                     }],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"\
-                    unsorted\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"\
-                    paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"\
-                    totalElements\":4,\"size\":10,\"number\":0,\"sort\":{\"empty\"\
-                    :true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\"\
-                    :4,\"empty\":false}"
+                    unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":10,\"\
+                    paged\":true,\"unpaged\":false},\"last\":true,\"totalElements\"\
+                    :4,\"totalPages\":1,\"size\":10,\"number\":0,\"first\":true,\"\
+                    sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"\
+                    numberOfElements\":4,\"empty\":false}"
 components:
   schemas:
     users-albums2043951958:
@@ -1532,7 +1535,7 @@ components:
                     type: number
                     description: 장소 경도입니다.
                 description: 사진 장소입니다.
-    albums-1364441400:
+    followers-to-albums-1364441400:
       type: object
       properties:
         size:
@@ -1602,22 +1605,44 @@ components:
         totalElements:
           type: number
           description: 전체 요소 수입니다.
-    users-id1467703423:
+    users-346814192:
       type: object
       properties:
-        id:
-          type: number
-          description: 사용자 아이디입니다.
+        address:
+          type: object
+          properties:
+            region2DepthName:
+              type: string
+              description: 시군구명입니다.
+            zoneNo:
+              type: string
+              description: 우편번호입니다.
+            region3DepthName:
+              type: string
+              description: 읍면동명입니다.
+            roadAddressName:
+              type: string
+              description: 도로명주소입니다.
+            region1DepthName:
+              type: string
+              description: 시도명입니다.
+            addressName:
+              type: string
+              description: 지번주소입니다.
+          description: 변경할 사용자 주소입니다.
         profileImageUrl:
           type: string
-          description: 사용자 프로필 사진입니다.
+          description: 변경할 사용자 프로필 사진입니다. 주소 형식여야 합니다.
         introduction:
           type: string
-          description: 사용자 소개글입니다.
+          description: 변경할 사용자 소개입니다. 최대 200자 이하여야 합니다.
+        backgroundImageUrl:
+          type: string
+          description: 변경할 사용자 스튜디오 배경 사진입니다. 주소 형식여야 합니다.
         username:
           type: string
-          description: 사용자 이름입니다.
-    albums-albumId-pictures-comments-118929108:
+          description: 변경할 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
+    pictures-pictureId-comments-118929108:
       type: object
       properties:
         size:
@@ -1672,6 +1697,33 @@ components:
         totalElements:
           type: number
           description: 전체 요소 수입니다.
+    users-id1747923301:
+      type: object
+      properties:
+        id:
+          type: number
+          description: 스튜디오 사용자 아이디입니다.
+        followed:
+          type: boolean
+          description: 스튜디오 사용자 팔로우 유무입니다.
+        followingCount:
+          type: number
+          description: 스튜디오 사용자 팔로잉 수입니다.
+        followerCount:
+          type: number
+          description: 스튜디오 사용자 팔로워 수입니다.
+        profileImageUrl:
+          type: string
+          description: 스튜디오 사용자 프로필 사진입니다.
+        introduction:
+          type: string
+          description: 스튜디오 사용자 소개글입니다.
+        backgroundImageUrl:
+          type: string
+          description: 스튜디오 사용자 배경 사진입니다.
+        username:
+          type: string
+          description: 스튜디오 사용자 이름입니다.
     users-395173474:
       type: object
       properties:
@@ -1840,40 +1892,6 @@ components:
         status:
           type: number
           description: 응답 코드입니다.
-    users-524924092:
-      type: object
-      properties:
-        address:
-          type: object
-          properties:
-            region2DepthName:
-              type: string
-              description: 시군구명입니다.
-            zoneNo:
-              type: string
-              description: 우편번호입니다.
-            region3DepthName:
-              type: string
-              description: 읍면동명입니다.
-            roadAddressName:
-              type: string
-              description: 도로명주소입니다.
-            region1DepthName:
-              type: string
-              description: 시도명입니다.
-            addressName:
-              type: string
-              description: 지번주소입니다.
-          description: 변경할 사용자 주소입니다.
-        profileImageUrl:
-          type: string
-          description: 변경할 사용자 프로필 사진입니다. 주소 형식여야 합니다.
-        introduction:
-          type: string
-          description: 변경할 사용자 소개입니다. 최대 200자 이하여야 합니다.
-        username:
-          type: string
-          description: 변경할 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
     users1083751850:
       type: object
       properties:
@@ -1892,7 +1910,7 @@ components:
         username:
           type: string
           description: 사용자 이름입니다. 최소 2자 이상에서 최대 12자 이하여야 합니다.
-    users-userId-followers-from-804852034:
+    followers-from-804852034:
       type: object
       properties:
         size:

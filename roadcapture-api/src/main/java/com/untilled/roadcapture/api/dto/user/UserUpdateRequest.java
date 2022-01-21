@@ -15,12 +15,15 @@ public class UserUpdateRequest {
     private String username;
     @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}")
     private String profileImageUrl;
+    @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}")
+    private String backgroundImageUrl;
     private String introduction;
     private Address address;
 
-    public UserUpdateRequest(String username, String profileImageUrl, String introduction, Address address) {
+    public UserUpdateRequest(String username, String profileImageUrl, String backgroundImageUrl, String introduction, Address address) {
         this.username = username;
         this.profileImageUrl = profileImageUrl;
+        this.backgroundImageUrl = backgroundImageUrl;
         this.introduction = introduction;
         this.address = address;
     }

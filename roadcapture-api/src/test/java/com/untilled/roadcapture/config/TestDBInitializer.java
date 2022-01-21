@@ -1,38 +1,32 @@
 package com.untilled.roadcapture.config;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.untilled.roadcapture.api.dto.album.AlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.album.TempAlbumCreateRequest;
 import com.untilled.roadcapture.api.dto.comment.CommentCreateRequest;
-import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
 import com.untilled.roadcapture.api.dto.place.PlaceCreateRequest;
 import com.untilled.roadcapture.api.dto.user.SignupRequest;
 import com.untilled.roadcapture.api.dto.user.UserUpdateRequest;
-import com.untilled.roadcapture.domain.address.Address;
 import com.untilled.roadcapture.api.service.AlbumService;
 import com.untilled.roadcapture.api.service.CommentService;
 import com.untilled.roadcapture.api.service.LikeService;
 import com.untilled.roadcapture.api.service.UserService;
+import com.untilled.roadcapture.domain.address.Address;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ActiveProfiles;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+@ActiveProfiles({"test"})
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SpringBootTestConfiguration {
+public class TestDBInitializer {
 
     private final UserService userService;
     private final AlbumService albumService;
@@ -52,6 +46,7 @@ public class SpringBootTestConfiguration {
                     userService.update(Long.valueOf(i), new UserUpdateRequest(
                             null,
                             "https://az360.school/public/files/users/full/b52e290c_free-profile-photo-whatsapp-4.png",
+                            "https://usercontents-d.styleshare.io/images/46615561/1280x-",
                             "안녕하세요. 저는 user" + i + "입니다.",
                             new Address("경기 시흥시 정왕동 2121-1 한국산업기술대학교",
                                     "경기 시흥시 산기대학로 237 한국산업기술대학교",

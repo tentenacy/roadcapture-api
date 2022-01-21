@@ -44,6 +44,9 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Column(length = 500)
     private String profileImageUrl;
 
+    @Column(length = 500)
+    private String backgroundImageUrl;
+
     private String introduction;
 
     @ElementCollection(fetch = EAGER)
@@ -73,12 +76,15 @@ public class User extends BaseTimeEntity implements UserDetails {
         return user;
     }
 
-    public void update(String username, String profileImageUrl, String introduction, Address address) {
+    public void update(String username, String profileImageUrl, String backgroundImageUrl, String introduction, Address address) {
         if(StringUtils.hasText(username)) {
             this.username = username;
         }
         if(StringUtils.hasText(profileImageUrl)) {
             this.profileImageUrl = profileImageUrl;
+        }
+        if(StringUtils.hasText(backgroundImageUrl)) {
+            this.backgroundImageUrl = backgroundImageUrl;
         }
         if(StringUtils.hasText(introduction)) {
             this.introduction = introduction;
