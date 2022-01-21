@@ -93,18 +93,39 @@ compileQuerydsl.doFirst {
 
 //querydsl 추가 끝
 
-openapi3 {
-    server = 'http://localhost:8080'
-    title = 'Roadcapture API'
-    description = 'Roadcapture API Description'
-    tagDescriptionsPropertiesFile = 'src/test/resources/tags.yaml'
-    version = '0.1.0'
-    format = 'yaml'
-}
+if (!project.hasProperty('profile') || !profile) {
+    openapi3 {
+        server = 'http://localhost:8080'
+        title = 'Roadcapture API'
+        description = 'Roadcapture API Description'
+        tagDescriptionsPropertiesFile = 'src/test/resources/tags.yaml'
+        version = '0.1.0'
+        format = 'yaml'
+    }
 
-asciidoctor {
-    inputs.dir snippetsDir
-            outputs.dir snippetsDir
+    asciidoctor {
+        inputs.dir snippetsDir
+        outputs.dir snippetsDir
+    }
+} else {
+    openapi3 {
+        server = 'http://ec2-54-180-81-29.ap-northeast-2.compute.amazonaws.com:8081'
+        title = 'Roadcapture API'
+        description = 'Roadcapture API Description'
+        tagDescriptionsPropertiesFile = 'src/test/resources/tags.yaml'
+        version = '0.1.0'
+        format = 'yaml'
+    }
+
+    test {
+        outputs.dir snippetsDir
+        useJUnitPlatform()
+    }
+
+    asciidoctor {
+        inputs.dir snippetsDir
+        dependsOn test
+    }
 }
 
 task createOpenApi {

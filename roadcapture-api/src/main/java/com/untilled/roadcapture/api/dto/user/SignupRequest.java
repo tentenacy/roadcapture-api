@@ -20,7 +20,7 @@ public class SignupRequest {
     private String email;
 
     @Length(min = 8, max = 64)
-    @Pattern(regexp = "(?=.*[a-zA-Z])(?=.*[\\\\d]).+")
+    @Pattern(regexp = "(?=.*[a-zA-Z])(?=.*[\\d]).+")
     @NotEmpty
     private String password;
 
