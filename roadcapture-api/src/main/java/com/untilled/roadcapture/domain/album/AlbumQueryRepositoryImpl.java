@@ -16,6 +16,7 @@ import com.untilled.roadcapture.api.dto.picture.ThumbnailPictureResponse;
 import com.untilled.roadcapture.api.dto.place.PlaceResponse;
 import com.untilled.roadcapture.api.dto.user.AlbumUserResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
+import com.untilled.roadcapture.domain.like.QLike;
 import com.untilled.roadcapture.domain.picture.QPicture;
 import com.untilled.roadcapture.domain.user.QUser;
 import lombok.extern.slf4j.Slf4j;
@@ -100,6 +101,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable, Long userId) {
         QAlbum thumbnailUrlAlbum = new QAlbum("thumbnailUrlAlbum");
         QPicture thumbnailUrlPicture = new QPicture("thumbnailUrlPicture");
+        QLike qLike = new QLike("qLike");
         JPAQuery<AlbumsResponse> query = queryFactory
                 .select(Projections.constructor(AlbumsResponse.class,
                         album.id,
@@ -118,11 +120,12 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.viewCount,
                         like.countDistinct().intValue().as("likeCount"),
                         comment.countDistinct().intValue().as("commentCount"),
-                        like.user.isNotNull().as("doesLike")
+                        qLike.user.isNotNull().as("liked")
                 ))
                 .from(album)
                 .join(album.user, user)
-                .leftJoin(album.likes, like).on(like.user.id.eq(userId))
+                .leftJoin(album.likes, like)
+                .leftJoin(album.likes, qLike).on(qLike.user.id.eq(userId))
                 .join(album.pictures, picture)
                 .leftJoin(picture.comments, comment)
                 .groupBy(album.id)
@@ -151,6 +154,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
         QAlbum thumbnailUrlAlbum = new QAlbum("thumbnailUrlAlbum");
         QPicture thumbnailUrlPicture = new QPicture("thumbnailUrlPicture");
         QUser followingUser = new QUser("followingUser");
+        QLike qLike = new QLike("qLike");
         JPAQuery<AlbumsResponse> query = queryFactory
                 .select(Projections.constructor(AlbumsResponse.class,
                         album.id,
@@ -169,13 +173,14 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.viewCount,
                         like.countDistinct().intValue().as("likeCount"),
                         comment.countDistinct().intValue().as("commentCount"),
-                        like.user.isNotNull().as("liked")
+                        qLike.user.isNotNull().as("liked")
                 ))
                 .from(follower)
                 .join(follower.from, user).on(user.id.eq(userId))
                 .join(follower.to, followingUser)
                 .leftJoin(followingUser.albums, album)
-                .leftJoin(album.likes, like).on(like.user.id.eq(userId))
+                .leftJoin(album.likes, qLike).on(qLike.user.id.eq(userId))
+                .leftJoin(album.likes, like)
                 .join(album.pictures, picture)
                 .leftJoin(picture.comments, comment)
                 .groupBy(album.id)
@@ -196,6 +201,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
 
     @Override
     public Optional<AlbumResponse> getAlbum(Long albumId, Long userId) {
+        QLike qLike = new QLike("qLike");
         AlbumResponse albumResponse = queryFactory
                 .select(Projections.constructor(AlbumResponse.class,
                         album.id,
@@ -211,11 +217,12 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.viewCount,
                         like.countDistinct().intValue().as("likeCount"),
                         comment.countDistinct().intValue().as("commentCount"),
-                        like.user.isNotNull().as("liked")))
+                        qLike.user.isNotNull().as("liked")))
                 .from(follower)
                 .rightJoin(follower.to, user).on(follower.from.id.eq(userId))
                 .leftJoin(user.albums, album).on(album.id.eq(albumId))
-                .leftJoin(album.likes, like).on(like.user.id.eq(userId))
+                .leftJoin(album.likes, like)
+                .leftJoin(album.likes, qLike).on(qLike.user.id.eq(userId))
                 .join(album.pictures, picture)
                 .leftJoin(picture.comments, comment)
                 .fetchOne();
