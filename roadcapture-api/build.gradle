@@ -94,6 +94,7 @@ compileQuerydsl.doFirst {
 //querydsl 추가 끝
 
 if (!project.hasProperty('profile') || !profile) {
+
     openapi3 {
         server = 'http://localhost:8080'
         title = 'Roadcapture API'
@@ -108,6 +109,7 @@ if (!project.hasProperty('profile') || !profile) {
         outputs.dir snippetsDir
     }
 } else {
+
     openapi3 {
         server = 'http://ec2-54-180-81-29.ap-northeast-2.compute.amazonaws.com:8081'
         title = 'Roadcapture API'

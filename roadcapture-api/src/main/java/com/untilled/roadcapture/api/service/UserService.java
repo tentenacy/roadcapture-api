@@ -51,14 +51,9 @@ public class UserService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new CEmailLoginFailedException();
         }
-        //기존에 리프레시 토큰이 있으면
-        //삭제 or 예외?
-        refreshTokenRepository.findByKey(user.getId()).ifPresent(a -> {
-            refreshTokenRepository.delete(a);
-        });
+        refreshTokenRepository.findByKey(user.getId()).ifPresent(refreshTokenRepository::delete);
         TokenResponse tokenResponse = jwtProvider.createToken(user.getId().toString(), user.getRoles());
-        RefreshToken refreshToken = RefreshToken.create(user.getId(), tokenResponse.getRefreshToken());
-        refreshTokenRepository.save(refreshToken);
+        refreshTokenRepository.save(RefreshToken.create(user.getId(), tokenResponse.getRefreshToken()));
         return tokenResponse;
     }
 
@@ -66,7 +61,10 @@ public class UserService {
     public TokenResponse socialLogin(LoginRequest request) {
         User user = userRepository.findByEmailAndProvider(request.getEmail(), request.getProvider())
                 .orElseThrow(CUserNotFoundException::new);
-        return jwtProvider.createToken(user.getId().toString(), user.getRoles());
+        refreshTokenRepository.findByKey(user.getId()).ifPresent(refreshTokenRepository::delete);
+        TokenResponse tokenResponse = jwtProvider.createToken(user.getId().toString(), user.getRoles());
+        refreshTokenRepository.save(RefreshToken.create(user.getId(), tokenResponse.getRefreshToken()));
+        return tokenResponse;
     }
 
     /**
