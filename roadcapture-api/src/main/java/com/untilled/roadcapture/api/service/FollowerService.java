@@ -2,6 +2,7 @@ package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.follower.FollowersCondition;
 import com.untilled.roadcapture.api.dto.follower.FollowingsCondition;
+import com.untilled.roadcapture.api.dto.follower.FollowingsSortByAlbumResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserNotFoundException;
 import com.untilled.roadcapture.api.exception.business.CEntityNotFoundException.CUserToFollowNotFoundException;
@@ -45,12 +46,16 @@ public class FollowerService {
         followerRepository.delete(getFollowerIfExists(fromUserId, toUserId));
     }
 
-    public Page<UsersResponse> getFollowings(FollowingsCondition cond, Pageable pageable, Long userId) {
-        return followerRepository.getFollowings(cond, pageable, getUserThrowable(userId).getId());
+    public Page<UsersResponse> getFollowings(FollowingsCondition cond, Pageable pageable, Long fromUserId) {
+        return followerRepository.getFollowings(cond, pageable, getUserThrowable(fromUserId).getId());
     }
 
-    public Page<UsersResponse> getFollowers(FollowersCondition cond, Pageable pageable, Long userId) {
-        return followerRepository.getFollowers(cond, pageable, getUserThrowable(userId).getId());
+    public Page<UsersResponse> getFollowers(FollowersCondition cond, Pageable pageable, Long fromUserId) {
+        return followerRepository.getFollowers(cond, pageable, getUserThrowable(fromUserId).getId());
+    }
+
+    public Page<FollowingsSortByAlbumResponse> getFollowingsSortByAlbum(Pageable pageable, Long fromUserId) {
+        return followerRepository.getFollowingsSortByAlbum(pageable, fromUserId);
     }
 
     private void checkFollowMyselfException(User foundUser, User userToFollow) {

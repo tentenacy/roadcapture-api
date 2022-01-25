@@ -186,4 +186,32 @@ class FollowerApiControllerTest extends ApiDocumentationTest {
                             responseFields(pageFields).andWithPrefix("content.[].", usersFields)));
         }
     }
+
+    @Nested
+    @DisplayName("앨범정렬팔로잉조회")
+    class FollowingsSortByAlbum {
+
+        @Test
+        @DisplayName("성공")
+        public void Success() throws Exception {
+            //given
+            followerService.create(2L, 1L);
+            followerService.create(2L, 3L);
+            followerService.create(2L, 4L);
+            followerService.create(2L, 5L);
+
+            //when
+            ResultActions result = mockMvc.perform(get("/followers/to/sort-by-album")
+                    .header("X-AUTH-TOKEN", jwtAccessToken)
+                    .contentType(MediaType.APPLICATION_JSON));
+
+            //then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content.length()").value(4))
+                    .andDo(document("앨범정렬팔로잉조회 - 성공", "앨범정렬팔로잉조회",
+                            requestHeaders(jwtHeader),
+                            requestParameters(pageParams),
+                            responseFields(pageFields).andWithPrefix("content.[].", followingsSortByAlbumFields)));
+        }
+    }
 }

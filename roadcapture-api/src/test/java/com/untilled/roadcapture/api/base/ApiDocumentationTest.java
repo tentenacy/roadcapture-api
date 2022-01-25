@@ -351,5 +351,12 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     protected ParameterDescriptor[] followingsParams = new ParameterDescriptor[] {
             parameterWithName("username").description("조회할 팔로잉 이름입니다.").optional(),
     };
+    protected FieldDescriptor[] followingsSortByAlbumFields = new FieldDescriptor[] {
+            fieldWithPath("id").description("사용자 아이디입니다."),
+            fieldWithPath("username").description("사용자 이름입니다."),
+            fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional(),
+            fieldWithPath("latestAlbumCreatedAt").description("사용자의 최신 앨범 생성 시각입니다.").optional(),
+            fieldWithPath("latestAlbumLastModifiedAt").description("사용자의 최신 앨범 수정 시각입니다.").optional(),
+    };
 
 }

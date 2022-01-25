@@ -1,6 +1,7 @@
 package com.untilled.roadcapture.domain.follower;
 
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -10,8 +11,11 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.untilled.roadcapture.api.dto.follower.FollowersCondition;
 import com.untilled.roadcapture.api.dto.follower.FollowingsCondition;
+import com.untilled.roadcapture.api.dto.follower.FollowingsSortByAlbumResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
+import com.untilled.roadcapture.domain.album.QAlbum;
 import com.untilled.roadcapture.domain.user.QUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,11 +23,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static com.untilled.roadcapture.domain.album.QAlbum.*;
 import static com.untilled.roadcapture.domain.follower.QFollower.*;
 import static com.untilled.roadcapture.domain.user.QUser.*;
 
+@Slf4j
 @Repository
 public class FollowerQueryRepositoryImpl extends QuerydslRepositorySupport implements FollowerQueryRepository {
 
@@ -82,6 +92,43 @@ public class FollowerQueryRepositoryImpl extends QuerydslRepositorySupport imple
         }
 
         QueryResults<UsersResponse> result = query.fetchResults();
+
+        return new PageImpl(result.getResults(), pageable, result.getTotal());
+    }
+
+    @Override
+    public Page<FollowingsSortByAlbumResponse> getFollowingsSortByAlbum(Pageable pageable, Long fromUserId) {
+
+        List<LocalDateTime> fetch = queryFactory
+                .select(album.createdAt.max()).distinct()
+                .from(follower)
+                .join(follower.to).on(follower.from.id.eq(fromUserId))
+                .leftJoin(follower.to.albums, album)
+                .groupBy(follower.to.id)
+                .fetch();
+
+        JPAQuery<FollowingsSortByAlbumResponse> query = queryFactory
+                .select(Projections.constructor(FollowingsSortByAlbumResponse.class,
+                        follower.to.id,
+                        follower.to.username,
+                        follower.to.profileImageUrl,
+                        album.createdAt,
+                        album.lastModifiedAt
+                ))
+                .from(follower)
+                .join(follower.to).on(follower.from.id.eq(fromUserId))
+                .leftJoin(follower.to.albums, album)
+                .where(album.createdAt.in(fetch))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize());
+
+        for (Sort.Order o : pageable.getSort()) {
+            PathBuilder pathBuilder = new PathBuilder(album.getType(), album.getMetadata());
+            query.orderBy(new OrderSpecifier<>(o.isAscending() ? Order.ASC : Order.DESC,
+                    pathBuilder.get(o.getProperty())));
+        }
+
+        QueryResults<FollowingsSortByAlbumResponse> result = query.fetchResults();
 
         return new PageImpl(result.getResults(), pageable, result.getTotal());
     }

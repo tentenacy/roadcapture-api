@@ -3,6 +3,7 @@ package com.untilled.roadcapture.api.controller;
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.follower.FollowersCondition;
 import com.untilled.roadcapture.api.dto.follower.FollowingsCondition;
+import com.untilled.roadcapture.api.dto.follower.FollowingsSortByAlbumResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.api.exception.business.CInvalidValueException;
 import com.untilled.roadcapture.api.service.FollowerService;
@@ -69,5 +70,13 @@ public class FollowerApiController {
     public Page<UsersResponse> userFollowers(FollowersCondition cond, Pageable pageable, @PathVariable Long userId) {
 
         return followService.getFollowers(cond, pageable, userId);
+    }
+
+    @GetMapping("/followers/to/sort-by-album")
+    public Page<FollowingsSortByAlbumResponse> followingsSortByAlbum(Pageable pageable) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return followService.getFollowingsSortByAlbum(pageable, user.getId());
     }
 }
