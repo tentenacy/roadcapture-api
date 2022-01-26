@@ -261,6 +261,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
             fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다.").optional(),
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
+            fieldWithPath("commentCount").type(JsonFieldType.NUMBER).description("사진 댓글수입니다."),
     };
 
     protected FieldDescriptor[] thumbnailPictureFields = new FieldDescriptor[] {

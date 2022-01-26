@@ -202,6 +202,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     @Override
     public Optional<AlbumResponse> getAlbum(Long albumId, Long userId) {
         QLike qLike = new QLike("qLike");
+        QPicture qPicture = new QPicture("qPicture");
         AlbumResponse albumResponse = queryFactory
                 .select(Projections.constructor(AlbumResponse.class,
                         album.id,
@@ -240,7 +241,11 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                                     place.name,
                                     place.latitude,
                                     place.longitude,
-                                    place.address)))
+                                    place.address),
+                            ExpressionUtils.as(JPAExpressions.select(comment.countDistinct().intValue())
+                                    .from(qPicture)
+                                    .leftJoin(qPicture.comments, comment)
+                                    .where(qPicture.id.eq(picture.id)), "commentCount")))
                     .from(picture)
                     .join(picture.place, place)
                     .where(picture.album.id.eq(albumId))

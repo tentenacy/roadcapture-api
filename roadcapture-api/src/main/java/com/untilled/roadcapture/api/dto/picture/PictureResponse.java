@@ -20,4 +20,5 @@ public class PictureResponse {
     private String imageUrl;
     private String description;
     private PlaceResponse place;
+    private int commentCount;
 }
