@@ -2,6 +2,7 @@ package com.untilled.roadcapture.api.controller;
 
 import com.untilled.roadcapture.api.dto.common.ErrorCode;
 import com.untilled.roadcapture.api.dto.follower.FollowersCondition;
+import com.untilled.roadcapture.api.dto.follower.FollowersResponse;
 import com.untilled.roadcapture.api.dto.follower.FollowingsCondition;
 import com.untilled.roadcapture.api.dto.follower.FollowingsSortByAlbumResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
@@ -53,7 +54,7 @@ public class FollowerApiController {
     }
 
     @GetMapping("/followers/from")
-    public Page<UsersResponse> followers(FollowersCondition cond, Pageable pageable) {
+    public Page<FollowersResponse> followers(FollowersCondition cond, Pageable pageable) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -67,7 +68,7 @@ public class FollowerApiController {
     }
 
     @GetMapping("/users/{userId}/followers/from")
-    public Page<UsersResponse> userFollowers(FollowersCondition cond, Pageable pageable, @PathVariable Long userId) {
+    public Page<FollowersResponse> userFollowers(FollowersCondition cond, Pageable pageable, @PathVariable Long userId) {
 
         return followService.getFollowers(cond, pageable, userId);
     }

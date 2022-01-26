@@ -42,5 +42,4 @@ public class Follower extends BaseCreationTimeEntity {
         follower.setTo(to);
         return follower;
     }
-
 }

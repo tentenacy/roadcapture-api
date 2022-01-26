@@ -1,6 +1,7 @@
 package com.untilled.roadcapture.api.service;
 
 import com.untilled.roadcapture.api.dto.follower.FollowersCondition;
+import com.untilled.roadcapture.api.dto.follower.FollowersResponse;
 import com.untilled.roadcapture.api.dto.follower.FollowingsCondition;
 import com.untilled.roadcapture.api.dto.follower.FollowingsSortByAlbumResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
@@ -50,7 +51,7 @@ public class FollowerService {
         return followerRepository.getFollowings(cond, pageable, getUserThrowable(fromUserId).getId());
     }
 
-    public Page<UsersResponse> getFollowers(FollowersCondition cond, Pageable pageable, Long fromUserId) {
+    public Page<FollowersResponse> getFollowers(FollowersCondition cond, Pageable pageable, Long fromUserId) {
         return followerRepository.getFollowers(cond, pageable, getUserThrowable(fromUserId).getId());
     }
 

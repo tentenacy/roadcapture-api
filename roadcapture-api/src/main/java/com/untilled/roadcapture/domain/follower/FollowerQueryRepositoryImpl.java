@@ -2,14 +2,17 @@ package com.untilled.roadcapture.domain.follower;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.untilled.roadcapture.api.dto.follower.FollowersCondition;
+import com.untilled.roadcapture.api.dto.follower.FollowersResponse;
 import com.untilled.roadcapture.api.dto.follower.FollowingsCondition;
 import com.untilled.roadcapture.api.dto.follower.FollowingsSortByAlbumResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
@@ -71,17 +74,22 @@ public class FollowerQueryRepositoryImpl extends QuerydslRepositorySupport imple
     }
 
     @Override
-    public Page<UsersResponse> getFollowers(FollowersCondition cond, Pageable pageable, Long toUserId) {
+    public Page<FollowersResponse> getFollowers(FollowersCondition cond, Pageable pageable, Long toUserId) {
 
-        JPAQuery<UsersResponse> query = queryFactory
-                .select(Projections.constructor(UsersResponse.class,
+        QFollower qFollower = new QFollower("qFollower");
+
+        JPAQuery<FollowersResponse> query = queryFactory
+                .select(Projections.constructor(FollowersResponse.class,
                         follower.from.id,
                         follower.from.username,
-                        follower.from.profileImageUrl))
+                        follower.from.profileImageUrl,
+                        ExpressionUtils.as(JPAExpressions.select(qFollower.isNotNull())
+                                        .from(qFollower)
+                                        .where(qFollower.from.id.eq(toUserId), qFollower.to.id.eq(follower.from.id))
+                                , "followed")))
                 .from(follower)
-                .join(follower.from)
-                .where(follower.to.id.eq(toUserId),
-                        fromUsernameContains(cond.getUsername()))
+                .join(follower.from).on(follower.to.id.eq(toUserId))
+                .where(fromUsernameContains(cond.getUsername()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
@@ -91,7 +99,7 @@ public class FollowerQueryRepositoryImpl extends QuerydslRepositorySupport imple
                     pathBuilder.get(o.getProperty())));
         }
 
-        QueryResults<UsersResponse> result = query.fetchResults();
+        QueryResults<FollowersResponse> result = query.fetchResults();
 
         return new PageImpl(result.getResults(), pageable, result.getTotal());
     }
