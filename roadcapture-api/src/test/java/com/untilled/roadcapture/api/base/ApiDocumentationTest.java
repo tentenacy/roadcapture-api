@@ -154,7 +154,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("introduction").description("스튜디오 사용자 소개글입니다.").optional(),
             fieldWithPath("followerCount").type(JsonFieldType.NUMBER).description("스튜디오 사용자 팔로워 수입니다.").optional(),
             fieldWithPath("followingCount").type(JsonFieldType.NUMBER).description("스튜디오 사용자 팔로잉 수입니다.").optional(),
-            fieldWithPath("followed").type(JsonFieldType.BOOLEAN).description("스튜디오 사용자 팔로우 유무입니다.").optional(),
+            fieldWithPath("followed").type(JsonFieldType.BOOLEAN).description("스튜디오 사용자 팔로우 여부입니다.").optional(),
     };
 
     protected FieldDescriptor[] myStudioUserFields = new FieldDescriptor[] {
@@ -351,12 +351,20 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
     protected ParameterDescriptor[] followingsParams = new ParameterDescriptor[] {
             parameterWithName("username").description("조회할 팔로잉 이름입니다.").optional(),
     };
+
     protected FieldDescriptor[] followingsSortByAlbumFields = new FieldDescriptor[] {
             fieldWithPath("id").description("사용자 아이디입니다."),
             fieldWithPath("username").description("사용자 이름입니다."),
             fieldWithPath("profileImageUrl").description("사용자 프로필 사진입니다.").optional(),
             fieldWithPath("latestAlbumCreatedAt").description("사용자의 최신 앨범 생성 시각입니다.").optional(),
             fieldWithPath("latestAlbumLastModifiedAt").description("사용자의 최신 앨범 수정 시각입니다.").optional(),
+    };
+
+    protected FieldDescriptor[] followersFields = new FieldDescriptor[] {
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("사용자 아이디입니다."),
+            fieldWithPath("username").type(JsonFieldType.STRING).description("사용자 이름입니다."),
+            fieldWithPath("profileImageUrl").type(JsonFieldType.STRING).description("사용자 프로필 사진입니다.").optional(),
+            fieldWithPath("followed").type(JsonFieldType.BOOLEAN).description("사용자 팔로우 여부입니다.").optional(),
     };
 
 }

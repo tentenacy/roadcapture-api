@@ -93,7 +93,7 @@ class FollowerApiControllerTest extends ApiDocumentationTest {
                     .andDo(document("팔로워조회 - 성공", "팔로워조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(followersParams),
-                            responseFields(pageFields).andWithPrefix("content.[].", usersFields)));
+                            responseFields(pageFields).andWithPrefix("content.[].", followersFields)));
         }
     }
 
@@ -153,7 +153,7 @@ class FollowerApiControllerTest extends ApiDocumentationTest {
                     .andDo(document("유저팔로워조회 - 성공", "유저팔로워조회",
                             requestHeaders(jwtHeader),
                             requestParameters(pageParams).and(followersParams),
-                            responseFields(pageFields).andWithPrefix("content.[].", usersFields)));
+                            responseFields(pageFields).andWithPrefix("content.[].", followersFields)));
         }
     }
 
