@@ -17,6 +17,7 @@ public class PictureResponse {
     private Long id;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
+    private boolean isThumbnail;
     private String imageUrl;
     private String description;
     private PlaceResponse place;

@@ -234,6 +234,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                             picture.id,
                             picture.createdAt,
                             picture.lastModifiedAt,
+                            picture.isThumbnail,
                             picture.imageUrl,
                             picture.description,
                             Projections.constructor(PlaceResponse.class,

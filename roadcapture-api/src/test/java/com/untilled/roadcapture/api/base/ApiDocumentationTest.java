@@ -258,6 +258,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("사진 아이디입니다."),
             fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
+            fieldWithPath("thumbnail").type(JsonFieldType.BOOLEAN).description("앨법 썸네일 여부입니다."),
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
             fieldWithPath("description").type(JsonFieldType.STRING).description("사진 설명입니다.").optional(),
             fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
