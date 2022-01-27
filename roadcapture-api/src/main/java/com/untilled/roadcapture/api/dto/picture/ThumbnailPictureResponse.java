@@ -14,5 +14,4 @@ public class ThumbnailPictureResponse {
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
     private String imageUrl;
-    private PlaceResponse place;
 }

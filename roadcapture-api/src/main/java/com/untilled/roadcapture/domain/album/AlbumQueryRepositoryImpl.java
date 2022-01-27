@@ -52,7 +52,7 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<StudioAlbumsResponse> getStudioAlbums(MyStudioAlbumsCondition cond, Pageable pageable, Long userId) {
+    public Page<StudioAlbumsResponse> getStudioAlbums(Pageable pageable, Long userId) {
         JPAQuery<StudioAlbumsResponse> query = queryFactory
                 .select(Projections.constructor(StudioAlbumsResponse.class,
                         album.id,
@@ -63,23 +63,12 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                                 picture.id,
                                 picture.createdAt,
                                 picture.lastModifiedAt,
-                                picture.imageUrl,
-                                Projections.constructor(PlaceResponse.class,
-                                        place.id,
-                                        place.name,
-                                        place.latitude,
-                                        place.longitude,
-                                        place.address))
+                                picture.imageUrl)
                 ))
                 .from(album)
                 .join(album.user, user).on(user.id.eq(userId))
                 .join(album.pictures, picture).on(picture.isThumbnail.eq(true))
                 .join(picture.place, place)
-                .where(
-                        addressNameContains(ObjectUtils.isEmpty(cond.getPlaceCond()) ? null : cond.getPlaceCond().getRegion1DepthName()),
-                        addressNameContains(ObjectUtils.isEmpty(cond.getPlaceCond()) ? null : cond.getPlaceCond().getRegion2DepthName()),
-                        addressNameContains(ObjectUtils.isEmpty(cond.getPlaceCond()) ? null : cond.getPlaceCond().getRegion3DepthName())
-                )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
@@ -91,16 +80,14 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
 
         QueryResults<StudioAlbumsResponse> result = query.fetchResults();
 
-        List<StudioAlbumsResponse> results = result.getResults();
-
         //카운트 쿼리 필요에 따라 날라감
         return new PageImpl(result.getResults(), pageable, result.getTotal());
     }
 
     @Override
     public Page<AlbumsResponse> getAlbums(AlbumsCondition cond, Pageable pageable, Long userId) {
-        QAlbum thumbnailUrlAlbum = new QAlbum("thumbnailUrlAlbum");
-        QPicture thumbnailUrlPicture = new QPicture("thumbnailUrlPicture");
+        QAlbum qAlbum = new QAlbum("qAlbum");
+        QPicture qThumbnailPicture = new QPicture("qThumbnailPicture");
         QLike qLike = new QLike("qLike");
         JPAQuery<AlbumsResponse> query = queryFactory
                 .select(Projections.constructor(AlbumsResponse.class,
@@ -109,26 +96,31 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.lastModifiedAt,
                         album.title,
                         album.description,
-                        ExpressionUtils.as(JPAExpressions.select(thumbnailUrlPicture.imageUrl)
-                                .from(thumbnailUrlAlbum)
-                                .join(thumbnailUrlAlbum.pictures, thumbnailUrlPicture).on(thumbnailUrlPicture.isThumbnail.eq(true))
-                                .where(thumbnailUrlAlbum.id.eq(album.id)), "thumbnailUrl"),
+                        Projections.constructor(ThumbnailPictureResponse.class,
+                                qThumbnailPicture.id,
+                                qThumbnailPicture.createdAt,
+                                qThumbnailPicture.lastModifiedAt,
+                                qThumbnailPicture.imageUrl),
                         Projections.constructor(UsersResponse.class,
                                 user.id,
                                 user.username,
                                 user.profileImageUrl),
                         album.viewCount,
-                        like.countDistinct().intValue().as("likeCount"),
-                        comment.countDistinct().intValue().as("commentCount"),
+                        ExpressionUtils.as(JPAExpressions.select(like.countDistinct().intValue())
+                                .from(qAlbum)
+                                .leftJoin(qAlbum.likes, like)
+                                .where(qAlbum.id.eq(album.id)), "likeCount"),
+                        ExpressionUtils.as(JPAExpressions.select(comment.countDistinct().intValue())
+                                .from(qAlbum)
+                                .leftJoin(qAlbum.pictures, picture)
+                                .leftJoin(picture.comments, comment)
+                                .where(qAlbum.id.eq(album.id)), "commentCount"),
                         qLike.user.isNotNull().as("liked")
                 ))
                 .from(album)
                 .join(album.user, user)
-                .leftJoin(album.likes, like)
                 .leftJoin(album.likes, qLike).on(qLike.user.id.eq(userId))
-                .join(album.pictures, picture)
-                .leftJoin(picture.comments, comment)
-                .groupBy(album.id)
+                .leftJoin(album.pictures, qThumbnailPicture).on(qThumbnailPicture.album.id.eq(album.id)).on(qThumbnailPicture.isThumbnail.eq(true))
                 .where(
                         dateTimeLoe(cond.getDateTimeTo()),
                         dateTimeGoe(cond.getDateTimeFrom()),
@@ -151,9 +143,9 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
 
     @Override
     public Page<AlbumsResponse> getFollowingAlbums(FollowingAlbumsCondition cond, Pageable pageable, Long userId) {
-        QAlbum thumbnailUrlAlbum = new QAlbum("thumbnailUrlAlbum");
-        QPicture thumbnailUrlPicture = new QPicture("thumbnailUrlPicture");
-        QUser followingUser = new QUser("followingUser");
+        QAlbum qAlbum = new QAlbum("qAlbum");
+        QPicture qThumbnailPicture = new QPicture("qThumbnailPicture");
+        QUser qFollowingUser = new QUser("qFollowingUser");
         QLike qLike = new QLike("qLike");
         JPAQuery<AlbumsResponse> query = queryFactory
                 .select(Projections.constructor(AlbumsResponse.class,
@@ -162,28 +154,33 @@ public class AlbumQueryRepositoryImpl extends QuerydslRepositorySupport implemen
                         album.lastModifiedAt,
                         album.title,
                         album.description,
-                        ExpressionUtils.as(JPAExpressions.select(thumbnailUrlPicture.imageUrl)
-                                .from(thumbnailUrlAlbum)
-                                .join(thumbnailUrlAlbum.pictures, thumbnailUrlPicture).on(thumbnailUrlPicture.isThumbnail.eq(true))
-                                .where(thumbnailUrlAlbum.id.eq(album.id)), "thumbnailUrl"),
+                        Projections.constructor(ThumbnailPictureResponse.class,
+                                qThumbnailPicture.id,
+                                qThumbnailPicture.createdAt,
+                                qThumbnailPicture.lastModifiedAt,
+                                qThumbnailPicture.imageUrl),
                         Projections.constructor(UsersResponse.class,
-                                followingUser.id,
-                                followingUser.username,
-                                followingUser.profileImageUrl),
+                                qFollowingUser.id,
+                                qFollowingUser.username,
+                                qFollowingUser.profileImageUrl),
                         album.viewCount,
-                        like.countDistinct().intValue().as("likeCount"),
-                        comment.countDistinct().intValue().as("commentCount"),
+                        ExpressionUtils.as(JPAExpressions.select(like.countDistinct().intValue())
+                                .from(qAlbum)
+                                .leftJoin(qAlbum.likes, like)
+                                .where(qAlbum.id.eq(album.id)), "likeCount"),
+                        ExpressionUtils.as(JPAExpressions.select(comment.countDistinct().intValue())
+                                .from(qAlbum)
+                                .leftJoin(qAlbum.pictures, picture)
+                                .leftJoin(picture.comments, comment)
+                                .where(qAlbum.id.eq(album.id)), "commentCount"),
                         qLike.user.isNotNull().as("liked")
                 ))
                 .from(follower)
                 .join(follower.from, user).on(user.id.eq(userId))
-                .join(follower.to, followingUser)
-                .leftJoin(followingUser.albums, album)
+                .join(follower.to, qFollowingUser)
+                .leftJoin(qFollowingUser.albums, album)
                 .leftJoin(album.likes, qLike).on(qLike.user.id.eq(userId))
-                .leftJoin(album.likes, like)
-                .join(album.pictures, picture)
-                .leftJoin(picture.comments, comment)
-                .groupBy(album.id)
+                .leftJoin(album.pictures, qThumbnailPicture).on(qThumbnailPicture.album.id.eq(album.id)).on(qThumbnailPicture.isThumbnail.eq(true))
                 .where(followingIdEq(cond.getFollowingId()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());

@@ -237,7 +237,7 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("lastModifiedAt").description("앨범 수정 시각입니다."),
             fieldWithPath("title").description("앨범 제목입니다."),
             fieldWithPath("description").description("앨범 설명입니다.").optional(),
-            fieldWithPath("thumbnailUrl").description("앨범 썸네일 이미지 주소입니다."),
+            fieldWithPath("thumbnailPicture").type(JsonFieldType.OBJECT).description("앨범 썸네일 사진입니다."),
             fieldWithPath("user").type(JsonFieldType.OBJECT).description("앨범 등록자입니다."),
             fieldWithPath("viewCount").type(JsonFieldType.NUMBER).description("앨범 조회수입니다."),
             fieldWithPath("likeCount").type(JsonFieldType.NUMBER).description("앨범 좋아요수입니다."),
@@ -270,7 +270,6 @@ public abstract class ApiDocumentationTest extends BaseSpringBootTest {
             fieldWithPath("createdAt").type(JsonFieldType.STRING).description("사진 생성 시각입니다."),
             fieldWithPath("lastModifiedAt").type(JsonFieldType.STRING).description("사진 수정 시각입니다."),
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("사진 이미지 주소입니다."),
-            fieldWithPath("place").type(JsonFieldType.OBJECT).description("사진 장소입니다."),
     };
 
 

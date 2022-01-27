@@ -2,6 +2,7 @@ package com.untilled.roadcapture.api.dto.album;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
+import com.untilled.roadcapture.api.dto.picture.ThumbnailPictureResponse;
 import com.untilled.roadcapture.api.dto.user.UsersResponse;
 import com.untilled.roadcapture.domain.album.Album;
 import lombok.AccessLevel;
@@ -20,7 +21,7 @@ public class AlbumsResponse {
     private LocalDateTime lastModifiedAt;
     private String title;
     private String description;
-    private String thumbnailUrl;
+    private ThumbnailPictureResponse thumbnailPicture;
     private UsersResponse user;
     private int viewCount;
     private int likeCount;
