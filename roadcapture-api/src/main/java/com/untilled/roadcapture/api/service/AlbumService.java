@@ -92,7 +92,7 @@ public class AlbumService {
         return albumRepository.save(Album.create(
                 request.getTitle(),
                 request.getDescription(),
-                request.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()),
+                request.getPictures().stream().map(TempPictureCreateRequest::toEntity).collect(Collectors.toList()),
                 getUserThrowable(user.getId())
         ));
     }
@@ -101,7 +101,7 @@ public class AlbumService {
     public Album create(Long userId, TempAlbumCreateRequest request) {
 
         List<Picture> pictures = request.getPictures().stream()
-                .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
+                .map(TempPictureCreateRequest::toEntity)
                 .collect(Collectors.toList());
 
         return albumRepository.save(Album.create(
@@ -187,8 +187,7 @@ public class AlbumService {
 
                 foundAlbum.addPicture(Picture.create(
                         pictureCreateRequest.isThumbnail(),
-                        pictureCreateRequest.getCreatedAt(),
-                        pictureCreateRequest.getLastModifiedAt(),
+                        pictureCreateRequest.getOrder(),
                         pictureCreateRequest.getImageUrl(),
                         pictureCreateRequest.getDescription(),
                         pictureCreateRequest.getPlace().toEntity())

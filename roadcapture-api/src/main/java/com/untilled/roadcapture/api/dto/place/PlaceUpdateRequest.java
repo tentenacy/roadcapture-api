@@ -20,12 +20,6 @@ public class PlaceUpdateRequest {
     @NotEmpty
     private String name;
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
-    private LocalDateTime createdAt;
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
-    private LocalDateTime lastModifiedAt;
-    @NotNull
     private Double latitude;
     @NotNull
     private Double longitude;
@@ -33,6 +27,6 @@ public class PlaceUpdateRequest {
     private Address address;
 
     public Place toEntity() {
-        return Place.create(this.name, this.createdAt, this.lastModifiedAt, this.latitude, this.longitude, this.address);
+        return Place.create(this.name, this.latitude, this.longitude, this.address);
     }
 }

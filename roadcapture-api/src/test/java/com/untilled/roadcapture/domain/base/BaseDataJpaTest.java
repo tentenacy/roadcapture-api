@@ -112,13 +112,10 @@ public class BaseDataJpaTest {
                 Arrays.asList(
                         new TempPictureCreateRequest(
                                 true,
-                                LocalDateTime.now(),
-                                LocalDateTime.now(),
+                                0,
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
-                                        LocalDateTime.now(),
-                                        LocalDateTime.now(),
                                         36.1112512,
                                         27.1146346,
                                         new Address(
@@ -133,13 +130,10 @@ public class BaseDataJpaTest {
                         ),
                         new TempPictureCreateRequest(
                                 false,
-                                LocalDateTime.now(),
-                                LocalDateTime.now(),
+                                1,
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
-                                        LocalDateTime.now(),
-                                        LocalDateTime.now(),
                                         36.1112512,
                                         27.1146346,
                                         new Address(
@@ -163,13 +157,10 @@ public class BaseDataJpaTest {
                 Arrays.asList(
                         new TempPictureCreateRequest(
                                 true,
-                                LocalDateTime.now(),
-                                LocalDateTime.now(),
+                                0,
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
-                                        LocalDateTime.now(),
-                                        LocalDateTime.now(),
                                         36.1112512,
                                         27.1146346,
                                         new Address(
@@ -184,13 +175,10 @@ public class BaseDataJpaTest {
                         ),
                         new TempPictureCreateRequest(
                                 false,
-                                LocalDateTime.now(),
-                                LocalDateTime.now(),
+                                1,
                                 "https://www.test.com/test",
                                 "저번에 이어 이번에도 그 목적지로 향했습니다.",
                                 new PlaceCreateRequest("곡교천 은행나무길",
-                                        LocalDateTime.now(),
-                                        LocalDateTime.now(),
                                         36.1112512,
                                         27.1146346,
                                         new Address(

@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -44,13 +45,10 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
                     Arrays.asList(new TempPictureCreateRequest(
                             true,
-                            LocalDateTime.now(),
-                            LocalDateTime.now(),
+                            0,
                             "https://www.test.com/test",
                             "저번에 이어 이번에도 그 목적지로 향했습니다.",
                             new PlaceCreateRequest("곡교천 은행나무길",
-                                    LocalDateTime.now(),
-                                    LocalDateTime.now(),
                                     36.1112512,
                                     27.1146346,
                                     new Address(
@@ -260,17 +258,14 @@ class AlbumApiControllerTest extends ApiDocumentationTest {
             TempAlbumUpdateRequest request = new TempAlbumUpdateRequest(
                     "볼거리가 가득한 국내 여행지!!!",
                     "전국의 아름다운 10대 가로수길 중 하나로 선정된 곡교천변 은행나무길은 현충가 입구에 있습니다.",
-                    Arrays.asList(new TempPictureUpdateRequest(
+                    List.of(new TempPictureUpdateRequest(
                             23L,
                             true,
-                            LocalDateTime.now(),
-                            LocalDateTime.now(),
+                            0,
                             "https://www.test.com/test",
                             "저번에 이어 이번에도 그 목적지로 향했습니다!!!",
                             new PlaceUpdateRequest(
                                     "그 은행나무!!!",
-                                    LocalDateTime.now(),
-                                    LocalDateTime.now(),
                                     36.1112512,
                                     27.1146346,
                                     new Address(

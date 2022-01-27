@@ -21,12 +21,6 @@ public class PlaceCreateRequest {
     @NotEmpty
     private String name;
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
-    private LocalDateTime createdAt;
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
-    private LocalDateTime lastModifiedAt;
-    @NotNull
     private Double latitude;
     @NotNull
     private Double longitude;
@@ -34,19 +28,17 @@ public class PlaceCreateRequest {
     private Address address;
 
     public Place toEntity() {
-        return Place.create(this.name, this.createdAt, this.lastModifiedAt, this.latitude, this.longitude, this.address);
+        return Place.create(this.name, this.latitude, this.longitude, this.address);
     }
 
     public PlaceCreateRequest(PlaceUpdateRequest request) {
         this.name = request.getName();
-        this.createdAt = request.getCreatedAt();
-        this.lastModifiedAt = request.getLastModifiedAt();
         this.latitude = request.getLatitude();
         this.longitude = request.getLongitude();
         this.address = request.getAddress();
     }
 
     public PlaceUpdateRequest toPlaceUpdateRequest() {
-        return new PlaceUpdateRequest(this.name, this.createdAt, this.lastModifiedAt, this.latitude, this.longitude, this.address);
+        return new PlaceUpdateRequest(this.name, this.latitude, this.longitude, this.address);
     }
 }

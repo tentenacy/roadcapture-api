@@ -24,19 +24,18 @@ import static javax.persistence.FetchType.LAZY;
 @ToString
 @Entity
 @Getter @Setter(value = AccessLevel.PROTECTED)
-public class Picture {
+public class Picture extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "picture_id")
     private Long id;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime lastModifiedAt;
-
     private String imageUrl;
 
     private String description;
+
+    @Column(name = "picture_order")
+    private Integer order;
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "place_id")
@@ -51,11 +50,10 @@ public class Picture {
 
     private boolean isThumbnail;
 
-    public static Picture create(boolean isThumbnail, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String imageUrl, String description, Place place) {
+    public static Picture create(boolean isThumbnail, Integer order, String imageUrl, String description, Place place) {
         Picture picture = new Picture();
-        picture.createdAt = createdAt;
-        picture.lastModifiedAt = lastModifiedAt;
         picture.isThumbnail = isThumbnail;
+        picture.order = order;
         picture.imageUrl = imageUrl;
         picture.description = description;
         picture.place = place;
@@ -64,8 +62,7 @@ public class Picture {
 
     public void update(Picture picture) {
         this.isThumbnail = picture.isThumbnail();
-        this.createdAt = picture.getCreatedAt();
-        this.lastModifiedAt = picture.getLastModifiedAt();
+        this.order = picture.getOrder();
         this.imageUrl = picture.getImageUrl();
         this.description = picture.getDescription();
     }

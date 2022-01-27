@@ -18,15 +18,11 @@ import static javax.persistence.FetchType.LAZY;
 @ToString
 @Entity
 @Getter @Setter(value = AccessLevel.PROTECTED)
-public class Place {
+public class Place extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "place_id")
     private Long id;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime lastModifiedAt;
 
     private String name;
 
@@ -37,11 +33,9 @@ public class Place {
     @Embedded
     private Address address;
 
-    public static Place create(String name, LocalDateTime createdAt, LocalDateTime lastModifiedAt, double latitude, double longitude, Address address) {
+    public static Place create(String name, double latitude, double longitude, Address address) {
         Place place = new Place();
         place.setName(name);
-        place.setCreatedAt(createdAt);
-        place.setLastModifiedAt(lastModifiedAt);
         place.setLatitude(latitude);
         place.setLongitude(longitude);
         place.setAddress(address);
@@ -50,8 +44,6 @@ public class Place {
 
     public void update(Place place) {
         this.name = place.getName();
-        this.createdAt = place.getCreatedAt();
-        this.lastModifiedAt = place.getLastModifiedAt();
         this.latitude = place.getLatitude();
         this.longitude = place.getLongitude();
         this.address = place.getAddress();

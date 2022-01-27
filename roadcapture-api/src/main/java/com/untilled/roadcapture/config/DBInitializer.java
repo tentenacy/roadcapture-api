@@ -35,9 +35,9 @@ public class DBInitializer {
     private final PasswordEncoder passwordEncoder;
 
     private final int userCount = 5;
-    private final int albumCountPerUser = 20;
+    private final int albumCountPerUser = 10;
     private final int pictureCountPerAlbum = 2;
-    private final int commentCountPerPicture = 100;
+    private final int commentCountPerPicture = 50;
     private final int likeItSelf = 1;
 
     @PostConstruct
@@ -71,13 +71,10 @@ public class DBInitializer {
                         Arrays.asList(
                                 new TempPictureCreateRequest(
                                         true,
-                                        LocalDateTime.now(),
-                                        LocalDateTime.now(),
+                                        0,
                                         "https://static-storychat.pstatic.net/2516396_30992988/ebgea7g354b40.jpg",
                                         "맑은 하늘",
                                         new PlaceCreateRequest("양곡신협 주변",
-                                                LocalDateTime.now(),
-                                                LocalDateTime.now(),
                                                 37.65450778860656,
                                                 126.62440348079012,
                                                 new Address(
@@ -92,13 +89,10 @@ public class DBInitializer {
                                 ),
                                 new TempPictureCreateRequest(
                                         false,
-                                        LocalDateTime.now(),
-                                        LocalDateTime.now(),
+                                        1,
                                         "https://static-storychat.pstatic.net/2516396_30992988/ebgea5nc5blb0.jpg",
                                         "멋쟁이 고양이",
                                         new PlaceCreateRequest("양곡휴먼시아7단지아파트",
-                                                LocalDateTime.now(),
-                                                LocalDateTime.now(),
                                                 37.65533081566674,
                                                 126.63105692431945,
                                                 new Address(

@@ -3,7 +3,9 @@ package com.untilled.roadcapture.api.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.untilled.roadcapture.api.dto.album.*;
+import com.untilled.roadcapture.api.dto.picture.PictureCreateRequest;
 import com.untilled.roadcapture.api.dto.picture.PictureUpdateRequest;
+import com.untilled.roadcapture.api.dto.picture.TempPictureCreateRequest;
 import com.untilled.roadcapture.api.exception.business.*;
 import com.untilled.roadcapture.api.exception.business.CInvalidValueException.CMultiPartKeyMismatchException;
 import com.untilled.roadcapture.api.exception.business.CInvalidValueException.CPictureMultipartRequired;
@@ -90,20 +92,20 @@ public class AlbumApiController {
 
         //썸네일이 유일한 지 확인
         checkThumbnailUnique(albumUpdateRequest.getPictures().stream()
-                .map(pictureUpdateRequest -> pictureUpdateRequest.toEntity()).collect(Collectors.toList()));
+                .map(PictureUpdateRequest::toEntity).collect(Collectors.toList()));
 
         //사진을 생성하기 위한 파일이 있는 지 확인
         checkPictureMultipartRequired(request.getImages(), albumUpdateRequest.getPictures());
 
         //불일치하는 키가 있는 지 확인
         checkMultiPartKeyMismatch(request.getImages(), albumUpdateRequest.getPictures().stream()
-                .map(picture -> picture.toEntity()).collect(Collectors.toList()));
+                .map(PictureUpdateRequest::toEntity).collect(Collectors.toList()));
 
         //요청 파일이 있을 때만 업로드
         if(!ObjectUtils.isEmpty(request.getImages())) {
-            albumUpdateRequest.getPictures().stream().forEach(picture -> uploadIfMultipartKeyMatched(request.getImages(), uploadedFiles, picture));
+            albumUpdateRequest.getPictures().forEach(picture -> uploadIfMultipartKeyMatched(request.getImages(), uploadedFiles, picture));
         } else {
-            albumUpdateRequest.getPictures().forEach(picture -> picture.imageUrlNotUpdatable());
+            albumUpdateRequest.getPictures().forEach(PictureUpdateRequest::imageUrlNotUpdatable);
         }
 
         //서비스에서 오류가 발생하면 업로드한 사진 모두 삭제
@@ -133,17 +135,16 @@ public class AlbumApiController {
 
         //썸네일이 유일한 지 확인
         checkThumbnailUnique(albumCreateRequest.getPictures().stream()
-                .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
+                .map(PictureCreateRequest::toEntity)
                 .collect(Collectors.toList()));
 
         //사진을 생성하기 위한 파일이 있는 지 확인
-        checkPictureMultipartRequired(request.getImages(), albumCreateRequest.getPictures().stream().map(picture -> picture.toPictureUpdateRequest()).collect(Collectors.toList()));
+        checkPictureMultipartRequired(request.getImages(), albumCreateRequest.getPictures().stream().map(PictureCreateRequest::toPictureUpdateRequest).collect(Collectors.toList()));
         //불일치하는 키가 있는 지 확인
-        checkMultiPartKeyMismatch(request.getImages(), albumCreateRequest.getPictures().stream().map(picture -> picture.toEntity()).collect(Collectors.toList()));
-
+        checkMultiPartKeyMismatch(request.getImages(), albumCreateRequest.getPictures().stream().map(PictureCreateRequest::toEntity).collect(Collectors.toList()));
         //이미지 업로드
         //만약 업로드 중 오류가 발생하면 기존에 업로드한 사진 모두 삭제
-        albumCreateRequest.getPictures().stream().forEach(picture -> {
+        albumCreateRequest.getPictures().forEach(picture -> {
             String uploadedImageUrl = uploadRollbackable(request.getImages(), picture.toEntity(), uploadedFiles);
             picture.updateImageUrl(uploadedImageUrl);
             uploadedFiles.add(uploadedImageUrl);
@@ -160,7 +161,7 @@ public class AlbumApiController {
 
         //썸네일이 유일한 지 확인
         checkThumbnailUnique(request.getPictures().stream()
-                .map(pictureCreateRequest -> pictureCreateRequest.toEntity())
+                .map(TempPictureCreateRequest::toEntity)
                 .collect(Collectors.toList()));
 
         albumService.tempCreate(request);
@@ -187,7 +188,7 @@ public class AlbumApiController {
 
     private String uploadRollbackable(Map<String, MultipartFile> imagesToUpload, Picture picture, List<String> uploadedFiles) {
         try {
-            return fileUploadService.upload(imagesToUpload.get(picture.getCreatedAt().toString()));
+            return fileUploadService.upload(imagesToUpload.get(picture.getOrder().toString()));
         } catch (CCloudCommunicationException | CFileConvertFailedException e) {
             fileUploadService.deleteFiles(uploadedFiles);
             throw e;
@@ -195,7 +196,7 @@ public class AlbumApiController {
     }
 
     private void uploadIfMultipartKeyMatched(Map<String, MultipartFile> images, List<String> uploadedFiles, PictureUpdateRequest picture) {
-        if(!ObjectUtils.isEmpty(images.get(picture.getCreatedAt().toString()))) {
+        if(!ObjectUtils.isEmpty(images.get(picture.getOrder().toString()))) {
             //업로드 중 오류가 발생하면 기존에 업로드한 사진 모두 삭제
             String uploadedImageUrl = uploadRollbackable(images, picture.toEntity(), uploadedFiles);
             picture.updateImageUrl(uploadedImageUrl);
@@ -207,9 +208,9 @@ public class AlbumApiController {
 
     private void checkPictureMultipartRequired(Map<String, MultipartFile> images, List<PictureUpdateRequest> pictures) {
         if ((!ObjectUtils.isEmpty(images) &&
-                !pictures.stream()
+                pictures.stream()
                         .filter(picture -> ObjectUtils.isEmpty(picture.getId()))
-                        .allMatch(picture -> !ObjectUtils.isEmpty(images.get(picture.getCreatedAt().toString())))) ||
+                        .anyMatch(picture -> ObjectUtils.isEmpty(images.get(picture.getOrder().toString())))) ||
             (ObjectUtils.isEmpty(images) &&
                 pictures.stream()
                         .filter(picture -> ObjectUtils.isEmpty(picture.getId())).count() > 0L)
@@ -219,7 +220,7 @@ public class AlbumApiController {
     }
 
     private void checkThumbnailUnique(List<Picture> pictures) {
-        if (pictures.stream().filter(picture -> picture.isThumbnail()).count() != 1L) {
+        if (pictures.stream().filter(Picture::isThumbnail).count() != 1L) {
             throw new CThumbnailNonUniqueException();
         }
     }
@@ -227,14 +228,14 @@ public class AlbumApiController {
     private void checkMultiPartKeyMismatch(Map<String, MultipartFile> pictureFilesToUpload, List<Picture> picturesToUpload) {
         if(!ObjectUtils.isEmpty(pictureFilesToUpload) &&
                 !pictureFilesToUpload.keySet().stream()
-                        .allMatch(key -> picturesToUpload.stream().anyMatch(picture -> picture.getCreatedAt().toString().equals(key)))) {
+                        .allMatch(key -> picturesToUpload.stream().anyMatch(picture -> picture.getOrder().toString().equals(key)))) {
             throw new CMultiPartKeyMismatchException();
         }
     }
 
     private void validateAlbumUpdateRequest(BindingResult bindingResult, AlbumUpdateRequest albumUpdateRequest) throws BindException {
         validator.validate(albumUpdateRequest.getPictures(), bindingResult);
-        albumUpdateRequest.getPictures().stream()
+        albumUpdateRequest.getPictures()
                 .forEach(picture -> {
                     validator.validate(picture.getPlace(), bindingResult);
                     validator.validate(picture.getPlace().getAddress(), bindingResult);
@@ -247,7 +248,7 @@ public class AlbumApiController {
 
     private void validateAlbumCreateRequest(BindingResult bindingResult, AlbumCreateRequest albumCreateRequest) throws BindException {
         validator.validate(albumCreateRequest.getPictures(), bindingResult);
-        albumCreateRequest.getPictures().stream()
+        albumCreateRequest.getPictures()
                 .forEach(picture -> {
                     validator.validate(picture.getPlace(), bindingResult);
                     validator.validate(picture.getPlace().getAddress(), bindingResult);
@@ -260,7 +261,7 @@ public class AlbumApiController {
 
     private void validateTempAlbumUpdateRequest(BindingResult bindingResult, TempAlbumUpdateRequest albumUpdateRequest) throws BindException {
         validator.validate(albumUpdateRequest.getPictures(), bindingResult);
-        albumUpdateRequest.getPictures().stream()
+        albumUpdateRequest.getPictures()
                 .forEach(picture -> {
                     validator.validate(picture.getPlace(), bindingResult);
                     validator.validate(picture.getPlace().getAddress(), bindingResult);
@@ -273,7 +274,7 @@ public class AlbumApiController {
 
     private void validateTempAlbumCreateRequest(BindingResult bindingResult, TempAlbumCreateRequest albumCreateRequest) throws BindException {
         validator.validate(albumCreateRequest.getPictures(), bindingResult);
-        albumCreateRequest.getPictures().stream()
+        albumCreateRequest.getPictures()
                 .forEach(picture -> {
                     validator.validate(picture.getPlace(), bindingResult);
                     validator.validate(picture.getPlace().getAddress(), bindingResult);

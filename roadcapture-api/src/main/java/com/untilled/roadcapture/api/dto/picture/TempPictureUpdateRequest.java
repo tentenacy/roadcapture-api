@@ -20,17 +20,13 @@ public class TempPictureUpdateRequest {
     private Long id;
     private boolean isThumbnail;
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
-    private LocalDateTime createdAt;
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
-    private LocalDateTime lastModifiedAt;
+    private Integer order;
     @Pattern(regexp = "(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,4}.+")
     private String imageUrl;
     private String description;
     private PlaceUpdateRequest place;
 
     public Picture toEntity() {
-        return Picture.create(this.isThumbnail, this.createdAt, this.lastModifiedAt, this.imageUrl, this.description, this.place.toEntity());
+        return Picture.create(this.isThumbnail, this.order, this.imageUrl, this.description, this.place.toEntity());
     }
 }

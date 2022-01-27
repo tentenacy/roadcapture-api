@@ -19,21 +19,15 @@ public class PictureCreateRequest {
 
     private boolean isThumbnail;
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
-    private LocalDateTime createdAt;
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
-    private LocalDateTime lastModifiedAt;
+    private Integer order;
     private String description;
     @NotNull
     private PlaceCreateRequest place;
     @JsonIgnore
     private String imageUrl;
 
-    public PictureCreateRequest(boolean isThumbnail, LocalDateTime createdAt, LocalDateTime lastModifiedAt, String description, PlaceCreateRequest place) {
+    public PictureCreateRequest(boolean isThumbnail, String description, PlaceCreateRequest place) {
         this.isThumbnail = isThumbnail;
-        this.createdAt = createdAt;
-        this.lastModifiedAt = lastModifiedAt;
         this.description = description;
         this.place = place;
     }
@@ -46,18 +40,17 @@ public class PictureCreateRequest {
 
     public PictureCreateRequest(PictureUpdateRequest request) {
         this.isThumbnail = request.isThumbnail();
-        this.createdAt = request.getCreatedAt();
-        this.lastModifiedAt = request.getLastModifiedAt();
+        this.order = request.getOrder();
         this.imageUrl = request.getImageUrl();
         this.description = request.getDescription();
         this.place = new PlaceCreateRequest(request.getPlace());
     }
 
     public PictureUpdateRequest toPictureUpdateRequest() {
-        return new PictureUpdateRequest(null, this.isThumbnail, this.createdAt, this.lastModifiedAt, this.description, this.place.toPlaceUpdateRequest());
+        return new PictureUpdateRequest(null, this.isThumbnail, this.order, this.description, this.place.toPlaceUpdateRequest());
     }
 
     public Picture toEntity() {
-        return Picture.create(this.isThumbnail, this.createdAt, this.lastModifiedAt, this.imageUrl, this.description, this.place.toEntity());
+        return Picture.create(this.isThumbnail, this.order, this.imageUrl, this.description, this.place.toEntity());
     }
 }
